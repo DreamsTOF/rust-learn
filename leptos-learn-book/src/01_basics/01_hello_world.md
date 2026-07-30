@@ -128,14 +128,14 @@ fn main() {
 <p>在浏览器中直接运行此练习，无需本地环境：</p>
 
 <iframe
-    src="https://codesandbox.io/embed/gitee/DreamTOF_admin/rust-learning/tree/master/leptos-learn/01_basics/e01_hello_world?view=editor+preview&expanddevtools=0&hidenavigation=1&fontsize=14"
+    src="https://codesandbox.io/embed/github/DreamsTOF/rust-learn/tree/main/leptos-learn/01_basics/e01_hello_world?view=editor+preview&expanddevtools=0&hidenavigation=1&fontsize=14"
     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
     title="e01_hello_world-exercise"
     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 ></iframe>
 
-<p>也可直接打开：<a href="https://codesandbox.io/s/gitee/DreamTOF_admin/rust-learning/tree/master/leptos-learn/01_basics/e01_hello_world" target="_blank">https://codesandbox.io/s/gitee/DreamTOF_admin/rust-learning/tree/master/leptos-learn/01_basics/e01_hello_world</a></p>
+<p>也可直接打开：<a href="https://codesandbox.io/s/github/DreamsTOF/rust-learn/tree/main/leptos-learn/01_basics/e01_hello_world" target="_blank">https://codesandbox.io/s/github/DreamsTOF/rust-learn/tree/main/leptos-learn/01_basics/e01_hello_world</a></p>
 </div>
 </details>
 
@@ -147,13 +147,13 @@ fn main() {
 <p>参考答案的在线版本：</p>
 
 <iframe
-    src="https://codesandbox.io/embed/gitee/DreamTOF_admin/rust-learning/tree/master/leptos-learn/01_basics/e01_hello_world_answer?view=editor+preview&expanddevtools=0&hidenavigation=1&fontsize=14"
+    src="https://codesandbox.io/embed/github/DreamsTOF/rust-learn/tree/main/leptos-learn/01_basics/e01_hello_world_answer?view=editor+preview&expanddevtools=0&hidenavigation=1&fontsize=14"
     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
     title="e01_hello_world-answer"
     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 ></iframe>
 
-<p>也可直接打开：<a href="https://codesandbox.io/s/gitee/DreamTOF_admin/rust-learning/tree/master/leptos-learn/01_basics/e01_hello_world_answer" target="_blank">https://codesandbox.io/s/gitee/DreamTOF_admin/rust-learning/tree/master/leptos-learn/01_basics/e01_hello_world_answer</a></p>
+<p>也可直接打开：<a href="https://codesandbox.io/s/github/DreamsTOF/rust-learn/tree/main/leptos-learn/01_basics/e01_hello_world_answer" target="_blank">https://codesandbox.io/s/github/DreamsTOF/rust-learn/tree/main/leptos-learn/01_basics/e01_hello_world_answer</a></p>
 </div>
 </details>
