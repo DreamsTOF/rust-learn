@@ -39,17 +39,6 @@ view! {
 
 ## 练习代码
 
-文件位置：`leptos-learn/01_basics/e01_hello_world/src/main.rs`
-
-在项目根目录运行 `trunk serve` 启动：
-
-```bash
-cd leptos-learn/01_basics/e01_hello_world
-trunk serve
-```
-
-然后在浏览器打开 `http://localhost:3001` 查看效果。
-
 ```rust
 // ============================================================
 // 练习 e01: Hello, Leptos! — 最简单的 Leptos 应用
@@ -116,44 +105,36 @@ fn main() {
 ```
 
 </details>
-
 ---
-## 在线沙箱
+## 本地沙箱
 
-### 练习沙箱
+> 🚀 **只需一次启动**，即可预览所有练习。
+> 在项目根目录运行：
+> ```bash
+> cd leptos-learn/sandbox
+> trunk serve
+> ```
+> 然后在浏览器打开 `http://localhost:3001/?e=01` 查看效果。
 
-<details class="sandbox">
-<summary>🟡 练习在线沙箱</summary>
-<div>
-<p>在浏览器中直接运行此练习，无需本地环境：</p>
-
-<iframe
-    src="https://codesandbox.io/embed/github/DreamsTOF/rust-learn/tree/main/leptos-learn/01_basics/e01_hello_world?view=editor+preview&expanddevtools=0&hidenavigation=1&fontsize=14"
-    style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-    title="e01_hello_world-exercise"
-    allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-    sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-></iframe>
-
-<p>也可直接打开：<a href="https://codesandbox.io/s/github/DreamsTOF/rust-learn/tree/main/leptos-learn/01_basics/e01_hello_world" target="_blank">https://codesandbox.io/s/github/DreamsTOF/rust-learn/tree/main/leptos-learn/01_basics/e01_hello_world</a></p>
-</div>
-</details>
-
-### 答案沙箱
-
-<details class="sandbox">
-<summary>🟡 答案在线沙箱</summary>
-<div>
-<p>参考答案的在线版本：</p>
+### 练习实时预览
 
 <iframe
-    src="https://codesandbox.io/embed/github/DreamsTOF/rust-learn/tree/main/leptos-learn/01_basics/e01_hello_world_answer?view=editor+preview&expanddevtools=0&hidenavigation=1&fontsize=14"
-    style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-    title="e01_hello_world-answer"
-    allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-    sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+    src="http://localhost:3001/?e=01"
+    style="width:100%; height:350px; border:1px solid #444c56; border-radius: 4px; background:#1a1d23;"
+    title="练习 01 实时预览"
 ></iframe>
 
-<p>也可直接打开：<a href="https://codesandbox.io/s/github/DreamsTOF/rust-learn/tree/main/leptos-learn/01_basics/e01_hello_world_answer" target="_blank">https://codesandbox.io/s/github/DreamsTOF/rust-learn/tree/main/leptos-learn/01_basics/e01_hello_world_answer</a></p>
+### 答案实时预览
+
+<details class="sandbox">
+<summary>🟢 答案运行效果（点击展开）</summary>
+<div>
+
+<iframe
+    src="http://localhost:3001/?e=01_answer"
+    style="width:100%; height:350px; border:1px solid #444c56; border-radius: 4px; background:#1a1d23;"
+    title="练习 01 答案实时预览"
+></iframe>
+
 </div>
 </details>
