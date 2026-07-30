@@ -50,21 +50,35 @@
 
 ## 🚀 本地沙箱
 
-本模块提供了一个统一的沙箱运行环境，**一次启动，预览所有练习**：
+本模块提供两个服务，配合使用实现 **“网页上编辑代码 → 实时预览效果”**。
+
+### 终端 1：沙箱编译器
+
+负责编译运行 Rust 代码，增量编译秒级见效：
 
 ```bash
 cd leptos-learn/sandbox
 trunk serve
 ```
 
-然后打开对应的 URL 查看练习效果：
+### 终端 2：在线编辑器（可选）
+
+在浏览器中编辑代码并保存到文件：
+
+```bash
+node leptos-learn/sandbox/editor-server.js
+```
+
+然后打开 [http://localhost:3002/?e=01](http://localhost:3002/?e=01) 即可编辑练习代码。
+点击 **Save & Run** 按钮保存，trunk 自动编译，预览自动刷新。
+
+### URL 参数说明
 
 | 参数 | 示例 | 说明 |
 |------|------|------|
-| `?e=01` | http://localhost:3001/?e=01 | 练习 01 |
-| `?e=01_answer` | http://localhost:3001/?e=01_answer | 练习 01 答案 |
-| `?e=02` | http://localhost:3001/?e=02 | 练习 02 |
-| `?e=02_answer` | http://localhost:3001/?e=02_answer | 练习 02 答案 |
+| `?e=01` | http://localhost:3002/?e=01 | 练习 01 |
+| `?e=01_answer` | http://localhost:3002/?e=01_answer | 练习 01 答案 |
 | ... | ... | 以此类推 |
 
 > 💡 **增量编译**：沙箱使用本地 Rust 编译，修改代码后 `trunk` 会自动增量重编译，通常只需几秒钟就能看到效果，远比云沙箱快。
+> ⌨️ **快捷键**：在编辑器中按 `Ctrl+S` 快速保存并运行。
