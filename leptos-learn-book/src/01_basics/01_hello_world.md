@@ -60,20 +60,11 @@ view! {
 
 > 🚀 **只需一次启动**，即可预览所有练习。
 > 在项目根目录运行：
-> 
-> **终端 1** — 沙箱编译器：
 > ```bash
 > cd leptos-learn/sandbox
 > trunk serve
 > ```
-> 
-> **终端 2** — 在线编辑器（可选）：
-> ```bash
-> node leptos-learn/sandbox/editor-server.js
-> ```
-> 
-> 然后在浏览器打开 `http://localhost:3002/?e=01` 可在网页上编辑代码并实时查看效果。
-> 或直接打开 `http://localhost:3001/?e=01` 仅查看运行效果。
+> 然后在浏览器打开 `http://localhost:3001/?e=01` 查看效果。
 
 ### 练习实时预览
 
