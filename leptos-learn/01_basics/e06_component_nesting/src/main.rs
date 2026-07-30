@@ -16,7 +16,7 @@ use leptos::prelude::*;
 #[component]
 fn Header() -> impl IntoView {
     view! {
-        <header><h1>"组件嵌套练习"</h1></header>
+        /* TODO: 添加 <header> 和 <h1> 元素 */
     }
 }
 
@@ -26,7 +26,7 @@ fn Header() -> impl IntoView {
 #[component]
 fn Main() -> impl IntoView {
     view! {
-        <main><p>"这是主体内容区域"</p></main>
+        /* TODO: 添加 <main> 和 <p> 元素 */
     }
 }
 
@@ -36,7 +36,7 @@ fn Main() -> impl IntoView {
 #[component]
 fn Footer() -> impl IntoView {
     view! {
-        <footer><small>"© 2026 Leptos 教程"</small></footer>
+        /* TODO: 添加 <footer> 和 <small> 元素 */
     }
 }
 

@@ -18,7 +18,7 @@ fn Exercise() -> impl IntoView {
     div()
         .child(h1().child("构建器模式"))
         .child(p().child("使用构建器 API 创建，无需 view! 宏"))
-        .child(button().child("点击: ").child(count).on(ev::click, move |_| set_count(count() + 1)))
+        .child(button().child("点击: ").child(count).on(ev::click, move |_| set_count.set(count.get() + 1)))
 }
 
 fn main() {

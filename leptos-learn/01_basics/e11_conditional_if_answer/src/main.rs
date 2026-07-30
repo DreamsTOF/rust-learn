@@ -3,7 +3,7 @@
 //
 // 核心知识点:
 //   - { if cond { "A" } else { "B" } } 在 view! 中直接嵌入条件表达式
-//   - signal(bool) 创建布尔响应式信号，show() 读取当前值
+//   - signal(bool) 创建布尔响应式信号，show.get() 读取当前值
 //   - 条件表达式是 Rust 原生语法，Leptos 的 view! 宏支持直接嵌入
 // ============================================================
 
@@ -17,9 +17,9 @@ fn Exercise() -> impl IntoView {
         <div>
             <p>
                 "当前状态: "
-                { if show() { "已激活" } else { "未激活" } }
+                { move || if show.get() { "已激活" } else { "未激活" } }
             </p>
-            <button on:click=move |_| set_show(!show())>
+            <button on:click=move |_| set_show.set(!show.get())>
                 "切换状态"
             </button>
         </div>

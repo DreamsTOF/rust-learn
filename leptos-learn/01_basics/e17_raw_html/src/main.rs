@@ -12,8 +12,8 @@ use leptos::prelude::*;
 
 #[component]
 fn Exercise() -> impl IntoView {
-    // 定义安全的 HTML 字符串（完全可控，非用户输入）
-    let html_content = "<h2>原始 HTML 内容</h2><p style='color: green;'>这段 HTML 是通过 inner_html 渲染的。</p>";
+    // TODO: 定义一个 HTML 字符串变量，包含 <h2> 和 <p> 标签
+    // 提示: let html_content = "<h2>...</h2><p>...</p>";
 
     // ⚠️ XSS 风险警告:
     //   inner_html 会跳过 Leptos 的自动转义机制，直接将 HTML 字符串注入 DOM
@@ -23,8 +23,7 @@ fn Exercise() -> impl IntoView {
 
     view! {
         // TODO: 使用 inner_html 属性渲染 html_content
-        // 提示: <div inner_html=变量名></div>
-        <div inner_html=html_content></div>
+        // 提示: <div inner_html=...></div>
 
         // 安全对比：下方代码中的 <b> 标签会被 Leptos 自动转义为纯文本显示
         // TODO: 取消注释查看转义效果
@@ -36,24 +35,3 @@ fn main() {
     console_error_panic_hook::set_once();
     mount_to_body(Exercise);
 }
-
-// <details>
-// 参考答案（去除注释后的纯净版本）:
-//
-// use leptos::prelude::*;
-//
-// #[component]
-// fn Exercise() -> impl IntoView {
-//     let html_content = "<h2>原始 HTML 内容</h2><p style='color: green;'>这段 HTML 是通过 inner_html 渲染的。</p>";
-//
-//     view! {
-//         <div inner_html=html_content></div>
-//         <p>"这是 <b>文本插值</b> — 标签会被自动转义"</p>
-//     }
-// }
-//
-// fn main() {
-//     console_error_panic_hook::set_once();
-//     mount_to_body(Exercise);
-// }
-// </details>

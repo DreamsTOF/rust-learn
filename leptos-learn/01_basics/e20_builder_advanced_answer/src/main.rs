@@ -1,5 +1,10 @@
 // ============================================================
-// Exercise 20 - Answer: Builder Pattern Advanced
+// 练习 e20: 构建器模式高级 — 参考答案
+//
+// 核心知识点:
+//   - 纯构建器 API: div().child(...).on(...)
+//   - 事件监听器: .on(ev::click, move |_| ...)
+//   - 样式与方法链
 // ============================================================
 
 use leptos::html::{button, div, h2, p};
@@ -11,12 +16,12 @@ fn Exercise() -> impl IntoView {
 
     div()
         .child(h2().child("构建器模式高级"))
-        .child(p().child(format!("计数: {}", count())))
+        .child(p().child(format!("计数: {}", count.get())))
         .child(
             button()
                 .child("增加")
                 .on(ev::click, move |_| {
-                    set_count(count() + 1);
+                    set_count.set(count.get() + 1);
                 }),
         )
         .child(
@@ -24,7 +29,7 @@ fn Exercise() -> impl IntoView {
                 .child("重置")
                 .attr("style", "margin-left: 8px;")
                 .on(ev::click, move |_| {
-                    set_count(0);
+                    set_count.set(0);
                 }),
         )
 }

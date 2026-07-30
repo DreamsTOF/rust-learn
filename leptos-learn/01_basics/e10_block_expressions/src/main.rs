@@ -18,27 +18,28 @@ fn Exercise() -> impl IntoView {
             // 块表达式: 在 {} 内定义变量并计算
             <p>
                 "计算 1 + 2 = "
-                { let x = 1; let y = 2; x + y }
+                // TODO: 在 {} 块内定义变量 x 和 y，计算 x + y 并作为返回值
+                // 提示: 最后一条语句（不带分号）作为块表达式的返回值
+                // 完成度: 块表达式已给出
+                { /* TODO: 定义 x, y 并计算 x + y */ }
             </p>
 
             // 块内使用 if/else 表达式 — 根据条件返回不同值
             <p>
                 "判断结果: "
-                {
-                    let score = 85;
-                    if score >= 60 { "及格" } else { "不及格" }
-                }
+                // TODO: 在 {} 块内使用 if/else 表达式判断成绩是否及格
+                // 提示: if score >= 60 { "及格" } else { "不及格" }
+                // 完成度: if/else 块表达式已给出
+                { /* TODO: 定义 score 并使用 if/else 判断 */ }
             </p>
 
             // 块内多条语句 — 最后一条表达式作为返回值
             <p>
                 "块表达式可以包含多条语句: "
-                {
-                    let a = 10;
-                    let b = 20;
-                    let c = a * b;
-                    c.to_string()
-                }
+                // TODO: 在 {} 块内定义 a, b, c 变量并返回 c.to_string()
+                // 提示: 定义变量后，最后一条表达式 c.to_string() 作为返回值
+                // 完成度: 多语句块表达式已给出
+                { /* TODO: 定义 a, b, c 并返回 c.to_string() */ }
             </p>
         </div>
     }

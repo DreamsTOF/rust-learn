@@ -24,22 +24,6 @@ fn Exercise() -> impl IntoView {
 
 fn main() {
     // TODO: 使用 mount_to_body 将 Exercise 组件挂载到页面
+    // 提示: mount_to_body(组件名)
     mount_to_body(Exercise);
 }
-
-// <details>
-// 参考答案（去除注释后的纯净版本）:
-//
-// use leptos::prelude::*;
-//
-// #[component]
-// fn Exercise() -> impl IntoView {
-//     view! {
-//         <p>"Hello, Leptos!"</p>
-//     }
-// }
-//
-// fn main() {
-//     mount_to_body(Exercise);
-// }
-// </details>

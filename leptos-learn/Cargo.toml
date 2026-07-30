@@ -818,7 +818,7 @@ members = [
 ]
 
 [workspace.dependencies]
-leptos = { version = "0.8.20", features = ["nightly"] }
+leptos = { version = "0.8.20", features = ["csr", "nightly"]}
 futures = "0.3"
 leptos_router = "0.8.13"
 leptos_meta = "0.8.6"

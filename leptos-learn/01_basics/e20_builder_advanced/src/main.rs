@@ -17,7 +17,7 @@
 //   5. 最后完成构建器链（无需 .build()）
 // 要求: 不要使用 view! 宏
 //
-// 注意: 构建器链直接实现 IntoView，无需调用 .build()
+// 注意: 构建器链直接实现 IntoView，无需调用 .build()，也无需末尾加分号
 
 use leptos::html::{button, div, h2, p};
 use leptos::{ev, prelude::*};
@@ -27,60 +27,22 @@ fn Exercise() -> impl IntoView {
     // 创建计数器信号
     let (count, set_count) = signal(0);
 
-    // 使用纯构建器 API 构建 UI
-    div()
-        .child(h2().child("构建器模式高级"))
-        .child(p().child(format!("计数: {}", count())))
-        .child(
-            button()
-                .child("增加")
-                .on(ev::click, move |_| {
-                    set_count(count() + 1);
-                }),
-        )
-        .child(
-            button()
-                .child("重置")
-                .attr("style", "margin-left: 8px;")
-                .on(ev::click, move |_| {
-                    set_count(0);
-                }),
-        )
+    // TODO: 使用纯构建器 API 构建 UI:
+    //   - div() 作为根容器
+    //   - h2() 标题 "构建器模式高级"
+    //   - p() 显示当前计数
+    //   - "增加" 按钮 (点击时 count+1)
+    //   - "重置" 按钮 (点击时 count=0，带 margin-left 样式)
+    //
+    // 提示: div().child(h2().child("...")).child(p().child(...)).child(button()...)
+
+    // 占位，完成后删除此 view! 并替换为纯构建器 API
+    view! {
+        <p>"请完成构建器模式练习"</p>
+    }
 }
 
 fn main() {
     console_error_panic_hook::set_once();
     mount_to_body(Exercise);
 }
-
-// <details>
-// 参考答案（去除注释后的纯净版本）:
-//
-// use leptos::html::{button, div, h2, p};
-// use leptos::{ev, prelude::*};
-//
-// #[component]
-// fn Exercise() -> impl IntoView {
-//     let (count, set_count) = signal(0);
-//
-//     div()
-//         .child(h2().child("构建器模式高级"))
-//         .child(p().child(format!("计数: {}", count())))
-//         .child(
-//             button()
-//                 .child("增加")
-//                 .on(ev::click, move |_| set_count(count() + 1)),
-//         )
-//         .child(
-//             button()
-//                 .child("重置")
-//                 .attr("style", "margin-left: 8px;")
-//                 .on(ev::click, move |_| set_count(0)),
-//         )
-// }
-//
-// fn main() {
-//     console_error_panic_hook::set_once();
-//     mount_to_body(Exercise);
-// }
-// </details>

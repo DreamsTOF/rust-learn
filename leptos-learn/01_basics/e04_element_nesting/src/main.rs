@@ -19,12 +19,12 @@ fn Exercise() -> impl IntoView {
     view! {
         // TODO: 外层 <section> — 设置 class 和 id
         // 提示: class="container", id="main"
-        <section class="container" id="main">
+        <section class="" id="">
             // TODO: 内层 <div> — 设置 class="card"
-            <div class="card">
+            <div class="">
                 // TODO: 最内层 <p> — 显示文本
                 // 提示: 文本用双引号包裹
-                <p>"这是嵌套在 section > div 内的段落"</p>
+                <p></p>
             </div>
         </section>
     }
@@ -33,24 +33,3 @@ fn Exercise() -> impl IntoView {
 fn main() {
     mount_to_body(Exercise);
 }
-
-// <details>
-// 参考答案（去除注释后的纯净版本）:
-//
-// use leptos::prelude::*;
-//
-// #[component]
-// fn Exercise() -> impl IntoView {
-//     view! {
-//         <section class="container" id="main">
-//             <div class="card">
-//                 <p>"这是嵌套在 section > div 内的段落"</p>
-//             </div>
-//         </section>
-//     }
-// }
-//
-// fn main() {
-//     mount_to_body(Exercise);
-// }
-// </details>

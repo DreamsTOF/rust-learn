@@ -20,15 +20,15 @@ fn main() {
 #[component]
 fn Exercise() -> impl IntoView {
     let (count, set_count) = signal(0);
-    tracing::info!("初始计数: {}", count());
+    tracing::info!("初始计数: {}", count.get());
 
     view! {
         <div>
             <h2>"浏览器开发者工具调试"</h2>
             <p>"计数: " {count}</p>
             <button on:click=move |_| {
-                set_count(count() + 1);
-                tracing::info!("计数增加至: {}", count());
+                set_count.set(count.get() + 1);
+                tracing::info!("计数增加至: {}", count.get());
             }>
                 "增加"
             </button>

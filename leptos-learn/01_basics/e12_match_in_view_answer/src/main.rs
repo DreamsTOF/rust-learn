@@ -20,7 +20,7 @@ fn Exercise() -> impl IntoView {
                 {num}
                 " 对应中文: "
                 {
-                    match num() {
+                    match num.get() {
                         1 => "一",
                         2 => "二",
                         3 => "三",
@@ -28,9 +28,9 @@ fn Exercise() -> impl IntoView {
                     }
                 }
             </p>
-            <button on:click=move |_| set_num(1)>"设置 1"</button>
-            <button on:click=move |_| set_num(2)>"设置 2"</button>
-            <button on:click=move |_| set_num(3)>"设置 3"</button>
+            <button on:click=move |_| set_num.set(1)>"设置 1"</button>
+            <button on:click=move |_| set_num.set(2)>"设置 2"</button>
+            <button on:click=move |_| set_num.set(3)>"设置 3"</button>
         </div>
     }
 }
