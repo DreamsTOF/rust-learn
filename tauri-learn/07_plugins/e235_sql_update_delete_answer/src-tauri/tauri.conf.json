@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e235_sql_update_delete_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e235_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1655",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 235: 更新与删除 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

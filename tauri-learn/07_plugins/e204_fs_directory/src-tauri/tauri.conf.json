@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e204_fs_directory",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e204",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1624",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 204: 目录操作",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

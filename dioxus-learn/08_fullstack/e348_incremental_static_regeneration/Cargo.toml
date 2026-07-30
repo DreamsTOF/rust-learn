@@ -1,0 +1,8 @@
+[package]
+name = "e348_incremental_static_regeneration"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

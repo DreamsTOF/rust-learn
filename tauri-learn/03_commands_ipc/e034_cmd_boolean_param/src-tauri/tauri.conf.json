@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e034_cmd_boolean_param",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e034",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1454",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 034: 布尔参数",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

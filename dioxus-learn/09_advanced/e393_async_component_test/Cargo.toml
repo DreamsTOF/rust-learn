@@ -1,0 +1,8 @@
+[package]
+name = "e393_async_component_test"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

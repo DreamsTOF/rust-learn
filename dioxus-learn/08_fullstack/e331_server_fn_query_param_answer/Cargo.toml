@@ -1,0 +1,8 @@
+[package]
+name = "e331_server_fn_query_param_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

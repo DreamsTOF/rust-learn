@@ -1,0 +1,8 @@
+[package]
+name = "e321_release_build"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

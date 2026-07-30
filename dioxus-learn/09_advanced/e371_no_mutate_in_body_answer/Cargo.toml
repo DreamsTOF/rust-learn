@@ -1,0 +1,8 @@
+[package]
+name = "e371_no_mutate_in_body_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

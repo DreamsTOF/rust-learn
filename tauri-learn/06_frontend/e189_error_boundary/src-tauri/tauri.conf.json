@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e189_error_boundary",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e189",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1609",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 189: 前端错误边界",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

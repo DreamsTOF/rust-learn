@@ -1,0 +1,8 @@
+[package]
+name = "e316_fullstack_project_create"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

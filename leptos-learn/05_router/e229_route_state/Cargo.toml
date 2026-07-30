@@ -1,0 +1,10 @@
+[package]
+name = "e229_route_state"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+leptos.workspace = true
+leptos_router.workspace = true
+console_error_panic_hook.workspace = true
+wasm-bindgen.workspace = true

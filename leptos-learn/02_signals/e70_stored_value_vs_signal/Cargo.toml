@@ -1,0 +1,9 @@
+[package]
+name = "e70_stored_value_vs_signal"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+leptos.workspace = true
+
+

@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e030_tauri_vs_browser_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e030_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1450",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 030: 浏览器与 Tauri 环境区分 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

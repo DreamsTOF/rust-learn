@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e110_config_manager",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e110",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1530",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 110: 综合: 应用配置管理器",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+[package]
+name = "e252_lazy_loading_route"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e347_mobile_ui",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e347",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1767",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 347: 移动端适配 UI",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

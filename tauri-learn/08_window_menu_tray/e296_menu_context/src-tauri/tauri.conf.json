@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e296_menu_context",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e296",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1716",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 296: 上下文菜单(右键)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e120_multi_env_config",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e120",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1540",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 120: 综合: 多环境配置管理器",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

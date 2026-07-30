@@ -1,0 +1,8 @@
+[package]
+name = "e295_large_app_state_architecture"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

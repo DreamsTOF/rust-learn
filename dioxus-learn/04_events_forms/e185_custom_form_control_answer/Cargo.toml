@@ -1,0 +1,8 @@
+[package]
+name = "e185_custom_form_control_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

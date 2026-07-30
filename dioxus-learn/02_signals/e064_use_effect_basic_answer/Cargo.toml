@@ -1,0 +1,8 @@
+[package]
+name = "e064_use_effect_basic_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

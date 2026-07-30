@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e048_async_http_req",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e048",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1468",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 048: 异步 HTTP 请求",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

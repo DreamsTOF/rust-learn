@@ -1,0 +1,937 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="ayu sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>20 宏 - Rust 实战练习 — 460 题快速突破</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="从 C++/Java 到 Rust，460 道循序渐进的实战练习题">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/custom-b5e00510.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "ayu";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-f70c63f5.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-86798690.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Rust 实战练习 — 460 题快速突破</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="20-宏"><a class="header" href="#20-宏">20 宏</a></h1>
+<p>宏（Macros）是 Rust 强大的元编程工具，允许你编写生成代码的代码。<code>macro_rules!</code> 声明宏通过模式匹配在 AST（抽象语法树）层面工作，比 C/C++ 的 <code>#define</code> 文本替换更安全、更强大。本章练习涵盖 <code>macro_rules!</code> 基础语法、模式匹配、重复（repetition）、<code>derive</code> 宏的使用以及编写实用宏。</p>
+<hr>
+<h3 id="练习-20-01-定义第一个宏"><a class="header" href="#练习-20-01-定义第一个宏">练习 20-01: 定义第一个宏</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C 的 <code>#define</code>，但 Rust 宏在 AST 层面工作</p>
+</blockquote>
+<p>补全 <code>greet!</code> 宏的定义，使其在调用时打印 <code>"Hello, Rust!"</code>。</p>
+<pre class="playground"><code class="language-rust">// TODO: 补全宏定义
+macro_rules! greet {
+    // TODO: 当宏被调用时，打印 "Hello, Rust!"
+}
+
+fn main() {
+    greet!();
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">macro_rules! greet {
+    () =&gt; {
+        println!("Hello, Rust!");
+    };
+}
+
+fn main() {
+    greet!();
+}</code></pre>
+<p><strong>说明：</strong> <code>macro_rules!</code> 用于定义声明宏。<code>()</code> 是匹配模式——这里匹配空的调用。<code>=&gt;</code> 后是要生成的代码。宏以 <code>!</code> 结尾调用。</p>
+</details>
+<hr>
+<h3 id="练习-20-02-带参数的宏"><a class="header" href="#练习-20-02-带参数的宏">练习 20-02: 带参数的宏</a></h3>
+<blockquote>
+<p>难度：⭐⭐</p>
+</blockquote>
+<p>补全 <code>greet!</code> 宏，使其接收一个名字参数并打印 <code>"Hello, {name}!"</code>。</p>
+<pre class="playground"><code class="language-rust">macro_rules! greet {
+    ($name:expr) =&gt; {
+        // TODO: 补全宏体，打印 "Hello, {name}!"
+    };
+}
+
+fn main() {
+    greet!("World");
+    greet!("Rust");
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">macro_rules! greet {
+    ($name:expr) =&gt; {
+        println!("Hello, {}!", $name);
+    };
+}
+
+fn main() {
+    greet!("World");
+    greet!("Rust");
+}</code></pre>
+<p><strong>说明：</strong> <code>$name:expr</code> 中的 <code>$</code> 表示宏变量，<code>expr</code> 是片段类型说明符（fragment specifier），表示匹配一个表达式。在宏体中通过 <code>$name</code> 使用该变量。</p>
+</details>
+<hr>
+<h3 id="练习-20-03-模式匹配宏"><a class="header" href="#练习-20-03-模式匹配宏">练习 20-03: 模式匹配宏</a></h3>
+<blockquote>
+<p>难度：⭐⭐</p>
+</blockquote>
+<p><code>math_op!</code> 宏支持通过不同关键词进行不同运算。补全 <code>sub</code> 和 <code>mul</code> 两个匹配臂。</p>
+<pre class="playground"><code class="language-rust">macro_rules! math_op {
+    (add $a:tt, $b:tt) =&gt; {
+        $a + $b
+    };
+    // TODO: 实现 sub（减法）
+    // TODO: 实现 mul（乘法）
+}
+
+fn main() {
+    let sum = math_op!(add 5, 3);
+    let diff = math_op!(sub 10, 4);
+    let prod = math_op!(mul 6, 7);
+    println!("{} {} {}", sum, diff, prod);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">macro_rules! math_op {
+    (add $a:tt, $b:tt) =&gt; {
+        $a + $b
+    };
+    (sub $a:tt, $b:tt) =&gt; {
+        $a - $b
+    };
+    (mul $a:tt, $b:tt) =&gt; {
+        $a * $b
+    };
+}
+
+fn main() {
+    let sum = math_op!(add 5, 3);
+    let diff = math_op!(sub 10, 4);
+    let prod = math_op!(mul 6, 7);
+    println!("{} {} {}", sum, diff, prod);
+}</code></pre>
+<p><strong>说明：</strong> <code>macro_rules!</code> 支持多个匹配臂，每个臂由模式 + 展开代码组成。<code>tt</code>（token tree）片段类型匹配单个 token 或括号分组，适合作为运算数。</p>
+</details>
+<hr>
+<h3 id="练习-20-04-多规则匹配宏"><a class="header" href="#练习-20-04-多规则匹配宏">练习 20-04: 多规则匹配宏</a></h3>
+<blockquote>
+<p>难度：⭐⭐</p>
+</blockquote>
+<p>补全 <code>describe!</code> 宏，根据不同前缀处理不同类型的参数。</p>
+<pre class="playground"><code class="language-rust">macro_rules! describe {
+    (num $n:expr) =&gt; {
+        println!("数字: {}", $n);
+    };
+    // TODO: 添加 str 规则，接收字符串并打印
+    // TODO: 添加 vec 规则，接收 Vec 并打印
+}
+
+fn main() {
+    describe!(num 42);
+    describe!(str "hello");
+    describe!(vec vec![1, 2, 3]);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">macro_rules! describe {
+    (num $n:expr) =&gt; {
+        println!("数字: {}", $n);
+    };
+    (str $s:expr) =&gt; {
+        println!("字符串: {}", $s);
+    };
+    (vec $v:expr) =&gt; {
+        println!("向量: {:?}", $v);
+    };
+}
+
+fn main() {
+    describe!(num 42);
+    describe!(str "hello");
+    describe!(vec vec![1, 2, 3]);
+}</code></pre>
+<p><strong>说明：</strong> 宏的模式可以包含字面量 token（如 <code>num</code>、<code>str</code>、<code>vec</code>），用于区分不同的匹配分支。这类似于函数重载的效果。</p>
+</details>
+<hr>
+<h3 id="练习-20-05-挑战--四则运算宏"><a class="header" href="#练习-20-05-挑战--四则运算宏">练习 20-05: 挑战 — 四则运算宏</a></h3>
+<blockquote>
+<p>难度：⭐⭐</p>
+</blockquote>
+<p>实现 <code>calc!</code> 宏，使其支持 <code>+</code>、<code>-</code>、<code>*</code>、<code>/</code> 四种运算。提示：使用 <code>tt</code> 片段类型。</p>
+<pre class="playground"><code class="language-rust">// TODO: 实现 calc! 宏
+// calc!(1 + 2) =&gt; 3
+// calc!(3 * 4) =&gt; 12
+// calc!(10 - 3) =&gt; 7
+// calc!(20 / 5) =&gt; 4
+
+fn main() {
+    println!("{}", calc!(1 + 2));
+    println!("{}", calc!(3 * 4));
+    println!("{}", calc!(10 - 3));
+    println!("{}", calc!(20 / 5));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">macro_rules! calc {
+    ($a:tt + $b:tt) =&gt; {
+        $a + $b
+    };
+    ($a:tt - $b:tt) =&gt; {
+        $a - $b
+    };
+    ($a:tt * $b:tt) =&gt; {
+        $a * $b
+    };
+    ($a:tt / $b:tt) =&gt; {
+        $a / $b
+    };
+}
+
+fn main() {
+    println!("{}", calc!(1 + 2));
+    println!("{}", calc!(3 * 4));
+    println!("{}", calc!(10 - 3));
+    println!("{}", calc!(20 / 5));
+}</code></pre>
+<p><strong>说明：</strong> 使用 <code>tt</code>（token tree）可以匹配单个 token（如数字、变量名），配合运算符字面量实现简单的 DSL。注意 <code>expr</code> 会贪婪匹配，而 <code>tt</code> 每次只匹配一个 token。</p>
+</details>
+<hr>
+<h3 id="练习-20-06-重复--构建数组"><a class="header" href="#练习-20-06-重复--构建数组">练习 20-06: 重复 — 构建数组</a></h3>
+<blockquote>
+<p>难度：⭐⭐</p>
+</blockquote>
+<p>补全 <code>make_array!</code> 宏，使用 <code>$()*</code> 重复语法将多个值放入数组。</p>
+<pre class="playground"><code class="language-rust">macro_rules! make_array {
+    // TODO: 使用 $()* 将多个值放入数组，用逗号分隔
+}
+
+fn main() {
+    let arr = make_array![1, 2, 3, 4, 5];
+    assert_eq!(arr.len(), 5);
+    assert_eq!(arr[2], 3);
+    println!("{:?}", arr);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">macro_rules! make_array {
+    ($($x:expr),*) =&gt; {
+        [$($x),*]
+    };
+}
+
+fn main() {
+    let arr = make_array![1, 2, 3, 4, 5];
+    assert_eq!(arr.len(), 5);
+    assert_eq!(arr[2], 3);
+    println!("{:?}", arr);
+}</code></pre>
+<p><strong>说明：</strong> <code>$($x:expr),*</code> 中的 <code>$()*</code> 表示零次或多次重复，<code>,</code> 是重复之间的分隔符。展开时 <code>[$($x),*]</code> 也会重复生成对应的元素。</p>
+</details>
+<hr>
+<h3 id="练习-20-07-重复--逐个打印"><a class="header" href="#练习-20-07-重复--逐个打印">练习 20-07: 重复 — 逐个打印</a></h3>
+<blockquote>
+<p>难度：⭐⭐</p>
+</blockquote>
+<p>补全 <code>print_all!</code> 宏，使用 <code>$()*</code> 语法逐个打印传入的所有参数，每个参数占一行。</p>
+<pre class="playground"><code class="language-rust">macro_rules! print_all {
+    // TODO: 使用 $()* 匹配多个表达式参数
+    ($($x:expr),*) =&gt; {
+        // TODO: 逐个打印每个参数
+    };
+}
+
+fn main() {
+    print_all!("A", "B", "C");
+    // 期望输出三行: A  B  C
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">macro_rules! print_all {
+    ($($x:expr),*) =&gt; {
+        $(println!("{}", $x);)*
+    };
+}
+
+fn main() {
+    print_all!("A", "B", "C");
+}</code></pre>
+<p><strong>说明：</strong> <code>$(println!("{}", $x);)*</code> 在展开时会对每个匹配的 <code>$x</code> 生成一条 <code>println!</code> 语句。<code>$()*</code> 在展开侧同样使用重复语法，每个重复单元独立生成代码。</p>
+</details>
+<hr>
+<h3 id="练习-20-08-补全--求和宏"><a class="header" href="#练习-20-08-补全--求和宏">练习 20-08: 补全 — 求和宏</a></h3>
+<blockquote>
+<p>难度：⭐⭐</p>
+</blockquote>
+<p>实现 <code>sum!</code> 宏，接收多个整数并返回它们的和。提示：可以用 <code>0 $(+ $x)*</code> 的技巧。</p>
+<pre class="playground"><code class="language-rust">// TODO: 实现 sum! 宏
+// 例如 sum!(1, 2, 3) 应返回 6
+
+fn main() {
+    let total = sum!(1, 2, 3, 4, 5);
+    assert_eq!(total, 15);
+    println!("Sum = {}", total);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">macro_rules! sum {
+    ($($x:expr),*) =&gt; {
+        0 $(+ $x)*
+    };
+}
+
+fn main() {
+    let total = sum!(1, 2, 3, 4, 5);
+    assert_eq!(total, 15);
+    println!("Sum = {}", total);
+}</code></pre>
+<p><strong>说明：</strong> <code>0 $(+ $x)*</code> 展开为 <code>0 + 1 + 2 + 3 + 4 + 5</code>。这种“初始值 + 重复运算“的模式是宏重复的常见用法。</p>
+</details>
+<hr>
+<h3 id="练习-20-09-补全--最大值宏"><a class="header" href="#练习-20-09-补全--最大值宏">练习 20-09: 补全 — 最大值宏</a></h3>
+<blockquote>
+<p>难度：⭐⭐</p>
+</blockquote>
+<p>补全 <code>max!</code> 宏，接收多个整数并返回其中的最大值。</p>
+<pre class="playground"><code class="language-rust">// TODO: 实现 max! 宏
+// 提示：用第一个值作为初始最大值，然后依次比较
+
+fn main() {
+    let m = max!(3, 7, 2, 9, 5);
+    assert_eq!(m, 9);
+    println!("Max = {}", m);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">macro_rules! max {
+    ($x:expr $(, $rest:expr)*) =&gt; {
+        {
+            let mut m = $x;
+            $(m = std::cmp::max(m, $rest);)*
+            m
+        }
+    };
+}
+
+fn main() {
+    let m = max!(3, 7, 2, 9, 5);
+    assert_eq!(m, 9);
+    println!("Max = {}", m);
+}</code></pre>
+<p><strong>说明：</strong> 模式 <code>$x:expr $(, $rest:expr)*</code> 将第一个参数单独匹配，剩余参数通过重复匹配。展开时用 <code>std::cmp::max</code> 逐一比较更新最大值。</p>
+</details>
+<hr>
+<h3 id="练习-20-10-挑战--嵌套重复构建矩阵"><a class="header" href="#练习-20-10-挑战--嵌套重复构建矩阵">练习 20-10: 挑战 — 嵌套重复构建矩阵</a></h3>
+<blockquote>
+<p>难度：⭐⭐</p>
+</blockquote>
+<p>实现 <code>matrix!</code> 宏，使用 <code>;</code> 分隔行，<code>,</code> 分隔列，创建 <code>Vec&lt;Vec&lt;i32&gt;&gt;</code>。</p>
+<pre class="playground"><code class="language-rust">// TODO: 实现 matrix! 宏
+// matrix![1, 2, 3; 4, 5, 6] 应创建 vec![vec![1,2,3], vec![4,5,6]]
+
+fn main() {
+    let m = matrix![1, 2, 3; 4, 5, 6; 7, 8, 9];
+    println!("{:?}", m);
+    assert_eq!(m[0][1], 2);
+    assert_eq!(m[2][0], 7);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">macro_rules! matrix {
+    ($($($x:expr),*);*) =&gt; {
+        vec![$(vec![$($x),*]),*]
+    };
+}
+
+fn main() {
+    let m = matrix![1, 2, 3; 4, 5, 6; 7, 8, 9];
+    println!("{:?}", m);
+    assert_eq!(m[0][1], 2);
+    assert_eq!(m[2][0], 7);
+}</code></pre>
+<p><strong>说明：</strong> 嵌套 <code>$()*</code> 实现二维重复：外层 <code>$()*</code> 匹配以 <code>;</code> 分隔的行，内层 <code>$()*</code> 匹配行内以 <code>,</code> 分隔的元素。展开时对应生成嵌套的 <code>vec!</code>。</p>
+</details>
+<hr>
+<h3 id="练习-20-11-使用-derive--debug"><a class="header" href="#练习-20-11-使用-derive--debug">练习 20-11: 使用 Derive — Debug</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似其他语言的注解/属性，但 derive 会自动生成 trait 实现</p>
+</blockquote>
+<p>为 <code>Point</code> 添加适当的 derive 使其支持 <code>{:?}</code> 格式化打印。</p>
+<pre class="playground"><code class="language-rust">// TODO: 为 Point 添加 derive，使其支持 {:?} 打印
+
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+fn main() {
+    let p = Point { x: 1, y: 2 };
+    println!("{:?}", p);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">#[derive(Debug)]
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+fn main() {
+    let p = Point { x: 1, y: 2 };
+    println!("{:?}", p);
+}</code></pre>
+<p><strong>说明：</strong> <code>#[derive(Debug)]</code> 自动为类型实现 <code>std::fmt::Debug</code> trait，使其支持 <code>{:?}</code> 格式输出，是调试时最常用的 derive。</p>
+</details>
+<hr>
+<h3 id="练习-20-12-使用-derive--clone"><a class="header" href="#练习-20-12-使用-derive--clone">练习 20-12: 使用 Derive — Clone</a></h3>
+<blockquote>
+<p>难度：⭐⭐</p>
+</blockquote>
+<p>为 <code>Data</code> 添加适当的 derive 使其支持 <code>.clone()</code> 方法。</p>
+<pre class="playground"><code class="language-rust">// TODO: 为 Data 添加 derive，使其支持 .clone()
+
+struct Data {
+    value: String,
+}
+
+fn main() {
+    let d1 = Data { value: "hello".into() };
+    let d2 = d1.clone();
+    println!("{}", d2.value);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">#[derive(Clone)]
+struct Data {
+    value: String,
+}
+
+fn main() {
+    let d1 = Data { value: "hello".into() };
+    let d2 = d1.clone();
+    println!("{}", d2.value);
+}</code></pre>
+<p><strong>说明：</strong> <code>#[derive(Clone)]</code> 自动生成 <code>clone</code> 方法实现对所有字段的逐一遍制。注意 <code>Clone</code> 是显式复制（需要调用 <code>.clone()</code>），区别于 <code>Copy</code>（自动按位复制）。</p>
+</details>
+<hr>
+<h3 id="练习-20-13-使用-derive--partialeq"><a class="header" href="#练习-20-13-使用-derive--partialeq">练习 20-13: 使用 Derive — PartialEq</a></h3>
+<blockquote>
+<p>难度：⭐⭐</p>
+</blockquote>
+<p>添加适当的 derive 使 <code>Point</code> 支持 <code>==</code> 比较。</p>
+<pre class="playground"><code class="language-rust">// TODO: 添加 derive，使 Point 支持 == 比较
+
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+fn main() {
+    let a = Point { x: 1, y: 2 };
+    let b = Point { x: 1, y: 2 };
+    assert!(a == b);
+    println!("相等！");
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">#[derive(PartialEq)]
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+fn main() {
+    let a = Point { x: 1, y: 2 };
+    let b = Point { x: 1, y: 2 };
+    assert!(a == b);
+    println!("相等！");
+}</code></pre>
+<p><strong>说明：</strong> <code>#[derive(PartialEq)]</code> 自动实现 <code>PartialEq</code> trait，允许使用 <code>==</code> 和 <code>!=</code> 运算符。比较逻辑为逐字段比较——所有字段相等则实例相等。</p>
+</details>
+<hr>
+<h3 id="练习-20-14-使用-derive--组合多个-derive"><a class="header" href="#练习-20-14-使用-derive--组合多个-derive">练习 20-14: 使用 Derive — 组合多个 Derive</a></h3>
+<blockquote>
+<p>难度：⭐⭐</p>
+</blockquote>
+<p>添加适当的 derive，使 <code>Point</code> 同时支持 <code>Debug</code>、<code>Clone</code>、<code>PartialEq</code>。</p>
+<pre class="playground"><code class="language-rust">// TODO: 添加 derive，使 Point 同时支持 Debug、Clone、PartialEq
+
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+fn main() {
+    let p1 = Point { x: 1, y: 2 };
+    let p2 = p1.clone();
+    println!("{:?}", p2);
+    assert!(p1 == p2);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">#[derive(Debug, Clone, PartialEq)]
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+fn main() {
+    let p1 = Point { x: 1, y: 2 };
+    let p2 = p1.clone();
+    println!("{:?}", p2);
+    assert!(p1 == p2);
+}</code></pre>
+<p><strong>说明：</strong> <code>#[derive(Debug, Clone, PartialEq)]</code> 可以同时派生多个 trait，用逗号分隔。这是 Rust 中非常常见的组合，尤其在定义数据模型时几乎成为标配。</p>
+</details>
+<hr>
+<h3 id="练习-20-15-挑战--为枚举添加-derive"><a class="header" href="#练习-20-15-挑战--为枚举添加-derive">练习 20-15: 挑战 — 为枚举添加 Derive</a></h3>
+<blockquote>
+<p>难度：⭐⭐</p>
+</blockquote>
+<p>为 <code>Color</code> 枚举添加适当的 derive，使其支持 <code>==</code> 比较、<code>.clone()</code> 复制和 <code>{:?}</code> 打印。</p>
+<pre class="playground"><code class="language-rust">// TODO: 为 Color 枚举添加适当的 derive
+
+enum Color {
+    Red,
+    Green,
+    Blue,
+}
+
+fn main() {
+    let c1 = Color::Red;
+    let c2 = Color::Red;
+    assert!(c1 == c2);
+    let c3 = c1.clone();
+    println!("{:?}", c3);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">#[derive(Debug, Clone, PartialEq)]
+enum Color {
+    Red,
+    Green,
+    Blue,
+}
+
+fn main() {
+    let c1 = Color::Red;
+    let c2 = Color::Red;
+    assert!(c1 == c2);
+    let c3 = c1.clone();
+    println!("{:?}", c3);
+}</code></pre>
+<p><strong>说明：</strong> <code>derive</code> 宏对枚举同样有效。<code>Debug</code> 生成枚举变体名称和关联值的输出格式，<code>Clone</code> 生成逐字段复制，<code>PartialEq</code> 生成逐个变体比较。</p>
+</details>
+<hr>
+<h3 id="练习-20-16-编写简化版-vec"><a class="header" href="#练习-20-16-编写简化版-vec">练习 20-16: 编写简化版 vec!</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+这是 Rust 元编程的核心能力——用宏减少样板代码</p>
+</blockquote>
+<p>实现 <code>my_vec!</code> 宏，接收任意数量的表达式并创建 <code>Vec</code>。</p>
+<pre class="playground"><code class="language-rust">// TODO: 实现 my_vec! 宏
+// my_vec![1, 2, 3] =&gt; vec![1, 2, 3]
+
+fn main() {
+    let v = my_vec![1, 2, 3, 4, 5];
+    println!("{:?}", v);
+    assert_eq!(v.len(), 5);
+    assert_eq!(v[2], 3);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">macro_rules! my_vec {
+    ($($x:expr),*) =&gt; {
+        {
+            let mut v = Vec::new();
+            $(v.push($x);)*
+            v
+        }
+    };
+}
+
+fn main() {
+    let v = my_vec![1, 2, 3, 4, 5];
+    println!("{:?}", v);
+    assert_eq!(v.len(), 5);
+    assert_eq!(v[2], 3);
+}</code></pre>
+<p><strong>说明：</strong> 这是 <code>vec!</code> 宏的简化实现。<code>$()*</code> 重复生成多条 <code>v.push($x)</code> 语句。注意外层使用块表达式 <code>{ ... }</code> 来包含多条语句并返回 <code>v</code>。</p>
+</details>
+<hr>
+<h3 id="练习-20-17-编写-hashmap-宏"><a class="header" href="#练习-20-17-编写-hashmap-宏">练习 20-17: 编写 hashmap! 宏</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐</p>
+</blockquote>
+<p>实现 <code>hashmap!</code> 宏，使用 <code>key =&gt; value</code> 语法快速创建 <code>HashMap</code>。</p>
+<pre class="playground"><code class="language-rust">use std::collections::HashMap;
+
+// TODO: 实现 hashmap! 宏
+// hashmap!("one" =&gt; 1, "two" =&gt; 2)
+
+fn main() {
+    let map = hashmap!("one" =&gt; 1, "two" =&gt; 2, "three" =&gt; 3);
+    println!("{:?}", map);
+    assert_eq!(map["one"], 1);
+    assert_eq!(map["three"], 3);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::collections::HashMap;
+
+macro_rules! hashmap {
+    ($($key:expr =&gt; $value:expr),*) =&gt; {
+        {
+            let mut map = HashMap::new();
+            $(map.insert($key, $value);)*
+            map
+        }
+    };
+}
+
+fn main() {
+    let map = hashmap!("one" =&gt; 1, "two" =&gt; 2, "three" =&gt; 3);
+    println!("{:?}", map);
+    assert_eq!(map["one"], 1);
+    assert_eq!(map["three"], 3);
+}</code></pre>
+<p><strong>说明：</strong> 使用 <code>=&gt;</code> 作为键值对分隔符是 Rust 宏中常见的 DSL 风格。重复模式 <code>$($key:expr =&gt; $value:expr),*</code> 配对匹配键和值。</p>
+</details>
+<hr>
+<h3 id="练习-20-18-编写-set-宏"><a class="header" href="#练习-20-18-编写-set-宏">练习 20-18: 编写 set! 宏</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐</p>
+</blockquote>
+<p>实现 <code>set!</code> 宏，接收多个值创建 <code>HashSet</code>（自动去重）。</p>
+<pre class="playground"><code class="language-rust">use std::collections::HashSet;
+
+// TODO: 实现 set! 宏
+// set![1, 2, 3, 2, 1] =&gt; 包含 {1, 2, 3} 的 HashSet
+
+fn main() {
+    let s = set![1, 2, 3, 2, 1];
+    println!("{:?}", s);
+    assert_eq!(s.len(), 3);
+    assert!(s.contains(&amp;1));
+    assert!(s.contains(&amp;2));
+    assert!(s.contains(&amp;3));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::collections::HashSet;
+
+macro_rules! set {
+    ($($x:expr),*) =&gt; {
+        {
+            let mut set = HashSet::new();
+            $(set.insert($x);)*
+            set
+        }
+    };
+}
+
+fn main() {
+    let s = set![1, 2, 3, 2, 1];
+    println!("{:?}", s);
+    assert_eq!(s.len(), 3);
+    assert!(s.contains(&amp;1));
+    assert!(s.contains(&amp;2));
+    assert!(s.contains(&amp;3));
+}</code></pre>
+<p><strong>说明：</strong> <code>HashSet</code> 自动去重，插入重复元素不会增加集合大小。宏的重复插入模式与 <code>my_vec!</code> 类似，但 <code>HashSet</code> 的 <code>insert</code> 会自动处理重复值。</p>
+</details>
+<hr>
+<h3 id="练习-20-19-编写生成函数的宏"><a class="header" href="#练习-20-19-编写生成函数的宏">练习 20-19: 编写生成函数的宏</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐</p>
+</blockquote>
+<p>实现 <code>create_func!</code> 宏，根据传入的名称生成一个函数，该函数打印 <code>"Hello from {name}!"</code>。</p>
+<pre class="playground"><code class="language-rust">// TODO: 实现 create_func! 宏
+// create_func!(greet) 应生成 fn greet() { println!("Hello from greet!"); }
+
+fn main() {
+    create_func!(greet);
+    greet();
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">macro_rules! create_func {
+    ($name:ident) =&gt; {
+        fn $name() {
+            println!("Hello from {}!", stringify!($name));
+        }
+    };
+}
+
+fn main() {
+    create_func!(greet);
+    greet();
+}</code></pre>
+<p><strong>说明：</strong> <code>ident</code> 片段类型匹配标识符。<code>stringify!</code> 是 Rust 内置宏，将标识符或表达式转换为字符串字面量。宏可以生成函数定义——这是 Rust 宏元编程的强大体现。Rust 允许在函数体内嵌套定义函数（即 inner function），因此宏展开的 <code>fn</code> 定义在 <code>main</code> 内是合法的。</p>
+</details>
+<hr>
+<h3 id="练习-20-20-编写计时宏"><a class="header" href="#练习-20-20-编写计时宏">练习 20-20: 编写计时宏</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐</p>
+</blockquote>
+<p>实现 <code>timed!</code> 宏，接收一个代码块，测量并打印其执行时间（使用 <code>std::time::Instant</code>）。</p>
+<pre class="playground"><code class="language-rust">// TODO: 实现 timed! 宏，接收代码块并测量执行时间
+// 提示：用 $block:block 匹配代码块
+
+fn main() {
+    timed!({
+        let mut sum = 0u64;
+        for i in 0..1000000 {
+            sum += i;
+        }
+        println!("Sum = {}", sum);
+    });
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">macro_rules! timed {
+    ($block:block) =&gt; {
+        {
+            let start = std::time::Instant::now();
+            let result = $block;
+            let duration = start.elapsed();
+            println!("执行时间: {:?}", duration);
+            result
+        }
+    };
+}
+
+fn main() {
+    timed!({
+        let mut sum = 0u64;
+        for i in 0..1000000 {
+            sum += i;
+        }
+        println!("Sum = {}", sum);
+    });
+}</code></pre>
+<p><strong>说明：</strong> <code>block</code> 片段类型匹配一个块表达式（即 <code>{ ... }</code>）。宏在代码块执行前后记录时间并计算差值。这种“包裹“模式是实现日志、计时、重试等切面功能的常用手法。</p>
+</details>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="19_async.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="21_unsafe.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="19_async.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="21_unsafe.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-c22b7243.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e312_test_ci_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e312_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1732",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 312: 持续集成配置 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

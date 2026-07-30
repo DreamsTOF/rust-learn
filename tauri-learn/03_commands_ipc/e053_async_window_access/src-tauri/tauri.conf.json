@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e053_async_window_access",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e053",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1473",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 053: 异步中访问窗口",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

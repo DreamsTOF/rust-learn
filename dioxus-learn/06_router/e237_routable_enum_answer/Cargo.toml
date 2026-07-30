@@ -1,0 +1,8 @@
+[package]
+name = "e237_routable_enum_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

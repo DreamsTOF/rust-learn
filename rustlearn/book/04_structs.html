@@ -1,0 +1,906 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="ayu sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>04 结构体 - Rust 实战练习 — 460 题快速突破</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="从 C++/Java 到 Rust，460 道循序渐进的实战练习题">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/custom-b5e00510.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "ayu";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-f70c63f5.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-86798690.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Rust 实战练习 — 460 题快速突破</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="04-结构体"><a class="header" href="#04-结构体">04 结构体</a></h1>
+<p>结构体（struct）是 Rust 中自定义数据类型的主要方式，用于将多个相关联的值组合成一个整体。本章练习将帮助你掌握结构体的定义、实例化、方法实现以及元组结构体等核心概念。</p>
+<h3 id="练习-04-01-定义结构体"><a class="header" href="#练习-04-01-定义结构体">练习 04-01: 定义结构体</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 的 struct，但 Rust 结构体不包含方法（方法在 impl 块中）</p>
+</blockquote>
+<p>定义一个名为 <code>Person</code> 的结构体，包含 <code>name</code>（字符串）、<code>age</code>（无符号整数）和 <code>height</code>（浮点数）三个字段。</p>
+<pre class="playground"><code class="language-rust">// TODO: 定义 Person 结构体
+
+fn main() {
+    let person = Person {
+        name: String::from("Alice"),
+        age: 30,
+        height: 175.5,
+    };
+    println!("{} is {} years old and {:.1} cm tall", person.name, person.age, person.height);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Person {
+    name: String,
+    age: u32,
+    height: f64,
+}
+
+fn main() {
+    let person = Person {
+        name: String::from("Alice"),
+        age: 30,
+        height: 175.5,
+    };
+    println!("{} is {} years old and {:.1} cm tall", person.name, person.age, person.height);
+}</code></pre>
+<p><strong>说明：</strong> Rust 结构体使用 <code>struct</code> 关键字定义，每个字段需要声明名称和类型。创建实例时使用 <code>字段名: 值</code> 的语法，且所有字段必须全部初始化。</p>
+</details>
+<h3 id="练习-04-02-创建结构体实例"><a class="header" href="#练习-04-02-创建结构体实例">练习 04-02: 创建结构体实例</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 的 struct 初始化列表，但 Rust 要求字段名必须写全</p>
+</blockquote>
+<p>定义一个 <code>Book</code> 结构体（字段自定），并在 <code>main</code> 中创建两个不同的实例。</p>
+<pre class="playground"><code class="language-rust">// TODO: 定义 Book 结构体
+
+fn main() {
+    // TODO: 创建两个 Book 实例 book1 和 book2
+    // book1: 《Rust 程序设计》(2024)
+    // book2: 《算法导论》(2022)
+    
+    println!("《{}》由 {} 著，{} 年出版", book1.title, book1.author, book1.year);
+    println!("《{}》由 {} 著，{} 年出版", book2.title, book2.author, book2.year);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Book {
+    title: String,
+    author: String,
+    year: u32,
+}
+
+fn main() {
+    let book1 = Book {
+        title: String::from("Rust 程序设计"),
+        author: String::from("张三个人"),
+        year: 2024,
+    };
+    let book2 = Book {
+        title: String::from("算法导论"),
+        author: String::from("李四"),
+        year: 2022,
+    };
+    
+    println!("《{}》由 {} 著，{} 年出版", book1.title, book1.author, book1.year);
+    println!("《{}》由 {} 著，{} 年出版", book2.title, book2.author, book2.year);
+}</code></pre>
+<p><strong>说明：</strong> 同一个结构体可以创建多个互不影响的实例，每个实例独立拥有字段值。Rust 要求实例化时所有字段必须显式赋值。</p>
+</details>
+<h3 id="练习-04-03-访问和修改字段"><a class="header" href="#练习-04-03-访问和修改字段">练习 04-03: 访问和修改字段</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 使用 <code>.</code> 运算符访问成员，但 Rust 要求实例可变才能修改</p>
+</blockquote>
+<p>补全代码，先打印 <code>point</code> 的坐标，然后将 <code>x</code> 改为 20 并重新打印。</p>
+<pre class="playground"><code class="language-rust">struct Point {
+    x: i32,
+    y: i32,
+}
+
+fn main() {
+    let mut point = Point { x: 10, y: 15 };
+    // TODO: 打印当前坐标
+    // TODO: 修改 x 为 20
+    // TODO: 再次打印坐标
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Point {
+    x: i32,
+    y: i32,
+}
+
+fn main() {
+    let mut point = Point { x: 10, y: 15 };
+    println!("当前坐标: ({}, {})", point.x, point.y);
+    point.x = 20;
+    println!("修改后坐标: ({}, {})", point.x, point.y);
+}</code></pre>
+<p><strong>说明：</strong> Rust 中结构体实例默认不可变，必须使用 <code>mut</code> 关键字声明为可变后，才能修改字段的值。访问字段使用 <code>.</code> 运算符。</p>
+</details>
+<h3 id="练习-04-04-从函数返回结构体"><a class="header" href="#练习-04-04-从函数返回结构体">练习 04-04: 从函数返回结构体</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 中返回结构体对象，Rust 中同样使用返回值语法</p>
+</blockquote>
+<p>补全 <code>build_user</code> 函数，它接收 <code>email</code> 和 <code>username</code> 参数，返回一个 <code>User</code> 结构体实例。</p>
+<pre class="playground"><code class="language-rust">struct User {
+    email: String,
+    username: String,
+    active: bool,
+}
+
+// TODO: 补全 build_user 函数体
+fn build_user(email: String, username: String) -&gt; User {
+    // 返回一个 User 实例，active 默认为 true
+}
+
+fn main() {
+    let user = build_user(
+        String::from("alice@example.com"),
+        String::from("alice"),
+    );
+    println!("用户 {} &lt;{}&gt;，活跃状态: {}", user.username, user.email, user.active);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct User {
+    email: String,
+    username: String,
+    active: bool,
+}
+
+fn build_user(email: String, username: String) -&gt; User {
+    User {
+        email: email,
+        username: username,
+        active: true,
+    }
+}
+
+fn main() {
+    let user = build_user(
+        String::from("alice@example.com"),
+        String::from("alice"),
+    );
+    println!("用户 {} &lt;{}&gt;，活跃状态: {}", user.username, user.email, user.active);
+}</code></pre>
+<p><strong>说明：</strong> 函数可以返回结构体实例。当字段名与变量名相同时，可以简写为 <code>email</code> 而非 <code>email: email</code>，但此处显式写出以展示完整语法。</p>
+</details>
+<h3 id="练习-04-05-创建学生实例集合"><a class="header" href="#练习-04-05-创建学生实例集合">练习 04-05: 创建学生实例集合</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+类似 C++ 的结构体数组，Rust 中使用 Vec 存放多个结构体实例</p>
+</blockquote>
+<p>定义一个 <code>Student</code> 结构体（包含 <code>name</code>、<code>age</code>、<code>score</code>），然后创建至少 3 个不同的学生实例放入 <code>Vec</code> 中，最后遍历打印每个学生的信息。</p>
+<pre class="playground"><code class="language-rust">// TODO: 定义 Student 结构体
+
+fn main() {
+    // TODO: 创建至少 3 个学生实例并放入 Vec
+    // TODO: 遍历打印所有学生信息
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Student {
+    name: String,
+    age: u8,
+    score: f32,
+}
+
+fn main() {
+    let students = vec![
+        Student {
+            name: String::from("张三"),
+            age: 20,
+            score: 92.5,
+        },
+        Student {
+            name: String::from("李四"),
+            age: 21,
+            score: 85.0,
+        },
+        Student {
+            name: String::from("王五"),
+            age: 19,
+            score: 97.0,
+        },
+    ];
+
+    for s in &amp;students {
+        println!("{}（{}岁）成绩：{:.1}", s.name, s.age, s.score);
+    }
+}</code></pre>
+<p><strong>说明：</strong> <code>vec!</code> 宏可以创建包含结构体实例的向量。遍历时使用 <code>&amp;students</code> 避免所有权转移，通过 <code>s.name</code> 访问字段。</p>
+</details>
+<h3 id="练习-04-06-为结构体添加方法"><a class="header" href="#练习-04-06-为结构体添加方法">练习 04-06: 为结构体添加方法</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 的成员函数，但 Rust 的方法定义在单独的 impl 块中</p>
+</blockquote>
+<p>给 <code>Rectangle</code> 结构体实现一个 <code>area</code> 方法，计算矩形的面积。</p>
+<pre class="playground"><code class="language-rust">struct Rectangle {
+    width: f64,
+    height: f64,
+}
+
+// TODO: 实现 area 方法
+
+fn main() {
+    let rect = Rectangle { width: 30.0, height: 50.0 };
+    println!("矩形面积: {:.1}", rect.area());
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Rectangle {
+    width: f64,
+    height: f64,
+}
+
+impl Rectangle {
+    fn area(&amp;self) -&gt; f64 {
+        self.width * self.height
+    }
+}
+
+fn main() {
+    let rect = Rectangle { width: 30.0, height: 50.0 };
+    println!("矩形面积: {:.1}", rect.area());
+}</code></pre>
+<p><strong>说明：</strong> 方法定义在 <code>impl</code> 块中，第一个参数总是 <code>&amp;self</code> 表示调用该方法的实例引用。方法通过 <code>.</code> 运算符调用。</p>
+</details>
+<h3 id="练习-04-07-修改结构体字段的方法"><a class="header" href="#练习-04-07-修改结构体字段的方法">练习 04-07: 修改结构体字段的方法</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 的非 const 成员函数，Rust 中使用 &amp;mut self</p>
+</blockquote>
+<p>为 <code>Counter</code> 结构体实现一个 <code>increment</code> 方法，将 <code>count</code> 字段值加 1。</p>
+<pre class="playground"><code class="language-rust">struct Counter {
+    count: i32,
+}
+
+// TODO: 实现 increment 方法
+
+fn main() {
+    let mut counter = Counter { count: 0 };
+    counter.increment();
+    counter.increment();
+    println!("计数值: {}", counter.count); // 应该输出 2
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Counter {
+    count: i32,
+}
+
+impl Counter {
+    fn increment(&amp;mut self) {
+        self.count += 1;
+    }
+}
+
+fn main() {
+    let mut counter = Counter { count: 0 };
+    counter.increment();
+    counter.increment();
+    println!("计数值: {}", counter.count);
+}</code></pre>
+<p><strong>说明：</strong> 需要修改 <code>self</code> 的方法使用 <code>&amp;mut self</code> 作为参数，此时调用者必须为可变绑定（<code>let mut</code>）。</p>
+</details>
+<h3 id="练习-04-08-关联函数构造函数"><a class="header" href="#练习-04-08-关联函数构造函数">练习 04-08: 关联函数——构造函数</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 的静态方法或 Java 的静态工厂方法，Rust 关联函数不接收 self 参数</p>
+</blockquote>
+<p>为 <code>Point</code> 结构体实现一个关联函数 <code>origin</code>，返回坐标在 <code>(0, 0)</code> 的 <code>Point</code> 实例。</p>
+<pre class="playground"><code class="language-rust">struct Point {
+    x: i32,
+    y: i32,
+}
+
+// TODO: 实现 origin 关联函数
+
+fn main() {
+    let p = Point::origin();
+    println!("原点坐标: ({}, {})", p.x, p.y);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Point {
+    x: i32,
+    y: i32,
+}
+
+impl Point {
+    fn origin() -&gt; Point {
+        Point { x: 0, y: 0 }
+    }
+}
+
+fn main() {
+    let p = Point::origin();
+    println!("原点坐标: ({}, {})", p.x, p.y);
+}</code></pre>
+<p><strong>说明：</strong> 关联函数是不以 <code>self</code> 为参数的方法，使用 <code>::</code> 语法调用（<code>结构体名::函数名</code>），常用于构造函数模式。</p>
+</details>
+<h3 id="练习-04-09-new-模式"><a class="header" href="#练习-04-09-new-模式">练习 04-09: new 模式</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 的构造函数，Rust 惯例使用 new 作为创建实例的关联函数</p>
+</blockquote>
+<p>为 <code>Temperature</code> 实现一个 <code>new</code> 关联函数，接收摄氏度值并返回实例。再实现一个 <code>to_fahrenheit</code> 方法进行单位转换。</p>
+<pre class="playground"><code class="language-rust">struct Temperature {
+    celsius: f64,
+}
+
+// TODO: 实现 new 关联函数和 to_fahrenheit 方法
+// 公式: ℉ = ℃ × 1.8 + 32.0
+
+fn main() {
+    let t = Temperature::new(37.0);
+    println!("{:.1}℃ = {:.1}℉", t.celsius, t.to_fahrenheit());
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Temperature {
+    celsius: f64,
+}
+
+impl Temperature {
+    fn new(celsius: f64) -&gt; Temperature {
+        Temperature { celsius }
+    }
+
+    fn to_fahrenheit(&amp;self) -&gt; f64 {
+        self.celsius * 1.8 + 32.0
+    }
+}
+
+fn main() {
+    let t = Temperature::new(37.0);
+    println!("{:.1}℃ = {:.1}℉", t.celsius, t.to_fahrenheit());
+}</code></pre>
+<p><strong>说明：</strong> <code>new</code> 是 Rust 中创建实例的惯用关联函数名。当字段名与变量名相同时可以使用简写 <code>Temperature { celsius }</code> 而非 <code>Temperature { celsius: celsius }</code>。</p>
+</details>
+<h3 id="练习-04-10-结构体方法综合"><a class="header" href="#练习-04-10-结构体方法综合">练习 04-10: 结构体方法综合</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+类似 C++ 类中的多个成员函数，Rust 的 impl 块可包含多个方法</p>
+</blockquote>
+<p>为 <code>Rectangle</code> 实现以下功能：</p>
+<ol>
+<li><code>area</code> 方法计算面积</li>
+<li><code>can_hold</code> 方法判断当前矩形是否能完全容纳另一个矩形</li>
+</ol>
+<pre class="playground"><code class="language-rust">struct Rectangle {
+    width: f64,
+    height: f64,
+}
+
+// TODO: 实现 area 和 can_hold 方法
+
+fn main() {
+    let rect1 = Rectangle { width: 30.0, height: 50.0 };
+    let rect2 = Rectangle { width: 20.0, height: 40.0 };
+    let rect3 = Rectangle { width: 40.0, height: 30.0 };
+
+    println!("rect1 面积: {:.1}", rect1.area());
+    println!("rect1 能容纳 rect2: {}", rect1.can_hold(&amp;rect2));
+    println!("rect1 能容纳 rect3: {}", rect1.can_hold(&amp;rect3));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Rectangle {
+    width: f64,
+    height: f64,
+}
+
+impl Rectangle {
+    fn area(&amp;self) -&gt; f64 {
+        self.width * self.height
+    }
+
+    fn can_hold(&amp;self, other: &amp;Rectangle) -&gt; bool {
+        self.width &gt;= other.width &amp;&amp; self.height &gt;= other.height
+    }
+}
+
+fn main() {
+    let rect1 = Rectangle { width: 30.0, height: 50.0 };
+    let rect2 = Rectangle { width: 20.0, height: 40.0 };
+    let rect3 = Rectangle { width: 40.0, height: 30.0 };
+
+    println!("rect1 面积: {:.1}", rect1.area());
+    println!("rect1 能容纳 rect2: {}", rect1.can_hold(&amp;rect2));
+    println!("rect1 能容纳 rect3: {}", rect1.can_hold(&amp;rect3));
+}</code></pre>
+<p><strong>说明：</strong> 一个 <code>impl</code> 块可以包含多个方法。方法可以接收另一个同类型实例的引用作为参数。这里 <code>can_hold</code> 检查两个维度的包容性。</p>
+</details>
+<h3 id="练习-04-11-定义元组结构体"><a class="header" href="#练习-04-11-定义元组结构体">练习 04-11: 定义元组结构体</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 的 typedef 或 using，但 Rust 元组结构体创建的是全新的类型</p>
+</blockquote>
+<p>定义一个名为 <code>Meters</code> 的元组结构体，包含一个 <code>f64</code> 值。编写函数计算两个长度的和。</p>
+<pre class="playground"><code class="language-rust">// TODO: 定义 Meters 元组结构体
+
+fn add_lengths(a: Meters, b: Meters) -&gt; Meters {
+    // TODO: 返回两个长度的和
+}
+
+fn main() {
+    let length1 = Meters(10.5);
+    let length2 = Meters(3.5);
+    let sum = add_lengths(length1, length2);
+    println!("总长度: {:.1} 米", sum.0);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Meters(f64);
+
+fn add_lengths(a: Meters, b: Meters) -&gt; Meters {
+    Meters(a.0 + b.0)
+}
+
+fn main() {
+    let length1 = Meters(10.5);
+    let length2 = Meters(3.5);
+    let sum = add_lengths(length1, length2);
+    println!("总长度: {:.1} 米", sum.0);
+}</code></pre>
+<p><strong>说明：</strong> 元组结构体使用 <code>struct 名称(类型)</code> 定义，字段没有名字只有索引（通过 <code>.0</code>, <code>.1</code> 等访问）。它创建的是一个独立的新类型，而非类型别名。</p>
+</details>
+<h3 id="练习-04-12-颜色元组结构体"><a class="header" href="#练习-04-12-颜色元组结构体">练习 04-12: 颜色元组结构体</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 的简单值包装，Rust 元组结构体常用于包装单一概念</p>
+</blockquote>
+<p>定义一个 <code>Color</code> 元组结构体包含 RGB 三个 <code>u8</code> 值。实现一个方法将颜色格式化为 <code>#RRGGBB</code> 字符串。</p>
+<pre class="playground"><code class="language-rust">// TODO: 定义 Color 元组结构体
+
+// TODO: 实现 format_hex 方法，返回格式如 "#FF00FF"
+
+fn main() {
+    let color = Color(255, 0, 128);
+    println!("颜色值: {}", color.format_hex());
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Color(u8, u8, u8);
+
+impl Color {
+    fn format_hex(&amp;self) -&gt; String {
+        format!("#{:02X}{:02X}{:02X}", self.0, self.1, self.2)
+    }
+}
+
+fn main() {
+    let color = Color(255, 0, 128);
+    println!("颜色值: {}", color.format_hex());
+}</code></pre>
+<p><strong>说明：</strong> 元组结构体也可以有方法。<code>{:02X}</code> 格式化输出两位大写十六进制数，不足两位补零。通过 <code>self.0</code>、<code>self.1</code> 等访问字段。</p>
+</details>
+<h3 id="练习-04-13-结构体更新语法"><a class="header" href="#练习-04-13-结构体更新语法">练习 04-13: 结构体更新语法</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 的拷贝构造或赋值，但 Rust 使用 .. 语法从另一个实例复制字段</p>
+</blockquote>
+<p>定义一个 <code>Student</code> 结构体，创建 <code>alice</code> 实例，然后使用更新语法创建 <code>bob</code>，其中 <code>name</code> 和 <code>email</code> 不同，其余字段与 <code>alice</code> 相同。</p>
+<pre class="playground"><code class="language-rust">struct Student {
+    name: String,
+    email: String,
+    grade: u8,
+    active: bool,
+}
+
+fn main() {
+    let alice = Student {
+        name: String::from("Alice"),
+        email: String::from("alice@example.com"),
+        grade: 85,
+        active: true,
+    };
+
+    // TODO: 使用更新语法创建 bob，grade 为 90，active 为 true（从 alice 继承）
+    // bob 的 name 为 "Bob"，email 为 "bob@example.com"
+
+    println!("{}, {}, 年级: {}, 活跃: {}", bob.name, bob.email, bob.grade, bob.active);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Student {
+    name: String,
+    email: String,
+    grade: u8,
+    active: bool,
+}
+
+fn main() {
+    let alice = Student {
+        name: String::from("Alice"),
+        email: String::from("alice@example.com"),
+        grade: 85,
+        active: true,
+    };
+
+    let bob = Student {
+        name: String::from("Bob"),
+        email: String::from("bob@example.com"),
+        grade: 90,
+        ..alice
+    };
+
+    println!("{}, {}, 年级: {}, 活跃: {}", bob.name, bob.email, bob.grade, bob.active);
+}</code></pre>
+<p><strong>说明：</strong> <code>..alice</code> 表示从 <code>alice</code> 复制未被显式赋值的字段。注意：由于 <code>grade</code> 和 <code>active</code> 实现了 <code>Copy</code> trait（它们是基本类型），所以 <code>alice</code> 中的 <code>active</code> 字段被复制而非移动。如果字段中包含 <code>String</code> 等非 <code>Copy</code> 类型且未被重新赋值，则会移动所有权。</p>
+</details>
+<h3 id="练习-04-14-更新语法的所有权问题"><a class="header" href="#练习-04-14-更新语法的所有权问题">练习 04-14: 更新语法的所有权问题</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 的浅拷贝 vs 深拷贝，Rust 的结构体更新语法涉及所有权转移</p>
+</blockquote>
+<p>补全代码，观察结构体更新语法对原始实例的影响。</p>
+<pre class="playground"><code class="language-rust">struct User {
+    username: String,
+    email: String,
+    active: bool,
+}
+
+fn main() {
+    let user1 = User {
+        username: String::from("alice"),
+        email: String::from("alice@example.com"),
+        active: true,
+    };
+
+    let user2 = User {
+        email: String::from("bob@example.com"),
+        ..user1
+    };
+
+    // TODO: 下面哪一行能通过编译？取消注释并运行验证
+    // println!("user1: {}", user1.username);
+    // println!("user1: {}", user1.email);
+    // println!("user1: {}", user1.active);
+    println!("user2: {}, {}", user2.username, user2.email);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct User {
+    username: String,
+    email: String,
+    active: bool,
+}
+
+fn main() {
+    let user1 = User {
+        username: String::from("alice"),
+        email: String::from("alice@example.com"),
+        active: true,
+    };
+
+    let user2 = User {
+        email: String::from("bob@example.com"),
+        ..user1
+    };
+
+    // username 从 user1 移动到了 user2，所以 user1.username 不能再使用
+    // email 在 user1 中也被移动了吗？不——user2.email 被显式赋值了，没有移动 user1.email
+    // 所以 user1.email 仍然有效
+    // active 是 bool 类型（Copy），user1.active 仍然有效
+    
+    // println!("user1: {}", user1.username); // ❌ user1.username 已移动
+    println!("user1: {}", user1.email);    // ✅ 未移动，因为 user2.email 被显式赋新值
+    println!("user1: {}", user1.active);   // ✅ bool 实现了 Copy
+    
+    println!("user2: {}, {}", user2.username, user2.email);
+}</code></pre>
+<p><strong>说明：</strong> 使用 <code>..user1</code> 时，未被显式赋值的字段会从原实例移动所有权。<code>username</code> 从 <code>user1</code> 移动到 <code>user2</code>，因此 <code>user1.username</code> 不再可用。<code>email</code> 被显式赋值，所以 <code>user1.email</code> 未被移动。<code>bool</code> 实现了 <code>Copy</code> trait，因此 <code>user1.active</code> 仍然可用。</p>
+</details>
+<h3 id="练习-04-15-银行账户综合练习"><a class="header" href="#练习-04-15-银行账户综合练习">练习 04-15: 银行账户综合练习</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+类似 C++ 的完整类实现，Rust 使用结构体 + impl 块完成封装</p>
+</blockquote>
+<p>设计一个 <code>BankAccount</code> 结构体，实现以下功能：</p>
+<ol>
+<li><code>new(owner: String) -&gt; BankAccount</code> —— 创建新账户，余额为 0</li>
+<li><code>deposit(&amp;mut self, amount: f64)</code> —— 存入金额（不能为负数）</li>
+<li><code>withdraw(&amp;mut self, amount: f64) -&gt; bool</code> —— 取款，余额不足时返回 false</li>
+<li><code>get_balance(&amp;self) -&gt; f64</code> —— 查看余额</li>
+<li><code>get_owner(&amp;self) -&gt; &amp;str</code> —— 查看户主姓名</li>
+</ol>
+<pre class="playground"><code class="language-rust">// TODO: 定义 BankAccount 结构体
+
+// TODO: 实现相关方法
+
+fn main() {
+    let mut account = BankAccount::new(String::from("张三"));
+    println!("{} 的账户余额: {:.2}", account.get_owner(), account.get_balance());
+    
+    account.deposit(1000.0);
+    println!("存入 1000 后余额: {:.2}", account.get_balance());
+    
+    let success = account.withdraw(300.0);
+    println!("取款 300 {}，余额: {:.2}", if success { "成功" } else { "失败" }, account.get_balance());
+    
+    let success = account.withdraw(800.0);
+    println!("取款 800 {}，余额: {:.2}", if success { "成功" } else { "失败" }, account.get_balance());
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct BankAccount {
+    owner: String,
+    balance: f64,
+}
+
+impl BankAccount {
+    fn new(owner: String) -&gt; BankAccount {
+        BankAccount {
+            owner,
+            balance: 0.0,
+        }
+    }
+
+    fn deposit(&amp;mut self, amount: f64) {
+        if amount &gt; 0.0 {
+            self.balance += amount;
+        }
+    }
+
+    fn withdraw(&amp;mut self, amount: f64) -&gt; bool {
+        if amount &gt; 0.0 &amp;&amp; self.balance &gt;= amount {
+            self.balance -= amount;
+            true
+        } else {
+            false
+        }
+    }
+
+    fn get_balance(&amp;self) -&gt; f64 {
+        self.balance
+    }
+
+    fn get_owner(&amp;self) -&gt; &amp;str {
+        &amp;self.owner
+    }
+}
+
+fn main() {
+    let mut account = BankAccount::new(String::from("张三"));
+    println!("{} 的账户余额: {:.2}", account.get_owner(), account.get_balance());
+    
+    account.deposit(1000.0);
+    println!("存入 1000 后余额: {:.2}", account.get_balance());
+    
+    let success = account.withdraw(300.0);
+    println!("取款 300 {}，余额: {:.2}", if success { "成功" } else { "失败" }, account.get_balance());
+    
+    let success = account.withdraw(800.0);
+    println!("取款 800 {}，余额: {:.2}", if success { "成功" } else { "失败" }, account.get_balance());
+}</code></pre>
+<p><strong>说明：</strong> 这是一个综合练习，展示了结构体的完整用法：<code>new</code> 关联函数作为构造函数，<code>&amp;mut self</code> 方法修改状态，<code>&amp;self</code> 方法查询状态，以及方法返回值的合理设计。<code>get_owner</code> 返回字符串引用（<code>&amp;str</code>）避免所有权转移。</p>
+</details>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="03_lifetimes.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="05_enums.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="03_lifetimes.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="05_enums.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-c22b7243.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

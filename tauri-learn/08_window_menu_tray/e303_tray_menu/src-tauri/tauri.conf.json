@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e303_tray_menu",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e303",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1723",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 303: 系统托盘菜单",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

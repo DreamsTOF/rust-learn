@@ -1,0 +1,8 @@
+[package]
+name = "e332_server_fn_client_call"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

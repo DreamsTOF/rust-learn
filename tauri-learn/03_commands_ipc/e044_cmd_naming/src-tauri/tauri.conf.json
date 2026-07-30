@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e044_cmd_naming",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e044",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1464",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 044: 命令命名规范",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

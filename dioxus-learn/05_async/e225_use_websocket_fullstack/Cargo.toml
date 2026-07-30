@@ -1,0 +1,8 @@
+[package]
+name = "e225_use_websocket_fullstack"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

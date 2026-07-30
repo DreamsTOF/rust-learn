@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e232_sql_create",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e232",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1652",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 232: 创建数据库和数据表",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

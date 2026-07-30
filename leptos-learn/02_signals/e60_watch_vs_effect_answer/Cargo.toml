@@ -1,0 +1,7 @@
+[package]
+name = "e60_watch_vs_effect_answer"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+leptos.workspace = true

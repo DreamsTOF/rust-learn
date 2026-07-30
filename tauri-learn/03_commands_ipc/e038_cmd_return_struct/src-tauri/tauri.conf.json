@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e038_cmd_return_struct",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e038",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1458",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 038: 返回结构体",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

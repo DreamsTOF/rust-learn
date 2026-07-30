@@ -1,0 +1,8 @@
+[package]
+name = "e049_multi_signal_derived"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

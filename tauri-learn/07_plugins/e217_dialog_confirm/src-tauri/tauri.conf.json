@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e217_dialog_confirm",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e217",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1637",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 217: 确认对话框",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

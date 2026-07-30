@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e293_menu_platform",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e293",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1713",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 293: 平台特殊菜单",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

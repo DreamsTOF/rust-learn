@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e059_rate_limiting_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e059_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1479",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 059: 限流与节流 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

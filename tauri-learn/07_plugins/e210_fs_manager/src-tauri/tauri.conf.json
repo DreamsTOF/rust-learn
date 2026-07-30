@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e210_fs_manager",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e210",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1630",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 210: 综合: 文件管理器基础功能",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

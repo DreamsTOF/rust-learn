@@ -1,0 +1,8 @@
+[package]
+name = "e046_signal_async_boundary"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

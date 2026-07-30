@@ -1,0 +1,8 @@
+[package]
+name = "e377_web_sys_browser_api_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

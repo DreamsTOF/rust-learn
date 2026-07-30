@@ -1,0 +1,8 @@
+[package]
+name = "e118_component_vs_function"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

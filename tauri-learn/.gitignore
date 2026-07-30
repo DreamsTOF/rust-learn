@@ -1,0 +1,23 @@
+ # Rust
+ target/
+ Cargo.lock
+ 
+ # Frontend
+ node_modules/
+ dist/
+ 
+ # Tauri
+ src-tauri/gen/
+ 
+ # IDE
+ .idea/
+ *.swp
+ *.swo
+ *~
+ 
+ # OS
+ .DS_Store
+ Thumbs.db
+ 
+ # Build artifacts
+ *.log

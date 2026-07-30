@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e270_plugin_multi",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e270",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1690",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 270: 综合: 多插件协作",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

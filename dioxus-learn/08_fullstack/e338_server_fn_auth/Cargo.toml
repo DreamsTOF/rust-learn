@@ -1,0 +1,8 @@
+[package]
+name = "e338_server_fn_auth"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

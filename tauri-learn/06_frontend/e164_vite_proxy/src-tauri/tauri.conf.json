@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e164_vite_proxy",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e164",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1584",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 164: 开发代理配置",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

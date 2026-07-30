@@ -1,0 +1,8 @@
+[package]
+name = "e308_file_upload"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+leptos.workspace = true
+

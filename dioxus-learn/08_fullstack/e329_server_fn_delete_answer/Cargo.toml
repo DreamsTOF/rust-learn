@@ -1,0 +1,8 @@
+[package]
+name = "e329_server_fn_delete_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

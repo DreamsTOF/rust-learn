@@ -1,0 +1,10 @@
+ [target.x86_64-pc-windows-msvc]
+ rustflags = ["-C", "target-feature=+crt-static"]
+ 
+ [profile.dev]
+ incremental = true
+ 
+ [profile.release]
+ lto = true
+ codegen-units = 1
+ strip = true

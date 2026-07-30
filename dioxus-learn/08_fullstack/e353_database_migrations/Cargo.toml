@@ -1,0 +1,8 @@
+[package]
+name = "e353_database_migrations"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

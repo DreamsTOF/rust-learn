@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e329_security_isolation",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e329",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1749",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 329: 隔离模式",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

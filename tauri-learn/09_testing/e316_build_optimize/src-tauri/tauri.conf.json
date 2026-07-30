@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e316_build_optimize",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e316",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1736",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 316: 构建配置优化",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

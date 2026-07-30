@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e019_build_commands",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e019",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1439",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 019: 构建命令与 Vite 集成",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

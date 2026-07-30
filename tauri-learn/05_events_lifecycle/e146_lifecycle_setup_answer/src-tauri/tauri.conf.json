@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e146_lifecycle_setup_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e146_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1566",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 146: Setup 钩子 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

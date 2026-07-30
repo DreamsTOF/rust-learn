@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e089_ipc_cancel",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e089",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1509",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 089: 请求取消",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

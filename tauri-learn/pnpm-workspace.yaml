@@ -1,0 +1,16 @@
+packages:
+  - "01_environment/*"
+  - "02_basics/*"
+  - "03_commands_ipc/*"
+  - "04_state_config/*"
+  - "05_events_lifecycle/*"
+  - "06_frontend/*"
+  - "07_plugins/*"
+  - "08_window_menu_tray/*"
+  - "09_testing/*"
+  - "10_advanced/*"
+  - "00_preface"
+  - "projects/*"
+  - "templates/*"
+allowBuilds:
+  esbuild: true

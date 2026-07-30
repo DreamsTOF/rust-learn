@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e003_check_webview",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e003",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1423",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 003: WebView2 环境检查",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

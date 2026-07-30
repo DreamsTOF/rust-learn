@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e169_vite_build_opt_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e169_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1589",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 169: 前端构建优化 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

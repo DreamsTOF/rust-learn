@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e088_ipc_timeout_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e088_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1508",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 088: 请求超时 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

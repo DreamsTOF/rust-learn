@@ -1,0 +1,8 @@
+[package]
+name = "e372_use_memo_derived"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

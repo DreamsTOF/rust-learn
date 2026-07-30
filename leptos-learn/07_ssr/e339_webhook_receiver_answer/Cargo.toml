@@ -1,0 +1,12 @@
+[package]
+name = "e339_webhook_receiver_answer"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+leptos.workspace = true
+
+hmac.workspace = true
+sha2.workspace = true
+subtle.workspace = true
+hex.workspace = true

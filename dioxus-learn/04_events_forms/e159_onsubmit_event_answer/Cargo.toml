@@ -1,0 +1,8 @@
+[package]
+name = "e159_onsubmit_event_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

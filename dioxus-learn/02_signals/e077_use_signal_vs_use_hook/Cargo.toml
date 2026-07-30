@@ -1,0 +1,8 @@
+[package]
+name = "e077_use_signal_vs_use_hook"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

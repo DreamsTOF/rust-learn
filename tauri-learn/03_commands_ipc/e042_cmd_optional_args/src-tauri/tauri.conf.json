@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e042_cmd_optional_args",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e042",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1462",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 042: 参数默认值与可选参数",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+[package]
+name = "e282_use_context_consumer_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

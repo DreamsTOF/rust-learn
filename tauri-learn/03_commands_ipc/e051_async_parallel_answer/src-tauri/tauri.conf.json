@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e051_async_parallel_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e051_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1471",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 051: 异步任务并行 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

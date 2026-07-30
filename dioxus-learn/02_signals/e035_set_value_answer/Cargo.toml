@@ -1,0 +1,8 @@
+[package]
+name = "e035_set_value_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

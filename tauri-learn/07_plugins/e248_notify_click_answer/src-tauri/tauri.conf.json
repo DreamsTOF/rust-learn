@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e248_notify_click_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e248_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1668",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 248: 通知点击事件 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

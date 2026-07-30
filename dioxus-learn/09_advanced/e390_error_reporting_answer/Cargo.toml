@@ -1,0 +1,8 @@
+[package]
+name = "e390_error_reporting_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

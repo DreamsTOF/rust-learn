@@ -1,0 +1,8 @@
+[package]
+name = "e402_wasm_size_optimization_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

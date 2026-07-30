@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e344_mobile_config_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e344_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1764",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 344: 移动端 Tauri 配置 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

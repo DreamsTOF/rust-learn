@@ -1,0 +1,8 @@
+[package]
+name = "e373_conditional_render_optimization"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

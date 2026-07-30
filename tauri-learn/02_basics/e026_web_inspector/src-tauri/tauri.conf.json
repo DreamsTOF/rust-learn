@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e026_web_inspector",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e026",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1446",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 026: 调试: Web Inspector",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

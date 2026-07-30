@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e129_path_temp_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e129_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1549",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 129: 临时文件与目录 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

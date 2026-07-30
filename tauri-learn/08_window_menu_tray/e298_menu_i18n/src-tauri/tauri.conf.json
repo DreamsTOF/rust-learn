@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e298_menu_i18n",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e298",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1718",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 298: 菜单国际化",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

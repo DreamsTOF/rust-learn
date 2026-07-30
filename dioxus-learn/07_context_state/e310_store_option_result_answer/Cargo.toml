@@ -1,0 +1,8 @@
+[package]
+name = "e310_store_option_result_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

@@ -1,0 +1,8 @@
+[package]
+name = "e19_dynamic_tag_name"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+leptos.workspace = true
+console_error_panic_hook.workspace = true

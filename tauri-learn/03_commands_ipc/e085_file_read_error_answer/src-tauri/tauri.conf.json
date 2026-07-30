@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e085_file_read_error_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e085_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1505",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 085: 综合: 文件读取与错误处理 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

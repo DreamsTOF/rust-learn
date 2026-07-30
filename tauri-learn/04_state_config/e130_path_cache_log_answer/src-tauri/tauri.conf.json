@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e130_path_cache_log_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e130_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1550",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 130: 缓存目录与日志目录 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

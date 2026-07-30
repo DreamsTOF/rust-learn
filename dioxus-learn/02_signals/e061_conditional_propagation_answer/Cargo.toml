@@ -1,0 +1,8 @@
+[package]
+name = "e061_conditional_propagation_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

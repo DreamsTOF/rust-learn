@@ -1,0 +1,8 @@
+[package]
+name = "e312_store_vec"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

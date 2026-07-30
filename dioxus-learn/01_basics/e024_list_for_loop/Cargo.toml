@@ -1,0 +1,8 @@
+[package]
+name = "e024_list_for_loop"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

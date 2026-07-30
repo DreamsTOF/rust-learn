@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e186_solid_init_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e186_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1606",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 186: Solid + Tauri 初始化 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

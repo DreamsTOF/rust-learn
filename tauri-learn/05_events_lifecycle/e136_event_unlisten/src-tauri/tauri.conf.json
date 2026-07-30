@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e136_event_unlisten",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e136",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1556",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 136: 事件取消监听",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+[package]
+name = "e075_effect_debug_logger"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

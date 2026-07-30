@@ -1,0 +1,8 @@
+[package]
+name = "e248_navigator_go_back"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

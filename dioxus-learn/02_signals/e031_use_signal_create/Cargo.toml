@@ -1,0 +1,8 @@
+[package]
+name = "e031_use_signal_create"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

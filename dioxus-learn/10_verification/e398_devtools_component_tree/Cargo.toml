@@ -1,0 +1,8 @@
+[package]
+name = "e398_devtools_component_tree"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

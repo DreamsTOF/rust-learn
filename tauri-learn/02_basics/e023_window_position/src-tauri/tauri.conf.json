@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e023_window_position",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e023",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1443",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 023: 窗口位置与居中",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

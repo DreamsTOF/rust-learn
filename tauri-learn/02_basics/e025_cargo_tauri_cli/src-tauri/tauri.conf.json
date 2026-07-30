@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e025_cargo_tauri_cli",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e025",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1445",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 025: 使用 cargo tauri CLI",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

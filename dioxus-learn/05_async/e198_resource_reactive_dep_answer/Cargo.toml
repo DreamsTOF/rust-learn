@@ -1,0 +1,8 @@
+[package]
+name = "e198_resource_reactive_dep_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e254_http_headers",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e254",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1674",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 254: 请求头与认证",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e351_tray_animate",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e351",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1771",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 351: 托盘动画图标",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

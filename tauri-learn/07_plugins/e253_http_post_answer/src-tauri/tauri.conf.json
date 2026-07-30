@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e253_http_post_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e253_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1673",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 253: POST 请求 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

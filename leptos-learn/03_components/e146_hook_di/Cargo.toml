@@ -1,0 +1,9 @@
+[package]
+name = "e146_hook_di"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+leptos.workspace = true
+
+

@@ -1,0 +1,8 @@
+[package]
+name = "e139_two_way_binding"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

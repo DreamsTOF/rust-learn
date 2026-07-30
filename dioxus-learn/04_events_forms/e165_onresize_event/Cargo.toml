@@ -1,0 +1,8 @@
+[package]
+name = "e165_onresize_event"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

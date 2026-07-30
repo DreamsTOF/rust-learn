@@ -1,0 +1,36 @@
+/* details 标签样式优化 */
+details {
+    margin: 12px 0;
+    padding: 8px 12px;
+    border: 1px solid var(--sidebar-bg);
+    border-radius: 6px;
+    background: var(--quote-bg);
+}
+details summary {
+    cursor: pointer;
+    color: var(--links);
+    font-weight: 600;
+    user-select: none;
+    padding: 4px 0;
+}
+details summary:hover {
+    opacity: 0.8;
+}
+details[open] {
+    padding-bottom: 16px;
+}
+details[open] summary {
+    margin-bottom: 8px;
+    border-bottom: 1px dashed var(--sidebar-bg);
+    padding-bottom: 8px;
+}
+/* 代码块在 details 内部的优化 */
+details pre {
+    margin: 8px 0 0 0;
+}
+/* 练习编号加粗 */
+h3 {
+    margin-top: 28px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--sidebar-bg);
+}

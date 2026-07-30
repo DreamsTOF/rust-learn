@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e162_vite_config",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e162",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1582",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 162: Vite 配置与 Tauri 集成",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

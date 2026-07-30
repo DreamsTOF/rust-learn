@@ -1,0 +1,8 @@
+[package]
+name = "e363_hook_needs_update"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

@@ -1,0 +1,8 @@
+[package]
+name = "e102_signal_async_interop_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

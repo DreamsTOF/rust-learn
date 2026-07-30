@@ -1,0 +1,8 @@
+[package]
+name = "e095_read_signal_prop"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

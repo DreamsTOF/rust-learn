@@ -1,0 +1,1078 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="ayu sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>05 枚举 - Rust 实战练习 — 460 题快速突破</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="从 C++/Java 到 Rust，460 道循序渐进的实战练习题">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/custom-b5e00510.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "ayu";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-f70c63f5.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-86798690.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Rust 实战练习 — 460 题快速突破</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="05-枚举"><a class="header" href="#05-枚举">05 枚举</a></h1>
+<p>枚举（enum）是 Rust 中极为强大的自定义数据类型，与 C++ 的 <code>enum</code> 不同，Rust 枚举的每个变体可以携带不同类型和数量的数据，其表达能力类似于 Java 的 sealed class。本章练习将帮助你掌握 Rust 枚举的定义、数据携带、方法实现以及在实际场景中的灵活运用。</p>
+<h3 id="练习-05-01-定义基本枚举"><a class="header" href="#练习-05-01-定义基本枚举">练习 05-01: 定义基本枚举</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 的 enum，但不带底层整数值</p>
+</blockquote>
+<p>定义一个 <code>Direction</code> 枚举，包含 <code>North</code>、<code>South</code>、<code>East</code>、<code>West</code> 四个变体。然后编写一个函数将方向转换为中文名称。</p>
+<pre class="playground"><code class="language-rust">// TODO: 定义 Direction 枚举，包含 North, South, East, West 四个变体
+
+// TODO: 实现 direction_to_chinese 函数，接收 Direction 返回 &amp;str
+// 例如 North -&gt; "北"
+
+fn main() {
+    let dir = Direction::East;
+    println!("{} 方向是{}", "East", direction_to_chinese(dir));
+    println!("{} 方向是{}", "North", direction_to_chinese(Direction::North));
+    println!("{} 方向是{}", "South", direction_to_chinese(Direction::South));
+    println!("{} 方向是{}", "West", direction_to_chinese(Direction::West));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">enum Direction {
+    North,
+    South,
+    East,
+    West,
+}
+
+fn direction_to_chinese(dir: Direction) -&gt; &amp;'static str {
+    match dir {
+        Direction::North =&gt; "北",
+        Direction::South =&gt; "南",
+        Direction::East =&gt; "东",
+        Direction::West =&gt; "西",
+    }
+}
+
+fn main() {
+    let dir = Direction::East;
+    println!("{} 方向是{}", "East", direction_to_chinese(dir));
+    println!("{} 方向是{}", "North", direction_to_chinese(Direction::North));
+    println!("{} 方向是{}", "South", direction_to_chinese(Direction::South));
+    println!("{} 方向是{}", "West", direction_to_chinese(Direction::West));
+}</code></pre>
+<p><strong>说明：</strong> Rust 枚举使用 <code>enum</code> 关键字定义，变体之间用逗号分隔。与 C++ 不同，Rust 枚举变体默认没有整数值。通常配合 <code>match</code> 表达式进行模式匹配来处理每个变体。</p>
+</details>
+<h3 id="练习-05-02-枚举与-match-表达式"><a class="header" href="#练习-05-02-枚举与-match-表达式">练习 05-02: 枚举与 match 表达式</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 的 switch-case，但 Rust 的 match 必须穷举所有可能性</p>
+</blockquote>
+<p>定义一个 <code>TrafficLight</code> 枚举（Red、Yellow、Green），编写函数返回每种灯光持续的时间（秒）。</p>
+<pre class="playground"><code class="language-rust">// TODO: 定义 TrafficLight 枚举
+
+// TODO: 实现 duration 函数，接收 TrafficLight 返回 u32
+
+fn main() {
+    let red = TrafficLight::Red;
+    let yellow = TrafficLight::Yellow;
+    let green = TrafficLight::Green;
+    
+    println!("红灯: {} 秒", duration(red));
+    println!("黄灯: {} 秒", duration(yellow));
+    println!("绿灯: {} 秒", duration(green));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">enum TrafficLight {
+    Red,
+    Yellow,
+    Green,
+}
+
+fn duration(light: TrafficLight) -&gt; u32 {
+    match light {
+        TrafficLight::Red =&gt; 60,
+        TrafficLight::Yellow =&gt; 5,
+        TrafficLight::Green =&gt; 45,
+    }
+}
+
+fn main() {
+    let red = TrafficLight::Red;
+    let yellow = TrafficLight::Yellow;
+    let green = TrafficLight::Green;
+    
+    println!("红灯: {} 秒", duration(red));
+    println!("黄灯: {} 秒", duration(yellow));
+    println!("绿灯: {} 秒", duration(green));
+}</code></pre>
+<p><strong>说明：</strong> Rust 的 <code>match</code> 必须穷举所有变体（exhaustive），这强制开发者处理所有情况，避免遗漏。如果不想处理所有变体，可以使用 <code>_ =&gt;</code> 作为通配分支。</p>
+</details>
+<h3 id="练习-05-03-枚举携带整数数据"><a class="header" href="#练习-05-03-枚举携带整数数据">练习 05-03: 枚举携带整数数据</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 的 enum class 带值，但每个变体可以有不同的类型</p>
+</blockquote>
+<p>定义一个 <code>HttpStatus</code> 枚举，其中 <code>Ok</code> 携带一个 <code>u16</code> 状态码，<code>NotFound</code> 和 <code>ServerError</code> 各自携带不同的状态码。</p>
+<pre class="playground"><code class="language-rust">// TODO: 定义 HttpStatus 枚举，包含 Ok(u16), NotFound(u16), ServerError(u16)
+
+// TODO: 实现 describe 函数，返回状态码对应的文字描述
+// 200 -&gt; "OK", 404 -&gt; "Not Found", 500 -&gt; "Internal Server Error", 其他 -&gt; "Unknown"
+
+fn main() {
+    let status1 = HttpStatus::Ok(200);
+    let status2 = HttpStatus::NotFound(404);
+    let status3 = HttpStatus::ServerError(500);
+    
+    println!("{}", describe(status1));
+    println!("{}", describe(status2));
+    println!("{}", describe(status3));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">enum HttpStatus {
+    Ok(u16),
+    NotFound(u16),
+    ServerError(u16),
+}
+
+fn describe(status: HttpStatus) -&gt; String {
+    match status {
+        HttpStatus::Ok(code) if code == 200 =&gt; format!("{} OK", code),
+        HttpStatus::NotFound(code) if code == 404 =&gt; format!("{} Not Found", code),
+        HttpStatus::ServerError(code) if code == 500 =&gt; format!("{} Internal Server Error", code),
+        _ =&gt; "Unknown".to_string(),
+    }
+}
+
+fn main() {
+    let status1 = HttpStatus::Ok(200);
+    let status2 = HttpStatus::NotFound(404);
+    let status3 = HttpStatus::ServerError(500);
+    
+    println!("{}", describe(status1));
+    println!("{}", describe(status2));
+    println!("{}", describe(status3));
+}</code></pre>
+<p><strong>说明：</strong> Rust 枚举变体可以携带数据，且每个变体携带的数据类型可以不同。这里所有变体都携带 <code>u16</code>，但也可以携带完全不同类型的数据。<code>match</code> 中使用 <code>if</code> 守卫（guard）可以增加额外条件判断。</p>
+</details>
+<h3 id="练习-05-04-变体携带不同类型的数据"><a class="header" href="#练习-05-04-变体携带不同类型的数据">练习 05-04: 变体携带不同类型的数据</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的 sealed class，每个子类可以有不同字段</p>
+</blockquote>
+<p>定义一个 <code>Measurement</code> 枚举，包含 <code>Distance(f64)</code>、<code>Weight(f64, String)</code>、<code>Temperature { value: f64, unit: char }</code> 三个变体，展示枚举变体可以携带不同形式和数量的数据。</p>
+<pre class="playground"><code class="language-rust">// TODO: 定义 Measurement 枚举
+// Distance(f64): 只包含距离数值
+// Weight(f64, String): 包含重量和单位名称
+// Temperature { value: f64, unit: char }: 包含温度和单位字符（C/F）
+
+// TODO: 实现 format_measurement 函数，返回格式化的测量值字符串
+
+fn main() {
+    let d = Measurement::Distance(150.0);
+    let w = Measurement::Weight(75.5, String::from("kg"));
+    let t = Measurement::Temperature { value: 37.0, unit: 'C' };
+    
+    println!("{}", format_measurement(d));
+    println!("{}", format_measurement(w));
+    println!("{}", format_measurement(t));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">enum Measurement {
+    Distance(f64),
+    Weight(f64, String),
+    Temperature { value: f64, unit: char },
+}
+
+fn format_measurement(m: Measurement) -&gt; String {
+    match m {
+        Measurement::Distance(val) =&gt; format!("距离: {:.1} 米", val),
+        Measurement::Weight(val, unit) =&gt; format!("重量: {:.1} {}", val, unit),
+        Measurement::Temperature { value, unit } =&gt; format!("温度: {:.1}°{}", value, unit),
+    }
+}
+
+fn main() {
+    let d = Measurement::Distance(150.0);
+    let w = Measurement::Weight(75.5, String::from("kg"));
+    let t = Measurement::Temperature { value: 37.0, unit: 'C' };
+    
+    println!("{}", format_measurement(d));
+    println!("{}", format_measurement(w));
+    println!("{}", format_measurement(t));
+}</code></pre>
+<p><strong>说明：</strong> Rust 枚举变体可以携带数据的形式有三种：元组形式（匿名数据）、结构体形式（命名字段）和单元形式（无数据）。这使得枚举可以像 tagged union 一样灵活且安全地表达“不同类型“的变体。</p>
+</details>
+<h3 id="练习-05-05-message-枚举多种数据类型"><a class="header" href="#练习-05-05-message-枚举多种数据类型">练习 05-05: Message 枚举（多种数据类型）</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+类似 Java 的 sealed class，每个子类可以有完全不同的字段和逻辑</p>
+</blockquote>
+<p>定义一个 <code>Message</code> 枚举，包含以下变体：</p>
+<ul>
+<li><code>Quit</code>：无数据</li>
+<li><code>Move { x: i32, y: i32 }</code>：结构体形式</li>
+<li><code>Write(String)</code>：字符串消息</li>
+<li><code>ChangeColor(i32, i32, i32)</code>：RGB 颜色值</li>
+</ul>
+<p>然后实现一个 <code>process</code> 函数，接收 <code>Message</code> 并根据不同类型执行不同逻辑。</p>
+<pre class="playground"><code class="language-rust">// TODO: 定义 Message 枚举（Quit / Move / Write / ChangeColor）
+
+// TODO: 实现 process 函数
+// Quit -&gt; 打印 "程序退出"
+// Move -&gt; 打印 "移动到 ({x}, {y})"
+// Write -&gt; 打印消息内容
+// ChangeColor -&gt; 打印 "颜色改为 RGB({r}, {g}, {b})"
+
+fn main() {
+    let msgs = vec![
+        Message::Write(String::from("Hello, Rust!")),
+        Message::Move { x: 10, y: 20 },
+        Message::ChangeColor(255, 0, 128),
+        Message::Quit,
+    ];
+    
+    for msg in msgs {
+        process(msg);
+    }
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(i32, i32, i32),
+}
+
+fn process(msg: Message) {
+    match msg {
+        Message::Quit =&gt; println!("程序退出"),
+        Message::Move { x, y } =&gt; println!("移动到 ({}, {})", x, y),
+        Message::Write(text) =&gt; println!("消息: {}", text),
+        Message::ChangeColor(r, g, b) =&gt; println!("颜色改为 RGB({}, {}, {})", r, g, b),
+    }
+}
+
+fn main() {
+    let msgs = vec![
+        Message::Write(String::from("Hello, Rust!")),
+        Message::Move { x: 10, y: 20 },
+        Message::ChangeColor(255, 0, 128),
+        Message::Quit,
+    ];
+    
+    for msg in msgs {
+        process(msg);
+    }
+}</code></pre>
+<p><strong>说明：</strong> <code>Message</code> 枚举是 Rust 官方文档中的经典示例，展示了枚举变体可以同时包含单元形式、结构体形式和元组形式。这种设计让一个类型能够表示多种不同形态的消息，且无需使用继承体系。模式匹配时每种形式都有对应的解构语法。</p>
+</details>
+<h3 id="练习-05-06-为枚举实现方法"><a class="header" href="#练习-05-06-为枚举实现方法">练习 05-06: 为枚举实现方法</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 Java 中类的方法，Rust 枚举的方法定义在 impl 块中</p>
+</blockquote>
+<p>为 <code>TrafficLight</code> 枚举实现一个 <code>duration</code> 方法，返回每种灯光的持续秒数。</p>
+<pre class="playground"><code class="language-rust">enum TrafficLight {
+    Red,
+    Yellow,
+    Green,
+}
+
+// TODO: 为 TrafficLight 实现 duration 方法
+
+fn main() {
+    let light = TrafficLight::Red;
+    println!("红灯持续 {} 秒", light.duration());
+    
+    let light = TrafficLight::Green;
+    println!("绿灯持续 {} 秒", light.duration());
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">enum TrafficLight {
+    Red,
+    Yellow,
+    Green,
+}
+
+impl TrafficLight {
+    fn duration(&amp;self) -&gt; u32 {
+        match self {
+            TrafficLight::Red =&gt; 60,
+            TrafficLight::Yellow =&gt; 5,
+            TrafficLight::Green =&gt; 45,
+        }
+    }
+}
+
+fn main() {
+    let light = TrafficLight::Red;
+    println!("红灯持续 {} 秒", light.duration());
+    
+    let light = TrafficLight::Green;
+    println!("绿灯持续 {} 秒", light.duration());
+}</code></pre>
+<p><strong>说明：</strong> 枚举的方法定义在 <code>impl</code> 块中，与结构体完全相同。第一个参数 <code>&amp;self</code> 表示枚举实例的引用。<code>match self</code> 可以匹配当前变体并返回对应的值。</p>
+</details>
+<h3 id="练习-05-07-为携带数据的枚举实现方法"><a class="header" href="#练习-05-07-为携带数据的枚举实现方法">练习 05-07: 为携带数据的枚举实现方法</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 Java 中不同子类有不同的行为</p>
+</blockquote>
+<p>为 <code>Shape</code> 枚举实现一个 <code>area</code> 方法，计算不同形状的面积。<code>Shape</code> 枚举包含 <code>Circle(f64)</code>（半径）和 <code>Rectangle(f64, f64)</code>（宽，高）。</p>
+<pre class="playground"><code class="language-rust">// TODO: 定义 Shape 枚举（Circle 携带半径，Rectangle 携带宽和高）
+
+// TODO: 为 Shape 实现 area 方法，返回 f64
+
+fn main() {
+    let circle = Shape::Circle(5.0);
+    let rect = Shape::Rectangle(4.0, 6.0);
+    
+    println!("圆面积: {:.2}", circle.area());
+    println!("矩形面积: {:.2}", rect.area());
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">enum Shape {
+    Circle(f64),
+    Rectangle(f64, f64),
+}
+
+impl Shape {
+    fn area(&amp;self) -&gt; f64 {
+        match self {
+            Shape::Circle(radius) =&gt; std::f64::consts::PI * radius * radius,
+            Shape::Rectangle(width, height) =&gt; width * height,
+        }
+    }
+}
+
+fn main() {
+    let circle = Shape::Circle(5.0);
+    let rect = Shape::Rectangle(4.0, 6.0);
+    
+    println!("圆面积: {:.2}", circle.area());
+    println!("矩形面积: {:.2}", rect.area());
+}</code></pre>
+<p><strong>说明：</strong> 枚举方法中的 <code>match</code> 可以解构变体携带的数据。每个变体可以有不同的计算方法，这在面向对象语言中通常需要多态来实现，而 Rust 用枚举 + <code>match</code> 就能简洁表达。</p>
+</details>
+<h3 id="练习-05-08-option-的基本使用"><a class="header" href="#练习-05-08-option-的基本使用">练习 05-08: Option 的基本使用</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 Java 的 Optional，但 Rust 的 Option 是枚举而非包装类</p>
+</blockquote>
+<p>Rust 的 <code>Option&lt;T&gt;</code> 枚举定义在标准库中：</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>enum Option&lt;T&gt; {
+    None,
+    Some(T),
+}
+<span class="boring">}</span></code></pre>
+<p>补全代码，找出 <code>Vec&lt;Option&lt;i32&gt;&gt;</code> 中所有 <code>Some</code> 的值并求和。</p>
+<pre class="playground"><code class="language-rust">// TODO: 补全代码，将 vec 中所有 Some 的值求和
+fn sum_some(values: Vec&lt;Option&lt;i32&gt;&gt;) -&gt; i32 {
+    // 使用 match 或 if let 处理每个元素
+    let mut total = 0;
+    for val in values {
+        // TODO: 如果是 Some(v)，将 v 加到 total
+    }
+    total
+}
+
+fn main() {
+    let numbers = vec![Some(10), None, Some(20), Some(30), None, Some(40)];
+    println!("求和结果: {}", sum_some(numbers)); // 应该输出 100
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn sum_some(values: Vec&lt;Option&lt;i32&gt;&gt;) -&gt; i32 {
+    let mut total = 0;
+    for val in values {
+        if let Some(v) = val {
+            total += v;
+        }
+    }
+    total
+}
+
+fn main() {
+    let numbers = vec![Some(10), None, Some(20), Some(30), None, Some(40)];
+    println!("求和结果: {}", sum_some(numbers));
+}</code></pre>
+<p><strong>说明：</strong> <code>if let Some(v) = val</code> 是一种简洁的模式匹配语法，只关心 <code>Some</code> 的情况而忽略 <code>None</code>。这是处理 <code>Option</code> 最常用的方式之一。也可以使用 <code>match</code> 或 <code>unwrap_or</code> 等方式处理。</p>
+</details>
+<h3 id="练习-05-09-option-链式操作"><a class="header" href="#练习-05-09-option-链式操作">练习 05-09: Option 链式操作</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java Optional 的链式调用，Rust 的 Option 提供了 map、and_then 等组合方法</p>
+</blockquote>
+<p>给定一个可能包含整数的字符串向量，尝试解析每个字符串为 <code>i32</code>，然后筛选出正数并求和。</p>
+<pre class="playground"><code class="language-rust">// TODO: 补全代码，处理字符串向量中的 Option
+fn sum_positive_parsed(values: Vec&lt;&amp;str&gt;) -&gt; i32 {
+    // 提示：使用 str::parse::&lt;i32&gt;() 返回 Result，用 .ok() 转为 Option
+    // 然后用 .filter() 和 .map() 等迭代器方法
+    // TODO: 实现逻辑
+    0 // 占位
+}
+
+fn main() {
+    let inputs = vec!["10", "-5", "abc", "20", "0", "30", "def"];
+    println!("正数之和: {}", sum_positive_parsed(inputs)); // 应该输出 60（10 + 20 + 30）
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn sum_positive_parsed(values: Vec&lt;&amp;str&gt;) -&gt; i32 {
+    values
+        .into_iter()
+        .filter_map(|s| s.parse::&lt;i32&gt;().ok())
+        .filter(|&amp;n| n &gt; 0)
+        .sum()
+}
+
+fn main() {
+    let inputs = vec!["10", "-5", "abc", "20", "0", "30", "def"];
+    println!("正数之和: {}", sum_positive_parsed(inputs));
+}</code></pre>
+<p><strong>说明：</strong> <code>filter_map</code> 结合了 <code>filter</code> 和 <code>map</code> 的功能——如果闭包返回 <code>Some(v)</code> 则保留该值，返回 <code>None</code> 则丢弃。<code>parse::&lt;i32&gt;().ok()</code> 将 <code>Result</code> 转为 <code>Option</code>，解析失败则为 <code>None</code>。这种链式组合是 Rust 处理 <code>Option</code> 的惯用方式。</p>
+</details>
+<h3 id="练习-05-10-option-综合运用"><a class="header" href="#练习-05-10-option-综合运用">练习 05-10: Option 综合运用</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+类似 Java 中复杂的 Optional 操作，Rust 要求类型严格匹配</p>
+</blockquote>
+<p>实现一个函数 <code>safe_divide</code>，对两个 <code>Option&lt;f64&gt;</code> 进行除法运算，要求同时处理被除数为 <code>None</code>、除数为 <code>None</code>、除数为零以及正常情况。</p>
+<pre class="playground"><code class="language-rust">// TODO: 实现 safe_divide 函数
+// 如果 dividend 或 divisor 为 None，返回 None
+// 如果 divisor 为 0.0，返回 None
+// 否则返回 Some(dividend / divisor)
+fn safe_divide(dividend: Option&lt;f64&gt;, divisor: Option&lt;f64&gt;) -&gt; Option&lt;f64&gt; {
+    // TODO
+}
+
+fn main() {
+    println!("{:?}", safe_divide(Some(10.0), Some(2.0)));   // Some(5.0)
+    println!("{:?}", safe_divide(Some(10.0), None));        // None
+    println!("{:?}", safe_divide(None, Some(2.0)));          // None
+    println!("{:?}", safe_divide(Some(10.0), Some(0.0)));   // None
+    println!("{:?}", safe_divide(None, None));               // None
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn safe_divide(dividend: Option&lt;f64&gt;, divisor: Option&lt;f64&gt;) -&gt; Option&lt;f64&gt; {
+    match (dividend, divisor) {
+        (Some(d), Some(r)) if r != 0.0 =&gt; Some(d / r),
+        _ =&gt; None,
+    }
+}
+
+fn main() {
+    println!("{:?}", safe_divide(Some(10.0), Some(2.0)));   // Some(5.0)
+    println!("{:?}", safe_divide(Some(10.0), None));        // None
+    println!("{:?}", safe_divide(None, Some(2.0)));          // None
+    println!("{:?}", safe_divide(Some(10.0), Some(0.0)));   // None
+    println!("{:?}", safe_divide(None, None));               // None
+}</code></pre>
+<p><strong>说明：</strong> 元组模式匹配 <code>match (a, b) { ... }</code> 可以同时匹配两个 <code>Option</code> 的值，结合 <code>if</code> 守卫处理除零情况。这种写法比嵌套 <code>match</code> 或 <code>and_then</code> 更清晰。<code>_ =&gt; None</code> 处理了其余所有无效情况。</p>
+</details>
+<h3 id="练习-05-11-枚举作为状态机开关状态"><a class="header" href="#练习-05-11-枚举作为状态机开关状态">练习 05-11: 枚举作为状态机（开关状态）</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 中使用枚举表示状态，Rust 枚举天然适合做状态机建模</p>
+</blockquote>
+<p>定义一个 <code>DoorState</code> 枚举（Open、Closed、Locked），实现一个 <code>transition</code> 函数，根据当前状态和操作返回下一个状态。操作包括：<code>open</code>、<code>close</code>、<code>lock</code>、<code>unlock</code>。</p>
+<pre class="playground"><code class="language-rust">// TODO: 定义 DoorState 枚举
+
+// TODO: 定义 Action 枚举（Open, Close, Lock, Unlock）
+
+// TODO: 实现 transition 函数
+// 规则：
+// Open + Close  -&gt; Closed
+// Closed + Open  -&gt; Open
+// Closed + Lock  -&gt; Locked
+// Locked + Unlock -&gt; Closed
+// 其他组合都保持当前状态不变
+
+fn main() {
+    let state = DoorState::Open;
+    let state = transition(state, Action::Close);
+    println!("当前状态: {:?}", state); // Closed
+    
+    let state = transition(state, Action::Lock);
+    println!("当前状态: {:?}", state); // Locked
+    
+    let state = transition(state, Action::Unlock);
+    println!("当前状态: {:?}", state); // Closed
+    
+    // 无效操作（Locked 时尝试 Open）
+    let state = transition(DoorState::Locked, Action::Open);
+    println!("当前状态: {:?}", state); // Locked（不变）
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">#[derive(Debug)]
+enum DoorState {
+    Open,
+    Closed,
+    Locked,
+}
+
+enum Action {
+    Open,
+    Close,
+    Lock,
+    Unlock,
+}
+
+fn transition(state: DoorState, action: Action) -&gt; DoorState {
+    match (state, action) {
+        (DoorState::Open, Action::Close) =&gt; DoorState::Closed,
+        (DoorState::Closed, Action::Open) =&gt; DoorState::Open,
+        (DoorState::Closed, Action::Lock) =&gt; DoorState::Locked,
+        (DoorState::Locked, Action::Unlock) =&gt; DoorState::Closed,
+        (s, _) =&gt; s, // 其他组合不变
+    }
+}
+
+fn main() {
+    let state = DoorState::Open;
+    let state = transition(state, Action::Close);
+    println!("当前状态: {:?}", state);
+    
+    let state = transition(state, Action::Lock);
+    println!("当前状态: {:?}", state);
+    
+    let state = transition(state, Action::Unlock);
+    println!("当前状态: {:?}", state);
+    
+    let state = transition(DoorState::Locked, Action::Open);
+    println!("当前状态: {:?}", state);
+}</code></pre>
+<p><strong>说明：</strong> 枚举非常适合建模有限状态机。使用 <code>match (state, action)</code> 的元组模式匹配可以清晰地列出所有状态转换规则，编译器会确保我们处理了所有组合。<code>(s, _) =&gt; s</code> 作为兜底分支，表示其他组合保持当前状态不变。</p>
+</details>
+<h3 id="练习-05-12-订单状态机"><a class="header" href="#练习-05-12-订单状态机">练习 05-12: 订单状态机</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 的 enum 表示状态，但 Rust 更安全</p>
+</blockquote>
+<p>定义一个 <code>OrderStatus</code> 枚举（Pending、Shipped、Delivered、Cancelled），模拟订单的状态流转。</p>
+<pre class="playground"><code class="language-rust">// TODO: 定义 OrderStatus 枚举
+
+// TODO: 实现 can_cancel 方法，判断订单是否可以取消
+// Pending -&gt; 可以取消
+// Shipped -&gt; 不可以取消
+// Delivered -&gt; 不可以取消
+// Cancelled -&gt; 已经取消
+
+fn main() {
+    let order = OrderStatus::Pending;
+    println!("待支付订单能否取消: {}", order.can_cancel());
+    
+    let order = OrderStatus::Shipped;
+    println!("已发货订单能否取消: {}", order.can_cancel());
+    
+    let order = OrderStatus::Cancelled;
+    println!("已取消订单能否取消: {}", order.can_cancel());
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">enum OrderStatus {
+    Pending,
+    Shipped,
+    Delivered,
+    Cancelled,
+}
+
+impl OrderStatus {
+    fn can_cancel(&amp;self) -&gt; bool {
+        match self {
+            OrderStatus::Pending =&gt; true,
+            OrderStatus::Cancelled =&gt; {
+                println!("订单已取消，无需重复操作");
+                false
+            }
+            _ =&gt; false,
+        }
+    }
+}
+
+fn main() {
+    let order = OrderStatus::Pending;
+    println!("待支付订单能否取消: {}", order.can_cancel());
+    
+    let order = OrderStatus::Shipped;
+    println!("已发货订单能否取消: {}", order.can_cancel());
+    
+    let order = OrderStatus::Cancelled;
+    println!("已取消订单能否取消: {}", order.can_cancel());
+}</code></pre>
+<p><strong>说明：</strong> 将状态相关的行为封装在枚举的方法中，是 Rust 的常见模式。<code>can_cancel</code> 根据当前状态返回 <code>bool</code>，调用者根据返回值决定是否执行取消操作。<code>match</code> 确保所有状态都被考虑。</p>
+</details>
+<h3 id="练习-05-13-嵌套枚举枚举中包含枚举"><a class="header" href="#练习-05-13-嵌套枚举枚举中包含枚举">练习 05-13: 嵌套枚举——枚举中包含枚举</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的嵌套 sealed class，Rust 枚举可以直接包含另一个枚举作为变体的数据类型</p>
+</blockquote>
+<p>定义 <code>Employee</code> 枚举，其变体 <code>Developer</code> 和 <code>Manager</code> 各自包含一个 <code>Role</code> 子枚举。</p>
+<pre class="playground"><code class="language-rust">// TODO: 定义 Role 枚举（Junior, Mid, Senior）
+// TODO: 定义 Employee 枚举
+//   Developer(Role) - 携带角色
+//   Manager { team_size: u32 } - 携带团队人数
+
+// TODO: 为 Employee 实现 describe 方法
+// Developer + Junior -&gt; "初级开发"
+// Developer + Mid -&gt; "中级开发"
+// Developer + Senior -&gt; "高级开发"
+// Manager -&gt; 返回 "管理者，团队 {n} 人"
+
+fn main() {
+    let dev = Employee::Developer(Role::Senior);
+    let mgr = Employee::Manager { team_size: 8 };
+    
+    println!("{}", dev.describe());
+    println!("{}", mgr.describe());
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">enum Role {
+    Junior,
+    Mid,
+    Senior,
+}
+
+enum Employee {
+    Developer(Role),
+    Manager { team_size: u32 },
+}
+
+impl Employee {
+    fn describe(&amp;self) -&gt; String {
+        match self {
+            Employee::Developer(role) =&gt; match role {
+                Role::Junior =&gt; "初级开发".to_string(),
+                Role::Mid =&gt; "中级开发".to_string(),
+                Role::Senior =&gt; "高级开发".to_string(),
+            },
+            Employee::Manager { team_size } =&gt; format!("管理者，团队 {} 人", team_size),
+        }
+    }
+}
+
+fn main() {
+    let dev = Employee::Developer(Role::Senior);
+    let mgr = Employee::Manager { team_size: 8 };
+    
+    println!("{}", dev.describe());
+    println!("{}", mgr.describe());
+}</code></pre>
+<p><strong>说明：</strong> 嵌套枚举（一个枚举变体包含另一个枚举）在 Rust 中非常自然。模式匹配时可以使用嵌套 <code>match</code> 逐层解构。这是表达分层数据结构的清晰方式，比类继承体系更简洁。</p>
+</details>
+<h3 id="练习-05-14-嵌套枚举通信协议"><a class="header" href="#练习-05-14-嵌套枚举通信协议">练习 05-14: 嵌套枚举——通信协议</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的嵌套 sealed class 表达协议层次</p>
+</blockquote>
+<p>定义一个通信协议枚举 <code>Packet</code>，包含 <code>Data</code> 和 <code>Control</code> 两种类型的数据包，其中 <code>Data</code> 和 <code>Control</code> 自身也是枚举。</p>
+<pre class="playground"><code class="language-rust">// TODO: 定义 DataType 枚举（Text(String), Binary(Vec&lt;u8&gt;)）
+// TODO: 定义 ControlType 枚举（Ack, Nack, Ping, Pong）
+// TODO: 定义 Packet 枚举（Data(DataType), Control(ControlType)）
+
+// TODO: 为 Packet 实现 summary 方法，返回数据包的简短描述
+
+fn main() {
+    let p1 = Packet::Data(DataType::Text(String::from("Hello")));
+    let p2 = Packet::Control(ControlType::Ack);
+    let p3 = Packet::Data(DataType::Binary(vec![0, 1, 2, 255]));
+    let p4 = Packet::Control(ControlType::Ping);
+    
+    println!("{}", p1.summary());
+    println!("{}", p2.summary());
+    println!("{}", p3.summary());
+    println!("{}", p4.summary());
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">enum DataType {
+    Text(String),
+    Binary(Vec&lt;u8&gt;),
+}
+
+enum ControlType {
+    Ack,
+    Nack,
+    Ping,
+    Pong,
+}
+
+enum Packet {
+    Data(DataType),
+    Control(ControlType),
+}
+
+impl Packet {
+    fn summary(&amp;self) -&gt; String {
+        match self {
+            Packet::Data(dt) =&gt; match dt {
+                DataType::Text(text) =&gt; format!("数据包: 文本 \"{}\"", text),
+                DataType::Binary(bytes) =&gt; format!("数据包: 二进制 ({} 字节)", bytes.len()),
+            },
+            Packet::Control(ct) =&gt; match ct {
+                ControlType::Ack =&gt; "控制包: 确认 (ACK)".to_string(),
+                ControlType::Nack =&gt; "控制包: 否定确认 (NACK)".to_string(),
+                ControlType::Ping =&gt; "控制包: Ping".to_string(),
+                ControlType::Pong =&gt; "控制包: Pong".to_string(),
+            },
+        }
+    }
+}
+
+fn main() {
+    let p1 = Packet::Data(DataType::Text(String::from("Hello")));
+    let p2 = Packet::Control(ControlType::Ack);
+    let p3 = Packet::Data(DataType::Binary(vec![0, 1, 2, 255]));
+    let p4 = Packet::Control(ControlType::Ping);
+    
+    println!("{}", p1.summary());
+    println!("{}", p2.summary());
+    println!("{}", p3.summary());
+    println!("{}", p4.summary());
+}</code></pre>
+<p><strong>说明：</strong> 嵌套枚举非常适合建模层次化的协议或消息格式。每一层枚举只关心自己的变体，通过 <code>match</code> 嵌套可以逐层处理。这种设计比类继承体系更安全——编译器确保所有可能的组合都被处理。</p>
+</details>
+<h3 id="练习-05-15-支付系统综合练习"><a class="header" href="#练习-05-15-支付系统综合练习">练习 05-15: 支付系统综合练习</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+类似 Java 中用 sealed class 建模支付方式，Rust 枚举是建模“互斥但不同数据“的自然选择</p>
+</blockquote>
+<p>用枚举建模一个简单的支付系统：</p>
+<ol>
+<li>定义 <code>Payment</code> 枚举，包含三种支付方式：
+<ul>
+<li><code>Cash</code>：无额外数据</li>
+<li><code>CreditCard { card_number: String, holder: String, cvv: String }</code>：信用卡信息</li>
+<li><code>WeChat { open_id: String, nickname: String }</code>：微信支付信息</li>
+</ul>
+</li>
+<li>为 <code>Payment</code> 实现 <code>description</code> 方法，返回支付方式描述</li>
+<li>实现一个函数 <code>process_payment(amount: f64, payment: Payment) -&gt; bool</code>，模拟支付处理</li>
+</ol>
+<pre class="playground"><code class="language-rust">// TODO: 定义 Payment 枚举
+
+// TODO: 实现 description 方法
+// Cash -&gt; "现金支付"
+// CreditCard -&gt; "信用卡支付（持卡人: XXX，卡号: ****XXXX）"（只显示后四位）
+// WeChat -&gt; "微信支付（用户: XXX）"
+
+// TODO: 实现 process_payment 函数
+// 如果金额 &gt; 0 则打印处理信息并返回 true，否则返回 false
+
+fn main() {
+    let cash = Payment::Cash;
+    let card = Payment::CreditCard {
+        card_number: String::from("6222021234567890"),
+        holder: String::from("张三"),
+        cvv: String::from("123"),
+    };
+    let wechat = Payment::WeChat {
+        open_id: String::from("oxU9T5n8abc123"),
+        nickname: String::from("路人甲"),
+    };
+
+    println!("{}", cash.description());
+    println!("{}", card.description());
+    println!("{}", wechat.description());
+
+    println!("\n--- 处理支付 ---");
+    println!("处理结果: {}", process_payment(299.0, cash));
+    println!("处理结果: {}", process_payment(-50.0, card)); // 无效金额
+    println!("处理结果: {}", process_payment(888.0, wechat));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">enum Payment {
+    Cash,
+    CreditCard {
+        card_number: String,
+        holder: String,
+        cvv: String,
+    },
+    WeChat {
+        open_id: String,
+        nickname: String,
+    },
+}
+
+impl Payment {
+    fn description(&amp;self) -&gt; String {
+        match self {
+            Payment::Cash =&gt; "现金支付".to_string(),
+            Payment::CreditCard { card_number, holder, .. } =&gt; {
+                let last_four = if card_number.len() &gt;= 4 {
+                    &amp;card_number[card_number.len() - 4..]
+                } else {
+                    card_number.as_str()
+                };
+                format!("信用卡支付（持卡人: {}，卡号: ****{}）", holder, last_four)
+            }
+            Payment::WeChat { nickname, .. } =&gt; {
+                format!("微信支付（用户: {}）", nickname)
+            }
+        }
+    }
+}
+
+fn process_payment(amount: f64, payment: Payment) -&gt; bool {
+    if amount &lt;= 0.0 {
+        println!("❌ 金额无效: {}", amount);
+        return false;
+    }
+    
+    println!("✅ 成功处理 {:.2} 元 - {}", amount, payment.description());
+    true
+}
+
+fn main() {
+    let cash = Payment::Cash;
+    let card = Payment::CreditCard {
+        card_number: String::from("6222021234567890"),
+        holder: String::from("张三"),
+        cvv: String::from("123"),
+    };
+    let wechat = Payment::WeChat {
+        open_id: String::from("oxU9T5n8abc123"),
+        nickname: String::from("路人甲"),
+    };
+
+    println!("{}", cash.description());
+    println!("{}", card.description());
+    println!("{}", wechat.description());
+
+    println!("\n--- 处理支付 ---");
+    println!("处理结果: {}", process_payment(299.0, cash));
+    println!("处理结果: {}", process_payment(-50.0, card));
+    println!("处理结果: {}", process_payment(888.0, wechat));
+}</code></pre>
+<p><strong>说明：</strong> 这是一个综合练习，展示了 Rust 枚举在实际业务场景中的强大建模能力。<code>Payment</code> 枚举用三个变体表达了三种完全不同的支付方式，每种携带不同的数据。<code>description</code> 方法利用模式匹配解构不同变体中的数据。<code>process_payment</code> 展示了接收枚举作为参数的函数设计。这种用枚举建模“互斥但不同“实体的方式，比类继承体系更安全、更简洁，且编译器能保证所有情况都被覆盖。</p>
+</details>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="04_structs.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="06_pattern_matching.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="04_structs.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="06_pattern_matching.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-c22b7243.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

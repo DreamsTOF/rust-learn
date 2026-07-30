@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e338_publish_size_optimize_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e338_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1758",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 338: 应用大小优化 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

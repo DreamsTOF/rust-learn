@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e002_check_node_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e002_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1422",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 002: Node.js 环境检查 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

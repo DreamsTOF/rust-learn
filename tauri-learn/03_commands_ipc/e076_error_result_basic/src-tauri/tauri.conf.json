@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e076_error_result_basic",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e076",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1496",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 076: Result 基础",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

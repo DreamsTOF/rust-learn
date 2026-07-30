@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>e224 参考答案</title>
+    <style>
+        .route-container {
+            transition: opacity 0.35s ease-in-out, transform 0.35s ease-in-out;
+        }
+        .route-container.exiting {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        .route-container.entering {
+            animation: fadeSlideIn 0.35s ease-out;
+        }
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body></body>
+</html>

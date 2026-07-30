@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e011_hello_world",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e011",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1431",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 011: Hello World",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

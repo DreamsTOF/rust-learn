@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e259_http_timeout_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e259_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1679",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 259: HTTP 请求超时 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

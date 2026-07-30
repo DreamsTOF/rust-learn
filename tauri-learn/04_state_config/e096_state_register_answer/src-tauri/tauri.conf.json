@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e096_state_register_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e096_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1516",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 096: 注册 Managed State (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

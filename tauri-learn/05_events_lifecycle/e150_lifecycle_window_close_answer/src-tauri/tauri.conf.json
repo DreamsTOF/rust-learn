@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e150_lifecycle_window_close_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e150_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1570",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 150: 窗口关闭控制 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

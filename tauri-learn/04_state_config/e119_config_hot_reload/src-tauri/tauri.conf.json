@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e119_config_hot_reload",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e119",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1539",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 119: 配置热重载",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

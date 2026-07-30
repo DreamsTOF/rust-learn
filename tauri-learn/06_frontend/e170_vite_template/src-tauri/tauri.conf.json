@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e170_vite_template",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e170",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1590",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 170: 综合: Vite + TS 模板项目",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

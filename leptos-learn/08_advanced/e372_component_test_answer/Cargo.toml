@@ -1,0 +1,11 @@
+[package]
+name = "e372_component_test_answer"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+wasm-bindgen.workspace = true
+leptos.workspace = true
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3"

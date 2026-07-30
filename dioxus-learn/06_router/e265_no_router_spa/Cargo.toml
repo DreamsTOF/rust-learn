@@ -1,0 +1,8 @@
+[package]
+name = "e265_no_router_spa"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

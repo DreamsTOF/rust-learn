@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e261_plugin_os",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e261",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1681",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 261: OS 信息",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

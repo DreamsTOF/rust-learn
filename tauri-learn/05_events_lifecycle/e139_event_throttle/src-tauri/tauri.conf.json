@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e139_event_throttle",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e139",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1559",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 139: 事件频率控制",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

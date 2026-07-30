@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e206_fs_copy_move",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e206",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1626",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 206: 文件复制/移动/删除",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

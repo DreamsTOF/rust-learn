@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e243_store_persist",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e243",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1663",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 243: 持久化存储",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+[package]
+name = "e055_derived_with_function_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

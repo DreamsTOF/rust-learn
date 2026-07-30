@@ -1,0 +1,8 @@
+[package]
+name = "e337_server_fn_websocket_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

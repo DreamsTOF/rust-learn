@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e052_async_app_handle",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e052",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1472",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 052: 异步中访问 AppHandle",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

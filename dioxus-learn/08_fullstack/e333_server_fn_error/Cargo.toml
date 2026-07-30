@@ -1,0 +1,8 @@
+[package]
+name = "e333_server_fn_error"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

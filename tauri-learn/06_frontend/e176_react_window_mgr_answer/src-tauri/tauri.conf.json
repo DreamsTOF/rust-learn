@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e176_react_window_mgr_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e176_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1596",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 176: React 窗口管理 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

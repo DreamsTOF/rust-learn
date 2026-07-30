@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e087_ipc_retry_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e087_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1507",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 087: 命令重试机制 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

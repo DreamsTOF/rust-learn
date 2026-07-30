@@ -1,0 +1,8 @@
+[package]
+name = "e347_static_site_generation"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

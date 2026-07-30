@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e083_error_propagation",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e083",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1503",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 083: 错误在命令链中传播",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

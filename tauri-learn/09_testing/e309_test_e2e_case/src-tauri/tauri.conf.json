@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e309_test_e2e_case",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e309",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1729",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 309: E2E 测试用例编写",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

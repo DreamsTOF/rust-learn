@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e300_full_menu_system",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e300",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1720",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 300: 综合: 完整菜单系统",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

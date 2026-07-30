@@ -1,0 +1,14 @@
+[book]
+title = "Rust 实战练习 — 460 题快速突破"
+authors = ["Rust Learner"]
+language = "zh"
+description = "从 C++/Java 到 Rust，460 道循序渐进的实战练习题"
+
+[build]
+build-dir = "book"
+
+[output.html]
+default-theme = "ayu"
+preferred-dark-theme = "navy"
+mathjax-support = false
+additional-css = ["theme/custom.css"]

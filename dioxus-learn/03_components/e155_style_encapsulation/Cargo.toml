@@ -1,0 +1,8 @@
+[package]
+name = "e155_style_encapsulation"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

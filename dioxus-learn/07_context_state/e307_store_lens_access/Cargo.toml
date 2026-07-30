@@ -1,0 +1,8 @@
+[package]
+name = "e307_store_lens_access"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

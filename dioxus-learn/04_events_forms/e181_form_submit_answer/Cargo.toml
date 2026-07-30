@@ -1,0 +1,8 @@
+[package]
+name = "e181_form_submit_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

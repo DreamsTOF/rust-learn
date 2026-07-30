@@ -1,0 +1,8 @@
+[package]
+name = "e174_radio_input"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

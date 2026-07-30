@@ -1,0 +1,8 @@
+[package]
+name = "e261_route_transition_animation"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

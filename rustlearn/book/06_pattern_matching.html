@@ -1,0 +1,1426 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="ayu sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>06 模式匹配 - Rust 实战练习 — 460 题快速突破</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="从 C++/Java 到 Rust，460 道循序渐进的实战练习题">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/custom-b5e00510.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "ayu";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-f70c63f5.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-86798690.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Rust 实战练习 — 460 题快速突破</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="06-模式匹配"><a class="header" href="#06-模式匹配">06 模式匹配</a></h1>
+<p>模式匹配（Pattern Matching）是 Rust 最强大的特性之一。与 C++ 的 <code>switch</code> 或 Java 的 <code>switch</code> 不同，Rust 的 <code>match</code> 表达式支持解构、守卫、绑定、穷尽性检查等丰富功能。本章练习涵盖 <code>match</code>、<code>if let</code>、<code>while let</code>、解构、守卫、<code>@</code> 绑定等模式匹配相关的核心概念。</p>
+<h3 id="练习-06-01-match-基础"><a class="header" href="#练习-06-01-match-基础">练习 06-01: match 基础</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 的 switch，但 match 必须穷尽所有可能</p>
+</blockquote>
+<p>补全代码，使用 <code>match</code> 将数字 1-3 转换为对应的中文数字。</p>
+<pre class="playground"><code class="language-rust">fn number_to_chinese(n: u32) -&gt; &amp;'static str {
+    // TODO: 使用 match 匹配 n
+    // 1 -&gt; "一", 2 -&gt; "二", 3 -&gt; "三"
+    // 其他数字 -&gt; "未知"
+    match n {
+        // TODO: 补全分支
+    }
+}
+
+fn main() {
+    println!("{}", number_to_chinese(1));
+    println!("{}", number_to_chinese(3));
+    println!("{}", number_to_chinese(5));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn number_to_chinese(n: u32) -&gt; &amp;'static str {
+    match n {
+        1 =&gt; "一",
+        2 =&gt; "二",
+        3 =&gt; "三",
+        _ =&gt; "未知",
+    }
+}
+
+fn main() {
+    println!("{}", number_to_chinese(1));
+    println!("{}", number_to_chinese(3));
+    println!("{}", number_to_chinese(5));
+}</code></pre>
+<p><strong>说明：</strong> <code>match</code> 表达式依次匹配每个分支，<code>_</code> 是通配模式，匹配所有剩余情况。编译器要求 match 必须是穷尽的（exhaustive），<code>_</code> 确保所有未列出的值都被覆盖。</p>
+</details>
+<h3 id="练习-06-02-穷尽性匹配"><a class="header" href="#练习-06-02-穷尽性匹配">练习 06-02: 穷尽性匹配</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 的 switch，但如果没有 default 且遗漏了枚举变体，Rust 编译器会报错</p>
+</blockquote>
+<p>补全代码，使用 <code>match</code> 处理 <code>Weekday</code> 枚举的所有变体。</p>
+<pre class="playground"><code class="language-rust">enum Weekday {
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday,
+    Sunday,
+}
+
+fn is_weekend(day: Weekday) -&gt; bool {
+    // TODO: 使用 match 匹配所有变体
+    // Saturday 和 Sunday 返回 true，其余返回 false
+    match day {
+        // TODO: 补全分支（不要使用 _ 通配符，显式列出所有变体）
+    }
+}
+
+fn main() {
+    println!("周一是否周末: {}", is_weekend(Weekday::Monday));
+    println!("周六是否周末: {}", is_weekend(Weekday::Saturday));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">enum Weekday {
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+    Saturday,
+    Sunday,
+}
+
+fn is_weekend(day: Weekday) -&gt; bool {
+    match day {
+        Weekday::Saturday | Weekday::Sunday =&gt; true,
+        Weekday::Monday
+        | Weekday::Tuesday
+        | Weekday::Wednesday
+        | Weekday::Thursday
+        | Weekday::Friday =&gt; false,
+    }
+}
+
+fn main() {
+    println!("周一是否周末: {}", is_weekend(Weekday::Monday));
+    println!("周六是否周末: {}", is_weekend(Weekday::Saturday));
+}</code></pre>
+<p><strong>说明：</strong> <code>match</code> 必须穷尽枚举的所有变体。可以使用 <code>|</code> 运算符在一个分支中匹配多个模式。如果遗漏了某个变体，编译器会给出明确的错误提示，这是 Rust 安全性的重要体现。</p>
+</details>
+<h3 id="练习-06-03-match-分支与通配符-_"><a class="header" href="#练习-06-03-match-分支与通配符-_">练习 06-03: match 分支与通配符 _</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 的 switch default，但 Rust 的 <code>_</code> 不绑定变量</p>
+</blockquote>
+<p>补全代码，编写一个评分函数，根据分数返回等级。使用 <code>_</code> 处理分数不在 0-100 的情况。</p>
+<pre class="playground"><code class="language-rust">fn grade(score: i32) -&gt; &amp;'static str {
+    // TODO: 使用 match 匹配分数范围
+    // 90-100 -&gt; "优秀"
+    // 80-89  -&gt; "良好"
+    // 70-79  -&gt; "中等"
+    // 60-69  -&gt; "及格"
+    // 0-59   -&gt; "不及格"
+    // 其他分数 -&gt; "无效分数"
+    match score {
+        // TODO: 补全分支
+    }
+}
+
+fn main() {
+    println!("95 分: {}", grade(95));
+    println!("83 分: {}", grade(83));
+    println!("45 分: {}", grade(45));
+    println!("-10 分: {}", grade(-10));
+    println!("150 分: {}", grade(150));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn grade(score: i32) -&gt; &amp;'static str {
+    match score {
+        90..=100 =&gt; "优秀",
+        80..=89 =&gt; "良好",
+        70..=79 =&gt; "中等",
+        60..=69 =&gt; "及格",
+        0..=59 =&gt; "不及格",
+        _ =&gt; "无效分数",
+    }
+}
+
+fn main() {
+    println!("95 分: {}", grade(95));
+    println!("83 分: {}", grade(83));
+    println!("45 分: {}", grade(45));
+    println!("-10 分: {}", grade(-10));
+    println!("150 分: {}", grade(150));
+}</code></pre>
+<p><strong>说明：</strong> Rust 的 <code>match</code> 支持范围模式 <code>a..=b</code>（包含两端）。<code>_</code> 通配符匹配所有未被前面的分支捕获的值。分支顺序很重要，范围小的分支应放在前面。</p>
+</details>
+<h3 id="练习-06-04-match-多模式组合"><a class="header" href="#练习-06-04-match-多模式组合">练习 06-04: match 多模式组合</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 的 switch fallthrough，但 Rust 用 <code>|</code> 显式组合</p>
+</blockquote>
+<p>编写一个函数，判断一个字符是元音字母、辅音字母还是其他字符。</p>
+<pre class="playground"><code class="language-rust">fn classify_char(c: char) -&gt; &amp;'static str {
+    // TODO: 使用 match + | 组合模式
+    // 元音（大小写）：a, e, i, o, u, A, E, I, O, U
+    // 辅音：其他 ASCII 字母
+    // 其他字符：非字母
+    match c {
+        // TODO: 补全分支
+    }
+}
+
+fn main() {
+    println!("'a': {}", classify_char('a'));
+    println!("'Z': {}", classify_char('Z'));
+    println!("'5': {}", classify_char('5'));
+    println!("'!' : {}", classify_char('!'));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn classify_char(c: char) -&gt; &amp;'static str {
+    match c {
+        'a' | 'e' | 'i' | 'o' | 'u' | 'A' | 'E' | 'I' | 'O' | 'U' =&gt; "元音",
+        'a'..='z' | 'A'..='Z' =&gt; "辅音",
+        _ =&gt; "其他字符",
+    }
+}
+
+fn main() {
+    println!("'a': {}", classify_char('a'));
+    println!("'Z': {}", classify_char('Z'));
+    println!("'5': {}", classify_char('5'));
+    println!("'!' : {}", classify_char('!'));
+}</code></pre>
+<p><strong>说明：</strong> <code>|</code> 运算符可以在一个 match 分支中组合多个模式。注意 <code>a'..='z' | 'A'..='Z'</code> 的范围模式组合——由于元音分支在前面，这里的范围只会匹配到辅音字母。</p>
+</details>
+<h3 id="练习-06-05-挑战match-综合"><a class="header" href="#练习-06-05-挑战match-综合">练习 06-05: 挑战——match 综合</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+类似 C++ 的 switch，但 Rust match 支持范围、多模式和值绑定</p>
+</blockquote>
+<p>编写一个函数 <code>analyze_number</code>，根据输入的整数返回描述字符串。要求：</p>
+<ul>
+<li>负数（且是偶数）-&gt; “负偶数”</li>
+<li>负数（且是奇数）-&gt; “负奇数”</li>
+<li>0 -&gt; “零”</li>
+<li>正数 1-10 且是偶数 -&gt; “小偶数”</li>
+<li>正数 1-10 且是奇数 -&gt; “小奇数”</li>
+<li>正数 &gt; 10 且是偶数 -&gt; “大偶数”</li>
+<li>正数 &gt; 10 且是奇数 -&gt; “大奇数”</li>
+</ul>
+<pre class="playground"><code class="language-rust">// TODO: 实现 analyze_number 函数
+fn analyze_number(n: i32) -&gt; String {
+    // 使用 match 和元组模式
+    // 提示：可以用 (n.signum(), n.abs() % 2) 或类似方式组合判断
+    // TODO
+}
+
+fn main() {
+    println!("-4: {}", analyze_number(-4));
+    println!("-3: {}", analyze_number(-3));
+    println!("0: {}", analyze_number(0));
+    println!("6: {}", analyze_number(6));
+    println!("7: {}", analyze_number(7));
+    println!("42: {}", analyze_number(42));
+    println!("99: {}", analyze_number(99));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn analyze_number(n: i32) -&gt; String {
+    match n {
+        0 =&gt; "零".to_string(),
+        n if n &lt; 0 &amp;&amp; n % 2 == 0 =&gt; "负偶数".to_string(),
+        n if n &lt; 0 =&gt; "负奇数".to_string(),
+        1..=10 if n % 2 == 0 =&gt; "小偶数".to_string(),
+        1..=10 =&gt; "小奇数".to_string(),
+        n if n % 2 == 0 =&gt; "大偶数".to_string(),
+        _ =&gt; "大奇数".to_string(),
+    }
+}
+
+fn main() {
+    println!("-4: {}", analyze_number(-4));
+    println!("-3: {}", analyze_number(-3));
+    println!("0: {}", analyze_number(0));
+    println!("6: {}", analyze_number(6));
+    println!("7: {}", analyze_number(7));
+    println!("42: {}", analyze_number(42));
+    println!("99: {}", analyze_number(99));
+}</code></pre>
+<p><strong>说明：</strong> 这个练习展示了 <code>match</code> 的多种高级用法：守卫（<code>if</code>）模式可以对同一范围做进一步细分；<code>0</code> 作为特殊情况优先匹配；守卫中可以使用任意布尔表达式。注意守卫中的变量名 <code>n</code> 与绑定的值同名，不影响外层变量。</p>
+</details>
+<h3 id="练习-06-06-if-let-基础"><a class="header" href="#练习-06-06-if-let-基础">练习 06-06: if let 基础</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++17 的 <code>if (auto x = get_opt())</code>，但 Rust 的 <code>if let</code> 语法更简洁</p>
+</blockquote>
+<p>补全代码，使用 <code>if let</code> 从 <code>Option&lt;i32&gt;</code> 中取出值并打印。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let a = Some(42);
+    let b: Option&lt;i32&gt; = None;
+    
+    // TODO: 使用 if let 匹配 Some 并打印值
+    if let Some(x) = a {
+        // 打印 "a 的值是: {x}"
+    }
+    
+    // TODO: 使用 if let 匹配 b，如果无值则打印 "b 是 None"
+    if let Some(x) = b {
+        println!("b 的值是: {}", x);
+    } else {
+        // TODO: 打印 "b 是 None"
+    }
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let a = Some(42);
+    let b: Option&lt;i32&gt; = None;
+    
+    if let Some(x) = a {
+        println!("a 的值是: {}", x);
+    }
+    
+    if let Some(x) = b {
+        println!("b 的值是: {}", x);
+    } else {
+        println!("b 是 None");
+    }
+}</code></pre>
+<p><strong>说明：</strong> <code>if let</code> 是 <code>match</code> 的语法糖，只关心一个模式而忽略其他情况。<code>if let Some(x) = option</code> 类似 C++17 的 <code>if (auto x = get_opt())</code>，但 Rust 的版本将解构和条件判断合为一句。<code>else</code> 分支对应 <code>match</code> 中的 <code>_ =&gt;</code>。</p>
+</details>
+<h3 id="练习-06-07-if-let-处理-result"><a class="header" href="#练习-06-07-if-let-处理-result">练习 06-07: if let 处理 Result</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 Java 的 <code>if (obj instanceof String s)</code>，但 Rust 解构更灵活</p>
+</blockquote>
+<p>补全代码，使用 <code>if let</code> 处理 <code>Result</code> 类型，只关心成功的情况。</p>
+<pre class="playground"><code class="language-rust">fn parse_and_double(input: &amp;str) {
+    // TODO: 使用 if let 处理 input.parse::&lt;i32&gt;()
+    // 如果解析成功，打印两倍的值
+    // 如果解析失败，什么都不做
+    if let Ok(n) = input.parse::&lt;i32&gt;() {
+        // TODO: 打印 "两倍: {n * 2}"
+    }
+    // else 分支可以省略，因为失败时我们什么都不做
+}
+
+fn main() {
+    parse_and_double("21");
+    parse_and_double("abc");
+    parse_and_double("-5");
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn parse_and_double(input: &amp;str) {
+    if let Ok(n) = input.parse::&lt;i32&gt;() {
+        println!("两倍: {}", n * 2);
+    }
+}
+
+fn main() {
+    parse_and_double("21");
+    parse_and_double("abc");
+    parse_and_double("-5");
+}</code></pre>
+<p><strong>说明：</strong> <code>if let</code> 不仅适用于 <code>Option</code>，也适用于 <code>Result</code> 等枚举。<code>if let Ok(n) = result</code> 只关心成功的情况，忽略错误。配合 <code>parse</code> 这类返回 <code>Result</code> 的函数非常实用。省略 <code>else</code> 分支意味着失败时静默忽略。</p>
+</details>
+<h3 id="练习-06-08-while-let-基础"><a class="header" href="#练习-06-08-while-let-基础">练习 06-08: while let 基础</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 的 while 循环配合 optional，Rust 用 while let 更简洁</p>
+</blockquote>
+<p>补全代码，使用 <code>while let</code> 从迭代器中逐一出队所有元素。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let mut numbers = vec![1, 2, 3, 4, 5].into_iter();
+    
+    // TODO: 使用 while let 循环取出并打印 numbers 中的所有元素
+    // while let Some(n) = ... 
+    while let Some(n) = numbers.next() {
+        // TODO: 打印 n
+    }
+    
+    println!("循环结束");
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let mut numbers = vec![1, 2, 3, 4, 5].into_iter();
+    
+    while let Some(n) = numbers.next() {
+        println!("{}", n);
+    }
+    
+    println!("循环结束");
+}</code></pre>
+<p><strong>说明：</strong> <code>while let</code> 在模式匹配成功时持续循环，直到匹配失败。<code>numbers.next()</code> 返回 <code>Option&lt;Item&gt;</code>，当迭代器耗尽时返回 <code>None</code>，循环自动结束。这比手动检查 <code>Option</code> 并跳出循环更简洁。</p>
+</details>
+<h3 id="练习-06-09-while-let-处理可变队列"><a class="header" href="#练习-06-09-while-let-处理可变队列">练习 06-09: while let 处理可变队列</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 中 while 循环弹出队列元素</p>
+</blockquote>
+<p>补全代码，使用 <code>while let</code> 和 <code>Vec::pop</code> 持续移除向量中的元素。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let mut stack = vec![1, 2, 3, 4, 5];
+    
+    // TODO: 使用 while let 循环从 stack 中 pop 元素并打印
+    // 直到 stack 为空
+    while let Some(top) = stack.pop() {
+        // TODO: 打印 top，并打印当前 stack 的长度
+        println!("弹出: {}", top);
+        // 提示：stack.len() 可以获取当前长度
+    }
+    
+    println!("栈已清空，长度: {}", stack.len());
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let mut stack = vec![1, 2, 3, 4, 5];
+    
+    while let Some(top) = stack.pop() {
+        println!("弹出: {}，剩余 {} 个元素", top, stack.len());
+    }
+    
+    println!("栈已清空，长度: {}", stack.len());
+}</code></pre>
+<p><strong>说明：</strong> <code>Vec::pop</code> 移除最后一个元素并返回 <code>Option&lt;T&gt;</code>。<code>while let</code> 配合 <code>pop</code> 是处理动态数据集合的常见模式，代码简洁且意图清晰。每次迭代中 <code>stack.len()</code> 反映当前剩余元素数量。</p>
+</details>
+<h3 id="练习-06-10-挑战if-let--while-let-综合"><a class="header" href="#练习-06-10-挑战if-let--while-let-综合">练习 06-10: 挑战——if let + while let 综合</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+综合运用 if let 和 while let 处理嵌套 Option 和 Result</p>
+</blockquote>
+<p>实现一个函数 <code>process_mixed_data</code>，接收一个 <code>Vec&lt;Option&lt;Result&lt;i32, &amp;str&gt;&gt;&gt;</code>，按以下规则处理：</p>
+<ul>
+<li>如果是 <code>Some(Ok(n))</code> 且 n 为正数，将其累加</li>
+<li>如果是 <code>Some(Ok(n))</code> 且 n 为负数，打印 “忽略负数: {n}”</li>
+<li>如果是 <code>Some(Err(e))</code>，打印 “解析错误: {e}”</li>
+<li>如果是 <code>None</code>，跳过不处理</li>
+</ul>
+<p>使用 <code>if let</code>（而非 <code>match</code>）完成内部判断。</p>
+<pre class="playground"><code class="language-rust">// TODO: 实现 process_mixed_data 函数
+fn process_mixed_data(data: Vec&lt;Option&lt;Result&lt;i32, &amp;'static str&gt;&gt;&gt;) -&gt; i32 {
+    let mut sum = 0;
+    // 可以用 for 循环 + if let
+    for item in data {
+        // TODO: 先用 if let Some(...) 解包 Option
+        // 内部再用 if let Ok(n) = ... 或 if let Err(e) = ... 处理 Result
+    }
+    sum
+}
+
+fn main() {
+    let data = vec![
+        Some(Ok(10)),
+        Some(Err("格式错误")),
+        None,
+        Some(Ok(-5)),
+        Some(Ok(20)),
+        Some(Err("超限")),
+        None,
+        Some(Ok(30)),
+    ];
+    
+    let result = process_mixed_data(data);
+    println!("正数之和: {}", result); // 应输出 60（10 + 20 + 30）
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn process_mixed_data(data: Vec&lt;Option&lt;Result&lt;i32, &amp;'static str&gt;&gt;&gt;) -&gt; i32 {
+    let mut sum = 0;
+    for item in data {
+        if let Some(result) = item {
+            if let Ok(n) = result {
+                if n &gt; 0 {
+                    sum += n;
+                } else {
+                    println!("忽略负数: {}", n);
+                }
+            }
+            if let Err(e) = result {
+                println!("解析错误: {}", e);
+            }
+        }
+    }
+    sum
+}
+
+fn main() {
+    let data = vec![
+        Some(Ok(10)),
+        Some(Err("格式错误")),
+        None,
+        Some(Ok(-5)),
+        Some(Ok(20)),
+        Some(Err("超限")),
+        None,
+        Some(Ok(30)),
+    ];
+    
+    let result = process_mixed_data(data);
+    println!("正数之和: {}", result);
+}</code></pre>
+<p><strong>说明：</strong> 嵌套的 <code>if let</code> 可以逐层解构复合类型。先解 <code>Option</code>，再解 <code>Result</code>。注意 <code>result</code> 在第一个 <code>if let</code> 中被匹配但未消费（<code>Result</code> 实现了 <code>Copy</code>），因此第二个 <code>if let</code> 仍然可用。这种逐层处理的方式比嵌套 <code>match</code> 更扁平、更易读。</p>
+</details>
+<h3 id="练习-06-11-元组解构基础"><a class="header" href="#练习-06-11-元组解构基础">练习 06-11: 元组解构基础</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 的 structured binding（C++17），但 Rust 的元组解构更常用</p>
+</blockquote>
+<p>补全代码，使用 <code>match</code> 解构元组并匹配不同形态。</p>
+<pre class="playground"><code class="language-rust">fn describe_point(point: (i32, i32)) -&gt; &amp;'static str {
+    // TODO: 使用 match 解构元组 (x, y)
+    // (0, 0) -&gt; "原点"
+    // (0, _) -&gt; "在 Y 轴上"
+    // (_, 0) -&gt; "在 X 轴上"
+    // (x, y) 且 x &gt; 0 &amp;&amp; y &gt; 0 -&gt; "第一象限"
+    // (x, y) 且 x &lt; 0 &amp;&amp; y &gt; 0 -&gt; "第二象限"
+    // (x, y) 且 x &lt; 0 &amp;&amp; y &lt; 0 -&gt; "第三象限"
+    // (x, y) 且 x &gt; 0 &amp;&amp; y &lt; 0 -&gt; "第四象限"
+    match point {
+        (0, 0) =&gt; "原点",
+        (0, _) =&gt; "在 Y 轴上",
+        (_, 0) =&gt; "在 X 轴上",
+        // TODO: 补全剩余分支（使用守卫 if）
+    }
+}
+
+fn main() {
+    println!("(0, 0): {}", describe_point((0, 0)));
+    println!("(0, 5): {}", describe_point((0, 5)));
+    println!("(3, 4): {}", describe_point((3, 4)));
+    println!("(-3, 4): {}", describe_point((-3, 4)));
+    println!("(-3, -4): {}", describe_point((-3, -4)));
+    println!("(3, -4): {}", describe_point((3, -4)));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn describe_point(point: (i32, i32)) -&gt; &amp;'static str {
+    match point {
+        (0, 0) =&gt; "原点",
+        (0, _) =&gt; "在 Y 轴上",
+        (_, 0) =&gt; "在 X 轴上",
+        (x, y) if x &gt; 0 &amp;&amp; y &gt; 0 =&gt; "第一象限",
+        (x, y) if x &lt; 0 &amp;&amp; y &gt; 0 =&gt; "第二象限",
+        (x, y) if x &lt; 0 &amp;&amp; y &lt; 0 =&gt; "第三象限",
+        (x, y) if x &gt; 0 &amp;&amp; y &lt; 0 =&gt; "第四象限",
+        _ =&gt; "未知位置",
+    }
+}
+
+fn main() {
+    println!("(0, 0): {}", describe_point((0, 0)));
+    println!("(0, 5): {}", describe_point((0, 5)));
+    println!("(3, 4): {}", describe_point((3, 4)));
+    println!("(-3, 4): {}", describe_point((-3, 4)));
+    println!("(-3, -4): {}", describe_point((-3, -4)));
+    println!("(3, -4): {}", describe_point((3, -4)));
+}</code></pre>
+<p><strong>说明：</strong> <code>match</code> 可以对元组进行解构，<code>(0, _)</code> 表示第一个元素为 0、第二个任意。<code>_</code> 在模式中表示“忽略这个位置的值“。守卫 <code>if</code> 在模式匹配成功后增加额外条件判断。这类似 C++17 的 structured binding + if constexpr 组合。</p>
+</details>
+<h3 id="练习-06-12-元组解构与交换"><a class="header" href="#练习-06-12-元组解构与交换">练习 06-12: 元组解构与交换</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 Python 的元组解构赋值</p>
+</blockquote>
+<p>补全代码，使用元组解构交换两个变量的值（不借助临时变量）。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let mut a = 5;
+    let mut b = 10;
+    
+    println!("交换前: a = {}, b = {}", a, b);
+    
+    // TODO: 使用元组解构交换 a 和 b 的值
+    // 提示: (a, b) = (b, a);
+    
+    println!("交换后: a = {}, b = {}", a, b);
+    
+    // 进阶：解构三个变量
+    let mut x = 1;
+    let mut y = 2;
+    let mut z = 3;
+    
+    // TODO: 一次性将 x, y, z 循环右移（x-&gt;y, y-&gt;z, z-&gt;x）
+    // 使用元组解构
+    
+    println!("循环右移后: x = {}, y = {}, z = {}", x, y, z);
+    // 应输出: x = 3, y = 1, z = 2
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let mut a = 5;
+    let mut b = 10;
+    
+    println!("交换前: a = {}, b = {}", a, b);
+    
+    (a, b) = (b, a);
+    
+    println!("交换后: a = {}, b = {}", a, b);
+    
+    let mut x = 1;
+    let mut y = 2;
+    let mut z = 3;
+    
+    (x, y, z) = (z, x, y);
+    
+    println!("循环右移后: x = {}, y = {}, z = {}", x, y, z);
+}</code></pre>
+<p><strong>说明：</strong> Rust 支持元组解构赋值，<code>(a, b) = (b, a)</code> 优雅地交换两个变量。类似地，<code>(x, y, z) = (z, x, y)</code> 实现循环右移。这比使用临时变量的方式更简洁、更易读。</p>
+</details>
+<h3 id="练习-06-13-结构体解构"><a class="header" href="#练习-06-13-结构体解构">练习 06-13: 结构体解构</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 的 structured binding 解构结构体</p>
+</blockquote>
+<p>补全代码，使用 <code>match</code> 解构结构体 <code>Point</code> 和 <code>Rectangle</code>。</p>
+<pre class="playground"><code class="language-rust">struct Point {
+    x: i32,
+    y: i32,
+}
+
+struct Rectangle {
+    top_left: Point,
+    bottom_right: Point,
+}
+
+fn rect_area(rect: Rectangle) -&gt; i32 {
+    // TODO: 解构 Rectangle，计算面积
+    // 提示：可以使用嵌套模式解构
+    // Rectangle { top_left: Point { x: x1, y: y1 }, bottom_right: Point { x: x2, y: y2 } }
+    match rect {
+        // TODO: 补全模式
+    }
+}
+
+fn main() {
+    let rect = Rectangle {
+        top_left: Point { x: 0, y: 10 },
+        bottom_right: Point { x: 5, y: 0 },
+    };
+    
+    println!("矩形面积: {}", rect_area(rect)); // 应输出 50
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Point {
+    x: i32,
+    y: i32,
+}
+
+struct Rectangle {
+    top_left: Point,
+    bottom_right: Point,
+}
+
+fn rect_area(rect: Rectangle) -&gt; i32 {
+    match rect {
+        Rectangle {
+            top_left: Point { x: x1, y: y1 },
+            bottom_right: Point { x: x2, y: y2 },
+        } =&gt; (x2 - x1) * (y1 - y2),
+    }
+}
+
+fn main() {
+    let rect = Rectangle {
+        top_left: Point { x: 0, y: 10 },
+        bottom_right: Point { x: 5, y: 0 },
+    };
+    
+    println!("矩形面积: {}", rect_area(rect));
+}</code></pre>
+<p><strong>说明：</strong> Rust 支持嵌套结构体解构——<code>Rectangle { top_left: Point { x, y }, ... }</code>。由于 <code>Rectangle</code> 只有一种形态，<code>match</code> 只需要一个分支（实际上也可以使用 <code>let</code> 解构）。注意面积计算中 <code>(y1 - y2)</code> 因为 y 轴方向向下。</p>
+</details>
+<h3 id="练习-06-14-枚举解构"><a class="header" href="#练习-06-14-枚举解构">练习 06-14: 枚举解构</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的 pattern matching for switch（预览特性），Rust 从第一天就支持</p>
+</blockquote>
+<p>补全代码，为 <code>Temperature</code> 枚举实现 <code>convert_to_celsius</code> 方法。</p>
+<pre class="playground"><code class="language-rust">enum Temperature {
+    Celsius(f64),
+    Fahrenheit(f64),
+}
+
+impl Temperature {
+    // TODO: 实现 convert_to_celsius 方法
+    // Celsius 直接返回值
+    // Fahrenheit 转换为摄氏度: (f - 32.0) * 5.0 / 9.0
+    fn to_celsius(&amp;self) -&gt; f64 {
+        match self {
+            // TODO: 解构 Celsius 和 Fahrenheit
+        }
+    }
+}
+
+fn main() {
+    let c = Temperature::Celsius(37.0);
+    let f = Temperature::Fahrenheit(98.6);
+    
+    println!("37°C = {:.1}°C", c.to_celsius());
+    println!("98.6°F = {:.1}°C", f.to_celsius());
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">enum Temperature {
+    Celsius(f64),
+    Fahrenheit(f64),
+}
+
+impl Temperature {
+    fn to_celsius(&amp;self) -&gt; f64 {
+        match self {
+            Temperature::Celsius(c) =&gt; *c,
+            Temperature::Fahrenheit(f) =&gt; (*f - 32.0) * 5.0 / 9.0,
+        }
+    }
+}
+
+fn main() {
+    let c = Temperature::Celsius(37.0);
+    let f = Temperature::Fahrenheit(98.6);
+    
+    println!("37°C = {:.1}°C", c.to_celsius());
+    println!("98.6°F = {:.1}°C", f.to_celsius());
+}</code></pre>
+<p><strong>说明：</strong> 枚举解构时，元组形式变体 <code>Celsius(f64)</code> 的模式为 <code>Temperature::Celsius(c)</code>，其中 <code>c</code> 绑定到内部值。由于 <code>&amp;self</code> 是引用，解构得到的是引用，所以需要使用 <code>*c</code> 解引用为 <code>f64</code>。</p>
+</details>
+<h3 id="练习-06-15-挑战嵌套解构"><a class="header" href="#练习-06-15-挑战嵌套解构">练习 06-15: 挑战——嵌套解构</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+类似 Java 中复杂的 instanceof 嵌套判断，Rust 的模式匹配可以深度解构</p>
+</blockquote>
+<p>给定一个嵌套的 JSON-like 枚举结构，实现一个 <code>extract_name</code> 函数，从嵌套的数据中提取用户名。</p>
+<pre class="playground"><code class="language-rust">#[derive(Debug)]
+enum JsonValue {
+    Null,
+    Bool(bool),
+    Number(f64),
+    String(String),
+    Array(Vec&lt;JsonValue&gt;),
+    Object(Vec&lt;(String, JsonValue)&gt;),
+}
+
+// TODO: 实现 extract_name 函数
+// 从以下嵌套结构中提取 "name" 字段的值：
+// JsonValue::Object 包含键值对列表，找到键为 "name" 的条目
+// 如果 "name" 对应的是 JsonValue::String(s)，返回 Some(s)
+// 否则返回 None
+fn extract_name(value: &amp;JsonValue) -&gt; Option&lt;&amp;str&gt; {
+    match value {
+        // TODO: 匹配 JsonValue::Object，遍历其中的 Vec&lt;(String, JsonValue)&gt;
+        // 找到 key == "name" 且对应的 value 是 String 的情况
+        // 提示：可以在 match 分支中使用守卫
+    }
+}
+
+fn main() {
+    let data = JsonValue::Object(vec![
+        ("id".to_string(), JsonValue::Number(1.0)),
+        ("name".to_string(), JsonValue::String("Alice".to_string())),
+        ("age".to_string(), JsonValue::Number(30.0)),
+    ]);
+    
+    println!("name: {:?}", extract_name(&amp;data)); // 应输出 Some("Alice")
+    
+    let no_name = JsonValue::Object(vec![
+        ("title".to_string(), JsonValue::String("Hello".to_string())),
+    ]);
+    println!("no name: {:?}", extract_name(&amp;no_name)); // 应输出 None
+    
+    let invalid = JsonValue::Object(vec![
+        ("name".to_string(), JsonValue::Number(42.0)),
+    ]);
+    println!("name is number: {:?}", extract_name(&amp;invalid)); // 应输出 None
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">#[derive(Debug)]
+enum JsonValue {
+    Null,
+    Bool(bool),
+    Number(f64),
+    String(String),
+    Array(Vec&lt;JsonValue&gt;),
+    Object(Vec&lt;(String, JsonValue)&gt;),
+}
+
+fn extract_name(value: &amp;JsonValue) -&gt; Option&lt;&amp;str&gt; {
+    match value {
+        JsonValue::Object(pairs) =&gt; {
+            for (key, val) in pairs {
+                if key == "name" {
+                    if let JsonValue::String(s) = val {
+                        return Some(s.as_str());
+                    }
+                }
+            }
+            None
+        }
+        _ =&gt; None,
+    }
+}
+
+fn main() {
+    let data = JsonValue::Object(vec![
+        ("id".to_string(), JsonValue::Number(1.0)),
+        ("name".to_string(), JsonValue::String("Alice".to_string())),
+        ("age".to_string(), JsonValue::Number(30.0)),
+    ]);
+    
+    println!("name: {:?}", extract_name(&amp;data));
+    
+    let no_name = JsonValue::Object(vec![
+        ("title".to_string(), JsonValue::String("Hello".to_string())),
+    ]);
+    println!("no name: {:?}", extract_name(&amp;no_name));
+    
+    let invalid = JsonValue::Object(vec![
+        ("name".to_string(), JsonValue::Number(42.0)),
+    ]);
+    println!("name is number: {:?}", extract_name(&amp;invalid));
+}</code></pre>
+<p><strong>说明：</strong> 嵌套解构配合循环和 <code>if let</code> 可以灵活处理深层嵌套的数据结构。<code>JsonValue::Object</code> 中的 <code>Vec&lt;(String, JsonValue)&gt;</code> 需要通过循环遍历，在找到匹配键名后再用 <code>if let</code> 解构值。这在处理 JSON 等树形数据时非常实用。</p>
+</details>
+<h3 id="练习-06-16-match-守卫基础"><a class="header" href="#练习-06-16-match-守卫基础">练习 06-16: match 守卫基础</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 的 switch + if 组合，但 Rust 的守卫直接关联到 match 分支</p>
+</blockquote>
+<p>补全代码，使用 match 守卫判断一个数是否为 3 的倍数、是否在指定范围内。</p>
+<pre class="playground"><code class="language-rust">fn check_number(n: i32) -&gt; &amp;'static str {
+    // TODO: 使用 match + 守卫
+    // n 是 3 的倍数 -&gt; "3 的倍数"
+    // n 在 10 到 20 之间（含）且不是 3 的倍数 -&gt; "10-20 区间"
+    // 其他 -&gt; "其他"
+    match n {
+        // TODO: 补全分支
+    }
+}
+
+fn main() {
+    for n in [3, 9, 15, 22, 12, 17] {
+        println!("{}: {}", n, check_number(n));
+    }
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn check_number(n: i32) -&gt; &amp;'static str {
+    match n {
+        n if n % 3 == 0 =&gt; "3 的倍数",
+        10..=20 =&gt; "10-20 区间",
+        _ =&gt; "其他",
+    }
+}
+
+fn main() {
+    for n in [3, 9, 15, 22, 12, 17] {
+        println!("{}: {}", n, check_number(n));
+    }
+}</code></pre>
+<p><strong>说明：</strong> 守卫 <code>if n % 3 == 0</code> 在模式匹配成功后额外执行条件判断。注意这里 <code>10..=20</code> 的分支在守卫分支之后——因为守卫分支已经捕获了 10-20 区间内的 3 的倍数（如 12、15），剩余的非 3 倍数才能落到第二个分支。</p>
+</details>
+<h3 id="练习-06-17-match-守卫解构--条件"><a class="header" href="#练习-06-17-match-守卫解构--条件">练习 06-17: match 守卫——解构 + 条件</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 的 switch 中解构并判断</p>
+</blockquote>
+<p>补全代码，为 <code>Card</code> 枚举实现一个方法，判断某张牌是否能击败另一张牌。</p>
+<pre class="playground"><code class="language-rust">enum Suit {
+    Heart,
+    Diamond,
+    Club,
+    Spade,
+}
+
+enum Card {
+    Number(Suit, u8), // 数字牌，值 2-10
+    Face(Suit, &amp;'static str), // J, Q, K
+    Ace(Suit), // A
+}
+
+// TODO: 实现 can_beat 方法
+// 数字牌：点数大者胜（值越大越强）
+// 人头牌：J &lt; Q &lt; K
+// Ace：大于所有人头牌和数字牌
+// 同花色没有特殊规则，只看牌面值
+impl Card {
+    fn can_beat(&amp;self, other: &amp;Card) -&gt; bool {
+        match (self, other) {
+            // TODO: 补全各个分支
+            // 提示：对于数字牌，可以比较值
+            // 提示：Ace 可以击败任何非 Ace 的牌
+            // 如果两张都是 Ace，返回 false（平局）
+        }
+    }
+}
+
+fn main() {
+    let ace_hearts = Card::Ace(Suit::Hearts);
+    let king_spades = Card::Face(Suit::Spade, "K");
+    let ten_diamonds = Card::Number(Suit::Diamond, 10);
+    
+    println!("A♥ 能击败 K♠: {}", ace_hearts.can_beat(&amp;king_spades)); // true
+    println!("K♠ 能击败 10♦: {}", king_spades.can_beat(&amp;ten_diamonds)); // true
+    println!("10♦ 能击败 A♥: {}", ten_diamonds.can_beat(&amp;ace_hearts)); // false
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">enum Suit {
+    Hearts,
+    Diamonds,
+    Clubs,
+    Spades,
+}
+
+enum Card {
+    Number(Suit, u8),
+    Face(Suit, &amp;'static str),
+    Ace(Suit),
+}
+
+impl Card {
+    fn value(&amp;self) -&gt; u8 {
+        match self {
+            Card::Number(_, v) =&gt; *v,
+            Card::Face(_, "J") =&gt; 11,
+            Card::Face(_, "Q") =&gt; 12,
+            Card::Face(_, "K") =&gt; 13,
+            Card::Ace(_) =&gt; 14,
+            _ =&gt; 0,
+        }
+    }
+    
+    fn can_beat(&amp;self, other: &amp;Card) -&gt; bool {
+        self.value() &gt; other.value()
+    }
+}
+
+fn main() {
+    let ace_hearts = Card::Ace(Suit::Hearts);
+    let king_spades = Card::Face(Suit::Spades, "K");
+    let ten_diamonds = Card::Number(Suit::Diamonds, 10);
+    
+    println!("A♥ 能击败 K♠: {}", ace_hearts.can_beat(&amp;king_spades));
+    println!("K♠ 能击败 10♦: {}", king_spades.can_beat(&amp;ten_diamonds));
+    println!("10♦ 能击败 A♥: {}", ten_diamonds.can_beat(&amp;ace_hearts));
+}</code></pre>
+<p><strong>说明：</strong> 这个练习展示了 match 守卫与辅助方法结合使用的常见模式。<code>value()</code> 方法将所有牌映射到数值，<code>can_beat</code> 直接比较数值大小。在 <code>value()</code> 中，<code>Card::Face(_, "J")</code> 等模式匹配了具体的字符值。这种将判断逻辑拆分为多个小方法的方式，比分枝复杂的守卫更清晰。</p>
+</details>
+<h3 id="练习-06-18--绑定基础"><a class="header" href="#练习-06-18--绑定基础">练习 06-18: @ 绑定基础</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+Rust 特有功能，Java/C++ 没有直接对应的语法</p>
+</blockquote>
+<p>补全代码，使用 <code>@</code> 绑定在匹配范围模式的同时绑定变量值。</p>
+<pre class="playground"><code class="language-rust">fn describe_age(age: u32) -&gt; String {
+    // TODO: 使用 @ 绑定在匹配范围的同时捕获具体值
+    match age {
+        // 0 -&gt; "新生儿"
+        // 1..=12 且具体值为 n -&gt; "儿童，{n} 岁"
+        // 13..=17 且具体值为 n -&gt; "青少年，{n} 岁"
+        // 18..=59 且具体值为 n -&gt; "成年人，{n} 岁"
+        // 60..=150 且具体值为 n -&gt; "老年人，{n} 岁"
+        // 其他 -&gt; "不合理的年龄: {age}"
+        0 =&gt; "新生儿".to_string(),
+        // TODO: 使用 @ 绑定剩余范围
+    }
+}
+
+fn main() {
+    println!("0: {}", describe_age(0));
+    println!("7: {}", describe_age(7));
+    println!("16: {}", describe_age(16));
+    println!("30: {}", describe_age(30));
+    println!("70: {}", describe_age(70));
+    println!("200: {}", describe_age(200));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn describe_age(age: u32) -&gt; String {
+    match age {
+        0 =&gt; "新生儿".to_string(),
+        n @ 1..=12 =&gt; format!("儿童，{} 岁", n),
+        n @ 13..=17 =&gt; format!("青少年，{} 岁", n),
+        n @ 18..=59 =&gt; format!("成年人，{} 岁", n),
+        n @ 60..=150 =&gt; format!("老年人，{} 岁", n),
+        _ =&gt; format!("不合理的年龄: {}", age),
+    }
+}
+
+fn main() {
+    println!("0: {}", describe_age(0));
+    println!("7: {}", describe_age(7));
+    println!("16: {}", describe_age(16));
+    println!("30: {}", describe_age(30));
+    println!("70: {}", describe_age(70));
+    println!("200: {}", describe_age(200));
+}</code></pre>
+<p><strong>说明：</strong> <code>n @ 1..=12</code> 语法将范围匹配的值绑定到变量 <code>n</code>，这样既做了范围匹配，又能获取具体值用于后续操作。<code>@</code> 绑定在需要知道“匹配到的具体值“时非常有用，避免了在守卫中重复计算。</p>
+</details>
+<h3 id="练习-06-19--绑定进阶"><a class="header" href="#练习-06-19--绑定进阶">练习 06-19: @ 绑定进阶</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+Rust 特有功能，用于解构时同时保留外层引用</p>
+</blockquote>
+<p>补全代码，使用 <code>@</code> 绑定在解构的同时保留整个枚举变体的引用。</p>
+<pre class="playground"><code class="language-rust">enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+}
+
+fn handle_message(msg: &amp;Message) {
+    // TODO: 使用 @ 绑定，在解构内部字段的同时保留对整个变体的引用
+    // 对于 Move，打印完整信息 "移动到 ({x}, {y})" 
+    // 对于 Write，先打印 "消息对象"（使用 @ 绑定的整个变体），再打印内容
+    // 对于 Quit，打印 "退出"
+    match msg {
+        Message::Quit =&gt; println!("退出"),
+        // TODO: 使用 m @ Message::Move { x, y } 绑定整个变体
+        // TODO: 使用 m @ Message::Write(s) 绑定整个变体
+    }
+}
+
+fn main() {
+    handle_message(&amp;Message::Move { x: 10, y: 20 });
+    handle_message(&amp;Message::Write("Hello".to_string()));
+    handle_message(&amp;Message::Quit);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+}
+
+fn handle_message(msg: &amp;Message) {
+    match msg {
+        Message::Quit =&gt; println!("退出"),
+        m @ Message::Move { x, y } =&gt; {
+            println!("移动到 ({}, {})", x, y);
+            // 这里可以使用 m 引用整个 Move
+        }
+        m @ Message::Write(s) =&gt; {
+            println!("消息对象: {:?}", m);
+            println!("内容: {}", s);
+        }
+    }
+}
+
+fn main() {
+    handle_message(&amp;Message::Move { x: 10, y: 20 });
+    handle_message(&amp;Message::Write("Hello".to_string()));
+    handle_message(&amp;Message::Quit);
+}</code></pre>
+<p><strong>说明：</strong> <code>m @ Message::Move { x, y }</code> 将整个变体绑定到 <code>m</code> 的同时也解构了内部字段。这样既可以通过 <code>m</code> 访问整个变体（注意需要实现 <code>Debug</code> trait 才能打印），也可以直接使用解构出的字段。这在需要同时访问整体和部分时非常有用。</p>
+</details>
+<h3 id="练习-06-20-挑战简单计算器"><a class="header" href="#练习-06-20-挑战简单计算器">练习 06-20: 挑战——简单计算器</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+综合运用 match、解构、守卫和 @ 绑定</p>
+</blockquote>
+<p>实现一个简单的表达式计算器。定义 <code>Expr</code> 枚举表示算术表达式，实现 <code>evaluate</code> 方法计算结果。要求：</p>
+<ol>
+<li>支持 <code>Number(f64)</code>——数字</li>
+<li>支持 <code>Add(Box&lt;Expr&gt;, Box&lt;Expr&gt;)</code>——加法</li>
+<li>支持 <code>Sub(Box&lt;Expr&gt;, Box&lt;Expr&gt;)</code>——减法</li>
+<li>支持 <code>Mul(Box&lt;Expr&gt;, Box&lt;Expr&gt;)</code>——乘法</li>
+<li>支持 <code>Div(Box&lt;Expr&gt;, Box&lt;Expr&gt;)</code>——除法（除零返回 <code>None</code>）</li>
+<li>支持 <code>Neg(Box&lt;Expr&gt;)</code>——取负</li>
+<li><code>evaluate</code> 返回 <code>Option&lt;f64&gt;</code>，除零时返回 <code>None</code></li>
+</ol>
+<pre class="playground"><code class="language-rust">// TODO: 定义 Expr 枚举
+// Number(f64), Add, Sub, Mul, Div, Neg
+
+// TODO: 为 Expr 实现 evaluate 方法（返回 Option&lt;f64&gt;）
+// 提示：子表达式递归调用 evaluate，然后用 match 或 ? 处理结果
+
+fn main() {
+    // 表达式: (3 + 5) * 2 - 10 / 2
+    let expr = Expr::Sub(
+        Box::new(Expr::Mul(
+            Box::new(Expr::Add(
+                Box::new(Expr::Number(3.0)),
+                Box::new(Expr::Number(5.0)),
+            )),
+            Box::new(Expr::Number(2.0)),
+        )),
+        Box::new(Expr::Div(
+            Box::new(Expr::Number(10.0)),
+            Box::new(Expr::Number(2.0)),
+        )),
+    );
+    
+    match expr.evaluate() {
+        Some(v) =&gt; println!("(3 + 5) * 2 - 10 / 2 = {}", v), // 应输出 11
+        None =&gt; println!("计算错误"),
+    }
+    
+    // 除零测试
+    let div_by_zero = Expr::Div(
+        Box::new(Expr::Number(5.0)),
+        Box::new(Expr::Number(0.0)),
+    );
+    match div_by_zero.evaluate() {
+        Some(v) =&gt; println!("5 / 0 = {}", v),
+        None =&gt; println!("错误: 除零"), // 应输出这个
+    }
+    
+    // 取负测试
+    let neg = Expr::Neg(Box::new(Expr::Number(7.0)));
+    match neg.evaluate() {
+        Some(v) =&gt; println!("-7 = {}", v), // 应输出 -7
+        None =&gt; println!("计算错误"),
+    }
+    
+    // 复杂嵌套: -((10 - 3) * (5 + 1)) / 2
+    let complex = Expr::Div(
+        Box::new(Expr::Neg(Box::new(Expr::Mul(
+            Box::new(Expr::Sub(
+                Box::new(Expr::Number(10.0)),
+                Box::new(Expr::Number(3.0)),
+            )),
+            Box::new(Expr::Add(
+                Box::new(Expr::Number(5.0)),
+                Box::new(Expr::Number(1.0)),
+            )),
+        )))),
+        Box::new(Expr::Number(2.0)),
+    );
+    match complex.evaluate() {
+        Some(v) =&gt; println!("-((10 - 3) * (5 + 1)) / 2 = {}", v), // 应输出 -21
+        None =&gt; println!("计算错误"),
+    }
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">enum Expr {
+    Number(f64),
+    Add(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Sub(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Mul(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Div(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Neg(Box&lt;Expr&gt;),
+}
+
+impl Expr {
+    fn evaluate(&amp;self) -&gt; Option&lt;f64&gt; {
+        match self {
+            Expr::Number(n) =&gt; Some(*n),
+            Expr::Add(l, r) =&gt; {
+                let l = l.evaluate()?;
+                let r = r.evaluate()?;
+                Some(l + r)
+            }
+            Expr::Sub(l, r) =&gt; {
+                let l = l.evaluate()?;
+                let r = r.evaluate()?;
+                Some(l - r)
+            }
+            Expr::Mul(l, r) =&gt; {
+                let l = l.evaluate()?;
+                let r = r.evaluate()?;
+                Some(l * r)
+            }
+            Expr::Div(l, r) =&gt; {
+                let l = l.evaluate()?;
+                let r = r.evaluate()?;
+                if r == 0.0 {
+                    None
+                } else {
+                    Some(l / r)
+                }
+            }
+            Expr::Neg(inner) =&gt; {
+                let v = inner.evaluate()?;
+                Some(-v)
+            }
+        }
+    }
+}
+
+fn main() {
+    let expr = Expr::Sub(
+        Box::new(Expr::Mul(
+            Box::new(Expr::Add(
+                Box::new(Expr::Number(3.0)),
+                Box::new(Expr::Number(5.0)),
+            )),
+            Box::new(Expr::Number(2.0)),
+        )),
+        Box::new(Expr::Div(
+            Box::new(Expr::Number(10.0)),
+            Box::new(Expr::Number(2.0)),
+        )),
+    );
+    
+    match expr.evaluate() {
+        Some(v) =&gt; println!("(3 + 5) * 2 - 10 / 2 = {}", v),
+        None =&gt; println!("计算错误"),
+    }
+    
+    let div_by_zero = Expr::Div(
+        Box::new(Expr::Number(5.0)),
+        Box::new(Expr::Number(0.0)),
+    );
+    match div_by_zero.evaluate() {
+        Some(v) =&gt; println!("5 / 0 = {}", v),
+        None =&gt; println!("错误: 除零"),
+    }
+    
+    let neg = Expr::Neg(Box::new(Expr::Number(7.0)));
+    match neg.evaluate() {
+        Some(v) =&gt; println!("-7 = {}", v),
+        None =&gt; println!("计算错误"),
+    }
+    
+    let complex = Expr::Div(
+        Box::new(Expr::Neg(Box::new(Expr::Mul(
+            Box::new(Expr::Sub(
+                Box::new(Expr::Number(10.0)),
+                Box::new(Expr::Number(3.0)),
+            )),
+            Box::new(Expr::Add(
+                Box::new(Expr::Number(5.0)),
+                Box::new(Expr::Number(1.0)),
+            )),
+        )))),
+        Box::new(Expr::Number(2.0)),
+    );
+    match complex.evaluate() {
+        Some(v) =&gt; println!("-((10 - 3) * (5 + 1)) / 2 = {}", v),
+        None =&gt; println!("计算错误"),
+    }
+}</code></pre>
+<p><strong>说明：</strong> 这是一个综合练习，展示了枚举在树形数据结构（表达式树）中的强大表现力。<code>Box&lt;Expr&gt;</code> 用于递归类型（枚举需要确定大小，所以用 Box 堆分配）。<code>?</code> 运算符在 <code>Option</code> 上下文中的用法——如果子表达式求值为 <code>None</code>，则立即返回 <code>None</code>，否则解包继续计算。这种结构清晰地将表达式的语法和求值逻辑分离。</p>
+</details>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="05_enums.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="07_traits.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="05_enums.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="07_traits.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-c22b7243.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e091_ipc_large_file",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e091",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1511",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 091: 大文件传输优化",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

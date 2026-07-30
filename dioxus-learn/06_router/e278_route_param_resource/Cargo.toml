@@ -1,0 +1,8 @@
+[package]
+name = "e278_route_param_resource"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

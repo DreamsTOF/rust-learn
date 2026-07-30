@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e148_lifecycle_exit_event",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e148",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1568",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 148: 应用关闭事件",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

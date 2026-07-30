@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e179_react_animation_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e179_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1599",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 179: 动画与 Tauri 命令 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

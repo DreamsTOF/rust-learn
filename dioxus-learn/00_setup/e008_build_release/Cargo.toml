@@ -1,0 +1,8 @@
+[package]
+name = "e008_build_release"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

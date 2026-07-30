@@ -1,0 +1,8 @@
+[package]
+name = "e086_global_signal_read_write"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

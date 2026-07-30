@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e165_vite_css",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e165",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1585",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 165: CSS/SCSS 集成",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e226_shell_timeout",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e226",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1646",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 226: 命令超时控制",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

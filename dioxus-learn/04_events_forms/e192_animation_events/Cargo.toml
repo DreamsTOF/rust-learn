@@ -1,0 +1,8 @@
+[package]
+name = "e192_animation_events"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

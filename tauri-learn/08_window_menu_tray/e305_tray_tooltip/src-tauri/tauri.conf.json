@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e305_tray_tooltip",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e305",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1725",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 305: 托盘提示文字",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

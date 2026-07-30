@@ -1,0 +1,8 @@
+[package]
+name = "e026_svg_elements"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

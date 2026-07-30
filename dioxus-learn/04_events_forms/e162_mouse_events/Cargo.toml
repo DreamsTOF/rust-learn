@@ -1,0 +1,8 @@
+[package]
+name = "e162_mouse_events"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

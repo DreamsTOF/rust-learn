@@ -1,0 +1,8 @@
+[package]
+name = "e294_server_return_data"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+leptos.workspace = true
+

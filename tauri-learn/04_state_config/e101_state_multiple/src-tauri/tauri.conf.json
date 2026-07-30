@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e101_state_multiple",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e101",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1521",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 101: 多 State 管理",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

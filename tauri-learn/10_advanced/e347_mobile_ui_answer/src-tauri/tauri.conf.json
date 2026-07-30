@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e347_mobile_ui_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e347_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1767",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 347: 移动端适配 UI (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

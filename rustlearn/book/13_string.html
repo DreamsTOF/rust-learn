@@ -1,0 +1,1130 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="ayu sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>13 String 与字符串 - Rust 实战练习 — 460 题快速突破</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="从 C++/Java 到 Rust，460 道循序渐进的实战练习题">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/custom-b5e00510.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "ayu";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-f70c63f5.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-86798690.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Rust 实战练习 — 460 题快速突破</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="13-string-与字符串"><a class="header" href="#13-string-与字符串">13 String 与字符串</a></h1>
+<p>Rust 中的字符串处理与其他语言有显著不同：Rust 有 <code>String</code>（可变、拥有者类型）和 <code>&amp;str</code>（不可变、借用类型）两种核心字符串类型，且天然支持 UTF-8。本章 20 道练习题将帮助你掌握两者的区别、互转、拼接、切割、遍历及编码相关知识。</p>
+<h3 id="练习-13-01-string-从字面量创建"><a class="header" href="#练习-13-01-string-从字面量创建">练习 13-01: String 从字面量创建</a></h3>
+<blockquote>
+<p>难度：⭐
+对比：Java 的 <code>"hello"</code> 是 String 对象；C++ 的 <code>"hello"</code> 是 <code>const char*</code></p>
+</blockquote>
+<p>用两种方式从字符串字面量 <code>"hello"</code> 创建 <code>String</code>。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    // TODO: 使用 String::from 创建 String
+    let s1: String = /* ??? */;
+
+    // TODO: 使用 .to_string() 方法创建 String
+    let s2: String = /* ??? */;
+
+    println!("s1 = {}, s2 = {}", s1, s2);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let s1: String = String::from("hello");
+    let s2: String = "hello".to_string();
+    println!("s1 = {}, s2 = {}", s1, s2);
+}</code></pre>
+<p><strong>说明：</strong> <code>String::from</code> 和 <code>to_string()</code> 都能从 <code>&amp;str</code> 创建 <code>String</code>。<code>String::from</code> 更强调“从…创建“的语义，<code>to_string()</code> 则通用性更广（任何实现了 <code>ToString</code> 的类型均可调用）。</p>
+</details>
+<h3 id="练习-13-02-str-从-string-借用"><a class="header" href="#练习-13-02-str-从-string-借用">练习 13-02: &amp;str 从 String 借用</a></h3>
+<blockquote>
+<p>难度：⭐
+对比：Java 无法从 String 获取“借用“，C++ 可通过 <code>.c_str()</code> 获得 <code>const char*</code></p>
+</blockquote>
+<p>通过取引用将 <code>String</code> 转为 <code>&amp;str</code>。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let s = String::from("world");
+    
+    // TODO: 通过取引用获得 &amp;str
+    let s1: &amp;str = /* ??? */;
+
+    // TODO: 通过显式类型标注（as_str）获得 &amp;str
+    let s2: &amp;str = /* ??? */;
+
+    println!("s1 = {}, s2 = {}", s1, s2);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let s = String::from("world");
+    let s1: &amp;str = &amp;s;
+    let s2: &amp;str = s.as_str();
+    println!("s1 = {}, s2 = {}", s1, s2);
+}</code></pre>
+<p><strong>说明：</strong> <code>&amp;s</code> 利用了 <code>Deref</code> 解引用强制转换，<code>s.as_str()</code> 则显式获取 <code>&amp;str</code>。两者底层相同，都是获取 <code>String</code> 内部缓冲区的一个切片引用。</p>
+</details>
+<h3 id="练习-13-03-使用-to_string-转换多种类型"><a class="header" href="#练习-13-03-使用-to_string-转换多种类型">练习 13-03: 使用 to_string() 转换多种类型</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+对比：Java 的 <code>String.valueOf()</code>，C++ 的 <code>std::to_string()</code></p>
+</blockquote>
+<p>调用 <code>to_string()</code> 将数字和布尔值转为字符串。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    // TODO: 使用 to_string() 将 42 转为字符串
+    let a: String = /* ??? */;
+    
+    // TODO: 将 true 转为字符串
+    let b: String = /* ??? */;
+    
+    // TODO: 将 3.14 转为字符串
+    let c: String = /* ??? */;
+    
+    println!("{}, {}, {}", a, b, c);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let a: String = 42.to_string();
+    let b: String = true.to_string();
+    let c: String = 3.14.to_string();
+    println!("{}, {}, {}", a, b, c);
+}</code></pre>
+<p><strong>说明：</strong> <code>to_string()</code> 来自 <code>ToString</code> trait，任何实现了 <code>Display</code> 的类型都会自动实现 <code>ToString</code>，因此数字、布尔值等均可直接调用。</p>
+</details>
+<h3 id="练习-13-04-使用-to_owned-克隆字符串数据"><a class="header" href="#练习-13-04-使用-to_owned-克隆字符串数据">练习 13-04: 使用 to_owned() 克隆字符串数据</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+对比：类似 Java 的 <code>new String(original)</code>，C++ 的拷贝构造函数</p>
+</blockquote>
+<p><code>to_owned()</code> 从借用的字符串数据创建一个拥有所有权的副本。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let s: &amp;str = "hello rust";
+    
+    // TODO: 使用 to_owned() 将 &amp;str 转为 String
+    let owned: String = /* ??? */;
+    
+    // TODO: 再从一个 String 的引用调用 to_owned()
+    let original = String::from("copyme");
+    let r: &amp;String = &amp;original;
+    let cloned: String = /* ??? */;
+    
+    println!("owned = {}, cloned = {}", owned, cloned);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let s: &amp;str = "hello rust";
+    let owned: String = s.to_owned();
+    let original = String::from("copyme");
+    let r: &amp;String = &amp;original;
+    let cloned: String = r.to_owned();
+    println!("owned = {}, cloned = {}", owned, cloned);
+}</code></pre>
+<p><strong>说明：</strong> <code>to_owned()</code> 定义在 <code>ToOwned</code> trait 中，能从任何借用的数据创建拥有所有权的副本。对 <code>&amp;str</code> 和 <code>&amp;String</code> 都能工作，结果都是 <code>String</code>。</p>
+</details>
+<h3 id="练习-13-05-string-与-str-互转综合挑战"><a class="header" href="#练习-13-05-string-与-str-互转综合挑战">练习 13-05: String 与 &amp;str 互转综合挑战</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+对比：Java 没有明显的所有权区分，C++ 中 <code>std::string</code> 和 <code>std::string_view</code> 类似</p>
+</blockquote>
+<p>完成一个函数，接收 <code>&amp;str</code> 返回 <code>String</code>，并验证两者之间的关系。</p>
+<pre class="playground"><code class="language-rust">fn greet(name: &amp;str) -&gt; String {
+    // TODO: 返回 "Hello, " + name + "!" 的 String
+    // 提示：可以使用 format! 或 push_str
+    format!(/* ??? */)
+}
+
+fn main() {
+    let name = "Alice";
+    let greeting = greet(name);
+    println!("{}", greeting);
+    
+    // TODO: 证明 greeting 是 String，不是 &amp;str
+    // 调用某个 String 独有的方法（&amp;str 没有的方法）
+    let len = /* ??? */;  // 获取 String 的容量
+    println!("Capacity: {}", len);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn greet(name: &amp;str) -&gt; String {
+    format!("Hello, {}!", name)
+}
+
+fn main() {
+    let name = "Alice";
+    let greeting = greet(name);
+    println!("{}", greeting);
+    
+    let len = greeting.capacity();
+    println!("Capacity: {}", len);
+}</code></pre>
+<p><strong>说明：</strong> <code>format!</code> 宏返回 <code>String</code>。<code>capacity()</code> 是 <code>String</code> 独有的方法（<code>&amp;str</code> 没有），可以借此证明变量类型。<code>String</code> 拥有堆上分配的缓冲区，<code>&amp;str</code> 只是指向某处字符串数据的引用。</p>
+</details>
+<h3 id="练习-13-06-使用--号拼接字符串"><a class="header" href="#练习-13-06-使用--号拼接字符串">练习 13-06: 使用 + 号拼接字符串</a></h3>
+<blockquote>
+<p>难度：⭐
+对比：Java 的 <code>+</code> 可以拼接任意对象；C++ 的 <code>operator+</code> 也支持拼接</p>
+</blockquote>
+<p>使用 <code>+</code> 操作符拼接两个字符串。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let s1 = String::from("Hello");
+    let s2 = String::from("World");
+    
+    // TODO: 使用 + 拼接 s1 和 s2，中间加空格和感叹号
+    // 注意：+ 会取得左侧 String 的所有权
+    let result = /* ??? */;
+    
+    println!("{}", result);
+    // println!("{}", s1); // 取消注释看是否会报错
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let s1 = String::from("Hello");
+    let s2 = String::from("World");
+    let result = s1 + " " + &amp;s2 + "!";
+    println!("{}", result);
+    // println!("{}", s1); // 编译错误！s1 的所有权已被 + 移动
+}</code></pre>
+<p><strong>说明：</strong> <code>+</code> 操作符实际调用 <code>add(self, s: &amp;str)</code> 方法，它<strong>取得</strong>左侧 <code>String</code> 的所有权（<code>self</code>），右侧接受 <code>&amp;str</code>。因此需要 <code>&amp;s2</code>（自动解引用为 <code>&amp;str</code>），而 <code>s1</code> 在拼接后不能再使用。</p>
+</details>
+<h3 id="练习-13-07-使用-push_str-和-format-拼接"><a class="header" href="#练习-13-07-使用-push_str-和-format-拼接">练习 13-07: 使用 push_str 和 format! 拼接</a></h3>
+<blockquote>
+<p>难度：⭐
+对比：Java 的 <code>StringBuilder.append()</code>，C++ 的 <code>std::string::append()</code> / <code>operator+=</code></p>
+</blockquote>
+<p>使用 <code>push_str</code> 和 <code>format!</code> 两种方式拼接字符串。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    // 方式一：push_str
+    let mut s = String::from("Rust");
+    // TODO: 使用 push_str 追加 " is awesome"
+    /* ??? */
+
+    println!("push_str: {}", s);
+
+    // 方式二：format!
+    let lang = "Rust";
+    let desc = "is awesome";
+    // TODO: 使用 format! 创建新字符串
+    let result = /* ??? */;
+    
+    println!("format!: {}", result);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    // 方式一：push_str
+    let mut s = String::from("Rust");
+    s.push_str(" is awesome");
+    println!("push_str: {}", s);
+
+    // 方式二：format!
+    let lang = "Rust";
+    let desc = "is awesome";
+    let result = format!("{} {}", lang, desc);
+    println!("format!: {}", result);
+}</code></pre>
+<p><strong>说明：</strong> <code>push_str</code> 会追加到原字符串（需要 <code>mut</code>），不涉及所有权转移。<code>format!</code> 返回新的 <code>String</code>，不修改原变量，也不转移所有权——是最灵活安全的拼接方式。</p>
+</details>
+<h3 id="练习-13-08-format-格式化输出"><a class="header" href="#练习-13-08-format-格式化输出">练习 13-08: format! 格式化输出</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+对比：Java 的 <code>String.format()</code>，C++20 的 <code>std::format()</code></p>
+</blockquote>
+<p>使用 <code>format!</code> 对数字进行格式化填充。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let name = "Bob";
+    let age = 25;
+    let score = 92.5;
+    
+    // TODO: 格式化为 "Name: Bob | Age: 25 | Score: 92.5"
+    let info = format!(/* ??? */);
+    println!("{}", info);
+    
+    // TODO: 将数字 42 格式化为 5 位宽度、右对齐（"   42"）
+    let padded = format!(/* ??? */);
+    println!("'{}'", padded);
+    
+    // TODO: 将整数 255 格式化为十六进制（"ff"）
+    let hex = format!(/* ??? */);
+    println!("{}", hex);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let name = "Bob";
+    let age = 25;
+    let score = 92.5;
+    
+    let info = format!("Name: {} | Age: {} | Score: {}", name, age, score);
+    println!("{}", info);
+    
+    let padded = format!("{:&gt;5}", 42);
+    println!("'{}'", padded);
+    
+    let hex = format!("{:x}", 255);
+    println!("{}", hex);
+}</code></pre>
+<p><strong>说明：</strong> <code>format!</code> 支持丰富的格式化选项：<code>{}</code> 默认显示，<code>{:&gt;5}</code> 右对齐宽度 5，<code>{:x}</code> 十六进制小写，<code>{:X}</code> 十六进制大写，<code>{:.2}</code> 指定小数位数等。</p>
+</details>
+<h3 id="练习-13-09-format-进阶--位置参数与命名参数"><a class="header" href="#练习-13-09-format-进阶--位置参数与命名参数">练习 13-09: format! 进阶 — 位置参数与命名参数</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+对比：Java 的 <code>%1$s</code> 位置引用，C++ 的 <code>std::format</code> 也支持位置参数</p>
+</blockquote>
+<p>使用 <code>format!</code> 的位置参数和命名参数功能。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let a = 1;
+    let b = 2;
+    
+    // TODO: 使用位置参数输出 "1 + 2 = 3"（第 3 个参数计算 a + b）
+    let result = format!(/* ??? */, a, b, a + b);
+    println!("{}", result);
+    
+    // TODO: 使用命名参数输出 "Hello, Rust!"
+    let greeting = format!(/* ??? */, /* ??? */);
+    println!("{}", greeting);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let a = 1;
+    let b = 2;
+    
+    let result = format!("{0} + {1} = {2}", a, b, a + b);
+    println!("{}", result);
+    
+    let greeting = format!("Hello, {lang}!", lang = "Rust");
+    println!("{}", greeting);
+}</code></pre>
+<p><strong>说明：</strong> <code>{0}</code>、<code>{1}</code> 引用位置参数，可在多个位置重复使用同一参数。命名参数如 <code>{lang}</code> 让格式化字符串更具可读性，适合模板场景。</p>
+</details>
+<h3 id="练习-13-10-字符串拼接综合挑战"><a class="header" href="#练习-13-10-字符串拼接综合挑战">练习 13-10: 字符串拼接综合挑战</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+对比：Java/C++ 中连续 <code>+</code> 都会产生中间对象，Rust 中的 <code>+</code> 会转移所有权</p>
+</blockquote>
+<p>实现一个 <code>build_sentence</code> 函数，接收多个单词并拼接成一句话。</p>
+<pre class="playground"><code class="language-rust">/// 将单词列表拼接成一句话：在单词间加空格，句尾加句号。
+/// 如果列表为空，返回空字符串。
+fn build_sentence(words: &amp;[&amp;str]) -&gt; String {
+    // TODO: 实现拼接逻辑
+    // 提示：可以用 let mut s = String::new(); 然后循环 push_str
+    let mut result = String::new();
+    for (i, word) in words.iter().enumerate() {
+        if i &gt; 0 {
+            result.push_str(" ");
+        }
+        result.push_str(word);
+    }
+    if !result.is_empty() {
+        result.push_str(".");
+    }
+    result
+}
+
+fn main() {
+    let words = vec!["Rust", "is", "fun"];
+    let sentence = build_sentence(&amp;words);
+    println!("{}", sentence);
+    assert_eq!(sentence, "Rust is fun.");
+    
+    let empty: Vec&lt;&amp;str&gt; = vec![];
+    assert_eq!(build_sentence(&amp;empty), "");
+    println!("综合挑战通过！");
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn build_sentence(words: &amp;[&amp;str]) -&gt; String {
+    let mut result = String::new();
+    for (i, word) in words.iter().enumerate() {
+        if i &gt; 0 {
+            result.push_str(" ");
+        }
+        result.push_str(word);
+    }
+    if !result.is_empty() {
+        result.push_str(".");
+    }
+    result
+}
+
+fn main() {
+    let words = vec!["Rust", "is", "fun"];
+    let sentence = build_sentence(&amp;words);
+    println!("{}", sentence);
+    assert_eq!(sentence, "Rust is fun.");
+    
+    let empty: Vec&lt;&amp;str&gt; = vec![];
+    assert_eq!(build_sentence(&amp;empty), "");
+    println!("综合挑战通过！");
+}</code></pre>
+<p><strong>说明：</strong> 循环拼接时需要注意：两个单词之间才需要空格（通过 <code>enumerate</code> 的索引判断），句尾统一加句号。空列表需要返回空字符串，判断 <code>is_empty</code> 避免多余句号。这里也体现了 <code>String</code> 的可变增长能力。</p>
+</details>
+<h3 id="练习-13-11-使用-split-切割字符串"><a class="header" href="#练习-13-11-使用-split-切割字符串">练习 13-11: 使用 split 切割字符串</a></h3>
+<blockquote>
+<p>难度：⭐
+对比：Java 的 <code>String.split()</code>，C++ 常用 <code>stringstream</code> 或 <code>find</code></p>
+</blockquote>
+<p>使用 <code>split</code> 方法按指定分隔符切割字符串。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let data = "apple,banana,cherry,date";
+    
+    // TODO: 用 ',' 分割 data，并收集每个水果到 Vec&lt;&amp;str&gt;
+    let fruits: Vec&lt;&amp;str&gt; = /* ??? */;
+    
+    println!("{:?}", fruits);
+    assert_eq!(fruits, vec!["apple", "banana", "cherry", "date"]);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let data = "apple,banana,cherry,date";
+    let fruits: Vec&lt;&amp;str&gt; = data.split(',').collect();
+    println!("{:?}", fruits);
+    assert_eq!(fruits, vec!["apple", "banana", "cherry", "date"]);
+}</code></pre>
+<p><strong>说明：</strong> <code>split</code> 返回一个迭代器，调用 <code>.collect()</code> 可以收集到 <code>Vec&lt;&amp;str&gt;</code>。重要的是，返回的 <code>&amp;str</code> 仍然引用原字符串的数据，没有发生拷贝，非常高效。</p>
+</details>
+<h3 id="练习-13-12-使用-chars-获取单个字符"><a class="header" href="#练习-13-12-使用-chars-获取单个字符">练习 13-12: 使用 chars 获取单个字符</a></h3>
+<blockquote>
+<p>难度：⭐
+对比：Java 的 <code>.charAt()</code>，C++ 的 <code>operator[]</code>（不适用于多字节字符）</p>
+</blockquote>
+<p>使用 <code>chars</code> 方法获取字符串中的第 N 个字符。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let text = "你好，世界！";
+    
+    // TODO: 获取 text 的第一个字符
+    let first = text.chars()./* ??? */;
+    println!("第一个字符: {:?}", first);
+    assert_eq!(first, Some('你'));
+    
+    // TODO: 获取 text 的第三个字符
+    let third = text.chars()./* ??? */;
+    println!("第三个字符: {:?}", third);
+    assert_eq!(third, Some('，'));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let text = "你好，世界！";
+    let first = text.chars().next();
+    println!("第一个字符: {:?}", first);
+    assert_eq!(first, Some('你'));
+    
+    let third = text.chars().nth(2);
+    println!("第三个字符: {:?}", third);
+    assert_eq!(third, Some('，'));
+}</code></pre>
+<p><strong>说明：</strong> 对于 UTF-8 字符串，不能直接用索引访问字符（因为一个字符可能占 1-4 字节）。<code>.chars()</code> 返回字符迭代器，<code>.next()</code> 取第一个，<code>.nth(n)</code> 取第 n+1 个。返回 <code>Option&lt;char&gt;</code> 安全处理空字符串或超界情况。</p>
+</details>
+<h3 id="练习-13-13-使用-bytes-遍历字节"><a class="header" href="#练习-13-13-使用-bytes-遍历字节">练习 13-13: 使用 bytes 遍历字节</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+对比：C++ 可直接遍历 <code>std::string</code> 的字节数组，Java 用 <code>.getBytes()</code></p>
+</blockquote>
+<p>遍历字符串的底层字节序列。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let s = "Rust";
+    
+    println!("字节序列:");
+    // TODO: 使用 bytes() 遍历每个字节并打印
+    for byte in s./* ??? */ {
+        println!("  0x{:02X}", byte);
+    }
+    
+    // 中文
+    let cn = "中";
+    println!("'中' 的字节序列:");
+    // TODO: 打印出 '中' 的 UTF-8 编码（应当是 3 个字节）
+    for byte in cn./* ??? */ {
+        println!("  0x{:02X}", byte);
+    }
+    // TODO: 断言字节数是 3
+    assert_eq!(cn.len(), /* ??? */);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let s = "Rust";
+    println!("字节序列:");
+    for byte in s.bytes() {
+        println!("  0x{:02X}", byte);
+    }
+    
+    let cn = "中";
+    println!("'中' 的字节序列:");
+    for byte in cn.bytes() {
+        println!("  0x{:02X}", byte);
+    }
+    assert_eq!(cn.len(), 3);
+}</code></pre>
+<p><strong>说明：</strong> <code>.bytes()</code> 返回字节迭代器，每次 yield 一个 <code>u8</code>。这里可以看到 <code>"Rust"</code> 每个字符 1 字节（ASCII），而 <code>"中"</code> 占 3 字节（E4 B8 AD）。<code>len()</code> 返回的是字节数，不是字符数。</p>
+</details>
+<h3 id="练习-13-14-使用-chars-遍历字符"><a class="header" href="#练习-13-14-使用-chars-遍历字符">练习 13-14: 使用 chars 遍历字符</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+对比：Java 的 <code>for (char c : str.toCharArray())</code>，C++ 需要手动处理 UTF-8</p>
+</blockquote>
+<p>遍历字符串中的每一个 Unicode 字符。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let s = "a🦀🔥";
+    
+    println!("字符遍历:");
+    // TODO: 使用 chars() 遍历所有字符
+    for c in s./* ??? */ {
+        println!("  '{}'", c);
+    }
+    
+    // TODO: 断言字符个数（不是字节数）
+    assert_eq!(s.chars().count(), /* ??? */);
+    
+    // 提示：字符数不等于字节数
+    println!("字节数: {}, 字符数: {}", s.len(), s.chars().count());
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let s = "a🦀🔥";
+    println!("字符遍历:");
+    for c in s.chars() {
+        println!("  '{}'", c);
+    }
+    assert_eq!(s.chars().count(), 3);
+    
+    println!("字节数: {}, 字符数: {}", s.len(), s.chars().count());
+}</code></pre>
+<p><strong>说明：</strong> <code>a</code> 占 1 字节，<code>🦀</code>（螃蟹 emoji）占 4 字节，<code>🔥</code>（火焰 emoji）占 4 字节，共 9 字节但只有 3 个字符。<code>.chars().count()</code> 给出真正的字符数。这在处理用户可见的文本长度时至关重要。</p>
+</details>
+<h3 id="练习-13-15-字符串切割遍历综合挑战"><a class="header" href="#练习-13-15-字符串切割遍历综合挑战">练习 13-15: 字符串切割遍历综合挑战</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+对比：Java 的 <code>substring</code> 基于 char 索引会出错，C++17 的 <code>std::string_view</code> 类似 &amp;str</p>
+</blockquote>
+<p>实现一个函数，将长文本按指定宽度（字符数）换行。</p>
+<pre class="playground"><code class="language-rust">/// 将文本按指定字符宽度换行，返回每一行的切片
+fn wrap_text(text: &amp;str, max_width: usize) -&gt; Vec&lt;&amp;str&gt; {
+    // TODO: 实现换行逻辑
+    // 提示：收集所有 char，然后按 max_width 分组切片
+    let chars: Vec&lt;char&gt; = text.chars().collect();
+    let mut result = Vec::new();
+    let mut start = 0;
+    while start &lt; chars.len() {
+        let end = (start + max_width).min(chars.len());
+        // 从原字符串中切出对应的子串
+        // 需要找到第 start 个 char 和第 end 个 char 的字节偏移
+        let byte_start = chars[..start].iter().map(|c| c.len_utf8()).sum();
+        let byte_end = chars[..end].iter().map(|c| c.len_utf8()).sum();
+        result.push(&amp;text[byte_start..byte_end]);
+        start = end;
+    }
+    result
+}
+
+fn main() {
+    let text = "Hello世界Rust编程";
+    let lines = wrap_text(text, 4);
+    for (i, line) in lines.iter().enumerate() {
+        println!("第{}行: '{}'", i + 1, line);
+    }
+    // 每个汉字和英文字母都算一个字符
+    assert_eq!(lines.len(), 3);
+    assert_eq!(lines[0], "Hello");
+    assert_eq!(lines[1], "世界Ru");
+    assert_eq!(lines[2], "st编程");
+    println!("综合挑战通过！");
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn wrap_text(text: &amp;str, max_width: usize) -&gt; Vec&lt;&amp;str&gt; {
+    let chars: Vec&lt;char&gt; = text.chars().collect();
+    let mut result = Vec::new();
+    let mut start = 0;
+    while start &lt; chars.len() {
+        let end = (start + max_width).min(chars.len());
+        let byte_start = chars[..start].iter().map(|c| c.len_utf8()).sum();
+        let byte_end = chars[..end].iter().map(|c| c.len_utf8()).sum();
+        result.push(&amp;text[byte_start..byte_end]);
+        start = end;
+    }
+    result
+}
+
+fn main() {
+    let text = "Hello世界Rust编程";
+    let lines = wrap_text(text, 4);
+    for (i, line) in lines.iter().enumerate() {
+        println!("第{}行: '{}'", i + 1, line);
+    }
+    assert_eq!(lines.len(), 3);
+    assert_eq!(lines[0], "Hello");
+    assert_eq!(lines[1], "世界Ru");
+    assert_eq!(lines[2], "st编程");
+    println!("综合挑战通过！");
+}</code></pre>
+<p><strong>说明：</strong> 字符串切片操作 <code>&amp;text[start..end]</code> 使用<strong>字节偏移</strong>，而非字符索引。直接按字符索引切割会越界或切在字符中间导致 panic。正确做法是：先将字符收集到 <code>Vec&lt;char&gt;</code>，计算对应字符位置的字节偏移，再执行切片。<code>char::len_utf8()</code> 返回该字符的 UTF-8 编码长度。</p>
+</details>
+<h3 id="练习-13-16-utf-8-编码基础"><a class="header" href="#练习-13-16-utf-8-编码基础">练习 13-16: UTF-8 编码基础</a></h3>
+<blockquote>
+<p>难度：⭐
+对比：Java 的 <code>char</code> 是 UTF-16 编码（2 字节），C++ 的 <code>char</code> 通常是 1 字节 ASCII</p>
+</blockquote>
+<p>了解 UTF-8 编码下不同字符的字节长度。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    // TODO: 在下方空格填入正确的字节数
+    // ASCII 字符
+    assert_eq!("A".len(), /* ? */);
+    
+    // 拉丁字母重音字符
+    assert_eq!("é".len(), /* ? */);
+    
+    // 中文字符
+    assert_eq!("中".len(), /* ? */);
+    
+    // Emoji
+    assert_eq!("🎉".len(), /* ? */);
+    
+    println!("所有 UTF-8 长度判断正确！");
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    assert_eq!("A".len(), 1);
+    assert_eq!("é".len(), 2);
+    assert_eq!("中".len(), 3);
+    assert_eq!("🎉".len(), 4);
+    println!("所有 UTF-8 长度判断正确！");
+}</code></pre>
+<p><strong>说明：</strong> UTF-8 编码是变长编码：ASCII（U+0000 ~ U+007F）占 1 字节；拉丁扩展等（U+0080 ~ U+07FF）占 2 字节；常用汉字（U+0800 ~ U+FFFF）占 3 字节；Emoji 和生僻字（U+10000 以上）占 4 字节。<code>len()</code> 返回字节数而非字符数。</p>
+</details>
+<h3 id="练习-13-17-字符与字节数的换算"><a class="header" href="#练习-13-17-字符与字节数的换算">练习 13-17: 字符与字节数的换算</a></h3>
+<blockquote>
+<p>难度：⭐
+对比：C++ 中 <code>std::string::size()</code> 同样是字节数，容易混淆</p>
+</blockquote>
+<p>计算字符串的字符数（不直接使用 <code>.chars().count()</code>，而是手动遍历计数）。</p>
+<pre class="playground"><code class="language-rust">fn char_count(s: &amp;str) -&gt; usize {
+    // TODO: 手动遍历 chars 计数
+    let mut count = 0;
+    for /* ??? */ in s.chars() {
+        count += 1;
+    }
+    count
+}
+
+fn main() {
+    let s = "Rust🦀编程🔥";
+    println!("字符串: '{}'", s);
+    println!("字节数: {}", s.len());
+    println!("字符数: {}", char_count(s));
+    
+    assert_eq!(s.len(), 15);   // R(1) u(1) s(1) t(1) 🦀(4) 编(3) 程(3) 🔥(4)
+    assert_eq!(char_count(s), 8);
+    println!("换算正确！");
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn char_count(s: &amp;str) -&gt; usize {
+    let mut count = 0;
+    for _ in s.chars() {
+        count += 1;
+    }
+    count
+}
+
+fn main() {
+    let s = "Rust🦀编程🔥";
+    println!("字符串: '{}'", s);
+    println!("字节数: {}", s.len());
+    println!("字符数: {}", char_count(s));
+    
+    assert_eq!(s.len(), 15);
+    assert_eq!(char_count(s), 8);
+    println!("换算正确！");
+}</code></pre>
+<p><strong>说明：</strong> 手动遍历 <code>chars</code> 演示了字符计数的原理。<code>s.len()</code> 返回字节数，<code>s.chars().count()</code> 返回字符数。对于包含非 ASCII 的文本，两者差异明显，初学者经常混淆。</p>
+</details>
+<h3 id="练习-13-18-char-的基本操作"><a class="header" href="#练习-13-18-char-的基本操作">练习 13-18: char 的基本操作</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+对比：Java 的 <code>Character.isDigit()</code>、<code>Character.isUpperCase()</code>，C++ 的 <code>std::isalpha</code></p>
+</blockquote>
+<p>使用 <code>char</code> 的方法判断字符类别。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let text = "Rust 3.0 🚀";
+    
+    let mut digit_count = 0;
+    let mut alpha_count = 0;
+    let mut whitespace_count = 0;
+    
+    for c in text.chars() {
+        // TODO: 使用 char 方法判断并分类
+        if c./* ??? */ {
+            digit_count += 1;
+        } else if c./* ??? */ {
+            alpha_count += 1;
+        } else if c./* ??? */ {
+            whitespace_count += 1;
+        }
+    }
+    
+    println!("数字: {}", digit_count);
+    println!("字母: {}", alpha_count);
+    println!("空白: {}", whitespace_count);
+    
+    assert_eq!(digit_count, 2);   // 3 和 0
+    assert_eq!(alpha_count, 4);   // R, u, s, t
+    assert_eq!(whitespace_count, 2);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let text = "Rust 3.0 🚀";
+    
+    let mut digit_count = 0;
+    let mut alpha_count = 0;
+    let mut whitespace_count = 0;
+    
+    for c in text.chars() {
+        if c.is_ascii_digit() {
+            digit_count += 1;
+        } else if c.is_ascii_alphabetic() {
+            alpha_count += 1;
+        } else if c.is_ascii_whitespace() {
+            whitespace_count += 1;
+        }
+    }
+    
+    println!("数字: {}", digit_count);
+    println!("字母: {}", alpha_count);
+    println!("空白: {}", whitespace_count);
+    
+    assert_eq!(digit_count, 2);
+    assert_eq!(alpha_count, 4);
+    assert_eq!(whitespace_count, 2);
+}</code></pre>
+<p><strong>说明：</strong> <code>char</code> 类型提供了丰富的方法：<code>is_ascii_digit()</code> 判断是否为 ASCII 数字，<code>is_ascii_alphabetic()</code> 判断字母，<code>is_ascii_whitespace()</code> 判断空白。还有更通用的 <code>is_uppercase()</code>、<code>is_lowercase()</code>、<code>is_alphanumeric()</code> 等 Unicode 感知方法。</p>
+</details>
+<h3 id="练习-13-19-char-大小写转换"><a class="header" href="#练习-13-19-char-大小写转换">练习 13-19: char 大小写转换</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+对比：Java 的 <code>Character.toUpperCase()</code>，C++ 的 <code>std::toupper</code></p>
+</blockquote>
+<p>实现字符串的大小写转换（不借助 <code>to_uppercase()</code> / <code>to_lowercase()</code> 全串方法，手动逐字符转换）。</p>
+<pre class="playground"><code class="language-rust">fn to_upper_first(s: &amp;str) -&gt; String {
+    // TODO: 将首字母转为大写，其余保持不变
+    let mut result = String::new();
+    for (i, c) in s.chars().enumerate() {
+        if i == 0 {
+            // 转为大写
+            for upper in c./* ??? */ {
+                result.push(upper);
+            }
+        } else {
+            result.push(c);
+        }
+    }
+    result
+}
+
+fn main() {
+    let text = "hello 世界";
+    let result = to_upper_first(text);
+    println!("'{}' -&gt; '{}'", text, result);
+    assert_eq!(result, "Hello 世界");
+    
+    // 注意：有些字符大写后可能变为多个字符（如德语 ß → SS）
+    let german = "ß";
+    let upper_german: String = german.chars().flat_map(|c| c.to_uppercase()).collect();
+    println!("'{}' 大写 -&gt; '{}'", german, upper_german);
+    assert_eq!(upper_german, "SS");
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn to_upper_first(s: &amp;str) -&gt; String {
+    let mut result = String::new();
+    for (i, c) in s.chars().enumerate() {
+        if i == 0 {
+            for upper in c.to_uppercase() {
+                result.push(upper);
+            }
+        } else {
+            result.push(c);
+        }
+    }
+    result
+}
+
+fn main() {
+    let text = "hello 世界";
+    let result = to_upper_first(text);
+    println!("'{}' -&gt; '{}'", text, result);
+    assert_eq!(result, "Hello 世界");
+    
+    let german = "ß";
+    let upper_german: String = german.chars().flat_map(|c| c.to_uppercase()).collect();
+    println!("'{}' 大写 -&gt; '{}'", german, upper_german);
+    assert_eq!(upper_german, "SS");
+}</code></pre>
+<p><strong>说明：</strong> <code>char::to_uppercase()</code> 返回迭代器而非单个字符，因为某些 Unicode 字符（如德语 <code>ß</code>）大写后变为 <code>SS</code>（2 个字符）。这在处理国际化文本时非常重要——简单的 <code>c as u8 - 32</code> 只适用于 ASCII。</p>
+</details>
+<h3 id="练习-13-20-简易模板引擎"><a class="header" href="#练习-13-20-简易模板引擎">练习 13-20: 简易模板引擎</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+对比：Java 的 <code>String.replace()</code> / 模板引擎，C++ 需要手动查找替换</p>
+</blockquote>
+<p>实现一个简易模板引擎，将 <code>{name}</code> 形式的占位符替换为实际值。</p>
+<pre class="playground"><code class="language-rust">use std::collections::HashMap;
+
+/// 简易模板引擎：将 template 中的 {key} 替换为 values 中对应的值
+/// 如果占位符在 values 中不存在，保持原样
+fn render(template: &amp;str, values: &amp;HashMap&lt;&amp;str, &amp;str&gt;) -&gt; String {
+    // TODO: 实现模板替换逻辑
+    // 提示：可以遍历 template，检测 '{' 和 '}' 之间的内容作为 key
+    let mut result = String::new();
+    let mut key_buf = String::new();
+    let mut in_key = false;
+
+    for c in template.chars() {
+        match c {
+            '{' =&gt; {
+                in_key = true;
+                key_buf.clear();
+            }
+            '}' =&gt; {
+                in_key = false;
+                match values.get(key_buf.as_str()) {
+                    Some(val) =&gt; result.push_str(val),
+                    None =&gt; {
+                        result.push('{');
+                        result.push_str(&amp;key_buf);
+                        result.push('}');
+                    }
+                }
+                key_buf.clear();
+            }
+            _ if in_key =&gt; {
+                key_buf.push(c);
+            }
+            _ =&gt; {
+                result.push(c);
+            }
+        }
+    }
+
+    // 如果模板结束时还没有闭合的花括号
+    if in_key {
+        result.push('{');
+        result.push_str(&amp;key_buf);
+    }
+    
+    result
+}
+
+fn main() {
+    let mut values = HashMap::new();
+    values.insert("name", "Alice");
+    values.insert("city", "Beijing");
+    
+    let template = "Hello {name}, welcome to {city}!";
+    let output = render(template, &amp;values);
+    println!("模板: '{}'", template);
+    println!("输出: '{}'", output);
+    assert_eq!(output, "Hello Alice, welcome to Beijing!");
+    
+    // 测试不存在的占位符
+    let template2 = "Hi {name}, your score is {score}";
+    let output2 = render(template2, &amp;values);
+    println!("输出2: '{}'", output2);
+    assert_eq!(output2, "Hi Alice, your score is {score}");
+    
+    println!("简易模板引擎通过！");
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::collections::HashMap;
+
+fn render(template: &amp;str, values: &amp;HashMap&lt;&amp;str, &amp;str&gt;) -&gt; String {
+    let mut result = String::new();
+    let mut key_buf = String::new();
+    let mut in_key = false;
+
+    for c in template.chars() {
+        match c {
+            '{' =&gt; {
+                in_key = true;
+                key_buf.clear();
+            }
+            '}' =&gt; {
+                in_key = false;
+                match values.get(key_buf.as_str()) {
+                    Some(val) =&gt; result.push_str(val),
+                    None =&gt; {
+                        result.push('{');
+                        result.push_str(&amp;key_buf);
+                        result.push('}');
+                    }
+                }
+                key_buf.clear();
+            }
+            _ if in_key =&gt; {
+                key_buf.push(c);
+            }
+            _ =&gt; {
+                result.push(c);
+            }
+        }
+    }
+
+    if in_key {
+        result.push('{');
+        result.push_str(&amp;key_buf);
+    }
+
+    result
+}
+
+fn main() {
+    let mut values = HashMap::new();
+    values.insert("name", "Alice");
+    values.insert("city", "Beijing");
+    
+    let template = "Hello {name}, welcome to {city}!";
+    let output = render(template, &amp;values);
+    println!("模板: '{}'", template);
+    println!("输出: '{}'", output);
+    assert_eq!(output, "Hello Alice, welcome to Beijing!");
+    
+    let template2 = "Hi {name}, your score is {score}";
+    let output2 = render(template2, &amp;values);
+    println!("输出2: '{}'", output2);
+    assert_eq!(output2, "Hi Alice, your score is {score}");
+    
+    println!("简易模板引擎通过！");
+}</code></pre>
+<p><strong>说明：</strong> 这是一个完整的简易模板引擎实现。核心逻辑是：逐个遍历字符，遇到 <code>{</code> 进入 key 收集模式，遇到 <code>}</code> 结束并在 <code>HashMap</code> 中查找替换。未闭合的花括号和未找到的 key 都会保留原样。这个练习综合运用了字符串遍历、字符判断、字符串拼接和集合查找等知识。</p>
+</details>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="12_hashmap.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="14_option.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="12_hashmap.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="14_option.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-c22b7243.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

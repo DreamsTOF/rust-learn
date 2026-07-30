@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e304_tray_click_event_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e304_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1724",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 304: 托盘点击事件 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

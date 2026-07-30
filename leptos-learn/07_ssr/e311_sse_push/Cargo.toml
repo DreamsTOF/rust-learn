@@ -1,0 +1,8 @@
+[package]
+name = "e311_sse_push"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+leptos.workspace = true
+

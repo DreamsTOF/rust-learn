@@ -1,0 +1,8 @@
+[package]
+name = "e056_signal_array_derived_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

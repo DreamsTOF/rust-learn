@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e037_cmd_return_bool",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e037",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1457",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 037: 返回布尔值",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

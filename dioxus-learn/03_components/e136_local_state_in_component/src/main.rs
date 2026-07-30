@@ -1,0 +1,5 @@
+// TODO e136: local_state_in_component
+// Follow TODO comments to complete this exercise
+use dioxus::prelude::*;
+fn App() -> Element { todo!() }
+fn main() { dioxus::launch(App); }

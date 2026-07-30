@@ -1,0 +1,8 @@
+[package]
+name = "e268_link_target_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

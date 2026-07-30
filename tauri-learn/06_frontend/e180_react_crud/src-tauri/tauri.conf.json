@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e180_react_crud",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e180",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1600",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 180: 综合: React + Tauri CRUD",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

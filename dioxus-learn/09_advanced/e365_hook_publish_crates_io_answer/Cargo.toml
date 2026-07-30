@@ -1,0 +1,8 @@
+[package]
+name = "e365_hook_publish_crates_io_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

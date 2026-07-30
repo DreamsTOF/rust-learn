@@ -1,0 +1,10 @@
+[package]
+name = "e381_user_analytics"
+version = "0.1.0"
+edition = "2024"
+
+ 
+[dependencies]
+leptos.workspace = true
+serde.workspace = true
+

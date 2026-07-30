@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e335_security_review_tool_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e335_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1755",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 335: 综合: 安全审查工具 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

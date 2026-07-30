@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e125_path_documents",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e125",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1545",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 125: 读取文档目录",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+[package]
+name = "e149_async_init_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

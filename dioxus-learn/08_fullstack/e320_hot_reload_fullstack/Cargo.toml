@@ -1,0 +1,8 @@
+[package]
+name = "e320_hot_reload_fullstack"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

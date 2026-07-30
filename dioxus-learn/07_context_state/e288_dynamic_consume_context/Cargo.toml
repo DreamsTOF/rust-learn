@@ -1,0 +1,8 @@
+[package]
+name = "e288_dynamic_consume_context"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

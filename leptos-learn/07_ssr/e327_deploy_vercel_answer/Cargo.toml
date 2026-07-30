@@ -1,0 +1,8 @@
+[package]
+name = "e327_deploy_vercel_answer"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+leptos.workspace = true
+

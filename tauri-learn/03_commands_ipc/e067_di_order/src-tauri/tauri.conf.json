@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e067_di_order",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e067",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1487",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 067: 依赖注入顺序",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

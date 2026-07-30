@@ -1,0 +1,8 @@
+[package]
+name = "e089_global_signal_type_constraint"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

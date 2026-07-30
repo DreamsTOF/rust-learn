@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e324_security_custom_perms",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e324",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1744",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 324: 自定义命令权限",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

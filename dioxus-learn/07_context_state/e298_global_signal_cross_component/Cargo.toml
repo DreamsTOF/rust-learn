@@ -1,0 +1,8 @@
+[package]
+name = "e298_global_signal_cross_component"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

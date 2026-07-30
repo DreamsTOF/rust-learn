@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e151_lifecycle_background_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e151_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1571",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 151: 应用后台运行 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

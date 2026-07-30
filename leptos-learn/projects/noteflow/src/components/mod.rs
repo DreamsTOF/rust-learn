@@ -1,0 +1,11 @@
+pub mod sidebar;
+pub mod editor;
+pub mod tab_bar;
+pub mod search_panel;
+pub mod command_palette;
+pub mod filter_panel;
+pub mod version_history;
+pub mod toc_panel;
+pub mod link_graph;
+pub mod comment_panel;
+pub mod template_picker;

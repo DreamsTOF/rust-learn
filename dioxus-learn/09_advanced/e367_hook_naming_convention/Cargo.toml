@@ -1,0 +1,8 @@
+[package]
+name = "e367_hook_naming_convention"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

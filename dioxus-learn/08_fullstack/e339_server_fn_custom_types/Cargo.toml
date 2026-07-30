@@ -1,0 +1,8 @@
+[package]
+name = "e339_server_fn_custom_types"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

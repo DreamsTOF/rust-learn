@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e174_react_state_ipc",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e174",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1594",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 174: React 组件状态与 IPC",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

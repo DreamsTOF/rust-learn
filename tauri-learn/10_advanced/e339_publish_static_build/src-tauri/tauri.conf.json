@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e339_publish_static_build",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e339",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1759",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 339: 静态编译与运行时依赖",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

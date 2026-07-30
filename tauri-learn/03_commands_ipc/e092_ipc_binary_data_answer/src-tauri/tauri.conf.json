@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e092_ipc_binary_data_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e092_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1512",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 092: 二进制数据传输 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

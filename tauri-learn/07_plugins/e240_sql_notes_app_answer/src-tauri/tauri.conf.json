@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e240_sql_notes_app_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e240_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1660",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 240: 综合: SQLite 笔记管理器 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

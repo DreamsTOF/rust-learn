@@ -1,0 +1,7 @@
+[package]
+name = "e107_two_way_binding_answer"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+leptos.workspace = true

@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e118_config_custom_path",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e118",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1538",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 118: 自定义配置文件路径",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

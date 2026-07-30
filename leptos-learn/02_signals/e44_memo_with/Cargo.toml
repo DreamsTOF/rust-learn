@@ -1,0 +1,9 @@
+[package]
+name = "e44_memo_with"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+leptos.workspace = true
+
+

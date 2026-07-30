@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e245_store_settings",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e245",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1665",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 245: 综合: 应用设置持久化",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

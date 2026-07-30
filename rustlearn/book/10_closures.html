@@ -1,0 +1,1086 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="ayu sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>10 闭包与函数式 - Rust 实战练习 — 460 题快速突破</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="从 C++/Java 到 Rust，460 道循序渐进的实战练习题">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/custom-b5e00510.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "ayu";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-f70c63f5.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-86798690.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Rust 实战练习 — 460 题快速突破</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="10-闭包与函数式"><a class="header" href="#10-闭包与函数式">10 闭包与函数式</a></h1>
+<p>闭包（closure）是 Rust 中支持函数式编程的核心特性，类似于 C++ 的 lambda 表达式或 Java 的 lambda，但 Rust 闭包通过三种 trait（<code>Fn</code>、<code>FnMut</code>、<code>FnOnce</code>）精细控制捕获方式。本章练习将帮助你掌握闭包的定义、环境捕获、<code>move</code> 语义、作为参数和返回值的用法，以及高阶编程技巧。</p>
+<h3 id="练习-10-01-定义简单闭包"><a class="header" href="#练习-10-01-定义简单闭包">练习 10-01: 定义简单闭包</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 的 <code>[](int x) { return x + 1; }</code>，Rust 闭包用 <code>|x| x + 1</code></p>
+</blockquote>
+<p>补全代码，定义三个不同风格的闭包：显式类型、隐式类型和多语句体。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    // TODO: 定义一个闭包 add_one，接受 i32 返回 i32（显式类型标注）
+    // let add_one = ...;
+
+    // TODO: 定义一个闭包 square，自动推断类型
+    // let square = ...;
+
+    // TODO: 定义一个闭包 factorial，计算 n 的阶乘（多语句体需要花括号）
+    // let factorial = ...;
+
+    println!("5 + 1 = {}", add_one(5));
+    println!("6 的平方 = {}", square(6));
+    println!("5! = {}", factorial(5));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let add_one = |x: i32| -&gt; i32 { x + 1 };
+    let square = |x| x * x;
+
+    let factorial = |n: u32| -&gt; u32 {
+        (1..=n).product()
+    };
+
+    println!("5 + 1 = {}", add_one(5));
+    println!("6 的平方 = {}", square(6));
+    println!("5! = {}", factorial(5));
+}</code></pre>
+<p><strong>说明：</strong> Rust 闭包用 <code>|参数列表| 表达式</code> 定义。单表达式可以省略花括号，多语句必须用 <code>{}</code>。参数和返回值可以显式标注类型，也可以让编译器推断。<code>(1..=n).product()</code> 展示了闭包体内可以使用迭代器方法。</p>
+</details>
+<h3 id="练习-10-02-闭包的类型推断"><a class="header" href="#练习-10-02-闭包的类型推断">练习 10-02: 闭包的类型推断</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 的 <code>auto lambda = [](auto x) { ... }</code>，但 Rust 类型推断在第一次调用后就固定</p>
+</blockquote>
+<p>补全代码，让编译器自动推断闭包参数和返回值类型。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    // TODO: 定义 doubler 闭包，将输入乘以 2（不写类型，让编译器推断）
+    // let doubler = ...;
+
+    // TODO: 定义 concat 闭包，将两个字符串拼接（不写类型，让编译器推断）
+    // let concat = ...;
+
+    println!("{}", doubler(21));       // 42
+    println!("{}", doubler(3.14));     // 6.28
+    // println!("{}", doubler("x"));   // 取消注释看看编译器报错
+    println!("{}", concat("Hello, ", "Rust!"));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let doubler = |x| x * 2;
+    let concat = |a, b| format!("{}{}", a, b);
+
+    println!("{}", doubler(21));
+    println!("{}", doubler(3.14));
+    // println!("{}", doubler("x"));   // 编译错误：类型已推断为 f64
+    println!("{}", concat("Hello, ", "Rust!"));
+}</code></pre>
+<p><strong>说明：</strong> 闭包的类型在<strong>第一次调用</strong>时被固定下来。<code>doubler</code> 先传入 <code>21</code>（整数），立即推断为整数乘法，下一行 <code>3.14</code>（浮点数）会触发隐式类型转换问题——实际上第一次调用 <code>21</code> 推断为 <code>i32</code>，后续 <code>3.14</code> 会造成编译错误，因为 <code>i32</code> 和 <code>f64</code> 不匹配。这体现了 Rust 类型推断的严格性：闭包参数类型一旦确定就不可更改。</p>
+</details>
+<h3 id="练习-10-03-函数转闭包"><a class="header" href="#练习-10-03-函数转闭包">练习 10-03: 函数转闭包</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 中函数指针可以赋给 <code>std::function</code>，Rust 中普通函数可以赋值给闭包变量</p>
+</blockquote>
+<p>定义一个普通函数，然后将其赋值给一个闭包类型的变量，并调用它。</p>
+<pre class="playground"><code class="language-rust">// TODO: 定义一个普通函数 add，接受两个 i32 返回 i32
+
+fn main() {
+    // TODO: 将 add 函数赋值给闭包变量 closure
+    // let closure = ...;
+
+    println!("{}", closure(3, 4)); // 7
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn add(x: i32, y: i32) -&gt; i32 {
+    x + y
+}
+
+fn main() {
+    let closure = add;
+    println!("{}", closure(3, 4));
+}</code></pre>
+<p><strong>说明：</strong> 在 Rust 中，普通函数实现了所有三种闭包 trait（<code>Fn</code>、<code>FnMut</code>、<code>FnOnce</code>），因此函数名可以直接赋值给期望闭包类型的变量。函数可以看作是“不捕获任何环境“的特殊闭包。这种统一性使得函数和闭包在 Rust 中可以互换使用，简化了高阶函数的设计。</p>
+</details>
+<h3 id="练习-10-04-闭包转函数指针"><a class="header" href="#练习-10-04-闭包转函数指针">练习 10-04: 闭包转函数指针</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 的无捕获 lambda 可以转换为函数指针，Rust 同理</p>
+</blockquote>
+<p>如果一个闭包不捕获任何环境变量，它可以被转换为函数指针。补全代码，将一个无捕获闭包转换为 <code>fn</code> 类型并调用。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    // TODO: 定义一个无捕获闭包 multiply，然后将其转换为函数指针 fn(i32, i32) -&gt; i32
+    // let multiply = ...;
+    // let func_ptr: fn(i32, i32) -&gt; i32 = ...;
+
+    println!("{}", func_ptr(6, 7)); // 42
+
+    // TODO: 直接将闭包作为参数传递给接受 fn 的函数
+    fn apply_func(f: fn(i32, i32) -&gt; i32, a: i32, b: i32) -&gt; i32 {
+        f(a, b)
+    }
+    // println!("{}", apply_func(???, 10, 20));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let multiply = |a, b| a * b;
+    let func_ptr: fn(i32, i32) -&gt; i32 = multiply;
+
+    println!("{}", func_ptr(6, 7));
+
+    fn apply_func(f: fn(i32, i32) -&gt; i32, a: i32, b: i32) -&gt; i32 {
+        f(a, b)
+    }
+    println!("{}", apply_func(multiply, 10, 20));
+}</code></pre>
+<p><strong>说明：</strong> 只有<strong>不捕获环境</strong>的闭包才能转换为函数指针（<code>fn</code> 类型）。一旦闭包捕获了外部变量，它就不再是“普通函数“，不能转换为 <code>fn</code>。这个限制与 C++ 中无捕获 lambda 可转换为函数指针的规则一致。</p>
+</details>
+<h3 id="练习-10-05-闭包基础综合"><a class="header" href="#练习-10-05-闭包基础综合">练习 10-05: 闭包基础综合</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+综合运用闭包定义、类型推断、函数指针转换</p>
+</blockquote>
+<p>实现一个简单的计算器，使用闭包来表示不同的运算。</p>
+<pre class="playground"><code class="language-rust">// TODO: 定义一个函数 make_calculator，根据运算符字符串返回对应的闭包
+// 支持的运算符: "+", "-", "*", "/"
+// 对于除法，除数为 0 时返回 f64::NAN
+fn make_calculator(op: &amp;str) -&gt; impl Fn(f64, f64) -&gt; f64 {
+    // TODO: 返回对应的闭包
+    unimplemented!()
+}
+
+fn main() {
+    let add = make_calculator("+");
+    let sub = make_calculator("-");
+    let mul = make_calculator("*");
+    let div = make_calculator("/");
+
+    println!("加法: {}", add(10.0, 3.0));    // 13.0
+    println!("减法: {}", sub(10.0, 3.0));    // 7.0
+    println!("乘法: {}", mul(10.0, 3.0));    // 30.0
+    println!("除法: {}", div(10.0, 3.0));    // 3.333...
+    println!("除零: {}", div(10.0, 0.0));    // NaN
+
+    // TODO: 检查 make_calculator 返回的闭包是否可以作为 fn 指针传递
+    fn apply(f: fn(f64, f64) -&gt; f64, x: f64, y: f64) -&gt; f64 {
+        f(x, y)
+    }
+    // 下面的代码是否能编译？为什么？
+    // println!("{}", apply(make_calculator("+"), 1.0, 2.0));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn make_calculator(op: &amp;str) -&gt; impl Fn(f64, f64) -&gt; f64 {
+    match op {
+        "+" =&gt; |a, b| a + b,
+        "-" =&gt; |a, b| a - b,
+        "*" =&gt; |a, b| a * b,
+        "/" =&gt; |a, b| if b == 0.0 { f64::NAN } else { a / b },
+        _ =&gt; panic!("不支持的运算符: {}", op),
+    }
+}
+
+fn main() {
+    let add = make_calculator("+");
+    let sub = make_calculator("-");
+    let mul = make_calculator("*");
+    let div = make_calculator("/");
+
+    println!("加法: {}", add(10.0, 3.0));
+    println!("减法: {}", sub(10.0, 3.0));
+    println!("乘法: {}", mul(10.0, 3.0));
+    println!("除法: {}", div(10.0, 3.0));
+    println!("除零: {}", div(10.0, 0.0));
+
+    fn apply(f: fn(f64, f64) -&gt; f64, x: f64, y: f64) -&gt; f64 {
+        f(x, y)
+    }
+    // 不能编译：make_calculator 返回 impl Fn，不是 fn 指针
+    // 因为这些闭包捕获了 op 字符串的引用（match 分支中的字符串字面量）
+    // 但等等——它们实际上没有捕获任何变量，只是返回不同的闭包
+    // 然而 impl Fn 在编译期是不透明类型，编译器无法保证它是 fn 指针
+    // println!("{}", apply(make_calculator("+"), 1.0, 2.0));
+}</code></pre>
+<p><strong>说明：</strong> <code>impl Fn(f64, f64) -&gt; f64</code> 是返回闭包 trait 对象的写法。注意 <code>make_calculator</code> 返回的闭包不捕获环境（字符串字面量是 <code>&amp;'static str</code>，但 <code>op</code> 参数已被 match 消耗），但从类型系统角度看，<code>impl Fn</code> 不透明，不能自动转换为 <code>fn</code> 指针。如果希望返回 <code>fn</code> 指针，需要明确指定返回类型为 <code>fn(f64, f64) -&gt; f64</code>。</p>
+</details>
+<h3 id="练习-10-06-不可变捕获读取环境变量"><a class="header" href="#练习-10-06-不可变捕获读取环境变量">练习 10-06: 不可变捕获——读取环境变量</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 的 <code>[&amp;]</code> 捕获，Rust 默认不可变借用</p>
+</blockquote>
+<p>闭包可以捕获其定义作用域中的变量。补全代码，让闭包以不可变借用方式读取外部变量。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let base: i32 = 10;
+    let numbers = vec![1, 2, 3, 4, 5];
+
+    // TODO: 定义一个闭包 add_base，捕获 base 并将每个数字加上 base
+    // let add_base = ...;
+
+    let result: Vec&lt;i32&gt; = numbers.into_iter().map(add_base).collect();
+    println!("{:?}", result); // [11, 12, 13, 14, 15]
+
+    // base 在这里还能用吗？验证一下
+    println!("base 仍然可用: {}", base);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let base: i32 = 10;
+    let numbers = vec![1, 2, 3, 4, 5];
+
+    let add_base = |x| x + base;
+
+    let result: Vec&lt;i32&gt; = numbers.into_iter().map(add_base).collect();
+    println!("{:?}", result);
+
+    println!("base 仍然可用: {}", base);
+}</code></pre>
+<p><strong>说明：</strong> 默认情况下，闭包以<strong>不可变借用</strong>（<code>&amp;T</code>）的方式捕获环境变量。由于只是读取 <code>base</code>，闭包实现了 <code>Fn</code> trait。<code>base</code> 在闭包定义后仍然可用，因为不可变借用不影响所有者的使用权。这是最常用的捕获方式，不会转移所有权或修改变量。</p>
+</details>
+<h3 id="练习-10-07-不可变捕获字符串拼接"><a class="header" href="#练习-10-07-不可变捕获字符串拼接">练习 10-07: 不可变捕获——字符串拼接</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 的 <code>[&amp;]</code> 捕获字符串，Rust 闭包捕获 &amp;String</p>
+</blockquote>
+<p>补全代码，让闭包捕获外部变量并生成问候语。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let greeting = String::from("你好");
+    let names = vec!["Alice", "Bob", "Charlie"];
+
+    // TODO: 定义一个闭包 greet，捕获 greeting，为每个名字生成问候语
+    // let greet = ...;
+
+    let greetings: Vec&lt;String&gt; = names.into_iter().map(greet).collect();
+    println!("{:?}", greetings); // ["你好, Alice!", "你好, Bob!", "你好, Charlie!"]
+
+    println!("greeting 仍然可用: {}", greeting);
+
+    // TODO: 能否捕获 greeting 的引用以节省克隆？尝试修改闭包使其借用 greeting
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let greeting = String::from("你好");
+    let names = vec!["Alice", "Bob", "Charlie"];
+
+    let greet = |name| format!("{}, {}!", greeting, name);
+
+    let greetings: Vec&lt;String&gt; = names.into_iter().map(greet).collect();
+    println!("{:?}", greetings);
+
+    println!("greeting 仍然可用: {}", greeting);
+}</code></pre>
+<p><strong>说明：</strong> 闭包 <code>greet</code> 以不可变借用捕获 <code>greeting</code>。注意 <code>format!</code> 宏只借用 <code>greeting</code>，不取得所有权，所以 <code>greeting</code> 仍然可用。如果闭包内尝试修改或消费 <code>greeting</code>，就需要 <code>FnMut</code> 或 <code>FnOnce</code> 了。</p>
+</details>
+<h3 id="练习-10-08-fnmut可变捕获"><a class="header" href="#练习-10-08-fnmut可变捕获">练习 10-08: FnMut——可变捕获</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 的 <code>[&amp;]</code> 捕获 mutable 变量，但 Rust 必须显式声明 mut</p>
+</blockquote>
+<p>闭包可以修改其捕获的变量，前提是变量本身是 <code>mut</code> 的，且闭包被声明为 <code>mut</code>。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let mut counter = 0;
+
+    // TODO: 定义一个可变闭包 increment，每次调用使 counter 加 1
+    // let mut increment = ...;
+
+    increment();
+    increment();
+    increment();
+
+    println!("counter = {}", counter); // 3
+
+    // TODO: 定义一个闭包 get_counter，返回当前 counter 值（不可变借用）
+    // let get_counter = ...;
+    // println!("get_counter = {}", get_counter()); // 3
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let mut counter = 0;
+
+    let mut increment = || {
+        counter += 1;
+    };
+
+    increment();
+    increment();
+    increment();
+
+    println!("counter = {}", counter);
+
+    let get_counter = || counter;
+    // 注意：这里不能同时使用 increment 和 get_counter，因为可变借用和不可变借用冲突
+    // println!("get_counter = {}", get_counter());
+}</code></pre>
+<p><strong>说明：</strong> 当闭包需要修改捕获的变量时，它实现的是 <code>FnMut</code> trait，而不是 <code>Fn</code>。调用可变闭包时，必须将闭包变量声明为 <code>mut</code>。注意：<code>increment</code> 可变借用了 <code>counter</code>，之后不能再创建 <code>get_counter</code>（不可变借用），因为 Rust 的借用规则不允许可变借用与不可变借用同时存在。</p>
+</details>
+<h3 id="练习-10-09-fnmut累加器"><a class="header" href="#练习-10-09-fnmut累加器">练习 10-09: FnMut——累加器</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 的 <code>[&amp;]</code> 捕获 mutable 容器</p>
+</blockquote>
+<p>使用 <code>FnMut</code> 闭包实现一个累加器函数，统计传入的历史值。</p>
+<pre class="playground"><code class="language-rust">// TODO: 实现 make_accumulator 函数，返回一个闭包
+// 该闭包每次接受一个 i32 参数，返回所有传入参数的总和
+fn make_accumulator() -&gt; impl FnMut(i32) -&gt; i32 {
+    // TODO: 使用可变捕获来累计总和
+    unimplemented!()
+}
+
+fn main() {
+    let mut acc = make_accumulator();
+    println!("{}", acc(10)); // 10
+    println!("{}", acc(20)); // 30
+    println!("{}", acc(30)); // 60
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn make_accumulator() -&gt; impl FnMut(i32) -&gt; i32 {
+    let mut sum = 0;
+    move |x| {
+        sum += x;
+        sum
+    }
+}
+
+fn main() {
+    let mut acc = make_accumulator();
+    println!("{}", acc(10));
+    println!("{}", acc(20));
+    println!("{}", acc(30));
+}</code></pre>
+<p><strong>说明：</strong> <code>make_accumulator</code> 内部定义了一个可变变量 <code>sum</code>，闭包捕获它并在每次调用时累加。这里使用了 <code>move</code> 关键字将 <code>sum</code> 的所有权移入闭包。返回类型 <code>impl FnMut(i32) -&gt; i32</code> 表明返回的是一个可变闭包。调用时闭包变量本身也必须是 <code>mut</code> 的。</p>
+</details>
+<h3 id="练习-10-10-fnonce消费捕获"><a class="header" href="#练习-10-10-fnonce消费捕获">练习 10-10: FnOnce——消费捕获</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+类似 C++ 的 <code>[x = std::move(captured)]</code>，Rust 用 FnOnce 表示消费语义</p>
+</blockquote>
+<p>当一个闭包消费（获取所有权并销毁）捕获的变量时，它只能被调用一次，实现 <code>FnOnce</code> trait。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let name = String::from("Rust");
+
+    // TODO: 定义一个闭包 consume_name，消费 name 的所有权
+    // 提示：在闭包体中直接将 name 作为返回值
+    // let consume_name = ...;
+
+    // println!("{}", consume_name()); // "Rust"
+    // println!("{}", consume_name()); // 编译错误：闭包已被消费
+
+    // TODO: 验证 name 的所有权已被转移
+    // println!("name = {}", name); // 编译错误：name 已被 move
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let name = String::from("Rust");
+
+    let consume_name = || name;
+
+    println!("{}", consume_name());
+    // println!("{}", consume_name()); // 编译错误
+    // println!("name = {}", name); // 编译错误
+}</code></pre>
+<p><strong>说明：</strong> 当闭包体内将捕获的变量直接返回（或移出）时，该闭包只实现了 <code>FnOnce</code>。<code>FnOnce</code> 意味着闭包只能被调用一次，因为第一次调用已经将捕获的值移出了闭包。Rust 编译器会根据闭包体中的操作自动判断实现哪个 trait：只读借用 → <code>Fn</code>，可变借用 → <code>FnMut</code>，消费所有权 → <code>FnOnce</code>。</p>
+</details>
+<h3 id="练习-10-11-move-关键字转移所有权"><a class="header" href="#练习-10-11-move-关键字转移所有权">练习 10-11: move 关键字——转移所有权</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 的 <code>[captured = std::move(var)]</code>，Rust 的 move 关键字强制所有权转移</p>
+</blockquote>
+<p>当一个闭包需要在闭包创建时就获得变量的所有权时，可以使用 <code>move</code> 关键字。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let data = vec![1, 2, 3];
+
+    // TODO: 使用 move 关键字创建闭包，将 data 的所有权移入闭包
+    // let closure = ...;
+
+    println!("闭包内: {:?}", closure()); // [1, 2, 3]
+
+    // 下面的代码能否编译？为什么？
+    // println!("data = {:?}", data);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let data = vec![1, 2, 3];
+
+    let closure = move || data;
+
+    println!("闭包内: {:?}", closure());
+
+    // println!("data = {:?}", data); // 编译错误：data 所有权已移入闭包
+}</code></pre>
+<p><strong>说明：</strong> <code>move</code> 关键字强制闭包获取捕获变量的<strong>所有权</strong>，而不是借用。这在闭包创建时就将所有权转移，无论闭包体中实际如何使用。即使闭包只是读取变量，<code>move</code> 也会转移所有权。<code>move</code> 的必要性在线程场景中最为明显——当闭包需要跨线程传递时，必须独占所有权以避免悬垂引用。</p>
+</details>
+<h3 id="练习-10-12-move-闭包复制语义"><a class="header" href="#练习-10-12-move-闭包复制语义">练习 10-12: move 闭包复制语义</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 的 <code>[=]</code> 按值捕获，Rust 的 move 对 Copy 类型也有相同效果</p>
+</blockquote>
+<p>对于实现了 <code>Copy</code> trait 的类型（如整数、布尔等），<code>move</code> 闭包的效果是复制而非转移。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let x = 42;
+    let y = true;
+
+    // TODO: 使用 move 关键字创建闭包，捕获 x 和 y
+    // let closure = ...;
+
+    println!("闭包内: {:?}", closure()); // (42, true)
+
+    // 对于 Copy 类型，即使 move 了，原变量仍然可用
+    println!("x = {}, y = {}", x, y); // 42, true
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let x = 42;
+    let y = true;
+
+    let closure = move || (x, y);
+
+    println!("闭包内: {:?}", closure());
+
+    println!("x = {}, y = {}", x, y);
+}</code></pre>
+<p><strong>说明：</strong> 对于实现了 <code>Copy</code> 的类型（如整数、布尔、浮点数等），<code>move</code> 关键字的效果实际上是复制而不是转移所有权。因此 <code>x</code> 和 <code>y</code> 在闭包创建后仍然可用。对于非 <code>Copy</code> 类型（如 <code>String</code>、<code>Vec</code>），<code>move</code> 会真正转移所有权，原变量失效。</p>
+</details>
+<h3 id="练习-10-13-move--线程"><a class="header" href="#练习-10-13-move--线程">练习 10-13: move + 线程</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 中 lambda 在线程中需要按值捕获，Rust 的 std::thread::spawn 要求闭包是 ’static</p>
+</blockquote>
+<p><code>std::thread::spawn</code> 要求传入的闭包满足 <code>'static</code> 生命周期，这意味着它必须拥有所有捕获变量的所有权。<code>move</code> 关键字是满足这一要求的标准方式。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+
+fn main() {
+    let numbers = vec![10, 20, 30, 40, 50];
+
+    // TODO: 创建一个线程，计算 numbers 中所有元素的和
+    // 使用 move 关键字将 numbers 的所有权移入闭包
+    // let handle = thread::spawn(move || { ... });
+
+    // println!("和: {}", handle.join().unwrap()); // 150
+
+    // 下面的代码能否编译？为什么？
+    // println!("numbers = {:?}", numbers);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+
+fn main() {
+    let numbers = vec![10, 20, 30, 40, 50];
+
+    let handle = thread::spawn(move || {
+        numbers.iter().sum::&lt;i32&gt;()
+    });
+
+    println!("和: {}", handle.join().unwrap());
+
+    // println!("numbers = {:?}", numbers); // 编译错误
+}</code></pre>
+<p><strong>说明：</strong> <code>thread::spawn</code> 要求传入的闭包是 <code>'static</code>（不包含任何借用）。<code>move</code> 关键字将 <code>numbers</code> 的所有权从主线程转移到新线程的闭包中，因此主线程不再拥有 <code>numbers</code> 的所有权。这是 Rust 中并发编程的典型模式——通过所有权转移保证线程安全。</p>
+</details>
+<h3 id="练习-10-14-move--多线程任务"><a class="header" href="#练习-10-14-move--多线程任务">练习 10-14: move + 多线程任务</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 中使用 std::thread 传递复杂 lambda</p>
+</blockquote>
+<p>创建多个线程，每个线程处理不同的数据片段。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+
+fn main() {
+    let data = vec![
+        vec![1, 2, 3],
+        vec![4, 5, 6],
+        vec![7, 8, 9],
+    ];
+
+    // TODO: 为 data 中的每个子向量创建一个线程，计算其元素之和
+    // 收集所有线程的句柄，然后等待所有线程完成并汇总总和
+    // let handles: Vec&lt;_&gt; = data.into_iter().enumerate().map(|(i, chunk)| { ... }).collect();
+
+    // let total: i32 = handles.into_iter().map(|h| h.join().unwrap()).sum();
+    // println!("总和: {}", total); // 45
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+
+fn main() {
+    let data = vec![
+        vec![1, 2, 3],
+        vec![4, 5, 6],
+        vec![7, 8, 9],
+    ];
+
+    let handles: Vec&lt;_&gt; = data.into_iter().enumerate().map(|(i, chunk)| {
+        thread::spawn(move || {
+            let sum: i32 = chunk.iter().sum();
+            println!("线程 {} 结果: {}", i, sum);
+            sum
+        })
+    }).collect();
+
+    let total: i32 = handles.into_iter().map(|h| h.join().unwrap()).sum();
+    println!("总和: {}", total);
+}</code></pre>
+<p><strong>说明：</strong> <code>data.into_iter()</code> 消费 <code>data</code>，将每个子 <code>Vec&lt;i32&gt;</code> 的所有权交给迭代器。<code>move</code> 闭包捕获每个子向量并在线程中独立处理。<code>enumerate</code> 为每个块添加索引以便追踪。这种模式是 Rust 中“数据并行“的典型写法——将数据分割后通过 <code>move</code> 闭包发送到不同线程。</p>
+</details>
+<h3 id="练习-10-15-move-语义综合"><a class="header" href="#练习-10-15-move-语义综合">练习 10-15: move 语义综合</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+综合运用 move 闭包、所有权转移、Copy 类型与非 Copy 类型的区别</p>
+</blockquote>
+<p>实现一个函数 <code>create_counter</code>，返回一个能生成自增 ID 的闭包。每次调用返回一个新的、唯一的 ID（从 1 开始递增）。要求使用 <code>move</code> 语义。</p>
+<pre class="playground"><code class="language-rust">// TODO: 实现 create_counter 函数
+// 返回一个闭包，每次调用返回下一个自增 ID
+// 使用 move 将计数器变量移入闭包
+fn create_counter() -&gt; impl FnMut() -&gt; u32 {
+    // TODO
+    unimplemented!()
+}
+
+fn main() {
+    let mut counter = create_counter();
+    println!("ID: {}", counter()); // 1
+    println!("ID: {}", counter()); // 2
+    println!("ID: {}", counter()); // 3
+
+    let mut counter2 = create_counter();
+    println!("counter2 ID: {}", counter2()); // 1（独立的计数器）
+
+    // 验证 create_counter 返回的闭包是 FnMut，需要 mut 才能调用多次
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn create_counter() -&gt; impl FnMut() -&gt; u32 {
+    let mut count = 0;
+    move || {
+        count += 1;
+        count
+    }
+}
+
+fn main() {
+    let mut counter = create_counter();
+    println!("ID: {}", counter());
+    println!("ID: {}", counter());
+    println!("ID: {}", counter());
+
+    let mut counter2 = create_counter();
+    println!("counter2 ID: {}", counter2());
+}</code></pre>
+<p><strong>说明：</strong> <code>create_counter</code> 内部声明了一个局部变量 <code>count</code>，通过 <code>move</code> 关键字将其所有权移入闭包。每次闭包被调用时修改并返回 <code>count</code>。不同闭包拥有独立的 <code>count</code> 副本，互不干扰。注意调用方必须将闭包声明为 <code>mut</code>，因为 <code>FnMut</code> 需要可变引用。</p>
+</details>
+<h3 id="练习-10-16-闭包作为函数参数fn-约束"><a class="header" href="#练习-10-16-闭包作为函数参数fn-约束">练习 10-16: 闭包作为函数参数（Fn 约束）</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 的模板参数接受 lambda，Rust 用泛型 + Fn trait 约束</p>
+</blockquote>
+<p>编写一个函数，接受一个闭包作为参数，并对某个值应用该闭包。</p>
+<pre class="playground"><code class="language-rust">// TODO: 实现 apply_twice 函数
+// 接受一个闭包 f 和一个值 x，返回 f(f(x))
+fn apply_twice&lt;T&gt;(f: ???, x: T) -&gt; T {
+    // TODO
+}
+
+fn main() {
+    let double = |x| x * 2;
+    println!("{}", apply_twice(double, 5)); // 20 (5 → 10 → 20)
+
+    let square = |x| x * x;
+    println!("{}", apply_twice(square, 3)); // 81 (3 → 9 → 81)
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn apply_twice&lt;T&gt;(f: impl Fn(T) -&gt; T, x: T) -&gt; T {
+    f(f(x))
+}
+
+fn main() {
+    let double = |x| x * 2;
+    println!("{}", apply_twice(double, 5));
+
+    let square = |x| x * x;
+    println!("{}", apply_twice(square, 3));
+}</code></pre>
+<p><strong>说明：</strong> <code>impl Fn(T) -&gt; T</code> 是泛型参数 <code>T</code> 上的 <code>Fn</code> trait 约束，表示接受一个从 <code>T</code> 到 <code>T</code> 的闭包。<code>Fn</code> 是“可以多次调用且不修改环境“的闭包 trait。使用 <code>impl Trait</code> 语法可以简洁地表达“接受实现了某 trait 的类型“。</p>
+</details>
+<h3 id="练习-10-17-闭包参数fnfnmutfnonce-的区别"><a class="header" href="#练习-10-17-闭包参数fnfnmutfnonce-的区别">练习 10-17: 闭包参数——Fn、FnMut、FnOnce 的区别</a></h3>
+<blockquote>
+<p>难度：⭐
+类似 C++ 中区分 mutable lambda 和普通 lambda，Rust 用三种 trait 精确控制</p>
+</blockquote>
+<p>编写三个函数，分别接受 <code>Fn</code>、<code>FnMut</code>、<code>FnOnce</code> 约束的闭包，展示三者的区别。</p>
+<pre class="playground"><code class="language-rust">// TODO: 实现 call_fn，接受 Fn 闭包
+fn call_fn(f: impl Fn(i32) -&gt; i32, x: i32) -&gt; i32 {
+    // TODO: 调用两次 f
+}
+
+// TODO: 实现 call_fn_mut，接受 FnMut 闭包
+fn call_fn_mut(mut f: impl FnMut(i32) -&gt; i32, x: i32) -&gt; i32 {
+    // TODO: 调用两次 f
+}
+
+// TODO: 实现 call_fn_once，接受 FnOnce 闭包
+fn call_fn_once(f: impl FnOnce(i32) -&gt; i32, x: i32) -&gt; i32 {
+    // TODO: 调用一次 f
+}
+
+fn main() {
+    let a = 10;
+    let fn_closure = |x| x + a; // Fn
+    println!("call_fn: {}", call_fn(fn_closure, 5));
+
+    let mut sum = 0;
+    let mut fn_mut_closure = |x| { sum += x; sum }; // FnMut
+    println!("call_fn_mut: {}", call_fn_mut(fn_mut_closure, 5));
+
+    let name = String::from("Rust");
+    let fn_once_closure = || name.len() as i32; // FnOnce
+    println!("call_fn_once: {}", call_fn_once(fn_once_closure, 0));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn call_fn(f: impl Fn(i32) -&gt; i32, x: i32) -&gt; i32 {
+    f(x) + f(x)
+}
+
+fn call_fn_mut(mut f: impl FnMut(i32) -&gt; i32, x: i32) -&gt; i32 {
+    f(x) + f(x)
+}
+
+fn call_fn_once(f: impl FnOnce(i32) -&gt; i32, x: i32) -&gt; i32 {
+    f(x)
+}
+
+fn main() {
+    let a = 10;
+    let fn_closure = |x| x + a;
+    println!("call_fn: {}", call_fn(fn_closure, 5));
+
+    let mut sum = 0;
+    let mut fn_mut_closure = |x| { sum += x; sum };
+    println!("call_fn_mut: {}", call_fn_mut(fn_mut_closure, 5));
+
+    let name = String::from("Rust");
+    let fn_once_closure = |x| name.len() as i32 + x;
+    println!("call_fn_once: {}", call_fn_once(fn_once_closure, 0));
+}</code></pre>
+<p><strong>说明：</strong> 三种 trait 的关系：<code>Fn</code> 是 <code>FnMut</code> 的子 trait，<code>FnMut</code> 是 <code>FnOnce</code> 的子 trait。</p>
+<ul>
+<li><code>Fn</code>：不可变捕获，可多次调用，不修改环境。</li>
+<li><code>FnMut</code>：可变捕获，可多次调用，可修改环境。</li>
+<li><code>FnOnce</code>：消费捕获，只能调用一次。
+接受 <code>FnOnce</code> 的函数最通用（可以接受任何闭包），但只能调用一次。接受 <code>Fn</code> 的函数约束最强（只接受不修改环境的闭包）。</li>
+</ul>
+</details>
+<h3 id="练习-10-18-闭包作为返回值返回闭包"><a class="header" href="#练习-10-18-闭包作为返回值返回闭包">练习 10-18: 闭包作为返回值——返回闭包</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 中返回 lambda 需要 <code>auto</code> 或 <code>std::function</code>，Rust 用 <code>impl Fn</code></p>
+</blockquote>
+<p>实现一个函数，根据参数返回不同的闭包。</p>
+<pre class="playground"><code class="language-rust">// TODO: 实现 create_multiplier 函数
+// 接受一个 i32 因子，返回一个闭包，该闭包将输入乘以此因子
+fn create_multiplier(factor: i32) -&gt; impl Fn(i32) -&gt; i32 {
+    // TODO: 返回捕获 factor 的闭包
+    unimplemented!()
+}
+
+fn main() {
+    let double = create_multiplier(2);
+    let triple = create_multiplier(3);
+
+    println!("5 * 2 = {}", double(5)); // 10
+    println!("5 * 3 = {}", triple(5)); // 15
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn create_multiplier(factor: i32) -&gt; impl Fn(i32) -&gt; i32 {
+    move |x| x * factor
+}
+
+fn main() {
+    let double = create_multiplier(2);
+    let triple = create_multiplier(3);
+
+    println!("5 * 2 = {}", double(5));
+    println!("5 * 3 = {}", triple(5));
+}</code></pre>
+<p><strong>说明：</strong> <code>impl Fn(i32) -&gt; i32</code> 作为返回类型表示“返回一个实现了 <code>Fn(i32) -&gt; i32</code> 的类型“。注意 <code>move</code> 关键字的使用：将 <code>factor</code> 的所有权移入闭包，避免悬垂引用（因为 <code>factor</code> 是函数局部变量，函数返回后将被销毁）。<code>impl Trait</code> 在返回值位置允许返回不透明类型，且编译器在编译期知道具体类型。</p>
+</details>
+<h3 id="练习-10-19-返回-fnmut-和-fnonce-闭包"><a class="header" href="#练习-10-19-返回-fnmut-和-fnonce-闭包">练习 10-19: 返回 FnMut 和 FnOnce 闭包</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+返回带状态的闭包需要 FnMut，返回消费闭包需要 FnOnce</p>
+</blockquote>
+<p>实现两个函数，一个返回 <code>FnMut</code> 闭包（带状态），一个返回 <code>FnOnce</code> 闭包（消费捕获的值）。</p>
+<pre class="playground"><code class="language-rust">// TODO: 实现一个函数 make_prefixer，返回 FnMut 闭包
+// 每次调用时，在原前缀后追加 "!" 并返回 "前缀: 输入"
+// 例如：第一次调用 prefixer("A") -&gt; "!A"，第二次 -&gt; "!!A"
+fn make_prefixer() -&gt; impl FnMut(&amp;str) -&gt; String {
+    // TODO
+    unimplemented!()
+}
+
+// TODO: 实现函数 make_greeter，返回 FnOnce 闭包
+// 该闭包接受名字并拼接问候语，但消费掉捕获的 greeting
+fn make_greeter(greeting: String) -&gt; impl FnOnce(&amp;str) -&gt; String {
+    // TODO
+    unimplemented!()
+}
+
+fn main() {
+    let mut prefixer = make_prefixer();
+    println!("{}", prefixer("A"));  // !A
+    println!("{}", prefixer("B"));  // !!B
+
+    let greeter = make_greeter(String::from("Hello"));
+    println!("{}", greeter("World")); // Hello, World!
+    // println!("{}", greeter("Rust")); // 编译错误：FnOnce只能调用一次
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn make_prefixer() -&gt; impl FnMut(&amp;str) -&gt; String {
+    let mut prefix = String::new();
+    move |s| {
+        prefix.push('!');
+        format!("{}{}", prefix, s)
+    }
+}
+
+fn make_greeter(greeting: String) -&gt; impl FnOnce(&amp;str) -&gt; String {
+    move |name| format!("{}, {}!", greeting, name)
+}
+
+fn main() {
+    let mut prefixer = make_prefixer();
+    println!("{}", prefixer("A"));
+    println!("{}", prefixer("B"));
+
+    let greeter = make_greeter(String::from("Hello"));
+    println!("{}", greeter("World"));
+    // println!("{}", greeter("Rust")); // 编译错误
+}</code></pre>
+<p><strong>说明：</strong> <code>make_prefixer</code> 返回 <code>FnMut</code> 闭包，因为它在内部修改了捕获的 <code>prefix</code> 字符串。每次调用在 <code>prefix</code> 后追加 <code>!</code>，记录了状态变化。<code>make_greeter</code> 返回 <code>FnOnce</code> 闭包，因为闭包体内的 <code>format!</code> 宏消费了 <code>greeting</code>（将其 move 进 <code>format!</code>）。</p>
+</details>
+<h3 id="练习-10-20-高阶函数综合"><a class="header" href="#练习-10-20-高阶函数综合">练习 10-20: 高阶函数综合</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+综合运用闭包、迭代器、高阶函数——类似 C++ 中 std::transform 配合 lambda 的复杂场景</p>
+</blockquote>
+<p>实现一个数据处理管道，使用高阶函数对整数序列进行多次变换。</p>
+<pre class="playground"><code class="language-rust">// TODO: 实现 compose 函数，组合两个闭包
+// compose(f, g) 返回一个闭包，等价于 f(g(x))
+fn compose&lt;A, B, C&gt;(f: impl Fn(B) -&gt; C, g: impl Fn(A) -&gt; B) -&gt; impl Fn(A) -&gt; C {
+    // TODO
+    unimplemented!()
+}
+
+// TODO: 实现 pipeline 函数，接受一个初始值和一系列变换闭包
+// 依次应用所有变换，返回最终结果
+fn pipeline&lt;T&gt;(init: T, transforms: Vec&lt;impl Fn(T) -&gt; T&gt;) -&gt; T {
+    // TODO
+    unimplemented!()
+}
+
+fn main() {
+    // 使用 compose 组合 "加 1" 和 "乘 2"
+    let add_one = |x| x + 1;
+    let double = |x| x * 2;
+    let add_then_double = compose(double, add_one); // (x + 1) * 2
+    println!("compose: {}", add_then_double(5)); // 12
+
+    // 使用 pipeline 执行链式变换
+    let transforms = vec![
+        |x| x + 10,
+        |x| x * 2,
+        |x| x - 5,
+    ];
+    let result = pipeline(100, transforms);
+    println!("pipeline: {}", result); // (100 + 10) * 2 - 5 = 215
+
+    // 综合：结合迭代器、闭包和函数组合
+    let numbers = 1..=10;
+    let processed: Vec&lt;i32&gt; = numbers
+        .filter(|x| x % 2 == 0)      // 偶数
+        .map(|x| x * 3)              // 乘 3
+        .map(|x| x + 1)              // 加 1
+        .collect();
+    println!("综合: {:?}", processed); // [7, 13, 19, 25, 31]
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn compose&lt;A, B, C&gt;(f: impl Fn(B) -&gt; C, g: impl Fn(A) -&gt; B) -&gt; impl Fn(A) -&gt; C {
+    move |x| f(g(x))
+}
+
+fn pipeline&lt;T&gt;(init: T, transforms: Vec&lt;impl Fn(T) -&gt; T&gt;) -&gt; T {
+    let mut result = init;
+    for f in transforms {
+        result = f(result);
+    }
+    result
+}
+
+fn main() {
+    let add_one = |x| x + 1;
+    let double = |x| x * 2;
+    let add_then_double = compose(double, add_one);
+    println!("compose: {}", add_then_double(5));
+
+    let transforms = vec![
+        |x| x + 10,
+        |x| x * 2,
+        |x| x - 5,
+    ];
+    let result = pipeline(100, transforms);
+    println!("pipeline: {}", result);
+
+    let numbers = 1..=10;
+    let processed: Vec&lt;i32&gt; = numbers
+        .filter(|x| x % 2 == 0)
+        .map(|x| x * 3)
+        .map(|x| x + 1)
+        .collect();
+    println!("综合: {:?}", processed);
+}</code></pre>
+<p><strong>说明：</strong> 这是闭包与函数式编程的综合练习。</p>
+<ul>
+<li><code>compose</code> 实现数学上的函数组合 <code>f ∘ g</code>，返回的闭包需要 <code>move</code> 捕获 <code>f</code> 和 <code>g</code> 的所有权（因为它们是栈上的局部变量）。</li>
+<li><code>pipeline</code> 通过循环依次应用每个变换，展示了“处理管道“模式。</li>
+<li>最后一部分展示了 Rust 迭代器链式调用的函数式编程风格——<code>filter</code>、<code>map</code> 等适配器都接受闭包作为参数，形成声明式的数据处理流程。</li>
+<li>注意 <code>Vec&lt;impl Fn(T) -&gt; T&gt;</code> 的写法：<code>Vec</code> 中每个元素都是相同的闭包类型（同一个具体类型），而不是 <code>Box&lt;dyn Fn&gt;</code>。实际应用中类型擦除版本更常见：<code>Vec&lt;Box&lt;dyn Fn(T) -&gt; T&gt;&gt;</code>。</li>
+</ul>
+</details>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="09_iterators.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="11_vec_slice.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="09_iterators.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="11_vec_slice.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-c22b7243.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

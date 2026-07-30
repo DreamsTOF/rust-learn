@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e100_state_lifetime_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e100_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1520",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 100: State 生命周期 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

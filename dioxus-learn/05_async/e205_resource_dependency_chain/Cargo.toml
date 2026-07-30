@@ -1,0 +1,8 @@
+[package]
+name = "e205_resource_dependency_chain"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

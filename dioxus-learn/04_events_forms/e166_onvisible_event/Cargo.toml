@@ -1,0 +1,8 @@
+[package]
+name = "e166_onvisible_event"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

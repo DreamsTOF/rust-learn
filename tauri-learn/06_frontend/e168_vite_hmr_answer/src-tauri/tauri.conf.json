@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e168_vite_hmr_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e168_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1588",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 168: 热更新体验 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e006_project_structure_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e006_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1426",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 006: 项目结构详解 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

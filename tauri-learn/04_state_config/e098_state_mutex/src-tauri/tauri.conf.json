@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e098_state_mutex",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e098",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1518",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 098: 可变 State Mutex",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

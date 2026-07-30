@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e199_custom_titlebar",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e199",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1619",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 199: 无边框窗口自定义标题栏",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

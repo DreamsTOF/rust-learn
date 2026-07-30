@@ -1,0 +1,8 @@
+[package]
+name = "e375_unsubscribe_on_drop"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

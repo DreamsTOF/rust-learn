@@ -1,0 +1,8 @@
+[package]
+name = "e292_context_async_methods_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

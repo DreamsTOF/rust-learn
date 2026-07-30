@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e033_cmd_number_param",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e033",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1453",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 033: 数字参数",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

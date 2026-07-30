@@ -1,0 +1,8 @@
+[package]
+name = "e293_cross_route_context_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

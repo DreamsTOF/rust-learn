@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e306_test_unit_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e306_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1726",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 306: Rust 单元测试 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

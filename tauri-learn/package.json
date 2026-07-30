@@ -1,0 +1,11 @@
+ {
+   "name": "tauri-learn-workspace",
+   "private": true,
+   "scripts": {
+     "new-exercise": "powershell scripts/new-exercise.ps1",
+     "dev": "echo 'Use cd into an exercise directory and run pnpm dev there'"
+   },
+   "engines": {
+     "node": ">=18"
+   }
+ }

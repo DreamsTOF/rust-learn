@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e111_config_read",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e111",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1531",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 111: 读取 tauri.conf.json",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

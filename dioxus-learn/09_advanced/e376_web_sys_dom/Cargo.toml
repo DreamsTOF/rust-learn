@@ -1,0 +1,8 @@
+[package]
+name = "e376_web_sys_dom"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

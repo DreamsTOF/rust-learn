@@ -1,0 +1,8 @@
+[package]
+name = "e273_reactive_navigation_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

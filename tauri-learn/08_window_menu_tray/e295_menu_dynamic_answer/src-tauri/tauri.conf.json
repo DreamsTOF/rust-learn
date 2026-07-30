@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e295_menu_dynamic_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e295_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1715",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 295: 动态菜单 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

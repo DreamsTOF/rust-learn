@@ -1,0 +1,8 @@
+[package]
+name = "e218_signal_async_capture_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

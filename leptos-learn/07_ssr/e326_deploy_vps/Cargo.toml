@@ -1,0 +1,8 @@
+[package]
+name = "e326_deploy_vps"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+leptos.workspace = true
+

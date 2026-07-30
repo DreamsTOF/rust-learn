@@ -1,0 +1,8 @@
+[package]
+name = "e078_component_rerender_condition_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

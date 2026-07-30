@@ -1,0 +1,8 @@
+[package]
+name = "e193_dangerous_inner_html_advanced"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e081_error_from_trait",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e081",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1501",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 081: From trait 实现",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

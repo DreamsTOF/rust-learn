@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e202_fs_read_file_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e202_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1622",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 202: 读取文件内容 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

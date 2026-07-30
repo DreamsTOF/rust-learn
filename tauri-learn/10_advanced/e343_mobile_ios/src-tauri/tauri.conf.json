@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e343_mobile_ios",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e343",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1763",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 343: iOS 项目结构",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

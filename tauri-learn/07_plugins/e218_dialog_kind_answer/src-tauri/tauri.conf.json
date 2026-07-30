@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e218_dialog_kind_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e218_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1638",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 218: 自定义对话框样式 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

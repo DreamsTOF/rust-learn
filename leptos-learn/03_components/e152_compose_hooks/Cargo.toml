@@ -1,0 +1,11 @@
+[package]
+name = "e152_compose_hooks"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+leptos.workspace = true
+wasm-bindgen.workspace = true
+js-sys = "0.3"
+
+

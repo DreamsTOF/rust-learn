@@ -1,0 +1,8 @@
+[package]
+name = "e360_hook_with_params"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

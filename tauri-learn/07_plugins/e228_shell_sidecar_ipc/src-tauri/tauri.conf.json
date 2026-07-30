@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e228_shell_sidecar_ipc",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e228",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1648",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 228: Sidecar 参数与通信",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

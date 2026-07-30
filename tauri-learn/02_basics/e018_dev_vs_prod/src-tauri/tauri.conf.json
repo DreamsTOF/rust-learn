@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e018_dev_vs_prod",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e018",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1438",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 018: 开发模式 vs 生产模式",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

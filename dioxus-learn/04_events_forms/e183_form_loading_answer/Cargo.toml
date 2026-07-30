@@ -1,0 +1,8 @@
+[package]
+name = "e183_form_loading_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

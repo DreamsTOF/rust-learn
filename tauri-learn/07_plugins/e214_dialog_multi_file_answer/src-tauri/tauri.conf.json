@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e214_dialog_multi_file_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e214_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1634",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 214: 多文件选择 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

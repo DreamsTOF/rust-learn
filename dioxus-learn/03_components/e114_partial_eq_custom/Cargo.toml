@@ -1,0 +1,8 @@
+[package]
+name = "e114_partial_eq_custom"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

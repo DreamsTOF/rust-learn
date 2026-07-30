@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e167_vite_type_gen",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e167",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1587",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 167: 类型生成工具",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

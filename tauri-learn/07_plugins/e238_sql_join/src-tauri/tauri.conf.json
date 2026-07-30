@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e238_sql_join",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e238",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1658",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 238: 关联查询",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

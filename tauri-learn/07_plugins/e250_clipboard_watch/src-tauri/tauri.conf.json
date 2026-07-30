@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e250_clipboard_watch",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e250",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1670",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 250: 剪贴板监听",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

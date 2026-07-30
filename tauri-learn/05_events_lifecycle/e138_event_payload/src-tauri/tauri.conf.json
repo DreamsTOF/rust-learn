@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e138_event_payload",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e138",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1558",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 138: 事件负载类型",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

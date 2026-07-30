@@ -1,0 +1,8 @@
+[package]
+name = "e259_cross_route_state"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

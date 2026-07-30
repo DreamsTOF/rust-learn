@@ -1,0 +1,8 @@
+[package]
+name = "e300_global_local_mixed_usage_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

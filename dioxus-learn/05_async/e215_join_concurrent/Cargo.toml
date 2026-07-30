@@ -1,0 +1,8 @@
+[package]
+name = "e215_join_concurrent"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

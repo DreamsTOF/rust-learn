@@ -1,0 +1,8 @@
+[package]
+name = "e391_unit_test_component_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

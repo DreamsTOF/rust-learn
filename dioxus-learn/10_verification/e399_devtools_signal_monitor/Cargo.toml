@@ -1,0 +1,8 @@
+[package]
+name = "e399_devtools_signal_monitor"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

@@ -1,0 +1,8 @@
+[package]
+name = "e109_multiple_props"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

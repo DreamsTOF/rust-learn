@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e308_test_webdriver_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e308_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1728",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 308: WebDriver E2E 测试 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

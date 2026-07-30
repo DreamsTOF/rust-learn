@@ -1,0 +1,8 @@
+[package]
+name = "e103_signal_closure_capture_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

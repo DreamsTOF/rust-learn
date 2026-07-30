@@ -1,0 +1,8 @@
+[package]
+name = "e093_multi_signal_sync"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

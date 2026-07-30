@@ -1,0 +1,8 @@
+[package]
+name = "e020_block_expression_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

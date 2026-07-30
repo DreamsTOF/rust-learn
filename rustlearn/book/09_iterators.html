@@ -1,0 +1,1394 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="ayu sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>09 迭代器 - Rust 实战练习 — 460 题快速突破</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="从 C++/Java 到 Rust，460 道循序渐进的实战练习题">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/custom-b5e00510.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "ayu";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-f70c63f5.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-86798690.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Rust 实战练习 — 460 题快速突破</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="09-迭代器"><a class="header" href="#09-迭代器">09 迭代器</a></h1>
+<p>迭代器（Iterator）是 Rust 函数式编程的核心。与 Java 的 <code>Stream</code> 或 C++ 的 <code>std::ranges</code> 类似，Rust 的迭代器提供了一种声明式的数据处理方式——通过组合适配器（map、filter、fold 等）来表达数据转换，而非手写循环。Rust 的迭代器是<strong>惰性</strong>的，消费器（如 collect、sum）才会驱动计算。</p>
+<hr>
+<h3 id="练习-09-01-调用-next-手动遍历"><a class="header" href="#练习-09-01-调用-next-手动遍历">练习 09-01: 调用 next() 手动遍历</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的 Iterator.next()</p>
+</blockquote>
+<p>创建一个数组 <code>[10, 20, 30, 40, 50]</code> 的迭代器，手动调用 <code>.next()</code> 方法遍历前三个元素并打印。</p>
+<pre class="playground"><code class="language-rust">// TODO: 补全代码，使用 iter() 创建迭代器，手动调用 next() 三次
+fn main() {
+    let arr = [10, 20, 30, 40, 50];
+    // 创建迭代器
+    let mut iter = arr.iter();
+    
+    // 手动调用 next() 获取前三个元素并打印
+    // 每个元素用 println! 打印
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let arr = [10, 20, 30, 40, 50];
+    let mut iter = arr.iter();
+    
+    if let Some(val) = iter.next() {
+        println!("第一个: {}", val);
+    }
+    if let Some(val) = iter.next() {
+        println!("第二个: {}", val);
+    }
+    if let Some(val) = iter.next() {
+        println!("第三个: {}", val);
+    }
+}</code></pre>
+<p><strong>说明：</strong> <code>iter()</code> 返回数组的不可变引用迭代器，每次调用 <code>next()</code> 返回 <code>Option&lt;&amp;T&gt;</code>。迭代器是<strong>惰性</strong>的——<code>next()</code> 是驱动它的基本消费方法。手动调用 <code>next()</code> 在 Rust 中不常见（通常用 for 循环），但理解其机制是掌握迭代器的基础。</p>
+</details>
+<hr>
+<h3 id="练习-09-02-next-与模式匹配"><a class="header" href="#练习-09-02-next-与模式匹配">练习 09-02: next() 与模式匹配</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的 hasNext() / next() 检查</p>
+</blockquote>
+<p>给定一个字符串切片数组 <code>["苹果", "香蕉", "樱桃", "榴莲"]</code>，使用迭代器配合 <code>while let</code> 模式匹配，遍历并打印所有元素及序号。</p>
+<pre class="playground"><code class="language-rust">// TODO: 使用 while let 配合 next() 遍历数组，打印 "序号: 水果名"
+fn main() {
+    let fruits = ["苹果", "香蕉", "樱桃", "榴莲"];
+    // 使用 while let 模式匹配遍历
+    
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let fruits = ["苹果", "香蕉", "樱桃", "榴莲"];
+    let mut iter = fruits.iter();
+    let mut i = 1;
+    while let Some(fruit) = iter.next() {
+        println!("{}: {}", i, fruit);
+        i += 1;
+    }
+}</code></pre>
+<p><strong>说明：</strong> <code>while let Some(val) = iter.next()</code> 是标准的手动遍历模式，等价于 for 循环的底层实现。<code>next()</code> 返回 <code>None</code> 时循环终止。注意 <code>fruits.iter()</code> 返回 <code>Iter&lt;'_, &amp;str&gt;</code>，其 <code>Item</code> 类型是 <code>&amp;&amp;str</code>，但由于自动解引用，打印时看起来和 <code>&amp;str</code> 一样。</p>
+</details>
+<hr>
+<h3 id="练习-09-03-补全-for-循环遍历"><a class="header" href="#练习-09-03-补全-for-循环遍历">练习 09-03: 补全 for 循环遍历</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的增强 for 循环 / C++ 的 range-based for</p>
+</blockquote>
+<p>补全下面的代码，使用 <code>for</code> 循环遍历区间 <code>1..=5</code>，计算所有整数的和。</p>
+<pre class="playground"><code class="language-rust">// TODO: 使用 for 循环遍历 1..=5，计算并打印总和
+fn main() {
+    // range 本身就是迭代器
+    let mut sum = 0;
+    // 在这里补全
+    
+    println!("总和: {}", sum); // 预期输出 15
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let mut sum = 0;
+    for i in 1..=5 {
+        sum += i;
+    }
+    println!("总和: {}", sum);
+}</code></pre>
+<p><strong>说明：</strong> <code>1..=5</code> 是 <code>RangeInclusive&lt;i32&gt;</code> 类型，它实现了 <code>Iterator</code> trait，因此可以直接用于 <code>for</code> 循环。<code>for</code> 循环本质上是 <code>into_iter()</code> + <code>while let</code> 的语法糖。<code>Range</code> 和 <code>RangeInclusive</code> 是最常见的数值迭代器之一。</p>
+</details>
+<hr>
+<h3 id="练习-09-04-补全-next-返回-option"><a class="header" href="#练习-09-04-补全-next-返回-option">练习 09-04: 补全 next() 返回 Option</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+理解 Option&lt;&amp;T&gt; 的返回值</p>
+</blockquote>
+<p>编写一个函数 <code>peek_first</code>，接收一个 <code>&amp;[i32]</code> 切片，使用迭代器的 <code>next()</code> 方法返回第一个元素（如果存在）。请补全函数体。</p>
+<pre class="playground"><code class="language-rust">// TODO: 补全函数，返回切片的第一个元素（如果存在）
+fn peek_first(slice: &amp;[i32]) -&gt; Option&lt;&amp;i32&gt; {
+    // 创建迭代器并调用 next()
+}
+
+fn main() {
+    let arr = [5, 10, 15];
+    match peek_first(&amp;arr) {
+        Some(val) =&gt; println!("第一个元素: {}", val),
+        None =&gt; println!("切片为空"),
+    }
+    
+    let empty: [i32; 0] = [];
+    match peek_first(&amp;empty) {
+        Some(val) =&gt; println!("第一个元素: {}", val),
+        None =&gt; println!("切片为空"),
+    }
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn peek_first(slice: &amp;[i32]) -&gt; Option&lt;&amp;i32&gt; {
+    let mut iter = slice.iter();
+    iter.next()
+}
+
+fn main() {
+    let arr = [5, 10, 15];
+    match peek_first(&amp;arr) {
+        Some(val) =&gt; println!("第一个元素: {}", val),
+        None =&gt; println!("切片为空"),
+    }
+    
+    let empty: [i32; 0] = [];
+    match peek_first(&amp;empty) {
+        Some(val) =&gt; println!("第一个元素: {}", val),
+        None =&gt; println!("切片为空"),
+    }
+}</code></pre>
+<p><strong>说明：</strong> <code>iter.next()</code> 返回 <code>Option&lt;&amp;T&gt;</code>，这正是函数签名需要的类型。对空切片调用 <code>iter()</code> 得到的迭代器第一次 <code>next()</code> 就返回 <code>None</code>。这种通过组合已有迭代器方法来简化代码的模式在 Rust 中非常常见——比起手写索引边界检查，<code>.iter().next()</code> 更加安全且表达力更强。</p>
+</details>
+<hr>
+<h3 id="练习-09-05-实现一个简单的-counter-迭代器"><a class="header" href="#练习-09-05-实现一个简单的-counter-迭代器">练习 09-05: 实现一个简单的 Counter 迭代器</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+挑战：自定义迭代器</p>
+</blockquote>
+<p>实现一个 <code>Counter</code> 结构体，从 <code>start</code> 计数到 <code>end</code>（包含两端）。需要手动实现 <code>Iterator</code> trait。请补全代码。</p>
+<pre class="playground"><code class="language-rust">struct Counter {
+    current: i32,
+    end: i32,
+}
+
+// TODO: 为 Counter 实现 Iterator trait
+// Item 类型为 i32
+// 当 current &lt;= end 时，返回 Some(current) 并自增
+// 否则返回 None
+
+fn main() {
+    let mut c = Counter { current: 1, end: 5 };
+    // 使用 for 循环打印 1 到 5
+    for val in c {
+        println!("{}", val);
+    }
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Counter {
+    current: i32,
+    end: i32,
+}
+
+impl Iterator for Counter {
+    type Item = i32;
+    
+    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
+        if self.current &lt;= self.end {
+            let val = self.current;
+            self.current += 1;
+            Some(val)
+        } else {
+            None
+        }
+    }
+}
+
+fn main() {
+    let c = Counter { current: 1, end: 5 };
+    for val in c {
+        println!("{}", val);
+    }
+}</code></pre>
+<p><strong>说明：</strong> 实现 <code>Iterator</code> trait 只需要定义 <code>type Item</code> 和 <code>next()</code> 方法。<code>next()</code> 返回 <code>Option&lt;Self::Item&gt;</code>——有值时返回 <code>Some(val)</code>，遍历完毕返回 <code>None</code>。注意 <code>for</code> 循环会消耗迭代器（调用 <code>into_iter()</code>），因为 <code>Counter</code> 本身实现了 <code>Iterator</code>，所以可以直接用在 <code>for</code> 中。一旦 <code>next()</code> 返回 <code>None</code>，<code>for</code> 循环就结束了。</p>
+</details>
+<hr>
+<h3 id="练习-09-06-map-将元素翻倍"><a class="header" href="#练习-09-06-map-将元素翻倍">练习 09-06: map 将元素翻倍</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的 stream().map()</p>
+</blockquote>
+<p>使用 <code>map</code> 适配器将数组 <code>[1, 2, 3, 4, 5]</code> 中的每个元素翻倍，然后 <code>collect</code> 到 <code>Vec&lt;i32&gt;</code> 中。</p>
+<pre class="playground"><code class="language-rust">// TODO: 使用 map 将数组元素翻倍，collect 到 Vec 中
+fn main() {
+    let arr = [1, 2, 3, 4, 5];
+    
+    // 补全：arr.iter() -&gt; map(翻倍) -&gt; collect
+    let doubled: Vec&lt;i32&gt; = arr.iter().map(|x| /* TODO */).collect();
+    
+    println!("{:?}", doubled); // 预期输出 [2, 4, 6, 8, 10]
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let arr = [1, 2, 3, 4, 5];
+    let doubled: Vec&lt;i32&gt; = arr.iter().map(|x| x * 2).collect();
+    println!("{:?}", doubled);
+}</code></pre>
+<p><strong>说明：</strong> <code>map</code> 接受一个闭包，对迭代器的每个元素执行转换，返回一个新的迭代器。注意 <code>arr.iter()</code> 产生 <code>&amp;i32</code>，所以闭包参数 <code>x</code> 是 <code>&amp;i32</code>，<code>x * 2</code> 利用了自动解引用。<code>.collect()</code> 是消费器，它将迭代器收集到集合类型中。输出是 <code>[2, 4, 6, 8, 10]</code>。</p>
+</details>
+<hr>
+<h3 id="练习-09-07-filter-过滤偶数"><a class="header" href="#练习-09-07-filter-过滤偶数">练习 09-07: filter 过滤偶数</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的 stream().filter()</p>
+</blockquote>
+<p>使用 <code>filter</code> 适配器从一个整数向量中选出所有偶数，然后 <code>collect</code> 到新的 <code>Vec&lt;i32&gt;</code>。</p>
+<pre class="playground"><code class="language-rust">// TODO: 使用 filter 过滤出偶数
+fn main() {
+    let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    
+    // 补全：numbers.into_iter() -&gt; filter(偶数判断) -&gt; collect
+    let evens: Vec&lt;i32&gt; = numbers.into_iter().filter(|x| /* TODO */).collect();
+    
+    println!("{:?}", evens); // 预期输出 [2, 4, 6, 8, 10]
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let numbers = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    let evens: Vec&lt;i32&gt; = numbers.into_iter().filter(|x| x % 2 == 0).collect();
+    println!("{:?}", evens);
+}</code></pre>
+<p><strong>说明：</strong> <code>filter</code> 接受一个返回 <code>bool</code> 的闭包，保留返回 <code>true</code> 的元素。这里使用 <code>into_iter()</code> 消费 <code>Vec</code> 的所有权，所以闭包参数 <code>x</code> 是 <code>i32</code>（而非 <code>&amp;i32</code>）。链式调用 <code>filter</code> 后加 <code>collect</code> 是 Rust 中最常见的函数式数据过滤模式。</p>
+</details>
+<hr>
+<h3 id="练习-09-08-fold-计算阶乘"><a class="header" href="#练习-09-08-fold-计算阶乘">练习 09-08: fold 计算阶乘</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的 stream().reduce() / C++ 的 std::accumulate</p>
+</blockquote>
+<p>使用 <code>fold</code> 适配器计算 <code>5!</code>（阶乘），即 <code>1 × 2 × 3 × 4 × 5</code>。<code>fold</code> 接受一个初始值和闭包，闭包接收当前累加器和元素。</p>
+<pre class="playground"><code class="language-rust">// TODO: 使用 fold 计算 1..=5 的乘积
+fn main() {
+    // 补全：1..=5 -&gt; fold(初始值, 累加闭包)
+    let factorial = (1..=5).fold(/* TODO */);
+    
+    println!("5! = {}", factorial); // 预期输出 120
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let factorial = (1..=5).fold(1, |acc, x| acc * x);
+    println!("5! = {}", factorial);
+}</code></pre>
+<p><strong>说明：</strong> <code>fold(init, closure)</code> 是迭代器最强大的消费器之一。<code>init</code> 是初始累加值，闭包的第一个参数 <code>acc</code> 是当前累加值，第二个参数 <code>x</code> 是当前元素。整个过程等价于：<code>(((1 * 1) * 2) * 3) * 4 * 5 = 120</code>。<code>fold</code> 可以替代很多手动循环的场景，且表达更清晰。</p>
+</details>
+<hr>
+<h3 id="练习-09-09-enumerate-带索引遍历"><a class="header" href="#练习-09-09-enumerate-带索引遍历">练习 09-09: enumerate 带索引遍历</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的 IntStream.range() 配合索引</p>
+</blockquote>
+<p>使用 <code>enumerate</code> 适配器为数组 <code>["甲", "乙", "丙", "丁"]</code> 的元素生成带索引的输出，格式为 <code>"索引: 值"</code>。</p>
+<pre class="playground"><code class="language-rust">// TODO: 使用 enumerate 打印带索引的元素
+fn main() {
+    let items = ["甲", "乙", "丙", "丁"];
+    
+    // 补全：items.iter() -&gt; enumerate() -&gt; for 循环打印
+    for (i, item) in items.iter().enumerate() {
+        println!("{}: {}", /* TODO */);
+    }
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let items = ["甲", "乙", "丙", "丁"];
+    for (i, item) in items.iter().enumerate() {
+        println!("{}: {}", i, item);
+    }
+}</code></pre>
+<p><strong>说明：</strong> <code>enumerate()</code> 将迭代器包装为产生 <code>(usize, &amp;T)</code> 元组的迭代器，<code>usize</code> 从 0 开始自动递增。它等价于手动维护一个计数器，但更安全、更简洁。注意 <code>enumerate</code> 在 <code>iter()</code> 之后调用——顺序是先有元素，再附上索引。</p>
+</details>
+<hr>
+<h3 id="练习-09-10-zip-合并两个迭代器"><a class="header" href="#练习-09-10-zip-合并两个迭代器">练习 09-10: zip 合并两个迭代器</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Python 的 zip() / Java 的 Streams.zip()</p>
+</blockquote>
+<p>有两个等长数组 <code>["一", "二", "三"]</code> 和 <code>["one", "two", "three"]</code>，使用 <code>zip</code> 将它们合并成中英文对照的元组序列并打印。</p>
+<pre class="playground"><code class="language-rust">// TODO: 使用 zip 合并中英文数组
+fn main() {
+    let chinese = ["一", "二", "三"];
+    let english = ["one", "two", "three"];
+    
+    // 补全：chinese.iter() -&gt; zip(english.iter()) -&gt; for 循环打印
+    for (cn, en) in /* TODO */ {
+        println!("{} = {}", cn, en);
+    }
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let chinese = ["一", "二", "三"];
+    let english = ["one", "two", "three"];
+    for (cn, en) in chinese.iter().zip(english.iter()) {
+        println!("{} = {}", cn, en);
+    }
+}</code></pre>
+<p><strong>说明：</strong> <code>zip</code> 将两个迭代器合并为一个产生元组的迭代器。生成的迭代器在任一底层迭代器耗尽时结束——因此可用于不等长迭代器，多余的尾部元素会被丢弃。<code>zip</code> 是处理并行数据的利器，常用于合并关联信息。</p>
+</details>
+<hr>
+<h3 id="练习-09-11-collect-收集为不同容器"><a class="header" href="#练习-09-11-collect-收集为不同容器">练习 09-11: collect 收集为不同容器</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的 Collectors.toList() / toSet()</p>
+</blockquote>
+<p>将 <code>1..=10</code> 中的偶数通过链式调用 <code>filter</code> + <code>collect</code> 分别收集到 <code>Vec&lt;i32&gt;</code> 和 <code>std::collections::HashSet&lt;i32&gt;</code> 中。</p>
+<pre class="playground"><code class="language-rust">use std::collections::HashSet;
+
+// TODO: 补全 collect 的目标类型
+fn main() {
+    // 收集到 Vec
+    let evens_vec: /* TODO: 类型 */ = (1..=10).filter(|x| x % 2 == 0).collect();
+    
+    // 收集到 HashSet
+    let evens_set: /* TODO: 类型 */ = (1..=10).filter(|x| x % 2 == 0).collect();
+    
+    println!("Vec: {:?}", evens_vec);
+    println!("HashSet: {:?}", evens_set);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::collections::HashSet;
+
+fn main() {
+    let evens_vec: Vec&lt;i32&gt; = (1..=10).filter(|x| x % 2 == 0).collect();
+    let evens_set: HashSet&lt;i32&gt; = (1..=10).filter(|x| x % 2 == 0).collect();
+    
+    println!("Vec: {:?}", evens_vec);
+    println!("HashSet: {:?}", evens_set);
+}</code></pre>
+<p><strong>说明：</strong> <code>collect()</code> 可以从同一个迭代器链收集到不同的容器类型。编译器通过类型推断（变量类型标注）来确定目标容器。Rust 的标准库为 <code>Vec</code>、<code>HashSet</code>、<code>String</code>、<code>HashMap</code> 等常见集合都实现了 <code>FromIterator</code>，使得 <code>collect</code> 非常灵活。</p>
+<hr>
+<h3 id="练习-09-12-链式调用map--filter--collect"><a class="header" href="#练习-09-12-链式调用map--filter--collect">练习 09-12: 链式调用——map + filter + collect</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的 stream().map().filter().collect()</p>
+</blockquote>
+<p>有一个字符串数组 <code>["  hello  ", " world ", "", "  Rust  ", ""]</code>，请链式调用迭代器适配器：去除空格（<code>trim</code>）、过滤掉空字符串、然后将结果收集到 <code>Vec&lt;String&gt;</code>。</p>
+<pre class="playground"><code class="language-rust">// TODO: 链式调用 map + filter + collect
+fn main() {
+    let words = ["  hello  ", " world ", "", "  Rust  ", ""];
+    
+    // 补全：words.iter() -&gt; map(trim) -&gt; filter(非空) -&gt; map(转为String) -&gt; collect
+    let cleaned: Vec&lt;String&gt; = words.iter()
+        /* TODO */
+        .collect();
+    
+    println!("{:?}", cleaned); // 预期输出 ["hello", "world", "Rust"]
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let words = ["  hello  ", " world ", "", "  Rust  ", ""];
+    let cleaned: Vec&lt;String&gt; = words.iter()
+        .map(|s| s.trim())
+        .filter(|s| !s.is_empty())
+        .map(|s| s.to_string())
+        .collect();
+    
+    println!("{:?}", cleaned);
+}</code></pre>
+<p><strong>说明：</strong> 这是典型的函数式链式调用：<code>map</code> 转换数据（去除空格），<code>filter</code> 筛选数据（去空），再次 <code>map</code> 转换类型（<code>&amp;str</code> → <code>String</code>），最后 <code>collect</code> 收集。Rust 的迭代器链是惰性的——每个适配器只构建一个新的迭代器，直到 <code>collect</code> 消费时才真正执行。这种风格比嵌套循环更易读、更安全。</p>
+</details>
+<hr>
+<h3 id="练习-09-13-count--sum--min--max-消费器"><a class="header" href="#练习-09-13-count--sum--min--max-消费器">练习 09-13: count / sum / min / max 消费器</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的 Stream.count() / min() / max()</p>
+</blockquote>
+<p>给定一个整数切片 <code>[8, 3, 9, 1, 6, 4]</code>，使用迭代器消费器分别计算：元素个数、总和、最小值、最大值。</p>
+<pre class="playground"><code class="language-rust">// TODO: 使用 count / sum / min / max 消费器
+fn main() {
+    let numbers = [8, 3, 9, 1, 6, 4];
+    
+    // 补全
+    let count = numbers.iter()/* TODO */.count();
+    let sum: i32 = numbers.iter()/* TODO */.sum();
+    let min = numbers.iter()/* TODO */.min();
+    let max = numbers.iter()/* TODO */.max();
+    
+    println!("count: {}, sum: {}", count, sum);
+    println!("min: {:?}, max: {:?}", min, max);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let numbers = [8, 3, 9, 1, 6, 4];
+    
+    let count = numbers.iter().count();
+    let sum: i32 = numbers.iter().sum();
+    let min = numbers.iter().min();
+    let max = numbers.iter().max();
+    
+    println!("count: {}, sum: {}", count, sum);
+    println!("min: {:?}, max: {:?}", min, max);
+}</code></pre>
+<p><strong>说明：</strong> <code>count()</code> 返回 <code>usize</code>，<code>sum()</code> 返回数值（需要类型标注），<code>min()</code> 和 <code>max()</code> 返回 <code>Option&lt;&amp;T&gt;</code>（因为空迭代器没有最小/最大值）。这些消费器都会消耗迭代器。注意 <code>min</code> 和 <code>max</code> 返回 <code>Option</code>，所以打印时用 <code>{:?}</code>。</p>
+</details>
+<hr>
+<h3 id="练习-09-14-any--all-条件检查"><a class="header" href="#练习-09-14-any--all-条件检查">练习 09-14: any / all 条件检查</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的 Stream.anyMatch() / allMatch()</p>
+</blockquote>
+<p>给定一个整数数组 <code>[-3, 5, -1, 7, -2]</code>，使用 <code>any</code> 检查是否存在负数，使用 <code>all</code> 检查是否所有数都为正数。</p>
+<pre class="playground"><code class="language-rust">// TODO: 使用 any 和 all 消费器
+fn main() {
+    let numbers = [-3, 5, -1, 7, -2];
+    
+    // 补全
+    let has_negative = numbers.iter()/* TODO */;
+    let all_positive = numbers.iter()/* TODO */;
+    
+    println!("存在负数: {}", has_negative);
+    println!("全部为正: {}", all_positive);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let numbers = [-3, 5, -1, 7, -2];
+    
+    let has_negative = numbers.iter().any(|&amp;x| x &lt; 0);
+    let all_positive = numbers.iter().all(|&amp;x| x &gt; 0);
+    
+    println!("存在负数: {}", has_negative);
+    println!("全部为正: {}", all_positive);
+}</code></pre>
+<p><strong>说明：</strong> <code>any</code> 和 <code>all</code> 都是短路求值的消费器——<code>any</code> 在遇到第一个 <code>true</code> 时停止遍历，<code>all</code> 在遇到第一个 <code>false</code> 时停止遍历。它们返回 <code>bool</code>。闭包中 <code>|&amp;x| x &lt; 0</code> 中的 <code>&amp;</code> 对 <code>&amp;i32</code> 进行解构，使得闭包体内直接使用 <code>i32</code> 值。</p>
+</details>
+<hr>
+<h3 id="练习-09-15-find--position-查找元素"><a class="header" href="#练习-09-15-find--position-查找元素">练习 09-15: find / position 查找元素</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的 Stream.findFirst()</p>
+</blockquote>
+<p>给定一个数组 <code>["Rust", "Java", "Python", "C++", "Go"]</code>，使用 <code>find</code> 查找第一个长度 &gt; 3 的语言名，使用 <code>position</code> 查找第一个以 “P” 开头的元素索引。</p>
+<pre class="playground"><code class="language-rust">// TODO: 使用 find 和 position
+fn main() {
+    let langs = ["Rust", "Java", "Python", "C++", "Go"];
+    
+    // 补全
+    let first_long = langs.iter()/* TODO: find 长度 &gt; 3 */;
+    let first_p_pos = langs.iter()/* TODO: position 以 "P" 开头 */;
+    
+    println!("第一个长度 &gt; 3 的语言: {:?}", first_long);
+    println!("第一个以 P 开头的索引: {:?}", first_p_pos);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let langs = ["Rust", "Java", "Python", "C++", "Go"];
+    
+    let first_long = langs.iter().find(|s| s.len() &gt; 3);
+    let first_p_pos = langs.iter().position(|s| s.starts_with("P"));
+    
+    println!("第一个长度 &gt; 3 的语言: {:?}", first_long);
+    println!("第一个以 P 开头的索引: {:?}", first_p_pos);
+}</code></pre>
+<p><strong>说明：</strong> <code>find</code> 接收闭包，返回第一个满足条件的元素的引用 <code>Option&lt;&amp;T&gt;</code>。<code>position</code> 返回第一个满足条件的元素索引 <code>Option&lt;usize&gt;</code>。两者都是短路求值——找到匹配项即停止遍历。注意 <code>find</code> 返回 <code>Option&lt;&amp;&amp;str&gt;</code>（因为迭代 <code>&amp;[&amp;str]</code>），打印时 <code>{:?}</code> 会显示 <code>Some("Python")</code>。</p>
+</details>
+<hr>
+<h3 id="练习-09-16-实现-iteratorstepiterator"><a class="header" href="#练习-09-16-实现-iteratorstepiterator">练习 09-16: 实现 Iterator——StepIterator</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+自定义迭代器</p>
+</blockquote>
+<p>实现一个 <code>StepIterator</code>，它在给定的起始值和结束值之间以固定步长递增（不含结束值）。例如 <code>StepIterator::new(0, 10, 3)</code> 应产生 <code>0, 3, 6, 9</code>。</p>
+<pre class="playground"><code class="language-rust">struct StepIterator {
+    current: i32,
+    end: i32,
+    step: i32,
+}
+
+impl StepIterator {
+    fn new(start: i32, end: i32, step: i32) -&gt; Self {
+        StepIterator { current: start, end, step }
+    }
+}
+
+// TODO: 为 StepIterator 实现 Iterator trait
+
+fn main() {
+    let iter = StepIterator::new(0, 10, 3);
+    let result: Vec&lt;i32&gt; = iter.collect();
+    println!("{:?}", result); // 预期输出 [0, 3, 6, 9]
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct StepIterator {
+    current: i32,
+    end: i32,
+    step: i32,
+}
+
+impl StepIterator {
+    fn new(start: i32, end: i32, step: i32) -&gt; Self {
+        StepIterator { current: start, end, step }
+    }
+}
+
+impl Iterator for StepIterator {
+    type Item = i32;
+
+    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
+        if self.current &lt; self.end {
+            let val = self.current;
+            self.current += self.step;
+            Some(val)
+        } else {
+            None
+        }
+    }
+}
+
+fn main() {
+    let iter = StepIterator::new(0, 10, 3);
+    let result: Vec&lt;i32&gt; = iter.collect();
+    println!("{:?}", result);
+}</code></pre>
+<p><strong>说明：</strong> 自定义迭代器的核心是正确实现 <code>next()</code> 方法：维护内部状态，每次调用返回当前值并推进，在到达终点时返回 <code>None</code>。一旦 <code>StepIterator</code> 实现了 <code>Iterator</code>，它就能使用所有标准适配器（<code>map</code>、<code>filter</code>、<code>collect</code> 等）。注意 <code>collect</code> 会重复调用 <code>next()</code> 直到返回 <code>None</code>。</p>
+</details>
+<hr>
+<h3 id="练习-09-17-实现-iteratorfibonacci"><a class="header" href="#练习-09-17-实现-iteratorfibonacci">练习 09-17: 实现 Iterator——Fibonacci</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+自定义无限迭代器</p>
+</blockquote>
+<p>实现一个 <code>Fibonacci</code> 迭代器，生成斐波那契数列（0, 1, 1, 2, 3, 5, 8, 13…）。这是一个<strong>无限迭代器</strong>，永远不返回 <code>None</code>。</p>
+<pre class="playground"><code class="language-rust">struct Fibonacci {
+    a: u64,
+    b: u64,
+}
+
+impl Fibonacci {
+    fn new() -&gt; Self {
+        Fibonacci { a: 0, b: 1 }
+    }
+}
+
+// TODO: 为 Fibonacci 实现 Iterator trait
+
+fn main() {
+    // 取前 10 个斐波那契数
+    let first_ten: Vec&lt;u64&gt; = Fibonacci::new()/* TODO */.take(10).collect();
+    println!("{:?}", first_ten); // 预期输出 [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Fibonacci {
+    a: u64,
+    b: u64,
+}
+
+impl Fibonacci {
+    fn new() -&gt; Self {
+        Fibonacci { a: 0, b: 1 }
+    }
+}
+
+impl Iterator for Fibonacci {
+    type Item = u64;
+
+    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
+        let current = self.a;
+        self.a = self.b;
+        self.b = current + self.b;
+        Some(current)
+    }
+}
+
+fn main() {
+    let first_ten: Vec&lt;u64&gt; = Fibonacci::new().take(10).collect();
+    println!("{:?}", first_ten);
+}</code></pre>
+<p><strong>说明：</strong> 无限迭代器（<code>next()</code> 始终返回 <code>Some</code>）需要用 <code>take(n)</code> 限制取值的数量。<code>take</code> 本身也是一个适配器，它包装原迭代器，在产生 <code>n</code> 个元素后返回 <code>None</code>。斐波那契迭代器维护两个状态变量 <code>a</code> 和 <code>b</code>，每次迭代更新它们。<code>u64</code> 在 94 次迭代后溢出，实际应用可改用 <code>u128</code> 或 <code>BigUint</code>。</p>
+</details>
+<hr>
+<h3 id="练习-09-18-实现-iteratorcyclicslice"><a class="header" href="#练习-09-18-实现-iteratorcyclicslice">练习 09-18: 实现 Iterator——CyclicSlice</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+自定义循环迭代器</p>
+</blockquote>
+<p>实现一个 <code>CyclicSlice</code> 迭代器，它接收一个切片引用，并无限循环遍历其元素。即遍历到末尾后回到开头重新开始。</p>
+<pre class="playground"><code class="language-rust">struct CyclicSlice&lt;'a&gt; {
+    data: &amp;'a [i32],
+    index: usize,
+}
+
+impl&lt;'a&gt; CyclicSlice&lt;'a&gt; {
+    fn new(data: &amp;'a [i32]) -&gt; Self {
+        CyclicSlice { data, index: 0 }
+    }
+}
+
+// TODO: 为 CyclicSlice 实现 Iterator trait
+// 提示：始终返回 Some(&amp;i32)，index 到达末尾后回绕
+
+fn main() {
+    let arr = [1, 2, 3];
+    let result: Vec&lt;&amp;i32&gt; = CyclicSlice::new(&amp;arr).take(8).collect();
+    println!("{:?}", result); // 预期输出 [1, 2, 3, 1, 2, 3, 1, 2]
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct CyclicSlice&lt;'a&gt; {
+    data: &amp;'a [i32],
+    index: usize,
+}
+
+impl&lt;'a&gt; CyclicSlice&lt;'a&gt; {
+    fn new(data: &amp;'a [i32]) -&gt; Self {
+        CyclicSlice { data, index: 0 }
+    }
+}
+
+impl&lt;'a&gt; Iterator for CyclicSlice&lt;'a&gt; {
+    type Item = &amp;'a i32;
+
+    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
+        if self.data.is_empty() {
+            return None;
+        }
+        let val = &amp;self.data[self.index];
+        self.index = (self.index + 1) % self.data.len();
+        Some(val)
+    }
+}
+
+fn main() {
+    let arr = [1, 2, 3];
+    let result: Vec&lt;&amp;i32&gt; = CyclicSlice::new(&amp;arr).take(8).collect();
+    println!("{:?}", result);
+}</code></pre>
+<p><strong>说明：</strong> 周期循环迭代器通过取模运算实现索引回绕。注意空切片的边界情况——直接对空切片取模会 panic，所以需要提前处理。生命周期 <code>'a</code> 确保返回的引用不会超过底层数据的生命周期。这里返回 <code>&amp;'a i32</code> 而非 <code>&amp;i32</code>，是因为 <code>next</code> 返回的元素引用来自迭代器之外的源数据。</p>
+</details>
+<hr>
+<h3 id="练习-09-19-实现-iteratorgroupiterator"><a class="header" href="#练习-09-19-实现-iteratorgroupiterator">练习 09-19: 实现 Iterator——GroupIterator</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+分组迭代器</p>
+</blockquote>
+<p>实现一个 <code>GroupIterator</code>，将底层迭代器的元素按固定大小分组。例如输入 <code>[1, 2, 3, 4, 5, 6, 7]</code>，组大小 3，应产生 <code>[1, 2, 3]</code>、<code>[4, 5, 6]</code>、<code>[7]</code>。</p>
+<pre class="playground"><code class="language-rust">struct GroupIterator&lt;I&gt; {
+    iter: I,
+    size: usize,
+}
+
+// TODO: 为 GroupIterator&lt;I&gt; 实现 Iterator trait
+// 要求 Item = Vec&lt;I::Item&gt;，每次从底层迭代器取 size 个元素
+// 提示：使用 .by_ref().take(size) 或手动循环 collect
+
+fn main() {
+    let data = vec![1, 2, 3, 4, 5, 6, 7];
+    let groups: Vec&lt;Vec&lt;i32&gt;&gt; = GroupIterator { iter: data.into_iter(), size: 3 }.collect();
+    println!("{:?}", groups); // 预期输出 [[1, 2, 3], [4, 5, 6], [7]]
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct GroupIterator&lt;I&gt; {
+    iter: I,
+    size: usize,
+}
+
+impl&lt;I: Iterator&gt; Iterator for GroupIterator&lt;I&gt; {
+    type Item = Vec&lt;I::Item&gt;;
+
+    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
+        let mut group = Vec::with_capacity(self.size);
+        for _ in 0..self.size {
+            match self.iter.next() {
+                Some(val) =&gt; group.push(val),
+                None =&gt; break,
+            }
+        }
+        if group.is_empty() { None } else { Some(group) }
+    }
+}
+
+fn main() {
+    let data = vec![1, 2, 3, 4, 5, 6, 7];
+    let groups: Vec&lt;Vec&lt;i32&gt;&gt; = GroupIterator { iter: data.into_iter(), size: 3 }.collect();
+    println!("{:?}", groups);
+}</code></pre>
+<p><strong>说明：</strong> <code>GroupIterator</code> 包装一个泛型迭代器 <code>I: Iterator</code>，其 <code>Item = Vec&lt;I::Item&gt;</code>——每组是一个向量。<code>next()</code> 从底层迭代器取 <code>size</code> 个元素，如果不足则取剩余所有。当底层迭代器已经耗尽且没有取到任何元素时返回 <code>None</code>。泛型约束 <code>I: Iterator</code> 使得 <code>GroupIterator</code> 可以包装任何迭代器，体现了组合性。</p>
+</details>
+<hr>
+<h3 id="练习-09-20-实现-iterator交错合并"><a class="header" href="#练习-09-20-实现-iterator交错合并">练习 09-20: 实现 Iterator——交错合并</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+自定义复杂迭代器</p>
+</blockquote>
+<p>实现一个 <code>Interleave</code> 迭代器，它接收两个相同类型的迭代器，交替从它们中取值。例如 <code>Interleave([1,3,5], [2,4,6])</code> 产生 <code>1, 2, 3, 4, 5, 6</code>。</p>
+<pre class="playground"><code class="language-rust">struct Interleave&lt;I, J&gt; {
+    a: I,
+    b: J,
+    turn_a: bool, // true 时从 a 取，false 时从 b 取
+}
+
+// TODO: 为 Interleave 实现 Iterator trait
+// 交替从 a 和 b 中取元素，其中一个耗尽后继续从另一个取
+
+fn main() {
+    let a = vec![1, 3, 5, 7];
+    let b = vec![2, 4, 6];
+    let interleaved: Vec&lt;i32&gt; = (Interleave {
+        a: a.into_iter(),
+        b: b.into_iter(),
+        turn_a: true,
+    }).collect();
+    println!("{:?}", interleaved); // 预期输出 [1, 2, 3, 4, 5, 6, 7]
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Interleave&lt;I, J&gt; {
+    a: I,
+    b: J,
+    turn_a: bool,
+}
+
+impl&lt;I: Iterator, J: Iterator&lt;Item = I::Item&gt;&gt; Iterator for Interleave&lt;I, J&gt; {
+    type Item = I::Item;
+
+    fn next(&amp;mut self) -&gt; Option&lt;Self::Item&gt; {
+        if self.turn_a {
+            match self.a.next() {
+                Some(val) =&gt; {
+                    self.turn_a = false;
+                    return Some(val);
+                }
+                None =&gt; {
+                    // a 已耗尽，转从 b 继续取
+                    return self.b.next();
+                }
+            }
+        } else {
+            match self.b.next() {
+                Some(val) =&gt; {
+                    self.turn_a = true;
+                    return Some(val);
+                }
+                None =&gt; {
+                    // b 已耗尽，转从 a 继续取
+                    return self.a.next();
+                }
+            }
+        }
+    }
+}
+
+fn main() {
+    let a = vec![1, 3, 5, 7];
+    let b = vec![2, 4, 6];
+    let interleaved: Vec&lt;i32&gt; = (Interleave {
+        a: a.into_iter(),
+        b: b.into_iter(),
+        turn_a: true,
+    }).collect();
+    println!("{:?}", interleaved);
+}</code></pre>
+<p><strong>说明：</strong> <code>Interleave</code> 使用布尔标志 <code>turn_a</code> 控制轮流从两个迭代器取数。当一个迭代器耗尽后，剩余元素全部从另一个获取。注意约束 <code>J: Iterator&lt;Item = I::Item&gt;</code> 确保两个迭代器的元素类型一致。这个迭代器展示了如何在自定义实现中处理多个内部迭代器的状态切换。</p>
+</details>
+<hr>
+<h3 id="练习-09-21-intoiterator数组的三种迭代形式"><a class="header" href="#练习-09-21-intoiterator数组的三种迭代形式">练习 09-21: IntoIterator——数组的三种迭代形式</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+类似 Java 的 <code>Iterable&lt;T&gt;</code></p>
+</blockquote>
+<p>Rust 中 <code>for</code> 循环本质上是调用 <code>into_iter()</code>。数组、<code>Vec</code> 和切片实现了不同的 <code>IntoIterator</code>。请观察并补全下面代码，理解 <code>iter()</code>、<code>iter_mut()</code> 和 <code>into_iter()</code> 的区别。</p>
+<pre class="playground"><code class="language-rust">// TODO: 补全代码，分别使用 iter()、iter_mut()、into_iter() 处理数组
+fn main() {
+    let mut arr = [1, 2, 3];
+    
+    // 使用 iter() —— 不可变引用
+    for val in arr.iter() {
+        println!("iter: {}", val);
+        // 这里的 val 类型是 &amp;i32
+        // 可以读取但不能修改
+    }
+    
+    // 使用 iter_mut() —— 可变引用
+    for val in arr.iter_mut() {
+        *val *= 10; // 每个元素乘以 10
+    }
+    println!("修改后: {:?}", arr); // 预期输出 [10, 20, 30]
+    
+    // TODO: 使用 into_iter() —— 获取所有权
+    // 注意：这里 arr 会被消耗吗？试试看
+    for val in /* TODO */ {
+        println!("into_iter: {}", val);
+    }
+    
+    // 下面的代码会编译通过吗？
+    // println!("arr: {:?}", arr);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let mut arr = [1, 2, 3];
+    
+    for val in arr.iter() {
+        println!("iter: {}", val);
+    }
+    
+    for val in arr.iter_mut() {
+        *val *= 10;
+    }
+    println!("修改后: {:?}", arr);
+    
+    // into_iter() 对数组会获取元素所有权（复制）
+    for val in arr.into_iter() {
+        println!("into_iter: {}", val);
+    }
+    
+    // 注意：arr 仍然可用！因为 [i32; 3] 实现了 Copy
+    // 但如果元素类型不是 Copy，arr 将被消耗
+    println!("arr 仍然可用: {:?}", arr);
+}</code></pre>
+<p><strong>说明：</strong> <code>IntoIterator</code> trait 定义了 <code>.into_iter()</code> 方法，<code>for</code> 循环会隐式调用它。对于数组 <code>[T; N]</code>：</p>
+<ul>
+<li><code>arr.iter()</code> → 返回 <code>Iter&lt;T&gt;</code>，产生 <code>&amp;T</code></li>
+<li><code>arr.iter_mut()</code> → 返回 <code>IterMut&lt;T&gt;</code>，产生 <code>&amp;mut T</code></li>
+<li><code>arr.into_iter()</code> → 消耗数组（但 <code>[i32; 3]</code> 实现了 <code>Copy</code> 因此数组仍可用）
+对于 <code>Vec&lt;T&gt;</code>，<code>into_iter()</code> 会消耗 <code>Vec</code> 并拥有元素所有权。理解这三种迭代方式对于编写正确的 Rust 代码至关重要。</li>
+</ul>
+</details>
+<hr>
+<h3 id="练习-09-22-intoiterator自定义结构体"><a class="header" href="#练习-09-22-intoiterator自定义结构体">练习 09-22: IntoIterator——自定义结构体</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+类似 Java 的 implements <code>Iterable&lt;T&gt;</code></p>
+</blockquote>
+<p>为自定义结构体 <code>Library</code> 实现 <code>IntoIterator</code>，使其可以用 <code>for</code> 循环直接遍历内部的书名列表。</p>
+<pre class="playground"><code class="language-rust">struct Library {
+    books: Vec&lt;String&gt;,
+}
+
+impl Library {
+    fn new(books: Vec&lt;String&gt;) -&gt; Self {
+        Library { books }
+    }
+}
+
+// TODO: 为 Library 实现 IntoIterator trait
+// 提示：可以直接委托给 books.into_iter()
+
+fn main() {
+    let lib = Library::new(vec![
+        "Rust 编程".to_string(),
+        "算法导论".to_string(),
+        "设计模式".to_string(),
+    ]);
+    
+    // 补全后这行应该能编译
+    for book in lib {
+        println!("{}", book);
+    }
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Library {
+    books: Vec&lt;String&gt;,
+}
+
+impl Library {
+    fn new(books: Vec&lt;String&gt;) -&gt; Self {
+        Library { books }
+    }
+}
+
+impl IntoIterator for Library {
+    type Item = String;
+    type IntoIter = std::vec::IntoIter&lt;String&gt;;
+
+    fn into_iter(self) -&gt; Self::IntoIter {
+        self.books.into_iter()
+    }
+}
+
+fn main() {
+    let lib = Library::new(vec![
+        "Rust 编程".to_string(),
+        "算法导论".to_string(),
+        "设计模式".to_string(),
+    ]);
+    
+    for book in lib {
+        println!("{}", book);
+    }
+}</code></pre>
+<p><strong>说明：</strong> 实现 <code>IntoIterator</code> 需要定义三个关联项：<code>Item</code>（元素类型）、<code>IntoIter</code>（迭代器类型）和 <code>into_iter(self)</code> 方法。通常可以直接委托给内部集合的 <code>into_iter()</code>。注意 <code>IntoIterator</code> 的 <code>into_iter</code> 接收 <code>self</code>（所有权），所以 <code>for book in lib</code> 会消耗 <code>lib</code>。如果需要不消耗所有权的迭代，可以为 <code>&amp;Library</code> 实现 <code>IntoIterator</code>。</p>
+</details>
+<hr>
+<h3 id="练习-09-23-intoiterator为引用实现"><a class="header" href="#练习-09-23-intoiterator为引用实现">练习 09-23: IntoIterator——为引用实现</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+实现 IntoIterator for &amp;Library</p>
+</blockquote>
+<p>为 <code>Library</code> 的引用 <code>&amp;Library</code> 实现 <code>IntoIterator</code>，使得 <code>for book in &amp;lib</code> 也能工作（产生 <code>&amp;String</code>，不消耗所有权）。</p>
+<pre class="playground"><code class="language-rust">struct Library {
+    books: Vec&lt;String&gt;,
+}
+
+impl Library {
+    fn new(books: Vec&lt;String&gt;) -&gt; Self {
+        Library { books }
+    }
+}
+
+// TODO: 为 &amp;Library 实现 IntoIterator
+// 提示：使用 self.books.iter()
+
+fn main() {
+    let lib = Library::new(vec![
+        "书 A".to_string(),
+        "书 B".to_string(),
+        "书 C".to_string(),
+    ]);
+    
+    // 补全后这行应该能编译
+    for book in &amp;lib {
+        println!("{}", book);
+    }
+    
+    // lib 所有权仍在，可以再遍历
+    for book in &amp;lib {
+        println!("再次: {}", book);
+    }
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Library {
+    books: Vec&lt;String&gt;,
+}
+
+impl Library {
+    fn new(books: Vec&lt;String&gt;) -&gt; Self {
+        Library { books }
+    }
+}
+
+impl&lt;'a&gt; IntoIterator for &amp;'a Library {
+    type Item = &amp;'a String;
+    type IntoIter = std::slice::Iter&lt;'a, String&gt;;
+
+    fn into_iter(self) -&gt; Self::IntoIter {
+        self.books.iter()
+    }
+}
+
+fn main() {
+    let lib = Library::new(vec![
+        "书 A".to_string(),
+        "书 B".to_string(),
+        "书 C".to_string(),
+    ]);
+    
+    for book in &amp;lib {
+        println!("{}", book);
+    }
+    
+    for book in &amp;lib {
+        println!("再次: {}", book);
+    }
+}</code></pre>
+<p><strong>说明：</strong> 为引用类型实现 <code>IntoIterator</code> 允许 <code>for book in &amp;lib</code> 语法正常工作。这里 <code>self</code> 的类型是 <code>&amp;'a Library</code>，<code>self.books.iter()</code> 返回 <code>Iter&lt;'a, String&gt;</code>，产生 <code>&amp;String</code>。这种模式使调用者可以灵活选择是否消耗所有权——<code>for book in lib</code> 消耗，<code>for book in &amp;lib</code> 借用。这是 Rust 中常见的 API 设计模式。</p>
+</details>
+<hr>
+<h3 id="练习-09-24-综合多步骤数据流水线"><a class="header" href="#练习-09-24-综合多步骤数据流水线">练习 09-24: 综合——多步骤数据流水线</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+综合运用迭代器适配器</p>
+</blockquote>
+<p>有一个学生成绩的向量 <code>[(name, score)]</code>，请通过链式调用完成以下处理：1) 过滤掉不及格（&lt; 60）的 2) 按分数降序排列 3) 取前 3 名 4) 收集为 <code>Vec&lt;&amp;str&gt;</code>（只保留姓名）。</p>
+<pre class="playground"><code class="language-rust">// TODO: 链式调用来处理成绩数据
+fn main() {
+    let scores = vec![
+        ("张三", 85),
+        ("李四", 42),
+        ("王五", 93),
+        ("赵六", 67),
+        ("钱七", 78),
+        ("孙八", 55),
+    ];
+    
+    // 补全链式调用
+    let top3: Vec&lt;&amp;str&gt; = scores.iter()
+        /* TODO */
+        .collect();
+    
+    println!("前三名: {:?}", top3); // 预期输出 ["王五", "张三", "钱七"]
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let scores = vec![
+        ("张三", 85),
+        ("李四", 42),
+        ("王五", 93),
+        ("赵六", 67),
+        ("钱七", 78),
+        ("孙八", 55),
+    ];
+    
+    let top3: Vec&lt;&amp;str&gt; = scores.iter()
+        .filter(|(_, score)| *score &gt;= 60)
+        .sorted_by(|a, b| b.1.cmp(&amp;a.1)) // 降序
+        .take(3)
+        .map(|(name, _)| *name)
+        .collect();
+    
+    println!("前三名: {:?}", top3);
+}</code></pre>
+<p><strong>说明：</strong> 这道题综合了 <code>filter</code>、<code>sorted_by</code>（需要 <code>use itertools::Itertools</code> 或改用 <code>Vec::sort_by</code>）、<code>take</code> 和 <code>map</code>。注意 <code>sorted_by</code> 不是标准库方法——标准方式是将结果收集到 <code>Vec</code> 再排序。更符合标准库风格的写法是：</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let mut passed: Vec&lt;_&gt; = scores.iter().filter(|(_, s)| *s &gt;= 60).collect();
+passed.sort_by(|a, b| b.1.cmp(&amp;a.1));
+let top3: Vec&lt;&amp;str&gt; = passed.into_iter().take(3).map(|(n, _)| *n).collect();
+<span class="boring">}</span></code></pre>
+<p>这里 <code>sorted_by</code> 来自 <code>itertools</code> crate，为展示迭代器链式调用的理想形式而使用。实际项目中，在 <code>collect</code> 之后排序再取前 N 是更常见的模式。</p>
+</details>
+<hr>
+<h3 id="练习-09-25-综合挑战自定义-intoiterator--迭代器适配器"><a class="header" href="#练习-09-25-综合挑战自定义-intoiterator--迭代器适配器">练习 09-25: 综合挑战——自定义 IntoIterator + 迭代器适配器</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+综合：自定义类型 + IntoIterator + 链式调用</p>
+</blockquote>
+<p>有一个 <code>Deck</code> 结构体表示一副扑克牌（52 张）。请补全 <code>Card</code> 结构体和 <code>IntoIterator for &amp;Deck</code> 的实现，然后链式调用迭代器方法：选出所有红心花色（Suit::Heart）的牌，按点数排序，取前 5 张。</p>
+<pre class="playground"><code class="language-rust">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum Suit {
+    Spade,   // 黑桃
+    Heart,   // 红心
+    Club,    // 梅花
+    Diamond, // 方块
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+struct Card {
+    suit: Suit,
+    rank: i32, // 1(A) 到 13(K)
+}
+
+impl Card {
+    fn new(suit: Suit, rank: i32) -&gt; Self {
+        Card { suit, rank }
+    }
+}
+
+struct Deck {
+    cards: Vec&lt;Card&gt;,
+}
+
+impl Deck {
+    fn new() -&gt; Self {
+        let mut cards = Vec::with_capacity(52);
+        for suit in &amp;[Suit::Spade, Suit::Heart, Suit::Club, Suit::Diamond] {
+            for rank in 1..=13 {
+                cards.push(Card::new(*suit, rank));
+            }
+        }
+        Deck { cards }
+    }
+}
+
+// TODO: 为 &amp;Deck 实现 IntoIterator
+// 提示：委托给 self.cards.iter()
+
+fn main() {
+    let deck = Deck::new();
+    
+    // TODO: 选出所有红心牌，按点数排序，取前 5 张
+    let hearts: Vec&lt;&amp;Card&gt; = (&amp;deck)
+        /* TODO */
+        .collect();
+    
+    println!("红心前 5 张:");
+    for card in &amp;hearts {
+        println!("  {:?} {}", card.suit, card.rank);
+    }
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum Suit {
+    Spade, Heart, Club, Diamond,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+struct Card {
+    suit: Suit,
+    rank: i32,
+}
+
+impl Card {
+    fn new(suit: Suit, rank: i32) -&gt; Self {
+        Card { suit, rank }
+    }
+}
+
+struct Deck {
+    cards: Vec&lt;Card&gt;,
+}
+
+impl Deck {
+    fn new() -&gt; Self {
+        let mut cards = Vec::with_capacity(52);
+        for suit in &amp;[Suit::Spade, Suit::Heart, Suit::Club, Suit::Diamond] {
+            for rank in 1..=13 {
+                cards.push(Card::new(*suit, rank));
+            }
+        }
+        Deck { cards }
+    }
+}
+
+impl&lt;'a&gt; IntoIterator for &amp;'a Deck {
+    type Item = &amp;'a Card;
+    type IntoIter = std::slice::Iter&lt;'a, Card&gt;;
+
+    fn into_iter(self) -&gt; Self::IntoIter {
+        self.cards.iter()
+    }
+}
+
+fn main() {
+    let deck = Deck::new();
+    
+    let mut hearts: Vec&lt;&amp;Card&gt; = (&amp;deck)
+        .into_iter()
+        .filter(|c| c.suit == Suit::Heart)
+        .collect();
+    
+    hearts.sort_by_key(|c| c.rank);
+    let top5: Vec&lt;&amp;Card&gt; = hearts.into_iter().take(5).collect();
+    
+    println!("红心前 5 张:");
+    for card in &amp;top5 {
+        println!("  {:?} {}", card.suit, card.rank);
+    }
+}</code></pre>
+<p><strong>说明：</strong> 这道综合题将本章的核心概念融汇在一起：1) 自定义迭代器——<code>for suit in &amp;[Suit::...]</code> 利用了 <code>IntoIterator for &amp;[T]</code>；2) <code>IntoIterator</code> 实现——<code>&amp;Deck</code> 委托给 <code>self.cards.iter()</code>；3) 链式调用——<code>filter</code> 筛选花色；4) <code>collect</code> + 排序 + <code>take</code>——由于 <code>sorted_by_key</code> 不是标准库方法，先 <code>collect</code> 到 <code>Vec</code>，排序后 <code>into_iter().take(5)</code> 是更标准的做法。注意 <code>(&amp;deck).into_iter()</code> 和 <code>(&amp;deck).iter()</code> 不等价——这里显式写 <code>into_iter()</code> 来调用我们实现的 <code>IntoIterator</code>，实际上 <code>for</code> 循环也会隐式调用它。</p>
+</details>
+<hr>
+<p>恭喜完成第 09 章！迭代器是 Rust 函数式编程的基石——掌握它们能让你写出更安全、更简洁、更具表达力的代码。</p>
+</details>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="08_generics.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="10_closures.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="08_generics.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="10_closures.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-c22b7243.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

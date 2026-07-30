@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e353_tray_restore",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e353",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1773",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 353: 托盘恢复窗口",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

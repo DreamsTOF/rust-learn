@@ -1,0 +1,2146 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="ayu sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>18 多线程并发 - Rust 实战练习 — 460 题快速突破</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="从 C++/Java 到 Rust，460 道循序渐进的实战练习题">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/custom-b5e00510.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "ayu";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-f70c63f5.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-86798690.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Rust 实战练习 — 460 题快速突破</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="18-多线程并发"><a class="header" href="#18-多线程并发">18 多线程并发</a></h1>
+<p>Rust 的所有权系统和类型系统为并发编程提供了强有力的安全保证。通过 <code>std::thread</code> 创建线程、<code>mpsc</code> 进行消息传递、<code>Arc&lt;Mutex&lt;T&gt;&gt;</code> 实现共享状态，以及 <code>Send</code> 和 <code>Sync</code> 这两个标记 trait 在编译期确保线程安全。本章练习将帮助你掌握 Rust 并发编程的核心概念与实践技巧。</p>
+<h3 id="练习-18-01-创建第一个线程"><a class="header" href="#练习-18-01-创建第一个线程">练习 18-01: 创建第一个线程</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的 <code>Thread.start()</code> / 类似 C++11 的 <code>std::thread</code></p>
+</blockquote>
+<p>补全代码，使用 <code>thread::spawn</code> 创建一个新线程，在新线程中打印一条消息。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::time::Duration;
+
+fn main() {
+    // TODO: 使用 thread::spawn 创建一个新线程，打印 "你好，来自新线程！"
+    
+    // 主线程等待一段时间，让子线程有机会执行
+    thread::sleep(Duration::from_millis(100));
+    println!("主线程结束");
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::time::Duration;
+
+fn main() {
+    thread::spawn(|| {
+        println!("你好，来自新线程！");
+    });
+    
+    thread::sleep(Duration::from_millis(100));
+    println!("主线程结束");
+}</code></pre>
+<p><strong>说明：</strong> <code>thread::spawn</code> 接收一个闭包作为参数，闭包中的代码将在新线程中执行。主线程通过 <code>thread::sleep</code> 等待子线程完成——但这不是可靠的方式，实际应使用 <code>join</code> 句柄来等待线程结束。</p>
+</details>
+<h3 id="练习-18-02-使用-move-闭包"><a class="header" href="#练习-18-02-使用-move-闭包">练习 18-02: 使用 move 闭包</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的传递参数给线程 / 类似 C++11 的 <code>std::thread</code> 传参</p>
+</blockquote>
+<p>补全代码，使用 <code>move</code> 关键字将数据从主线程移动到子线程中。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+
+fn main() {
+    let message = String::from("你好，世界！");
+    
+    // TODO: 使用 thread::spawn + move 闭包，打印 message
+    // 提示：闭包前需要加 move 关键字
+    
+    // 注意：这里不能再用 message 了，因为所有权已转移
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+
+fn main() {
+    let message = String::from("你好，世界！");
+    
+    let handle = thread::spawn(move || {
+        println!("{}", message);
+    });
+    
+    handle.join().unwrap();
+}</code></pre>
+<p><strong>说明：</strong> <code>move</code> 关键字强制闭包获取其捕获变量的所有权。在多线程场景中，这确保数据安全地从主线程移动到子线程，避免了生命周期和借用冲突。如果没有 <code>move</code>，闭包只会借用 <code>message</code>，而编译器无法保证借用在线程执行期间始终有效。</p>
+</details>
+<h3 id="练习-18-03-等待线程join-基础"><a class="header" href="#练习-18-03-等待线程join-基础">练习 18-03: 等待线程——join 基础</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的 <code>thread.join()</code> / 类似 C++11 的 <code>std::thread::join()</code></p>
+</blockquote>
+<p>补全代码，使用 <code>join</code> 等待子线程执行完毕，并获取线程的返回值。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+
+fn main() {
+    // TODO: 创建一个线程，计算 1 到 100 的和，返回结果
+    // 使用 join 获取返回值并打印
+    let handle = thread::spawn(|| {
+        // 在这里计算 1+2+...+100
+        // TODO
+    });
+    
+    // TODO: 使用 handle.join() 获取结果并打印
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+
+fn main() {
+    let handle = thread::spawn(|| {
+        let sum: i32 = (1..=100).sum();
+        sum
+    });
+    
+    let result = handle.join().unwrap();
+    println!("1 到 100 的和是: {}", result);
+}</code></pre>
+<p><strong>说明：</strong> <code>thread::spawn</code> 返回一个 <code>JoinHandle&lt;T&gt;</code>，调用其 <code>join()</code> 方法会阻塞当前线程直到子线程执行完毕。<code>join()</code> 返回 <code>Result&lt;T, Box&lt;dyn Any + Send&gt;&gt;</code>，如果子线程 panic，则返回 <code>Err</code>。</p>
+</details>
+<h3 id="练习-18-04-创建多个线程"><a class="header" href="#练习-18-04-创建多个线程">练习 18-04: 创建多个线程</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 循环启动多个线程 / 类似 C++11 的线程数组</p>
+</blockquote>
+<p>补全代码，创建多个线程分别计算不同范围内的和，然后汇总结果。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+
+fn main() {
+    let mut handles = vec![];
+    
+    // TODO: 创建 4 个线程，每个线程计算一段连续数字的和
+    // 线程 0: 1..=25, 线程 1: 26..=50, 线程 2: 51..=75, 线程 3: 76..=100
+    for i in 0..4 {
+        // TODO: 计算每个线程的起始和结束范围
+        // 使用 thread::spawn，返回该段的和
+        // 将 handle 存入 handles 向量
+    }
+    
+    // TODO: 遍历 handles，使用 join 收集每个线程的结果，累加并打印总和
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+
+fn main() {
+    let mut handles = vec![];
+    
+    for i in 0..4 {
+        let start = i * 25 + 1;
+        let end = (i + 1) * 25;
+        let handle = thread::spawn(move || {
+            (start..=end).sum::&lt;i32&gt;()
+        });
+        handles.push(handle);
+    }
+    
+    let total: i32 = handles.into_iter()
+        .map(|h| h.join().unwrap())
+        .sum();
+    
+    println!("1 到 100 的总和: {}", total);
+}</code></pre>
+<p><strong>说明：</strong> 可以将 <code>JoinHandle</code> 存入向量来管理多个线程。遍历向量并依次 <code>join</code> 可确保所有线程执行完毕。<code>move</code> 闭包捕获循环变量 <code>start</code> 和 <code>end</code>，每个线程获得自己独立的副本。</p>
+</details>
+<h3 id="练习-18-05-线程返回值与错误处理挑战"><a class="header" href="#练习-18-05-线程返回值与错误处理挑战">练习 18-05: 线程返回值与错误处理挑战</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的 <code>Callable</code> / 类似 C++11 的 <code>std::future</code></p>
+</blockquote>
+<p>实现一个函数 <code>parallel_map</code>，对向量中的每个元素在一个独立线程中应用转换函数，返回一个包含所有结果的新向量。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+
+// TODO: 实现 parallel_map 函数
+// 接收一个 Vec&lt;i32&gt; 和一个闭包，对每个元素在线程中应用闭包
+// 返回 Vec&lt;i32&gt;，保持元素的原始顺序
+fn parallel_map&lt;F&gt;(data: Vec&lt;i32&gt;, f: F) -&gt; Vec&lt;i32&gt;
+where
+    F: Fn(i32) -&gt; i32 + Send + Copy + 'static,
+{
+    // TODO
+}
+
+fn main() {
+    let data = vec![1, 2, 3, 4, 5];
+    let result = parallel_map(data, |x| x * x);
+    println!("平方结果: {:?}", result); // [1, 4, 9, 16, 25]
+    
+    let data2 = vec![10, 20, 30];
+    let result2 = parallel_map(data2, |x| x + 5);
+    println!("加 5 结果: {:?}", result2); // [15, 25, 35]
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+
+fn parallel_map&lt;F&gt;(data: Vec&lt;i32&gt;, f: F) -&gt; Vec&lt;i32&gt;
+where
+    F: Fn(i32) -&gt; i32 + Send + Copy + 'static,
+{
+    let mut handles = vec![];
+    
+    for x in data {
+        let handle = thread::spawn(move || {
+            f(x)
+        });
+        handles.push(handle);
+    }
+    
+    handles.into_iter()
+        .map(|h| h.join().unwrap())
+        .collect()
+}
+
+fn main() {
+    let data = vec![1, 2, 3, 4, 5];
+    let result = parallel_map(data, |x| x * x);
+    println!("平方结果: {:?}", result);
+    
+    let data2 = vec![10, 20, 30];
+    let result2 = parallel_map(data2, |x| x + 5);
+    println!("加 5 结果: {:?}", result2);
+}</code></pre>
+<p><strong>说明：</strong> 泛型约束 <code>Send</code> 确保闭包可以安全地跨线程传递，<code>Copy</code> 允许闭包被多次 <code>move</code>，<code>'static</code> 保证闭包不包含非静态引用。通过收集所有 <code>JoinHandle</code> 再依次 <code>join</code>，可以维持原始顺序——因为向量按插入顺序迭代，而插入顺序与输入顺序一致。</p>
+</details>
+<h3 id="练习-18-06-发送与接收mpsc-基础"><a class="header" href="#练习-18-06-发送与接收mpsc-基础">练习 18-06: 发送与接收——mpsc 基础</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的 <code>BlockingQueue</code> / 类似 C++11 的 <code>std::queue</code> + 条件变量</p>
+</blockquote>
+<p>补全代码，使用 <code>mpsc::channel</code> 创建一个通道，在子线程中发送消息，在主线程中接收。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::mpsc;
+
+fn main() {
+    // TODO: 使用 mpsc::channel() 创建 (发送端, 接收端)
+    // let (tx, rx) = ...
+    
+    thread::spawn(move || {
+        // TODO: 发送 "你好" 字符串到通道
+    });
+    
+    // TODO: 在主线程中接收消息并打印
+    // 使用 rx.recv() 或 rx.try_recv()
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::mpsc;
+
+fn main() {
+    let (tx, rx) = mpsc::channel();
+    
+    thread::spawn(move || {
+        tx.send("你好").unwrap();
+    });
+    
+    let received = rx.recv().unwrap();
+    println!("收到消息: {}", received);
+}</code></pre>
+<p><strong>说明：</strong> <code>mpsc</code> 是 “Multiple Producer, Single Consumer”（多生产者，单消费者）的缩写。<code>channel()</code> 返回 <code>(Sender&lt;T&gt;, Receiver&lt;T&gt;)</code> 元组。<code>send()</code> 发送消息，<code>recv()</code> 阻塞等待消息。<code>send</code> 返回 <code>Result</code> 因为如果接收端已丢弃，发送会失败。</p>
+</details>
+<h3 id="练习-18-07-发送多条消息"><a class="header" href="#练习-18-07-发送多条消息">练习 18-07: 发送多条消息</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 连续向队列发送多条消息</p>
+</blockquote>
+<p>补全代码，在子线程中发送多条消息，主线程逐条接收。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::mpsc;
+use std::time::Duration;
+
+fn main() {
+    let (tx, rx) = mpsc::channel();
+    
+    thread::spawn(move || {
+        let messages = vec!["消息1", "消息2", "消息3", "消息4", "消息5"];
+        // TODO: 循环发送 messages 中的每条消息
+        // 每条消息发送后睡眠 100ms 模拟工作
+        for msg in messages {
+            // TODO
+        }
+    });
+    
+    // TODO: 在主线程中循环接收 5 条消息并打印
+    // 提示：可以逐条调用 recv()，也可以将 rx 当作迭代器使用
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::mpsc;
+use std::time::Duration;
+
+fn main() {
+    let (tx, rx) = mpsc::channel();
+    
+    thread::spawn(move || {
+        let messages = vec!["消息1", "消息2", "消息3", "消息4", "消息5"];
+        for msg in messages {
+            tx.send(msg).unwrap();
+            thread::sleep(Duration::from_millis(100));
+        }
+    });
+    
+    for received in rx {
+        println!("收到: {}", received);
+    }
+}</code></pre>
+<p><strong>说明：</strong> <code>Receiver</code> 实现了 <code>Iterator</code> trait，可以直接在 <code>for</code> 循环中使用。当所有发送端（<code>Sender</code>）被丢弃后，迭代器会自动结束。这种方式比逐个调用 <code>recv()</code> 更简洁。</p>
+</details>
+<h3 id="练习-18-08-多个发送者"><a class="header" href="#练习-18-08-多个发送者">练习 18-08: 多个发送者</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的多个生产者线程 / 类似 C++ 多生产者-单消费者</p>
+</blockquote>
+<p>补全代码，创建多个线程作为发送者，每个线程发送消息到同一个通道。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::mpsc;
+
+fn main() {
+    // TODO: 创建通道
+    // 注意：mpsc 只支持一个消费者，但支持多个生产者
+    
+    // TODO: 创建 3 个发送者线程，每个线程发送 2 条消息
+    // 提示：需要使用 tx.clone() 复制发送端
+    let mut handles = vec![];
+    for i in 0..3 {
+        // TODO: clone 发送端，在线程中发送消息
+        // 消息格式: "线程{i} 的消息{j}"
+    }
+    
+    // TODO: 等待所有线程结束
+    // 并接收所有消息，打印总数
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::mpsc;
+
+fn main() {
+    let (tx, rx) = mpsc::channel();
+    
+    let mut handles = vec![];
+    for i in 0..3 {
+        let tx_clone = tx.clone();
+        let handle = thread::spawn(move || {
+            for j in 0..2 {
+                tx_clone.send(format!("线程{} 的消息{}", i, j)).unwrap();
+            }
+        });
+        handles.push(handle);
+    }
+    
+    // 丢弃原始发送端，否则接收端会一直等待
+    drop(tx);
+    
+    for handle in handles {
+        handle.join().unwrap();
+    }
+    
+    let mut count = 0;
+    for msg in rx {
+        println!("{}", msg);
+        count += 1;
+    }
+    println!("共计接收 {} 条消息", count);
+}</code></pre>
+<p><strong>说明：</strong> <code>Sender&lt;T&gt;</code> 实现了 <code>Clone</code> trait，可以通过克隆创建多个发送者。必须丢弃（<code>drop</code>）所有发送端（包括原始发送端），接收端的迭代器才会结束。<code>mpsc</code> 的名称正是“多生产者，单消费者“。</p>
+</details>
+<h3 id="练习-18-09-发送多种类型枚举消息"><a class="header" href="#练习-18-09-发送多种类型枚举消息">练习 18-09: 发送多种类型——枚举消息</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的消息对象多态 / 类似 C++ 的 <code>std::variant</code></p>
+</blockquote>
+<p>补全代码，使用枚举在一个通道中发送不同类型的消息。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::mpsc;
+
+// TODO: 定义 Message 枚举，包含以下变体：
+// - Text(String)
+// - Number(i32)
+// - Exit
+
+fn main() {
+    let (tx, rx) = mpsc::channel();
+    
+    let sender = thread::spawn(move || {
+        // TODO: 发送 Text("开始处理")，Number(42)，Text("继续")，Number(100)，Exit
+    });
+    
+    // TODO: 在主线程中使用循环接收消息
+    // 遇到 Exit 时终止循环
+    // Text 时打印 "文本: {内容}"
+    // Number 时打印 "数字: {值}"
+    
+    sender.join().unwrap();
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::mpsc;
+
+enum Message {
+    Text(String),
+    Number(i32),
+    Exit,
+}
+
+fn main() {
+    let (tx, rx) = mpsc::channel();
+    
+    let sender = thread::spawn(move || {
+        tx.send(Message::Text("开始处理".to_string())).unwrap();
+        tx.send(Message::Number(42)).unwrap();
+        tx.send(Message::Text("继续".to_string())).unwrap();
+        tx.send(Message::Number(100)).unwrap();
+        tx.send(Message::Exit).unwrap();
+    });
+    
+    loop {
+        match rx.recv().unwrap() {
+            Message::Text(text) =&gt; println!("文本: {}", text),
+            Message::Number(n) =&gt; println!("数字: {}", n),
+            Message::Exit =&gt; {
+                println!("收到退出信号");
+                break;
+            }
+        }
+    }
+    
+    sender.join().unwrap();
+}</code></pre>
+<p><strong>说明：</strong> 使用枚举作为通道消息类型是一种常见模式，可以在单一通道中传递多种类型的数据。配合 <code>match</code> 表达式，接收端可以清晰处理每种消息变体。<code>Exit</code> 消息常用于优雅地通知工作线程结束。</p>
+</details>
+<h3 id="练习-18-10-消息通道综合挑战"><a class="header" href="#练习-18-10-消息通道综合挑战">练习 18-10: 消息通道综合挑战</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的生产者-消费者模式</p>
+</blockquote>
+<p>实现一个简单的工作分发系统：主线程生成任务，多个工作线程从通道接收任务并处理，将结果通过另一个通道返回给主线程。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::mpsc;
+
+fn main() {
+    // TODO: 创建两个通道：
+    // job_tx / job_rx: 用于发送任务（String）
+    // result_tx / result_rx: 用于接收结果（String）
+    
+    // TODO: 启动 3 个工作线程，每个线程从 job_rx 接收任务
+    // 处理方式：将收到的字符串转换为大写
+    // 结果通过 result_tx 发回
+    
+    // TODO: 主线程发送 5 个任务
+    // 然后丢弃 job_tx（关闭任务通道）
+    
+    // TODO: 从 result_rx 接收并打印所有结果
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::mpsc;
+
+fn main() {
+    let (job_tx, job_rx) = mpsc::channel::&lt;String&gt;();
+    let (result_tx, result_rx) = mpsc::channel::&lt;String&gt;();
+    
+    let job_rx = std::sync::Arc::new(std::sync::Mutex::new(job_rx));
+    let mut handles = vec![];
+    
+    for id in 0..3 {
+        let job_rx = job_rx.clone();
+        let result_tx = result_tx.clone();
+        let handle = thread::spawn(move || {
+            loop {
+                let job = {
+                    let lock = job_rx.lock().unwrap();
+                    lock.recv()
+                };
+                match job {
+                    Ok(task) =&gt; {
+                        let result = task.to_uppercase();
+                        result_tx.send(format!("线程{} 处理: {}", id, result)).unwrap();
+                    }
+                    Err(_) =&gt; break, // 通道关闭，退出循环
+                }
+            }
+        });
+        handles.push(handle);
+    }
+    
+    // 发送任务
+    for i in 0..5 {
+        job_tx.send(format!("任务-{}", i)).unwrap();
+    }
+    drop(job_tx); // 关闭任务通道
+    
+    // 丢弃结果发送端（克隆的），否则接收端不会结束
+    drop(result_tx);
+    
+    // 接收结果
+    for result in result_rx {
+        println!("{}", result);
+    }
+    
+    for handle in handles {
+        handle.join().unwrap();
+    }
+}</code></pre>
+<p><strong>说明：</strong> 这个练习展示了经典的生产者-消费者模式。任务通道使用 <code>Arc&lt;Mutex&lt;Receiver&gt;&gt;</code> 实现多线程共享接收端——因为 <code>Receiver</code> 本身不是 <code>Sync</code> 的，需要加锁保护。工作线程从任务通道接收任务，处理后将结果通过另一个通道返回。当所有发送端丢弃后，通道自动关闭，工作线程通过 <code>recv()</code> 返回的 <code>Err</code> 检测到关闭并退出。</p>
+</details>
+<h3 id="练习-18-11-arc-基础原子引用计数"><a class="header" href="#练习-18-11-arc-基础原子引用计数">练习 18-11: Arc 基础——原子引用计数</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的 <code>AtomicInteger</code> 计数 / 类似 C++11 的 <code>std::shared_ptr</code></p>
+</blockquote>
+<p>补全代码，使用 <code>Arc</code>（原子引用计数）在多个线程间共享数据。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::Arc;
+
+fn main() {
+    // TODO: 创建一个 Arc&lt;String&gt; 包裹的字符串 "共享数据"
+    let data = // TODO
+    
+    let mut handles = vec![];
+    for i in 0..5 {
+        // TODO: clone Arc 并在线程中打印数据
+        let data_clone = data.clone();
+        handles.push(thread::spawn(move || {
+            // TODO: 打印 "线程{i}: {data}"
+        }));
+    }
+    
+    for h in handles {
+        h.join().unwrap();
+    }
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::Arc;
+
+fn main() {
+    let data = Arc::new(String::from("共享数据"));
+    
+    let mut handles = vec![];
+    for i in 0..5 {
+        let data_clone = data.clone();
+        handles.push(thread::spawn(move || {
+            println!("线程{}: {}", i, data_clone);
+        }));
+    }
+    
+    for h in handles {
+        h.join().unwrap();
+    }
+}</code></pre>
+<p><strong>说明：</strong> <code>Arc&lt;T&gt;</code>（Atomic Reference Counting）是线程安全的引用计数智能指针。<code>Arc::clone()</code> 增加引用计数，每个 <code>Arc</code> 被丢弃时计数减 1，当计数归零时数据被释放。与 <code>Rc&lt;T&gt;</code> 不同，<code>Arc</code> 使用原子操作更新计数，因此是 <code>Send</code> 和 <code>Sync</code> 的，可以在线程间安全共享。</p>
+</details>
+<h3 id="练习-18-12-mutex-基础互斥锁"><a class="header" href="#练习-18-12-mutex-基础互斥锁">练习 18-12: Mutex 基础——互斥锁</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的 <code>synchronized</code> / 类似 C++11 的 <code>std::mutex</code></p>
+</blockquote>
+<p>补全代码，使用 <code>Mutex</code> 保护共享数据，在不同线程中修改它。</p>
+<pre class="playground"><code class="language-rust">use std::sync::Mutex;
+
+fn main() {
+    // TODO: 创建一个 Mutex&lt;i32&gt;，初始值为 0
+    let counter = // TODO
+    
+    {
+        // TODO: 使用 lock() 获取数据并修改为 10
+        let mut guard = // TODO
+        // TODO
+    } // 锁在此处自动释放
+    
+    // TODO: 再次上锁，读取并打印 counter 的值
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::sync::Mutex;
+
+fn main() {
+    let counter = Mutex::new(0);
+    
+    {
+        let mut guard = counter.lock().unwrap();
+        *guard = 10;
+    }
+    
+    let guard = counter.lock().unwrap();
+    println!("counter = {}", *guard);
+}</code></pre>
+<p><strong>说明：</strong> <code>Mutex&lt;T&gt;</code> 提供互斥锁，确保同一时间只有一个线程可以访问内部数据。<code>lock()</code> 返回 <code>MutexGuard&lt;T&gt;</code>，这是一个智能指针，通过 <code>Deref</code> 提供对内部数据的访问。当 <code>MutexGuard</code> 离开作用域时自动释放锁。<code>lock()</code> 返回 <code>Result</code>，因为如果持有锁的线程 panic，其他线程会收到 <code>PoisonError</code>。</p>
+</details>
+<h3 id="练习-18-13-arcmutext在多个线程中修改共享数据"><a class="header" href="#练习-18-13-arcmutext在多个线程中修改共享数据">练习 18-13: <code>Arc&lt;Mutex&lt;T&gt;&gt;</code>——在多个线程中修改共享数据</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的 <code>synchronized</code> + 共享对象 / 类似 C++11 的 <code>std::shared_mutex</code></p>
+</blockquote>
+<p>补全代码，使用 <code>Arc&lt;Mutex&lt;i32&gt;&gt;</code> 让多个线程安全地递增一个共享计数器。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::{Arc, Mutex};
+
+fn main() {
+    // TODO: 创建 Arc&lt;Mutex&lt;i32&gt;&gt;，初始值为 0
+    let counter = // TODO
+    
+    let mut handles = vec![];
+    for _ in 0..10 {
+        // TODO: clone Arc，在每个线程中将 counter 递增 10 次
+    }
+    
+    // TODO: 等待所有线程结束，打印最终的 counter 值
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::{Arc, Mutex};
+
+fn main() {
+    let counter = Arc::new(Mutex::new(0));
+    
+    let mut handles = vec![];
+    for _ in 0..10 {
+        let counter = counter.clone();
+        let handle = thread::spawn(move || {
+            for _ in 0..10 {
+                let mut num = counter.lock().unwrap();
+                *num += 1;
+            }
+        });
+        handles.push(handle);
+    }
+    
+    for handle in handles {
+        handle.join().unwrap();
+    }
+    
+    println!("最终计数: {}", *counter.lock().unwrap());
+}</code></pre>
+<p><strong>说明：</strong> <code>Arc&lt;Mutex&lt;T&gt;&gt;</code> 是 Rust 多线程共享可变数据最常用的组合。<code>Arc</code> 负责跨线程共享所有权，<code>Mutex</code> 负责互斥访问。10 个线程各递增 10 次，最终结果应为 100。注意每次循环中都要先 <code>lock()</code> 再修改，确保操作是原子的。</p>
+</details>
+<h3 id="练习-18-14-arcmutexvect共享集合"><a class="header" href="#练习-18-14-arcmutexvect共享集合">练习 18-14: <code>Arc&lt;Mutex&lt;Vec&lt;T&gt;&gt;&gt;</code>——共享集合</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的 <code>synchronizedList</code> / 类似 C++ 的线程安全队列</p>
+</blockquote>
+<p>补全代码，多个线程向同一个共享的 <code>Vec</code> 中添加元素。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::{Arc, Mutex};
+
+fn main() {
+    // TODO: 创建 Arc&lt;Mutex&lt;Vec&lt;i32&gt;&gt;&gt;，初始为空向量
+    let shared_vec = // TODO
+    
+    let mut handles = vec![];
+    for i in 0..5 {
+        // TODO: 每个线程将自己的线程编号 i 添加到共享向量中（添加 10 次）
+    }
+    
+    // TODO: 等待所有线程，打印向量长度和内容
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::{Arc, Mutex};
+
+fn main() {
+    let shared_vec = Arc::new(Mutex::new(Vec::new()));
+    
+    let mut handles = vec![];
+    for i in 0..5 {
+        let shared_vec = shared_vec.clone();
+        let handle = thread::spawn(move || {
+            for _ in 0..10 {
+                let mut vec = shared_vec.lock().unwrap();
+                vec.push(i);
+            }
+        });
+        handles.push(handle);
+    }
+    
+    for handle in handles {
+        handle.join().unwrap();
+    }
+    
+    let vec = shared_vec.lock().unwrap();
+    println!("向量长度: {}", vec.len()); // 应为 50
+    println!("向量内容: {:?}", vec);
+}</code></pre>
+<p><strong>说明：</strong> <code>Arc&lt;Mutex&lt;Vec&lt;T&gt;&gt;&gt;</code> 允许跨线程共享并修改一个集合。每个线程通过 <code>lock()</code> 获取独占访问权后向向量添加元素。由于 <code>Mutex</code> 的互斥性，不需要担心数据竞争。最终长度为 5 × 10 = 50。</p>
+</details>
+<h3 id="练习-18-15-共享状态综合挑战银行转账系统"><a class="header" href="#练习-18-15-共享状态综合挑战银行转账系统">练习 18-15: 共享状态综合挑战——银行转账系统</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 Java 的线程安全账户操作</p>
+</blockquote>
+<p>实现一个简单的银行系统，包含多个账户，支持线程安全的转账操作。使用 <code>Arc&lt;Mutex&lt;HashMap&gt;&gt;</code> 存储账户余额。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::{Arc, Mutex};
+use std::collections::HashMap;
+
+// TODO: 实现 Bank 结构体
+// 内部使用 Arc&lt;Mutex&lt;HashMap&lt;String, f64&gt;&gt;&gt; 存储账户余额
+struct Bank {
+    accounts: Arc&lt;Mutex&lt;HashMap&lt;String, f64&gt;&gt;&gt;,
+}
+
+impl Bank {
+    fn new() -&gt; Self {
+        // TODO: 创建 Bank，初始化几个账户
+    }
+    
+    fn transfer(&amp;self, from: &amp;str, to: &amp;str, amount: f64) -&gt; Result&lt;(), String&gt; {
+        // TODO: 实现转账操作
+        // 1. 上锁
+        // 2. 检查 from 账户余额是否足够
+        // 3. 扣除 from 账户，增加 to 账户
+        // 4. 返回 Ok(()) 或 Err(错误信息)
+    }
+    
+    fn balance(&amp;self, name: &amp;str) -&gt; Option&lt;f64&gt; {
+        // TODO: 查询账户余额
+    }
+}
+
+fn main() {
+    let bank = Arc::new(Bank::new());
+    let mut handles = vec![];
+    
+    // 启动多个线程执行转账
+    let transfers = vec![
+        ("Alice", "Bob", 100.0),
+        ("Bob", "Charlie", 50.0),
+        ("Charlie", "Alice", 30.0),
+        ("Alice", "Charlie", 200.0),
+        ("Bob", "Alice", 20.0),
+    ];
+    
+    for (from, to, amount) in transfers {
+        let bank = bank.clone();
+        handles.push(thread::spawn(move || {
+            match bank.transfer(from, to, amount) {
+                Ok(()) =&gt; println!("转账成功: {} -&gt; {}: {:.1}", from, to, amount),
+                Err(e) =&gt; println!("转账失败: {}", e),
+            }
+        }));
+    }
+    
+    for handle in handles {
+        handle.join().unwrap();
+    }
+    
+    // 打印最终余额
+    for name in &amp;["Alice", "Bob", "Charlie"] {
+        if let Some(bal) = bank.balance(name) {
+            println!("{} 余额: {:.1}", name, bal);
+        }
+    }
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::{Arc, Mutex};
+use std::collections::HashMap;
+
+struct Bank {
+    accounts: Arc&lt;Mutex&lt;HashMap&lt;String, f64&gt;&gt;&gt;,
+}
+
+impl Bank {
+    fn new() -&gt; Self {
+        let mut map = HashMap::new();
+        map.insert("Alice".to_string(), 1000.0);
+        map.insert("Bob".to_string(), 500.0);
+        map.insert("Charlie".to_string(), 300.0);
+        Bank {
+            accounts: Arc::new(Mutex::new(map)),
+        }
+    }
+    
+    fn transfer(&amp;self, from: &amp;str, to: &amp;str, amount: f64) -&gt; Result&lt;(), String&gt; {
+        let mut accounts = self.accounts.lock().unwrap();
+        
+        let from_balance = accounts.get(from)
+            .ok_or_else(|| format!("账户 {} 不存在", from))?;
+        
+        if *from_balance &lt; amount {
+            return Err(format!("账户 {} 余额不足", from));
+        }
+        
+        // 先扣减 from 账户
+        if let Some(bal) = accounts.get_mut(from) {
+            *bal -= amount;
+        }
+        
+        // 增加 to 账户
+        if let Some(bal) = accounts.get_mut(to) {
+            *bal += amount;
+        } else {
+            // 如果 to 账户不存在，回滚 from 账户的扣减
+            if let Some(bal) = accounts.get_mut(from) {
+                *bal += amount;
+            }
+            return Err(format!("账户 {} 不存在", to));
+        }
+        
+        Ok(())
+    }
+    
+    fn balance(&amp;self, name: &amp;str) -&gt; Option&lt;f64&gt; {
+        let accounts = self.accounts.lock().unwrap();
+        accounts.get(name).copied()
+    }
+}
+
+fn main() {
+    let bank = Arc::new(Bank::new());
+    let mut handles = vec![];
+    
+    let transfers = vec![
+        ("Alice", "Bob", 100.0),
+        ("Bob", "Charlie", 50.0),
+        ("Charlie", "Alice", 30.0),
+        ("Alice", "Charlie", 200.0),
+        ("Bob", "Alice", 20.0),
+    ];
+    
+    for (from, to, amount) in transfers {
+        let bank = bank.clone();
+        handles.push(thread::spawn(move || {
+            match bank.transfer(from, to, amount) {
+                Ok(()) =&gt; println!("转账成功: {} -&gt; {}: {:.1}", from, to, amount),
+                Err(e) =&gt; println!("转账失败: {}", e),
+            }
+        }));
+    }
+    
+    for handle in handles {
+        handle.join().unwrap();
+    }
+    
+    for name in &amp;["Alice", "Bob", "Charlie"] {
+        if let Some(bal) = bank.balance(name) {
+            println!("{} 余额: {:.1}", name, bal);
+        }
+    }
+}</code></pre>
+<p><strong>说明：</strong> 银行转账系统展示了 <code>Arc&lt;Mutex&lt;HashMap&gt;&gt;</code> 的实际应用。整个账户集合在一次 <code>lock()</code> 中完成读写操作，确保转账的原子性。在错误处理中（目标账户不存在），需要回滚已扣减的金额，避免数据不一致。生产系统中还应考虑死锁预防（例如对锁进行排序）和更细粒度的锁策略。</p>
+</details>
+<h3 id="练习-18-16-理解-send-trait"><a class="header" href="#练习-18-16-理解-send-trait">练习 18-16: 理解 Send trait</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+Rust 独有的并发安全 trait / 类似 C++ 的线程安全类型标记</p>
+</blockquote>
+<p><code>Send</code> 是一个标记 trait，表示类型的所有权可以安全地在线程间转移。如果一个类型实现了 <code>Send</code>，它的值可以安全地移动到另一个线程。补全代码，理解哪些类型是 <code>Send</code> 的。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::rc::Rc;
+
+// TODO: 判断以下哪些类型实现了 Send，在注释中写出你的推理
+
+// 类型 A: 只包含 i32 字段
+struct A(i32);
+
+// 类型 B: 包含 Rc&lt;i32&gt; 字段
+struct B(Rc&lt;i32&gt;);
+
+// 类型 C: 包含 Arc&lt;i32&gt; 字段
+struct C(std::sync::Arc&lt;i32&gt;);
+
+// 类型 D: 包含 *mut i32 原始指针
+struct D(*mut i32);
+
+fn is_send&lt;T: Send&gt;() {}
+
+fn main() {
+    // TODO: 对以下类型调用 is_send，看哪些能编译通过
+    // 能编译的表示该类型实现了 Send
+    
+    // is_send::&lt;A&gt;();
+    // is_send::&lt;B&gt;();
+    // is_send::&lt;C&gt;();
+    // is_send::&lt;D&gt;();
+    
+    // TODO: 取消编译成功的行的注释，观察编译器的行为
+    // 对于不 Send 的类型，尝试在线程间发送会发生什么？
+    // 补一个尝试在线程中发送 Rc 的代码，观察编译错误
+    
+    let data = Rc::new(42);
+    // TODO: 尝试将 Rc 发送到另一个线程中，看看编译器的错误信息
+    // thread::spawn(move || {
+    //     println!("{}", data);
+    // });
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::rc::Rc;
+
+struct A(i32);
+struct B(Rc&lt;i32&gt;);
+struct C(std::sync::Arc&lt;i32&gt;);
+struct D(*mut i32);
+
+fn is_send&lt;T: Send&gt;() {}
+
+fn main() {
+    // A 只包含 i32（实现了 Send），所以 A 是 Send
+    is_send::&lt;A&gt;();
+    
+    // B 包含 Rc&lt;i32&gt;，Rc 不是 Send，所以 B 也不是 Send
+    // 如果取消注释下一行，会编译错误
+    // is_send::&lt;B&gt;(); // 编译错误: Rc&lt;i32&gt; 未实现 Send
+    
+    // C 包含 Arc&lt;i32&gt;，Arc 实现了 Send，所以 C 是 Send
+    is_send::&lt;C&gt;();
+    
+    // D 包含原始指针 *mut i32，原始指针既不是 Send 也不是 Sync
+    // 如果取消注释下一行，会编译错误
+    // is_send::&lt;D&gt;(); // 编译错误: *mut i32 未实现 Send
+    
+    // 尝试将 Rc 发送到另一个线程——编译错误!
+    // 因为 Rc 不是 Send，不能跨线程转移所有权
+    // let data = Rc::new(42);
+    // thread::spawn(move || {
+    //     println!("{}", data);
+    // });
+    // 错误: `Rc&lt;i32&gt;` 未实现 `Send`
+}</code></pre>
+<p><strong>说明：</strong> <code>Send</code> 是一个标记 trait（没有方法），表示类型的所有权可以安全地在线程间转移。几乎所有标准库类型都实现了 <code>Send</code>，但以下例外：<code>Rc&lt;T&gt;</code>（非原子引用计数，跨线程转移可能导致引用计数竞态）、原始指针、以及包含非 <code>Send</code> 成员的类型。编译器会自动为类型推导 <code>Send</code>——如果所有字段都是 <code>Send</code>，则该类型自动为 <code>Send</code>。</p>
+</details>
+<h3 id="练习-18-17-理解-sync-trait"><a class="header" href="#练习-18-17-理解-sync-trait">练习 18-17: 理解 Sync trait</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+Rust 独有的并发安全 trait / 类似 C++ 的线程安全访问标记</p>
+</blockquote>
+<p><code>Sync</code> 是另一个标记 trait，表示类型可以安全地通过引用在线程间共享（即 <code>&amp;T</code> 是 <code>Send</code> 的）。补全代码，理解 <code>Sync</code> 和 <code>Send</code> 的区别。</p>
+<pre class="playground"><code class="language-rust">use std::sync::{Mutex, Arc};
+use std::rc::Rc;
+use std::cell::RefCell;
+
+// TODO: 判断以下类型是否实现了 Sync，并在注释中写出理由
+
+struct MyType {
+    data: i32,
+}
+
+fn is_sync&lt;T: Sync&gt;() {}
+
+fn main() {
+    // 测试常见的 Sync 和 !Sync 类型
+    // 下面哪些能编译通过？
+    
+    // is_sync::&lt;i32&gt;();
+    // is_sync::&lt;Mutex&lt;i32&gt;&gt;();
+    // is_sync::&lt;RefCell&lt;i32&gt;&gt;();
+    // is_sync::&lt;Rc&lt;i32&gt;&gt;();
+    // is_sync::&lt;Arc&lt;i32&gt;&gt;();
+    // is_sync::&lt;*mut i32&gt;();
+    
+    // TODO: 取消能编译的行的注释
+    
+    // TODO: 解释为什么 RefCell 和 Rc 不是 Sync 的
+    // 提示：考虑多线程同时调用 borrow_mut 或 clone 会发生什么
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::sync::{Mutex, Arc};
+use std::rc::Rc;
+use std::cell::RefCell;
+
+struct MyType {
+    data: i32,
+}
+
+fn is_sync&lt;T: Sync&gt;() {}
+
+fn main() {
+    // i32 是 Sync——多个线程可以同时读取 i32
+    is_sync::&lt;i32&gt;();
+    
+    // Mutex&lt;i32&gt; 是 Sync——Mutex 确保互斥访问
+    is_sync::&lt;Mutex&lt;i32&gt;&gt;();
+    
+    // RefCell&lt;i32&gt; 不是 Sync——运行时借用检查非线程安全
+    // 取消注释会编译错误
+    // is_sync::&lt;RefCell&lt;i32&gt;&gt;();
+    
+    // Rc&lt;i32&gt; 不是 Sync——非原子引用计数
+    // 取消注释会编译错误
+    // is_sync::&lt;Rc&lt;i32&gt;&gt;();
+    
+    // Arc&lt;i32&gt; 是 Sync——原子引用计数
+    is_sync::&lt;Arc&lt;i32&gt;&gt;();
+    
+    // *mut i32 不是 Sync——原始指针
+    // 取消注释会编译错误
+    // is_sync::&lt;*mut i32&gt;();
+    
+    // 解释:
+    // - RefCell 不是 Sync，因为它的运行时借用检查不是线程安全的，
+    //   多线程同时调用 borrow_mut 会导致数据竞争
+    // - Rc 不是 Sync，因为引用计数操作不是原子的，
+    //   多线程同时 clone/drop 会导致引用计数错误
+    // - Arc 是 Sync，因为使用原子操作管理引用计数
+}</code></pre>
+<p><strong>说明：</strong> <code>Sync</code> 表示 <code>&amp;T</code> 可以安全地在线程间共享（即 <code>&amp;T</code> 实现了 <code>Send</code>）。如果一个类型是 <code>Sync</code>，多个线程可以同时通过不可变引用访问它而不导致数据竞争。<code>Send</code> 和 <code>Sync</code> 的关系：<code>T: Sync</code> 等价于 <code>&amp;T: Send</code>。常见的非 <code>Sync</code> 类型包括：<code>RefCell&lt;T&gt;</code>（运行时借用检查非线程安全）、<code>Cell&lt;T&gt;</code>、<code>Rc&lt;T&gt;</code>、原始指针。<code>Mutex&lt;T&gt;</code> 是 <code>Sync</code> 的，即使 <code>T</code> 不是 <code>Sync</code>。</p>
+</details>
+<h3 id="练习-18-18-实现-send-和-sync自定义类型"><a class="header" href="#练习-18-18-实现-send-和-sync自定义类型">练习 18-18: 实现 Send 和 Sync——自定义类型</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+Rust 独有的 trait 实现 / 类似 C++ 的显式线程安全声明</p>
+</blockquote>
+<p>补全代码，为自定义类型标注 <code>Send</code> 和 <code>Sync</code>。注意：绝大多数情况下，如果类型的所有字段都实现了 <code>Send</code>/<code>Sync</code>，编译器会自动推导。只有当类型包含原始指针或非 Send/Sync 的字段时，才需要手动 <code>unsafe impl</code>。</p>
+<pre class="playground"><code class="language-rust">use std::cell::RefCell;
+use std::sync::Mutex;
+use std::rc::Rc;
+
+// 类型 A: 所有字段都是 Send 和 Sync
+// 编译器会自动推导
+struct A {
+    x: i32,
+    y: Mutex&lt;f64&gt;,
+}
+
+// 类型 B: 包含 Rc，不是 Send 也不是 Sync
+// 编译器会自动推导出 !Send + !Sync
+struct B {
+    name: String,
+    rc: Rc&lt;i32&gt;,
+}
+
+// 类型 C: 持有原始指针，默认不是 Send 也不是 Sync
+// TODO: 使用 unsafe impl 手动标记为 Send 和 Sync
+// 注意：这需要你确保该类型在多线程使用中确实是安全的
+struct C {
+    ptr: *mut i32,
+    len: usize,
+}
+
+// TODO: 为 C 实现 Send 和 Sync
+// 提示：需要 unsafe impl
+
+fn main() {
+    // 验证
+    fn check_send_sync&lt;T: Send + Sync&gt;() {}
+    
+    // check_send_sync::&lt;A&gt;(); // A 应该可以
+    // check_send_sync::&lt;B&gt;(); // B 应该不行
+    // check_send_sync::&lt;C&gt;(); // C 如果手动实现了就可以
+    
+    // TODO: 取消能编译的行的注释
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::cell::RefCell;
+use std::sync::Mutex;
+use std::rc::Rc;
+
+struct A {
+    x: i32,
+    y: Mutex&lt;f64&gt;,
+}
+
+struct B {
+    name: String,
+    rc: Rc&lt;i32&gt;,
+}
+
+struct C {
+    ptr: *mut i32,
+    len: usize,
+}
+
+// 手动标注 Send 和 Sync——这是 unsafe 的，需要开发者确保线程安全
+// 这里 C 实际上只用于读访问（len 控制范围），且不会在多个线程中同时写 ptr，
+// 我们在逻辑上保证了它的安全性
+unsafe impl Send for C {}
+unsafe impl Sync for C {}
+
+fn main() {
+    fn check_send_sync&lt;T: Send + Sync&gt;() {}
+    
+    check_send_sync::&lt;A&gt;();
+    // check_send_sync::&lt;B&gt;(); // 编译错误：Rc&lt;i32&gt; 不是 Send
+    
+    // C 已手动标记为 Send + Sync
+    check_send_sync::&lt;C&gt;();
+}</code></pre>
+<p><strong>说明：</strong> 只有当你能确保类型在多线程使用中绝对安全时，才应使用 <code>unsafe impl Send</code> 和 <code>unsafe impl Sync</code>。编译器信任开发者的判断，错误的标记会导致未定义行为。大多数情况下不需要手动实现——如果所有字段都是 <code>Send</code>/<code>Sync</code>，编译器会自动推导。需要手动实现的典型场景包括：包含原始指针的类型（如自定义分配器、FFI 类型）等。</p>
+</details>
+<h3 id="练习-18-19-rc-与-arc-的区别理解"><a class="header" href="#练习-18-19-rc-与-arc-的区别理解">练习 18-19: Rc 与 Arc 的区别理解</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+对比 Rust 的 Rc（单线程）和 Arc（多线程）/ 类似 C++11 的 shared_ptr（线程安全版本）</p>
+</blockquote>
+<p>补全代码，通过编译行为理解 <code>Rc</code> 和 <code>Arc</code> 在线程安全上的本质区别。</p>
+<pre class="playground"><code class="language-rust">use std::rc::Rc;
+use std::sync::Arc;
+use std::thread;
+
+fn main() {
+    // 场景 1: 在同一线程中，Rc 可以正常工作
+    let rc_data = Rc::new(42);
+    let rc_clone = rc_data.clone();
+    println!("Rc 在同一线程: {} {}", rc_data, rc_clone);
+    
+    // TODO: 场景 2: 尝试将 Rc 发送到另一线程（取消注释观察编译错误）
+    // let rc_data = Rc::new(42);
+    // let handle = thread::spawn(move || {
+    //     println!("Rc 在另一线程: {}", rc_data);
+    // });
+    // handle.join().unwrap();
+    
+    // TODO: 场景 3: 使用 Arc 代替 Rc，使其能跨线程
+    // 补全代码：创建 Arc&lt;i32&gt; 并发送到另一个线程
+    let arc_data = Arc::new(42);
+    // TODO: clone Arc 并在线程中打印
+    
+    // TODO: 场景 4: 尝试在线程中修改 Arc 内部的值（需要使用 Mutex）
+    // 创建 Arc&lt;Mutex&lt;i32&gt;&gt;，在两个线程中分别递增
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::rc::Rc;
+use std::sync::{Arc, Mutex};
+use std::thread;
+
+fn main() {
+    // 场景 1: Rc 在同一线程中
+    let rc_data = Rc::new(42);
+    let rc_clone = rc_data.clone();
+    println!("Rc 在同一线程: {} {}", rc_data, rc_clone);
+    
+    // 场景 2: Rc 跨线程——编译错误! Rc 不是 Send
+    // 取消注释将看到: `Rc&lt;i32&gt;` 未实现 `Send`
+    // let rc_data = Rc::new(42);
+    // let handle = thread::spawn(move || {
+    //     println!("Rc 在另一线程: {}", rc_data);
+    // });
+    // handle.join().unwrap();
+    
+    // 场景 3: Arc 可以跨线程
+    let arc_data = Arc::new(42);
+    let arc_clone = arc_data.clone();
+    let handle = thread::spawn(move || {
+        println!("Arc 在另一线程: {}", arc_clone);
+    });
+    handle.join().unwrap();
+    println!("Arc 在主线程: {}", arc_data);
+    
+    // 场景 4: Arc&lt;Mutex&lt;T&gt;&gt; 实现跨线程可变访问
+    let shared = Arc::new(Mutex::new(0));
+    let shared_clone = shared.clone();
+    
+    let handle = thread::spawn(move || {
+        let mut val = shared_clone.lock().unwrap();
+        *val += 1;
+    });
+    handle.join().unwrap();
+    
+    println!("最终值: {}", *shared.lock().unwrap());
+}</code></pre>
+<p><strong>说明：</strong> <code>Rc&lt;T&gt;</code> 使用非原子引用计数，只能在单线程中使用（不是 <code>Send</code>）。<code>Arc&lt;T&gt;</code> 使用原子引用计数，可以在线程间共享（实现了 <code>Send</code> 和 <code>Sync</code>）。如果要修改 <code>Arc</code> 内部的值，需要结合 <code>Mutex&lt;T&gt;</code> 提供互斥访问。这是 Rust 并发设计的关键思想：不同类型的“细胞“提供不同的线程安全保证，编译器在编译期强制执行。</p>
+</details>
+<h3 id="练习-18-20-send-与-sync-综合理解挑战"><a class="header" href="#练习-18-20-send-与-sync-综合理解挑战">练习 18-20: Send 与 Sync 综合理解挑战</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+Rust 独有的并发安全模型验证</p>
+</blockquote>
+<p>设计一个自定义线程安全计数器 <code>ThreadSafeCounter</code>，内部使用原子操作，并验证其 <code>Send</code> 和 <code>Sync</code> 性质。然后设计一个包含原始指针的类型，通过 <code>unsafe impl Send</code> 和 <code>unsafe impl Sync</code> 手动标记为线程安全。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::atomic::{AtomicI32, Ordering};
+
+// TODO: 实现 ThreadSafeCounter
+// 内部使用 AtomicI32 实现无锁线程安全计数器
+struct ThreadSafeCounter {
+    // TODO
+}
+
+impl ThreadSafeCounter {
+    fn new() -&gt; Self {
+        // TODO
+    }
+    
+    fn increment(&amp;self) {
+        // TODO: 使用 fetch_add 原子增加
+    }
+    
+    fn get(&amp;self) -&gt; i32 {
+        // TODO: 使用 load 读取值
+    }
+}
+
+// TODO: 验证 ThreadSafeCounter 是 Send + Sync
+// 写一个函数来测试它可以在线程间共享和发送
+
+// TODO: 创建 UnsafeCounter，包含一个 *mut i32
+// 使用 unsafe impl Send/Sync 标记（仅用于学习目的）
+struct UnsafeCounter {
+    ptr: *mut i32,
+}
+
+// TODO: unsafe impl Send for UnsafeCounter
+// TODO: unsafe impl Sync for UnsafeCounter
+
+fn main() {
+    // 测试 ThreadSafeCounter
+    let counter = std::sync::Arc::new(ThreadSafeCounter::new());
+    let mut handles = vec![];
+    
+    for _ in 0..10 {
+        let counter = counter.clone();
+        handles.push(thread::spawn(move || {
+            for _ in 0..100 {
+                counter.increment();
+            }
+        }));
+    }
+    
+    for h in handles {
+        h.join().unwrap();
+    }
+    
+    println!("线程安全计数器: {}", counter.get()); // 应输出 1000
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::atomic::{AtomicI32, Ordering};
+use std::sync::Arc;
+
+struct ThreadSafeCounter {
+    value: AtomicI32,
+}
+
+impl ThreadSafeCounter {
+    fn new() -&gt; Self {
+        ThreadSafeCounter {
+            value: AtomicI32::new(0),
+        }
+    }
+    
+    fn increment(&amp;self) {
+        self.value.fetch_add(1, Ordering::SeqCst);
+    }
+    
+    fn get(&amp;self) -&gt; i32 {
+        self.value.load(Ordering::SeqCst)
+    }
+}
+
+// ThreadSafeCounter 只包含 AtomicI32（实现了 Send + Sync），
+// 所以 ThreadSafeCounter 自动为 Send + Sync
+
+struct UnsafeCounter {
+    ptr: *mut i32,
+}
+
+// 不安全：手动标记为 Send + Sync
+// 只有在我们确保不会出现数据竞争时才应该这样做
+unsafe impl Send for UnsafeCounter {}
+unsafe impl Sync for UnsafeCounter {}
+
+fn main() {
+    let counter = Arc::new(ThreadSafeCounter::new());
+    let mut handles = vec![];
+    
+    for _ in 0..10 {
+        let counter = counter.clone();
+        handles.push(thread::spawn(move || {
+            for _ in 0..100 {
+                counter.increment();
+            }
+        }));
+    }
+    
+    for h in handles {
+        h.join().unwrap();
+    }
+    
+    println!("线程安全计数器: {}", counter.get());
+}</code></pre>
+<p><strong>说明：</strong> <code>AtomicI32</code> 是 Rust 标准库提供的原子类型，它既是 <code>Send</code> 又是 <code>Sync</code>，因此包含它的 <code>ThreadSafeCounter</code> 自动获得这些 trait。原子操作使用 CPU 级别的指令保证操作的原子性，无需使用操作系统锁，性能更好。<code>Ordering</code> 参数控制内存排序保证（这里使用最严格的 <code>SeqCst</code>，即顺序一致性）。<code>UnsafeCounter</code> 展示了如何手动标注 <code>Send</code>/<code>Sync</code>——这仅用于学习，生产代码中应优先使用标准的线程安全类型。</p>
+</details>
+<h3 id="练习-18-21-任务池基础任务定义与存储"><a class="header" href="#练习-18-21-任务池基础任务定义与存储">练习 18-21: 任务池基础——任务定义与存储</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+类似 Java 的 <code>ThreadPoolExecutor</code> / 类似 C++ 的线程池</p>
+</blockquote>
+<p>实现一个简单的任务池，包含任务定义和并发执行机制。先从任务池的基础数据结构开始。</p>
+<pre class="playground"><code class="language-rust">use std::sync::{Arc, Mutex};
+
+// TODO: 定义 Task trait，包含一个 run 方法
+trait Task {
+    // TODO: 定义 run 方法，返回 String
+}
+
+// TODO: 实现一个 PrintTask，打印一条消息
+struct PrintTask {
+    message: String,
+}
+
+// TODO: 为 PrintTask 实现 Task trait
+// run 方法返回 format!("打印: {}", self.message)
+
+// TODO: 实现一个 ComputeTask，执行计算
+struct ComputeTask {
+    a: i32,
+    b: i32,
+    op: char, // '+', '-', '*'
+}
+
+// TODO: 为 ComputeTask 实现 Task trait
+// 根据 op 执行计算，返回格式如 "计算: 3 + 4 = 7"
+
+fn main() {
+    let tasks: Vec&lt;Box&lt;dyn Task&gt;&gt; = vec![
+        Box::new(PrintTask { message: "你好".to_string() }),
+        Box::new(ComputeTask { a: 3, b: 4, op: '+' }),
+        Box::new(PrintTask { message: "世界".to_string() }),
+        Box::new(ComputeTask { a: 10, b: 5, op: '*' }),
+    ];
+    
+    for task in tasks {
+        println!("{}", task.run());
+    }
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::sync::{Arc, Mutex};
+
+trait Task {
+    fn run(&amp;self) -&gt; String;
+}
+
+struct PrintTask {
+    message: String,
+}
+
+impl Task for PrintTask {
+    fn run(&amp;self) -&gt; String {
+        format!("打印: {}", self.message)
+    }
+}
+
+struct ComputeTask {
+    a: i32,
+    b: i32,
+    op: char,
+}
+
+impl Task for ComputeTask {
+    fn run(&amp;self) -&gt; String {
+        match self.op {
+            '+' =&gt; format!("计算: {} + {} = {}", self.a, self.b, self.a + self.b),
+            '-' =&gt; format!("计算: {} - {} = {}", self.a, self.b, self.a - self.b),
+            '*' =&gt; format!("计算: {} * {} = {}", self.a, self.b, self.a * self.b),
+            _ =&gt; format!("计算: 未知操作符 {}", self.op),
+        }
+    }
+}
+
+fn main() {
+    let tasks: Vec&lt;Box&lt;dyn Task&gt;&gt; = vec![
+        Box::new(PrintTask { message: "你好".to_string() }),
+        Box::new(ComputeTask { a: 3, b: 4, op: '+' }),
+        Box::new(PrintTask { message: "世界".to_string() }),
+        Box::new(ComputeTask { a: 10, b: 5, op: '*' }),
+    ];
+    
+    for task in tasks {
+        println!("{}", task.run());
+    }
+}</code></pre>
+<p><strong>说明：</strong> 任务池的第一步是定义统一的任务接口。使用 <code>trait</code> 定义 <code>run</code> 方法，不同的任务类型（打印、计算）各自实现 <code>run</code>。通过 <code>Box&lt;dyn Task&gt;</code> 实现多态，将不同类型的任务放入同一个容器中。这是后续构建并发任务池的基础。</p>
+</details>
+<h3 id="练习-18-22-任务通道发送与接收任务"><a class="header" href="#练习-18-22-任务通道发送与接收任务">练习 18-22: 任务通道——发送与接收任务</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+类似 Java 的 <code>BlockingQueue&lt;Runnable&gt;</code> / 类似 C++ 的任务队列</p>
+</blockquote>
+<p>扩展练习 18-21，使用 <code>mpsc</code> 通道在不同线程间发送和接收任务。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::mpsc;
+
+// 复用练习 18-21 的 Task trait 和实现
+trait Task {
+    fn run(&amp;self) -&gt; String;
+}
+
+struct PrintTask {
+    message: String,
+}
+
+impl Task for PrintTask {
+    fn run(&amp;self) -&gt; String {
+        format!("打印: {}", self.message)
+    }
+}
+
+// TODO: 创建一个发送任务的线程，发送 5 个 PrintTask
+// 主线程从通道接收任务并执行
+
+fn main() {
+    // TODO: 创建 mpsc 通道，发送端发送 Box&lt;dyn Task&gt;
+    let (tx, rx) = // TODO
+    
+    let sender = thread::spawn(move || {
+        // TODO: 发送 5 个 PrintTask 实例
+        // 消息: "任务1" 到 "任务5"
+    });
+    
+    // TODO: 主线程接收并执行所有任务
+    // 提示：使用 for 循环迭代 rx
+    
+    sender.join().unwrap();
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::mpsc;
+
+trait Task {
+    fn run(&amp;self) -&gt; String;
+}
+
+struct PrintTask {
+    message: String,
+}
+
+impl Task for PrintTask {
+    fn run(&amp;self) -&gt; String {
+        format!("打印: {}", self.message)
+    }
+}
+
+fn main() {
+    let (tx, rx) = mpsc::channel::&lt;Box&lt;dyn Task + Send&gt;&gt;();
+    
+    let sender = thread::spawn(move || {
+        for i in 1..=5 {
+            let task = PrintTask {
+                message: format!("任务{}", i),
+            };
+            tx.send(Box::new(task)).unwrap();
+        }
+    });
+    
+    for task in rx {
+        println!("{}", task.run());
+    }
+    
+    sender.join().unwrap();
+}</code></pre>
+<p><strong>说明：</strong> 使用 <code>mpsc::channel::&lt;Box&lt;dyn Task + Send&gt;&gt;()</code> 创建一条可以发送 trait 对象的通道。注意 <code>Task</code> 后面加了 <code>Send</code> 约束，因为 <code>Box&lt;dyn Task&gt;</code> 默认不是 <code>Send</code> 的——需要显式要求 trait 对象满足 <code>Send</code>。发送端线程创建任务并发送，主线程通过迭代 <code>rx</code> 依次接收并执行。</p>
+</details>
+<h3 id="练习-18-23-工作线程池worker-实现"><a class="header" href="#练习-18-23-工作线程池worker-实现">练习 18-23: 工作线程池——Worker 实现</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+类似 Java 的 <code>Worker</code> 线程 / 类似 C++ 线程池的工作线程</p>
+</blockquote>
+<p>实现工作线程（Worker），它从共享的任务通道中获取任务并执行。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::{Arc, Mutex, mpsc};
+
+trait Task {
+    fn run(&amp;self) -&gt; String;
+}
+
+// TODO: 定义 Worker 结构体
+// 包含 id: usize 和 thread: Option&lt;thread::JoinHandle&lt;&gt;&gt;
+struct Worker {
+    id: usize,
+    thread: Option&lt;thread::JoinHandle&lt;()&gt;&gt;,
+}
+
+impl Worker {
+    // TODO: 实现 new 方法
+    // 接收 id 和 Arc&lt;Mutex&lt;mpsc::Receiver&lt;Box&lt;dyn Task + Send&gt;&gt;&gt;&gt;
+    // 使用 thread::spawn 启动一个线程循环接收任务
+    fn new(id: usize, receiver: Arc&lt;Mutex&lt;mpsc::Receiver&lt;Box&lt;dyn Task + Send&gt;&gt;&gt;&gt;) -&gt; Worker {
+        // TODO: 在线程中循环调用 receiver.lock().unwrap().recv()
+        // 收到任务则执行，通道关闭则退出循环
+    }
+    
+    // TODO: 实现 join 方法，等待线程结束
+    fn join(&amp;mut self) {
+        // 使用 self.thread.take().unwrap().join()
+    }
+}
+
+// 简单的打印任务
+struct PrintTask {
+    message: String,
+}
+
+impl Task for PrintTask {
+    fn run(&amp;self) -&gt; String {
+        format!("打印: {}", self.message)
+    }
+}
+
+fn main() {
+    let (tx, rx) = mpsc::channel();
+    let rx = Arc::new(Mutex::new(rx));
+    
+    // TODO: 创建 3 个 Worker
+    let mut workers = vec![];
+    for id in 0..3 {
+        // TODO: 创建 Worker 并添加到 workers 向量
+    }
+    
+    // 发送 6 个任务
+    for i in 0..6 {
+        tx.send(Box::new(PrintTask {
+            message: format!("任务{}", i),
+        }) as Box&lt;dyn Task + Send&gt;).unwrap();
+    }
+    drop(tx); // 关闭通道
+    
+    // 等待所有 worker 结束
+    for worker in &amp;mut workers {
+        worker.join();
+    }
+    println!("所有任务完成");
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::{Arc, Mutex, mpsc};
+
+trait Task {
+    fn run(&amp;self) -&gt; String;
+}
+
+struct Worker {
+    id: usize,
+    thread: Option&lt;thread::JoinHandle&lt;()&gt;&gt;,
+}
+
+impl Worker {
+    fn new(id: usize, receiver: Arc&lt;Mutex&lt;mpsc::Receiver&lt;Box&lt;dyn Task + Send&gt;&gt;&gt;&gt;) -&gt; Worker {
+        let thread = thread::spawn(move || {
+            loop {
+                let task = {
+                    let lock = receiver.lock().unwrap();
+                    lock.recv()
+                };
+                match task {
+                    Ok(task) =&gt; {
+                        let result = task.run();
+                        println!("Worker {}: {}", id, result);
+                    }
+                    Err(_) =&gt; {
+                        println!("Worker {}: 通道关闭，退出", id);
+                        break;
+                    }
+                }
+            }
+        });
+        Worker {
+            id,
+            thread: Some(thread),
+        }
+    }
+    
+    fn join(&amp;mut self) {
+        if let Some(t) = self.thread.take() {
+            t.join().unwrap();
+        }
+    }
+}
+
+struct PrintTask {
+    message: String,
+}
+
+impl Task for PrintTask {
+    fn run(&amp;self) -&gt; String {
+        format!("打印: {}", self.message)
+    }
+}
+
+fn main() {
+    let (tx, rx) = mpsc::channel();
+    let rx = Arc::new(Mutex::new(rx));
+    
+    let mut workers = vec![];
+    for id in 0..3 {
+        workers.push(Worker::new(id, rx.clone()));
+    }
+    
+    for i in 0..6 {
+        tx.send(Box::new(PrintTask {
+            message: format!("任务{}", i),
+        }) as Box&lt;dyn Task + Send&gt;).unwrap();
+    }
+    drop(tx);
+    
+    for worker in &amp;mut workers {
+        worker.join();
+    }
+    println!("所有任务完成");
+}</code></pre>
+<p><strong>说明：</strong> Worker 是线程池的核心组件。每个 Worker 拥有一个线程，该线程循环从共享的任务通道中获取任务并执行。<code>Arc&lt;Mutex&lt;Receiver&gt;&gt;</code> 使多个 Worker 可以共享同一个接收端——<code>Mutex</code> 确保每次只有一个 Worker 获取任务，<code>Arc</code> 实现所有权共享。当通道关闭且所有任务被取完后，Worker 线程自动退出。</p>
+</details>
+<h3 id="练习-18-24-任务池收集执行结果"><a class="header" href="#练习-18-24-任务池收集执行结果">练习 18-24: 任务池——收集执行结果</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+类似 Java 的 <code>Future</code> / 类似 C++ 的 <code>std::future</code></p>
+</blockquote>
+<p>扩展 Worker，使任务执行后可以将结果通过另一个通道返回给主线程。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::{Arc, Mutex, mpsc};
+
+trait Task {
+    fn run(&amp;self) -&gt; String;
+}
+
+// TODO: 修改 Worker，接收一个 result_tx: mpsc::Sender&lt;String&gt;
+// 任务执行后将 run() 的返回值通过 result_tx 发送
+
+struct Worker {
+    id: usize,
+    thread: Option&lt;thread::JoinHandle&lt;()&gt;&gt;,
+}
+
+impl Worker {
+    fn new(
+        id: usize,
+        receiver: Arc&lt;Mutex&lt;mpsc::Receiver&lt;Box&lt;dyn Task + Send&gt;&gt;&gt;&gt;,
+        result_tx: mpsc::Sender&lt;String&gt;,
+    ) -&gt; Worker {
+        // TODO: 在线程中执行任务，将结果通过 result_tx 发送
+    }
+    
+    fn join(&amp;mut self) {
+        if let Some(t) = self.thread.take() {
+            t.join().unwrap();
+        }
+    }
+}
+
+struct PrintTask {
+    message: String,
+}
+
+impl Task for PrintTask {
+    fn run(&amp;self) -&gt; String {
+        format!("打印: {}", self.message)
+    }
+}
+
+fn main() {
+    let (tx, rx) = mpsc::channel::&lt;Box&lt;dyn Task + Send&gt;&gt;();
+    let (result_tx, result_rx) = mpsc::channel::&lt;String&gt;();
+    let rx = Arc::new(Mutex::new(rx));
+    
+    // TODO: 创建 3 个 Worker，传入 result_tx 的克隆
+    
+    // 发送任务
+    for i in 0..6 {
+        tx.send(Box::new(PrintTask {
+            message: format!("任务{}", i),
+        })).unwrap();
+    }
+    drop(tx);
+    
+    // TODO: 先 drop result_tx 再开始接收结果
+    // 这样才能让结果通道的迭代器结束
+    
+    // TODO: 从 result_rx 接收并打印所有结果
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::{Arc, Mutex, mpsc};
+
+trait Task {
+    fn run(&amp;self) -&gt; String;
+}
+
+struct Worker {
+    id: usize,
+    thread: Option&lt;thread::JoinHandle&lt;()&gt;&gt;,
+}
+
+impl Worker {
+    fn new(
+        id: usize,
+        receiver: Arc&lt;Mutex&lt;mpsc::Receiver&lt;Box&lt;dyn Task + Send&gt;&gt;&gt;&gt;,
+        result_tx: mpsc::Sender&lt;String&gt;,
+    ) -&gt; Worker {
+        let thread = thread::spawn(move || {
+            loop {
+                let task = {
+                    let lock = receiver.lock().unwrap();
+                    lock.recv()
+                };
+                match task {
+                    Ok(task) =&gt; {
+                        let result = task.run();
+                        result_tx.send(format!("Worker{}: {}", id, result)).unwrap();
+                    }
+                    Err(_) =&gt; break,
+                }
+            }
+        });
+        Worker {
+            id,
+            thread: Some(thread),
+        }
+    }
+    
+    fn join(&amp;mut self) {
+        if let Some(t) = self.thread.take() {
+            t.join().unwrap();
+        }
+    }
+}
+
+struct PrintTask {
+    message: String,
+}
+
+impl Task for PrintTask {
+    fn run(&amp;self) -&gt; String {
+        format!("打印: {}", self.message)
+    }
+}
+
+fn main() {
+    let (tx, rx) = mpsc::channel::&lt;Box&lt;dyn Task + Send&gt;&gt;();
+    let (result_tx, result_rx) = mpsc::channel::&lt;String&gt;();
+    let rx = Arc::new(Mutex::new(rx));
+    
+    let mut workers = vec![];
+    for id in 0..3 {
+        workers.push(Worker::new(id, rx.clone(), result_tx.clone()));
+    }
+    
+    for i in 0..6 {
+        tx.send(Box::new(PrintTask {
+            message: format!("任务{}", i),
+        })).unwrap();
+    }
+    drop(tx);
+    
+    drop(result_tx); // 关闭结果通道，使迭代器能结束
+    
+    for result in result_rx {
+        println!("结果: {}", result);
+    }
+    
+    for worker in &amp;mut workers {
+        worker.join();
+    }
+    println!("所有任务完成");
+}</code></pre>
+<p><strong>说明：</strong> 添加结果通道后，Worker 执行任务后会将结果发送回主线程。主线程通过迭代 <code>result_rx</code> 来收集所有结果。关键点：必须 <code>drop(result_tx)</code>（丢弃主线程持有的发送端副本）后，结果通道的迭代器才能正常结束——否则 <code>result_rx</code> 会一直等待更多的消息。</p>
+</details>
+<h3 id="练习-18-25-完整任务池实现挑战"><a class="header" href="#练习-18-25-完整任务池实现挑战">练习 18-25: 完整任务池实现挑战</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+类似 Java 的 <code>ThreadPoolExecutor</code> 简化版 / 类似 C++ 的线程池完整实现</p>
+</blockquote>
+<p>综合前面所有练习，实现一个完整的 <code>ThreadPool</code> 结构体，包含以下方法：</p>
+<ol>
+<li><code>new(size: usize)</code> — 创建指定线程数的线程池</li>
+<li><code>execute&lt;T&gt;(task: T)</code> — 提交任务，其中 <code>T: Task + Send + 'static</code></li>
+<li><code>join_all()</code> — 等待所有任务完成</li>
+</ol>
+<p>任务类型使用泛型 + 闭包（类似标准库 <code>thread::spawn</code> 的签名）。</p>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::{Arc, Mutex, mpsc};
+
+// TODO: 定义 ThreadPool 结构体
+// 包含 workers 向量和任务发送端
+struct ThreadPool {
+    workers: Vec&lt;Worker&gt;,
+    sender: Option&lt;mpsc::Sender&lt;Box&lt;dyn FnOnce() + Send&gt;&gt;&gt;,
+}
+
+// TODO: 定义 Worker 结构体
+struct Worker {
+    id: usize,
+    thread: Option&lt;thread::JoinHandle&lt;()&gt;&gt;,
+}
+
+impl Worker {
+    // TODO: 实现 Worker::new
+    fn new(id: usize, receiver: Arc&lt;Mutex&lt;mpsc::Receiver&lt;Box&lt;dyn FnOnce() + Send&gt;&gt;&gt;&gt;) -&gt; Worker {
+        // TODO
+    }
+}
+
+impl ThreadPool {
+    // TODO: 创建线程池
+    fn new(size: usize) -&gt; ThreadPool {
+        // 1. 创建通道
+        // 2. 创建 size 个 Worker
+        // 3. 返回 ThreadPool
+    }
+    
+    // TODO: 提交任务
+    fn execute&lt;F&gt;(&amp;self, f: F)
+    where
+        F: FnOnce() + Send + 'static,
+    {
+        // 通过 sender 发送任务
+    }
+}
+
+// TODO: 为 ThreadPool 实现 Drop trait
+// 丢弃 sender 并 join 所有 worker
+impl Drop for ThreadPool {
+    fn drop(&amp;mut self) {
+        // TODO
+    }
+}
+
+fn main() {
+    // 创建 4 个线程的线程池
+    let pool = ThreadPool::new(4);
+    
+    // 提交 8 个任务
+    for i in 0..8 {
+        pool.execute(move || {
+            println!("任务 {} 在线程 {:?} 上执行", i, thread::current().id());
+            thread::sleep(std::time::Duration::from_millis(100));
+        });
+    }
+    
+    // pool 在这里被 drop，会等待所有任务完成
+    println!("所有任务已提交，等待完成...");
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::thread;
+use std::sync::{Arc, Mutex, mpsc};
+
+struct ThreadPool {
+    workers: Vec&lt;Worker&gt;,
+    sender: Option&lt;mpsc::Sender&lt;Box&lt;dyn FnOnce() + Send&gt;&gt;&gt;,
+}
+
+struct Worker {
+    id: usize,
+    thread: Option&lt;thread::JoinHandle&lt;()&gt;&gt;,
+}
+
+impl Worker {
+    fn new(id: usize, receiver: Arc&lt;Mutex&lt;mpsc::Receiver&lt;Box&lt;dyn FnOnce() + Send&gt;&gt;&gt;&gt;) -&gt; Worker {
+        let thread = thread::spawn(move || {
+            loop {
+                let job = {
+                    let lock = receiver.lock().unwrap();
+                    lock.recv()
+                };
+                match job {
+                    Ok(job) =&gt; {
+                        println!("Worker {} 开始执行任务", id);
+                        job();
+                    }
+                    Err(_) =&gt; {
+                        println!("Worker {} 退出", id);
+                        break;
+                    }
+                }
+            }
+        });
+        Worker {
+            id,
+            thread: Some(thread),
+        }
+    }
+}
+
+impl ThreadPool {
+    fn new(size: usize) -&gt; ThreadPool {
+        let (sender, receiver) = mpsc::channel();
+        let receiver = Arc::new(Mutex::new(receiver));
+        
+        let mut workers = Vec::with_capacity(size);
+        for id in 0..size {
+            workers.push(Worker::new(id, receiver.clone()));
+        }
+        
+        ThreadPool {
+            workers,
+            sender: Some(sender),
+        }
+    }
+    
+    fn execute&lt;F&gt;(&amp;self, f: F)
+    where
+        F: FnOnce() + Send + 'static,
+    {
+        let job = Box::new(f);
+        self.sender.as_ref().unwrap().send(job).unwrap();
+    }
+}
+
+impl Drop for ThreadPool {
+    fn drop(&amp;mut self) {
+        // 丢弃发送端，关闭通道
+        drop(self.sender.take());
+        
+        // 等待所有 worker 完成
+        for worker in &amp;mut self.workers {
+            println!("等待 Worker {} 结束...", worker.id);
+            if let Some(thread) = worker.thread.take() {
+                thread.join().unwrap();
+            }
+        }
+    }
+}
+
+fn main() {
+    let pool = ThreadPool::new(4);
+    
+    for i in 0..8 {
+        pool.execute(move || {
+            println!("任务 {} 在线程 {:?} 上执行", i, thread::current().id());
+            thread::sleep(std::time::Duration::from_millis(100));
+        });
+    }
+    
+    println!("所有任务已提交，等待完成...");
+}</code></pre>
+<p><strong>说明：</strong> 这是一个完整的线程池实现。<code>ThreadPool::new</code> 创建指定数量的 Worker 线程，每个 Worker 循环从共享的任务队列中获取任务并执行。<code>execute</code> 方法接收闭包（<code>FnOnce</code>），将其装箱后通过通道发送给 Worker。通过 <code>Drop</code> trait 的优雅处理：丢弃发送端关闭通道 → Worker 收到 <code>Err</code> 后退出循环 → 主线程 <code>join</code> 所有 Worker。这个实现使用了 <code>FnOnce</code>（而非自定义 <code>Task</code> trait），使其用起来更接近标准库的 <code>thread::spawn</code>，具有更好的通用性。</p>
+</details>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="17_interior_mutability.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="19_async.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="17_interior_mutability.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="19_async.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-c22b7243.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,9 @@
+[package]
+name = "e136_document_window_access"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+leptos.workspace = true
+
+

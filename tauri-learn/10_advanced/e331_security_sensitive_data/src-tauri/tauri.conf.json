@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e331_security_sensitive_data",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e331",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1751",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 331: 敏感数据处理",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

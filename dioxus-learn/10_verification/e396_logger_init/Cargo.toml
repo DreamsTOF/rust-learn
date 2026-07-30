@@ -1,0 +1,8 @@
+[package]
+name = "e396_logger_init"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

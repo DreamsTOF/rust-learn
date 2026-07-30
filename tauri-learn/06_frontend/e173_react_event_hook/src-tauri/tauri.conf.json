@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e173_react_event_hook",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e173",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1593",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 173: React 事件监听 Hooks",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+[package]
+name = "e217_use_callback"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

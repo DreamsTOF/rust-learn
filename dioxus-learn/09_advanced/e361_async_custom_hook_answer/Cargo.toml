@@ -1,0 +1,8 @@
+[package]
+name = "e361_async_custom_hook_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

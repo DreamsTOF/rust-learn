@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e047_async_read_file",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e047",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1467",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 047: 异步文件读取",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

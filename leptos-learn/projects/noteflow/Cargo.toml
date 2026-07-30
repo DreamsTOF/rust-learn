@@ -1,0 +1,19 @@
+[package]
+name = "noteflow"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+leptos.workspace = true
+leptos_router.workspace = true
+leptos_meta.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+pulldown-cmark = "0.10"
+uuid.workspace = true
+chrono.workspace = true
+futures.workspace = true
+wasm-bindgen.workspace = true
+web-sys.workspace = true
+console_error_panic_hook.workspace = true
+thiserror = "1"

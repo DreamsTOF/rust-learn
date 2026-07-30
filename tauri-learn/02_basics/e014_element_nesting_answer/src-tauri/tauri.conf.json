@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e014_element_nesting_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e014_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1434",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 014: 元素嵌套与层级结构 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

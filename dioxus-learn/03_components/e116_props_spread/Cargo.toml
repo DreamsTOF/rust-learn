@@ -1,0 +1,8 @@
+[package]
+name = "e116_props_spread"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

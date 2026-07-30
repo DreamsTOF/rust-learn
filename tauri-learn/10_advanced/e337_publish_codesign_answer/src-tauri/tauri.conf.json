@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e337_publish_codesign_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e337_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1757",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 337: 代码签名 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

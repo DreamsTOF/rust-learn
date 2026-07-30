@@ -1,0 +1,8 @@
+[package]
+name = "e14_builder_pattern_answer"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+leptos.workspace = true
+console_error_panic_hook.workspace = true

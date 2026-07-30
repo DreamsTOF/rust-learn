@@ -1,0 +1,8 @@
+[package]
+name = "e023_list_iterator"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

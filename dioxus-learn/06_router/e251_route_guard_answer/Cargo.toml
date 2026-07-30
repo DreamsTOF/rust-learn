@@ -1,0 +1,8 @@
+[package]
+name = "e251_route_guard_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

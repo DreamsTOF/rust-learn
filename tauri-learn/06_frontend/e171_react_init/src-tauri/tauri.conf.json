@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e171_react_init",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e171",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1591",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 171: React + Tauri 初始化",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

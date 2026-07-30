@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e073_di_custom_setup",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e073",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1493",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 073: 自定义依赖注入",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

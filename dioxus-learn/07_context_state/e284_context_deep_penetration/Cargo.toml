@@ -1,0 +1,8 @@
+[package]
+name = "e284_context_deep_penetration"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

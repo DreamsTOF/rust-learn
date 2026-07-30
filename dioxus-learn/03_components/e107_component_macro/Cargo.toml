@@ -1,0 +1,8 @@
+[package]
+name = "e107_component_macro"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

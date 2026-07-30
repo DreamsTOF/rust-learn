@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e190_framework_compare_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e190_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1610",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 190: 综合: 多框架对比示例 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

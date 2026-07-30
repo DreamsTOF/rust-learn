@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e283_window_child",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e283",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1703",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 283: 子窗口管理",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

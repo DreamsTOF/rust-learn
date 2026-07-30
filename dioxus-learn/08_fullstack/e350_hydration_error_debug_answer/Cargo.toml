@@ -1,0 +1,8 @@
+[package]
+name = "e350_hydration_error_debug_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e004_install_cli_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e004_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1424",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 004: 安装 Tauri CLI (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

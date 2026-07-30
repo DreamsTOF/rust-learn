@@ -1,0 +1,8 @@
+[package]
+name = "e368_component_mount_unmount"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

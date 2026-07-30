@@ -1,0 +1,8 @@
+[package]
+name = "e001_install_rust"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

@@ -1,0 +1,8 @@
+[package]
+name = "e030_attribute_spread_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

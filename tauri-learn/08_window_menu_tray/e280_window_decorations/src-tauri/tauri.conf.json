@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e280_window_decorations",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e280",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1700",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 280: 窗口装饰控制",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

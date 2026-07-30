@@ -1,0 +1,807 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="ayu sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>21 unsafe Rust - Rust 实战练习 — 460 题快速突破</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="从 C++/Java 到 Rust，460 道循序渐进的实战练习题">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/custom-b5e00510.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "ayu";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-f70c63f5.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-86798690.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Rust 实战练习 — 460 题快速突破</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="21-unsafe-rust"><a class="header" href="#21-unsafe-rust">21 unsafe Rust</a></h1>
+<p>Rust 的核心承诺是：<strong>如果你不碰 <code>unsafe</code>，编译器保证内存安全。</strong> <code>unsafe</code> 关键字将安全责任从编译器移交给你——它并不是关闭安全检查，而是允许你做五种编译器无法验证的操作：解引用裸指针、调用 unsafe 函数（包括 FFI）、实现 unsafe trait、访问/修改可变静态变量、访问 union 字段。C++ 程序员会发现，Rust 的 <code>unsafe</code> 块正是 C++ 中默认的指针操作——区别在于 Rust 显式标出了不安全边界。</p>
+<hr>
+<h3 id="练习-21-01-创建裸指针"><a class="header" href="#练习-21-01-创建裸指针">练习 21-01: 创建裸指针</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 中取地址 <code>&amp;v</code>，但 Rust 区分 <code>*const T</code> 和 <code>*mut T</code></p>
+</blockquote>
+<p>补全代码，从引用创建 <code>*const i32</code> 和 <code>*mut i32</code> 裸指针。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let x: i32 = 42;
+    let y: &amp;i32 = &amp;x;
+
+    // TODO: 从引用创建裸指针
+    // let ptr_const: *const i32 = ...;
+    // let ptr_mut:   *mut i32   = ...;
+
+    // 下面两行仅用于避免警告，不解引用
+    let _ = ptr_const;
+    let _ = ptr_mut;
+    println!("裸指针创建成功");
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let x: i32 = 42;
+    let y: &amp;i32 = &amp;x;
+
+    let ptr_const: *const i32 = x as *const i32;
+    let ptr_mut:   *mut i32   = &amp;x as *const i32 as *mut i32;
+
+    let _ = ptr_const;
+    let _ = ptr_mut;
+    println!("裸指针创建成功");
+}</code></pre>
+<p><strong>说明：</strong> 通过 <code>as *const T</code> 或 <code>as *mut T</code> 将引用转为裸指针。<code>*mut T</code> 需要先转 <code>*const T</code> 再转 <code>*mut T</code>，因为从不可变引用直接转可变裸指针是不安全的——但创建裸指针本身是安全的，危险在解引用时。</p>
+</details>
+<hr>
+<h3 id="练习-21-02-安全地解引用裸指针"><a class="header" href="#练习-21-02-安全地解引用裸指针">练习 21-02: 安全地解引用裸指针</a></h3>
+<blockquote>
+<p>难度：⭐⭐</p>
+</blockquote>
+<p>在 <code>unsafe</code> 块中解引用裸指针，读取其指向的值。注意：创建指针安全，解引用必须在 <code>unsafe</code> 中。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let x = 100i32;
+    let ptr: *const i32 = &amp;x as *const i32;
+
+    // TODO: 在 unsafe 块中解引用 ptr 并打印值
+    // 补全下面的 unsafe 块
+    unsafe {
+        // let val = ...;
+        // println!("指针指向的值: {}", val);
+    }
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let x = 100i32;
+    let ptr: *const i32 = &amp;x as *const i32;
+
+    unsafe {
+        let val = *ptr;
+        println!("指针指向的值: {}", val);
+    }
+}</code></pre>
+<p><strong>说明：</strong> <code>*ptr</code> 解引用裸指针必须在 <code>unsafe</code> 块中。即使指针是合法的，编译器也无法验证——它把这个责任交给了你。</p>
+</details>
+<hr>
+<h3 id="练习-21-03-通过裸指针修改值挑战"><a class="header" href="#练习-21-03-通过裸指针修改值挑战">练习 21-03: 通过裸指针修改值（挑战）</a></h3>
+<blockquote>
+<p>难度：⭐⭐</p>
+</blockquote>
+<p>使用 <code>*mut i32</code> 裸指针修改变量的值。挑战：必须同时确保指针有效且变量未提前释放。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let mut x = 10i32;
+    let ptr: *mut i32 = &amp;mut x as *mut i32;
+
+    // TODO: 在 unsafe 块中通过 ptr 将 x 的值改为 42
+
+    // 不要修改下面这行
+    println!("x = {}", x); // 应输出 x = 42
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let mut x = 10i32;
+    let ptr: *mut i32 = &amp;mut x as *mut i32;
+
+    unsafe {
+        *ptr = 42;
+    }
+
+    println!("x = {}", x);
+}</code></pre>
+<p><strong>说明：</strong> 通过 <code>*mut T</code> 裸指针写入需要 unsafe 块。安全保证完全由开发者负责——如果 x 在解引用前被 drop，这就是一个悬挂指针（类似 C++ 的 dangling pointer）。</p>
+</details>
+<hr>
+<h3 id="练习-21-04-调用-unsafe-函数填空"><a class="header" href="#练习-21-04-调用-unsafe-函数填空">练习 21-04: 调用 unsafe 函数填空</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+调用 unsafe 函数必须在 unsafe 块中</p>
+</blockquote>
+<p>标准库提供了 <code>std::slice::from_raw_parts</code> 这个 unsafe 函数，它可以从裸指针和长度创建切片。补全代码将裸指针还原为切片。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let arr = [1, 2, 3, 4, 5];
+    let ptr = arr.as_ptr();
+    let len = arr.len();
+
+    // TODO: 调用 from_raw_parts 创建 &amp;[i32] 切片
+    // 需要 unsafe 块
+    // let slice: &amp;[i32] = ...;
+
+    // 不要修改下面这行
+    println!("slice = {:?}", slice); // slice = [1, 2, 3, 4, 5]
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let arr = [1, 2, 3, 4, 5];
+    let ptr = arr.as_ptr();
+    let len = arr.len();
+
+    let slice: &amp;[i32] = unsafe { std::slice::from_raw_parts(ptr, len) };
+
+    println!("slice = {:?}", slice);
+}</code></pre>
+<p><strong>说明：</strong> <code>std::slice::from_raw_parts</code> 是 unsafe 的，因为它要求调用者保证指针非空、对齐、且指向的内存已初始化。这里 ptr 来自合法数组，是安全的——但编译器无法验证。</p>
+</details>
+<hr>
+<h3 id="练习-21-05-补全自定义-unsafe-函数"><a class="header" href="#练习-21-05-补全自定义-unsafe-函数">练习 21-05: 补全自定义 unsafe 函数</a></h3>
+<blockquote>
+<p>难度：⭐⭐</p>
+</blockquote>
+<p>补全 <code>unsafe fn deref</code> 函数，使其解引用传入的 <code>*const i32</code> 并返回值。然后在 <code>safe_wrapper</code> 中安全地调用它。</p>
+<pre class="playground"><code class="language-rust">/// 解引用裸指针（调用者必须保证指针有效）
+unsafe fn deref(ptr: *const i32) -&gt; i32 {
+    // TODO: 解引用 ptr 并返回其值
+}
+
+fn safe_wrapper() -&gt; i32 {
+    let x = 99;
+    // TODO: 安全地调用 deref
+}
+
+fn main() {
+    println!("{}", safe_wrapper()); // 输出 99
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">unsafe fn deref(ptr: *const i32) -&gt; i32 {
+    *ptr
+}
+
+fn safe_wrapper() -&gt; i32 {
+    let x = 99;
+    unsafe { deref(&amp;x as *const i32) }
+}
+
+fn main() {
+    println!("{}", safe_wrapper());
+}</code></pre>
+<p><strong>说明：</strong> <code>unsafe fn</code> 本身就是一个安全边界——调用者必须用 <code>unsafe</code> 块或 <code>unsafe fn</code> 来调用它。这里 <code>safe_wrapper</code> 用 unsafe 块调用 <code>deref</code>，但对外暴露了安全接口。</p>
+</details>
+<hr>
+<h3 id="练习-21-06-统计-vector挑战"><a class="header" href="#练习-21-06-统计-vector挑战">练习 21-06: 统计 vector（挑战）</a></h3>
+<blockquote>
+<p>难度：⭐⭐</p>
+</blockquote>
+<p>实现一个函数 <code>total</code>，它接收 <code>*const i32</code> 和长度 <code>len</code>，计算所有元素的和。调用者必须保证指针有效。</p>
+<pre class="playground"><code class="language-rust">// TODO: 定义 unsafe fn total，接收 *const i32 和长度 usize，返回 i32
+// 在函数体内解引用指针构造切片
+
+fn main() {
+    let v = vec![10, 20, 30, 40];
+    let ptr = v.as_ptr();
+    let len = v.len();
+
+    let result = unsafe { total(ptr, len) };
+    println!("total = {}", result); // total = 100
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">unsafe fn total(ptr: *const i32, len: usize) -&gt; i32 {
+    let slice: &amp;[i32] = std::slice::from_raw_parts(ptr, len);
+    slice.iter().sum()
+}
+
+fn main() {
+    let v = vec![10, 20, 30, 40];
+    let ptr = v.as_ptr();
+    let len = v.len();
+
+    let result = unsafe { total(ptr, len) };
+    println!("total = {}", result);
+}</code></pre>
+<p><strong>说明：</strong> <code>from_raw_parts</code> 要求调用者保证切片生命周期内底层内存有效且不变。这里 <code>v</code> 在 <code>total</code> 调用期间存活且不修改，满足条件。如果 <code>v</code> 在 <code>total</code> 执行前被 drop，则行为未定义。</p>
+</details>
+<hr>
+<h3 id="练习-21-07-extern-c-调用-c-标准库函数"><a class="header" href="#练习-21-07-extern-c-调用-c-标准库函数">练习 21-07: extern “C” 调用 C 标准库函数</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+类似 C++ 中 <code>extern "C"</code> 声明外部函数</p>
+</blockquote>
+<p>填空：使用 <code>extern "C"</code> 块声明 C 标准库的 <code>abs</code> 函数，然后在 Rust 中调用它。</p>
+<pre class="playground"><code class="language-rust">// TODO: 在 extern "C" 块中声明 abs 函数
+// 签名：int abs(int)
+
+fn main() {
+    let n = -42;
+    // TODO: 调用 abs(n)，结果应等于 n.abs()（但在 C 中计算）
+    // let result = ...;
+    println!("abs({}) = {}", n, result);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">extern "C" {
+    fn abs(x: i32) -&gt; i32;
+}
+
+fn main() {
+    let n = -42;
+    let result = unsafe { abs(n) };
+    println!("abs({}) = {}", n, result);
+}</code></pre>
+<p><strong>说明：</strong> <code>extern "C"</code> 声明外部函数，FFI 调用始终是 unsafe 的——Rust 无法验证 C 函数的实现是否正确。这里 <code>abs</code> 是标准 C 函数，行为明确。</p>
+</details>
+<hr>
+<h3 id="练习-21-08-链接-c-字符串函数-strlen"><a class="header" href="#练习-21-08-链接-c-字符串函数-strlen">练习 21-08: 链接 C 字符串函数 strlen</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐</p>
+</blockquote>
+<p>补全代码，调用 C 标准库的 <code>strlen</code> 计算字符串长度（不含结尾 <code>\0</code>）。</p>
+<pre class="playground"><code class="language-rust">// TODO: 声明 extern "C" 块中的 strlen
+// 注意 C 字符串以 \0 结尾
+
+fn main() {
+    let s = b"Hello\0"; // C 风格字符串（含结尾 NUL）
+    // TODO: 将 s.as_ptr() 作为 *const i8 (即 *const c_char) 传入 strlen
+    // 并用 unsafe 调用
+    // println!("length = {}", len);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">extern "C" {
+    fn strlen(s: *const i8) -&gt; usize;
+}
+
+fn main() {
+    let s = b"Hello\0";
+    let len = unsafe { strlen(s.as_ptr() as *const i8) };
+    println!("length = {}", len); // 5
+}</code></pre>
+<p><strong>说明：</strong> C 字符串以 NUL 结尾。<code>b"Hello\0"</code> 确保末尾有 <code>\0</code>。<code>strlen</code> 遍历直到遇到 <code>\0</code>，如果调用者忘记终止符则是未定义行为——Rust 无法阻止这种错误。</p>
+</details>
+<hr>
+<h3 id="练习-21-09-封装-ffi-调用为安全接口挑战"><a class="header" href="#练习-21-09-封装-ffi-调用为安全接口挑战">练习 21-09: 封装 FFI 调用为安全接口（挑战）</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐</p>
+</blockquote>
+<p>将 21-08 中的 <code>strlen</code> 封装成一个安全的 Rust 函数 <code>safe_strlen</code>，使其接收 <code>&amp;str</code> 并返回长度，内部使用 unsafe 调用 FFI。注意不能用 <code>s.len()</code> 偷懒——必须真的经过 FFI 调用。</p>
+<pre class="playground"><code class="language-rust">extern "C" {
+    fn strlen(s: *const i8) -&gt; usize;
+}
+
+// TODO: 编写 safe_strlen，接收 &amp;str，内部通过 FFI 计算长度
+fn safe_strlen(s: &amp;str) -&gt; usize {
+    // 提示：需要先确保字符串以 \0 结尾
+    // 可以用 CString（来自 std::ffi::CString）
+}
+
+fn main() {
+    let s = "Rust FFI";
+    let len = safe_strlen(s);
+    println!("length = {}", len); // 8
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::ffi::CString;
+
+extern "C" {
+    fn strlen(s: *const i8) -&gt; usize;
+}
+
+fn safe_strlen(s: &amp;str) -&gt; usize {
+    let c_str = CString::new(s).expect("CString 不能含 NUL 字节");
+    unsafe { strlen(c_str.as_ptr()) }
+}
+
+fn main() {
+    let s = "Rust FFI";
+    let len = safe_strlen(s);
+    println!("length = {}", len);
+}</code></pre>
+<p><strong>说明：</strong> <code>CString::new</code> 在末尾追加 <code>\0</code> 并检查字符串内是否已含 NUL 字节（会返回错误）。封装后，调用者无需接触 unsafe —— 安全边界在 <code>safe_strlen</code> 内部。</p>
+</details>
+<hr>
+<h3 id="练习-21-10-实现-send-traitunsafe-trait"><a class="header" href="#练习-21-10-实现-send-traitunsafe-trait">练习 21-10: 实现 Send trait（unsafe trait）</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+unsafe trait 要求实现者手动保证线程安全</p>
+</blockquote>
+<p>标准库中 <code>Send</code> 是一个 unsafe trait：实现者必须保证类型可以安全地跨线程传递。以下 <code>MyBox</code> 包装了 <code>*mut i32</code>，编译器默认不会为它实现 <code>Send</code>。补全 <code>unsafe impl Send</code>。</p>
+<pre class="playground"><code class="language-rust">struct MyBox(*mut i32);
+
+// TODO: unsafe impl Send for MyBox {}
+// 为什么这是安全的？因为 MyBox 是独占所有权，且只在单线程场景使用。
+
+fn main() {
+    let mut x = 42;
+    let b = MyBox(&amp;mut x as *mut i32);
+
+    // 如果 MyBox 未实现 Send，下面这行会编译报错
+    let handle = std::thread::spawn(move || {
+        println!("MyBox 已跨线程发送");
+        let _ = b;
+    });
+    handle.join().unwrap();
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct MyBox(*mut i32);
+
+unsafe impl Send for MyBox {}
+
+fn main() {
+    let mut x = 42;
+    let b = MyBox(&amp;mut x as *mut i32);
+
+    let handle = std::thread::spawn(move || {
+        println!("MyBox 已跨线程发送");
+        let _ = b;
+    });
+    handle.join().unwrap();
+}</code></pre>
+<p><strong>说明：</strong> 实现 <code>Send</code> 是 unsafe 的，因为编译器无法验证你的类型是否真的线程安全。这里 <code>MyBox</code> 只包含一个裸指针，且通过 <code>move</code> 转移所有权，没有共享，因此是安全的。但如果 <code>MyBox</code> 内部有非原子引用计数等，则可能不安全。</p>
+</details>
+<hr>
+<h3 id="练习-21-11-实现-sync-trait"><a class="header" href="#练习-21-11-实现-sync-trait">练习 21-11: 实现 Sync trait</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐</p>
+</blockquote>
+<p><code>Sync</code> 是另一个 unsafe trait：实现者必须保证 <code>&amp;T</code> 可以安全地跨线程共享。补全代码，为自定义的 <code>Counter</code> 实现 <code>Sync</code>（内部用 <code>Mutex</code> 保护）。</p>
+<pre class="playground"><code class="language-rust">use std::sync::Mutex;
+
+struct Counter {
+    value: Mutex&lt;i32&gt;,
+}
+
+// TODO: unsafe impl Sync for Counter {}
+// 提示：Mutex&lt;i32&gt; 已经实现了 Sync
+
+fn main() {
+    let c = Counter { value: Mutex::new(0) };
+    let shared = &amp;c;
+    // 如果 Counter 未实现 Sync，下面这行会编译报错
+    std::thread::scope(|s| {
+        for _ in 0..4 {
+            s.spawn(|| {
+                let mut v = shared.value.lock().unwrap();
+                *v += 1;
+            });
+        }
+    });
+    println!("final: {}", *c.value.lock().unwrap());
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::sync::Mutex;
+
+struct Counter {
+    value: Mutex&lt;i32&gt;,
+}
+
+unsafe impl Sync for Counter {}
+
+fn main() {
+    let c = Counter { value: Mutex::new(0) };
+    let shared = &amp;c;
+    std::thread::scope(|s| {
+        for _ in 0..4 {
+            s.spawn(|| {
+                let mut v = shared.value.lock().unwrap();
+                *v += 1;
+            });
+        }
+    });
+    println!("final: {}", *c.value.lock().unwrap());
+}</code></pre>
+<p><strong>说明：</strong> <code>Counter</code> 的所有内部字段（<code>Mutex&lt;i32&gt;</code>）都实现了 <code>Sync</code>，因此 <code>impl Sync</code> 是安全的——但编译器不会自动推导，因为你自定义了结构体。<code>unsafe impl Sync</code> 告诉编译器：“我保证这是线程安全的。”</p>
+</details>
+<hr>
+<h3 id="练习-21-12-自定义迭代器与-unsafe-trait挑战"><a class="header" href="#练习-21-12-自定义迭代器与-unsafe-trait挑战">练习 21-12: 自定义迭代器与 unsafe trait（挑战）</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐</p>
+</blockquote>
+<p>裸指针迭代器：为 <code>PtrIter</code> 实现 <code>Iterator</code>，但 <code>std::iter::TrustedLen</code> 是 unsafe trait。补全 <code>unsafe impl TrustedLen</code>。</p>
+<pre class="playground"><code class="language-rust">struct PtrIter {
+    start: *const i32,
+    end: *const i32,
+}
+
+impl Iterator for PtrIter {
+    type Item = i32;
+    fn next(&amp;mut self) -&gt; Option&lt;i32&gt; {
+        if self.start == self.end {
+            None
+        } else {
+            let val = unsafe { *self.start };
+            self.start = unsafe { self.start.add(1) };
+            Some(val)
+        }
+    }
+
+    fn size_hint(&amp;self) -&gt; (usize, Option&lt;usize&gt;) {
+        let len = (self.end as usize - self.start as usize) / std::mem::size_of::&lt;i32&gt;();
+        (len, Some(len))
+    }
+}
+
+// TODO: unsafe impl std::iter::TrustedLen for PtrIter {}
+
+fn main() {
+    let arr = [10, 20, 30];
+    let iter = PtrIter {
+        start: arr.as_ptr(),
+        end: unsafe { arr.as_ptr().add(3) },
+    };
+    let collected: Vec&lt;i32&gt; = iter.collect();
+    println!("{:?}", collected); // [10, 20, 30]
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::iter::TrustedLen;
+
+struct PtrIter {
+    start: *const i32,
+    end: *const i32,
+}
+
+impl Iterator for PtrIter {
+    type Item = i32;
+
+    fn next(&amp;mut self) -&gt; Option&lt;i32&gt; {
+        if self.start == self.end {
+            None
+        } else {
+            let val = unsafe { *self.start };
+            self.start = unsafe { self.start.add(1) };
+            Some(val)
+        }
+    }
+
+    fn size_hint(&amp;self) -&gt; (usize, Option&lt;usize&gt;) {
+        let len = (self.end as usize - self.start as usize) / std::mem::size_of::&lt;i32&gt;();
+        (len, Some(len))
+    }
+}
+
+unsafe impl TrustedLen for PtrIter {}
+
+fn main() {
+    let arr = [10, 20, 30];
+    let iter = PtrIter {
+        start: arr.as_ptr(),
+        end: unsafe { arr.as_ptr().add(3) },
+    };
+    let collected: Vec&lt;i32&gt; = iter.collect();
+    println!("{:?}", collected);
+}</code></pre>
+<p><strong>说明：</strong> <code>TrustedLen</code> 是 unsafe trait，实现者承诺 <code>size_hint</code> 返回的上限精确且不会变化。这里 <code>PtrIter</code> 基于固定长度数组，满足条件。注意：如果实现不正确（例如长度计算有误），可能会导致 <code>collect</code> 产生未定义行为。</p>
+</details>
+<hr>
+<h3 id="练习-21-13-transmute-基础字节重新解释"><a class="header" href="#练习-21-13-transmute-基础字节重新解释">练习 21-13: transmute 基础——字节重新解释</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+类似 C++ 的 <code>reinterpret_cast</code> 和 C++20 的 <code>std::bit_cast</code></p>
+</blockquote>
+<p><code>std::mem::transmute</code> 将一种类型的位模式直接重新解释为另一种类型。补全代码，将 <code>u32</code> 的字节重新解释为 <code>i32</code>。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let x: u32 = 0xFFFFFFFF;
+    // TODO: 使用 transmute 将 x 转为 i32
+    // let y: i32 = ...;
+    println!("y = {}", y); // y = -1
+
+    // 在 C++ 中同样 reinterpret_cast&lt;int32_t&gt;(0xFFFFFFFF) == -1
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let x: u32 = 0xFFFFFFFF;
+    let y: i32 = unsafe { std::mem::transmute(x) };
+    println!("y = {}", y);
+}</code></pre>
+<p><strong>说明：</strong> <code>transmute</code> 是 unsafe 的——它要求源类型和目标类型大小相同（否则编译报错）。0xFFFFFFFF 作为 u32 是 4294967295，作为补码 i32 是 -1。这是纯粹位模式转换，不做任何检查。</p>
+</details>
+<hr>
+<h3 id="练习-21-14-transmute-将引用转为裸指针"><a class="header" href="#练习-21-14-transmute-将引用转为裸指针">练习 21-14: transmute 将引用转为裸指针</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐</p>
+</blockquote>
+<p><code>transmute</code> 也可以用于引用到指针的转换。补全代码，将 <code>&amp;i32</code> 转为 <code>*const i32</code>（虽然用 <code>as</code> 更安全，但这里练习 transmute）。</p>
+<pre class="playground"><code class="language-rust">fn main() {
+    let x = 42i32;
+    let r: &amp;i32 = &amp;x;
+
+    // TODO: 使用 transmute 将 &amp;i32 转为 *const i32
+    // let ptr: *const i32 = ...;
+
+    unsafe {
+        println!("值: {}", *ptr);
+    }
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn main() {
+    let x = 42i32;
+    let r: &amp;i32 = &amp;x;
+
+    let ptr: *const i32 = unsafe { std::mem::transmute(r) };
+
+    unsafe {
+        println!("值: {}", *ptr);
+    }
+}</code></pre>
+<p><strong>说明：</strong> 引用和裸指针在底层具有相同的大小（指针宽度），因此 <code>transmute</code> 可以转换。但更推荐的 Rust 风格是使用 <code>as</code> 转换（<code>r as *const i32</code>），因为 transmute 过于宽松——如果类型大小不匹配，编译期就会报错，但这仍是编译时检查而非运行时。</p>
+</details>
+<hr>
+<h3 id="练习-21-15-transmute-的安全封装挑战"><a class="header" href="#练习-21-15-transmute-的安全封装挑战">练习 21-15: transmute 的安全封装（挑战）</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐</p>
+</blockquote>
+<p>编写一个安全的泛型函数 <code>bits_as</code>，使用 <code>transmute</code> 将 <code>A</code> 转换为 <code>B</code>（要求大小相同），并用 <code>assert_eq!</code> 做编译期大小检查。</p>
+<pre class="playground"><code class="language-rust">use std::mem;
+
+// TODO: 编写 safe 函数 bits_as&lt;A, B&gt;(val: A) -&gt; B
+// 要求：A 和 B 大小相同，否则 panic
+// 使用 assert_eq!(size_of::&lt;A&gt;(), size_of::&lt;B&gt;()) 做运行时检查
+
+fn main() {
+    let x: u64 = 42;
+    let y: i64 = bits_as::&lt;u64, i64&gt;(x);
+    println!("y = {}", y); // y = 42
+
+    // 下面的代码如果用 transmute 会编译错：大小不同
+    // let _: u32 = bits_as::&lt;u64, u32&gt;(0u64); // panic 或编译错误
+    println!("OK");
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::mem;
+
+fn bits_as&lt;A, B&gt;(val: A) -&gt; B {
+    assert_eq!(mem::size_of::&lt;A&gt;(), mem::size_of::&lt;B&gt;());
+    unsafe { mem::transmute::&lt;A, B&gt;(val) }
+}
+
+fn main() {
+    let x: u64 = 42;
+    let y: i64 = bits_as::&lt;u64, i64&gt;(x);
+    println!("y = {}", y);
+
+    // 如果取消注释下面这行，会在运行时 panic，因为大小不同
+    // let _: u32 = bits_as::&lt;u64, u32&gt;(0u64);
+
+    println!("OK");
+}</code></pre>
+<p><strong>说明：</strong> <code>transmute</code> 本身在大小不匹配时会在编译期报错，但这里我们演示通过 <code>assert_eq!</code> 做运行时防护来提供安全封装。实际项目中更推荐用 <code>as</code> 转换或安全 API（如 <code>u64::from_ne_bytes</code>）替代 transmute。</p>
+</details>
+<hr>
+<blockquote>
+<p><strong>总结：</strong> Rust 的 <code>unsafe</code> 并非“不安全“，而是“编译器信任你“——你承诺手动保证内存安全、类型有效、线程安全等不变量。unsafe 代码应尽量封装在小型安全接口内，对外隐藏裸指针和 transmute 等危险操作。原则：<strong>unsafe 代码的漏洞应该少到可以被手动验证，而不是多到不值得检查。</strong></p>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="20_macros.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="22_stdlib.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="20_macros.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="22_stdlib.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-c22b7243.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

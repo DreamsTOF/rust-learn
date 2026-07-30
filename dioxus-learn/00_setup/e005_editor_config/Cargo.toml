@@ -1,0 +1,8 @@
+[package]
+name = "e005_editor_config"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

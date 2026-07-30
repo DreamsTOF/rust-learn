@@ -1,0 +1,8 @@
+[package]
+name = "e256_query_param_serialize_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

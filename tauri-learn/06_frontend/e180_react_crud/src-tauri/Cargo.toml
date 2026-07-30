@@ -1,0 +1,17 @@
+ [package]
+ name = "e180_react_crud"
+ version = "0.1.0"
+ edition = "2021"
+ 
+ [lib]
+ name = "e180_react_crud_lib"
+ crate-type = ["staticlib", "cdylib", "rlib"]
+ 
+ [build-dependencies]
+ tauri-build.workspace = true
+ 
+ [dependencies]
+ tauri.workspace = true
+ serde.workspace = true
+ serde_json.workspace = true
+ thiserror.workspace = true

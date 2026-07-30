@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e071_di_window_state",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e071",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1491",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 071: 获取窗口状态",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

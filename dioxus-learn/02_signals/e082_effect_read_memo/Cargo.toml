@@ -1,0 +1,8 @@
+[package]
+name = "e082_effect_read_memo"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

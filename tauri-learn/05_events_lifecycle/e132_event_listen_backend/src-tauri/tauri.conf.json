@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e132_event_listen_backend",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e132",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1552",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 132: 后端监听事件",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

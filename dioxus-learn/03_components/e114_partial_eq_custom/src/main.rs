@@ -1,0 +1,5 @@
+// TODO e114: partial_eq_custom
+// Follow TODO comments to complete this exercise
+use dioxus::prelude::*;
+fn App() -> Element { todo!() }
+fn main() { dioxus::launch(App); }

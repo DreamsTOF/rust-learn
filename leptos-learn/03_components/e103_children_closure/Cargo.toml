@@ -1,0 +1,9 @@
+[package]
+name = "e103_children_closure"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+leptos.workspace = true
+
+

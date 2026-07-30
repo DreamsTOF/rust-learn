@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e182_vue_reactive",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e182",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1602",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 182: Vue 响应式状态与 Tauri",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

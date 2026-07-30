@@ -1,0 +1,8 @@
+[package]
+name = "e076_use_hook_primitive"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

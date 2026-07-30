@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e330_security_coding",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e330",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1750",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 330: 安全意识编码实践",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

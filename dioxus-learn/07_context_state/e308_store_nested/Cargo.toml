@@ -1,0 +1,8 @@
+[package]
+name = "e308_store_nested"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

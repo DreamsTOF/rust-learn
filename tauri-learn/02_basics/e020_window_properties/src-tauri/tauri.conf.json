@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e020_window_properties",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e020",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1440",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 020: 窗口基础属性配置",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

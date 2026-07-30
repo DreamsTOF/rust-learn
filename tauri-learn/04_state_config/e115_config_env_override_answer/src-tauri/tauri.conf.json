@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e115_config_env_override_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e115_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1535",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 115: 环境变量覆盖配置 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e301_tray_create_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e301_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1721",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 301: 创建系统托盘 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

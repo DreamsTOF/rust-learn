@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e060_file_hash_calculator",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e060",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1480",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 060: 综合: 文件哈希计算器",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

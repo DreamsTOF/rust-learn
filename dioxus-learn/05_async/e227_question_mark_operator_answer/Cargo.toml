@@ -1,0 +1,8 @@
+[package]
+name = "e227_question_mark_operator_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

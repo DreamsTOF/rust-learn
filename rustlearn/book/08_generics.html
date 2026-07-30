@@ -1,0 +1,1056 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="ayu sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>08 泛型 - Rust 实战练习 — 460 题快速突破</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="从 C++/Java 到 Rust，460 道循序渐进的实战练习题">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-0392ca55.css">
+        <link rel="stylesheet" href="css/chrome-fc474251.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/custom-b5e00510.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "ayu";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-f70c63f5.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-86798690.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Rust 实战练习 — 460 题快速突破</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="08-泛型"><a class="header" href="#08-泛型">08 泛型</a></h1>
+<p>泛型（Generics）是 Rust 中实现代码复用的核心机制，允许你编写适用于多种类型的函数、结构体、枚举和方法。Rust 的泛型在编译时进行单态化（monomorphization），因此不会带来运行时开销。本章练习将帮助你掌握泛型函数、泛型结构体、泛型约束（Trait Bound）、where 子句以及泛型 impl 块。</p>
+<h3 id="练习-08-01-泛型函数填空类型参数"><a class="header" href="#练习-08-01-泛型函数填空类型参数">练习 08-01: 泛型函数——填空类型参数</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 的 <code>template&lt;typename T&gt;</code>，在函数名后声明类型参数</p>
+</blockquote>
+<p>补全代码中的泛型声明，使 <code>identity</code> 函数能够接受任意类型并原样返回。</p>
+<pre class="playground"><code class="language-rust">// TODO: 在函数名后添加泛型参数声明
+fn identity(value: T) -&gt; T {
+    value
+}
+
+fn main() {
+    let n = identity(42);
+    let s = identity("hello");
+    let b = identity(true);
+    println!("{n} {s} {b}");
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn identity&lt;T&gt;(value: T) -&gt; T {
+    value
+}
+
+fn main() {
+    let n = identity(42);
+    let s = identity("hello");
+    let b = identity(true);
+    println!("{n} {s} {b}");
+}</code></pre>
+<p><strong>说明：</strong> 泛型函数在函数名后使用尖括号声明类型参数：<code>fn 函数名&lt;T&gt;(参数: T) -&gt; T</code>。调用时 Rust 会根据传入参数自动推断类型，无需手动指定。</p>
+</details>
+<h3 id="练习-08-02-泛型函数填空返回类型"><a class="header" href="#练习-08-02-泛型函数填空返回类型">练习 08-02: 泛型函数——填空返回类型</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 的 <code>template&lt;typename T&gt;</code>，但 Rust 返回类型也需要标注泛型</p>
+</blockquote>
+<p>补全代码中的返回类型声明，使 <code>make_pair</code> 函数返回一个元组。</p>
+<pre class="playground"><code class="language-rust">fn make_pair&lt;T, U&gt;(a: T, b: U) -&gt; // TODO: 填写返回类型 {
+    (a, b)
+}
+
+fn main() {
+    let pair = make_pair(10, "ten");
+    println!("{:?}", (pair.0, pair.1));
+    // 注: 此处使用 Debug 格式化，仅用于验证
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn make_pair&lt;T, U&gt;(a: T, b: U) -&gt; (T, U) {
+    (a, b)
+}
+
+fn main() {
+    let pair = make_pair(10, "ten");
+    println!("{:?}", (pair.0, pair.1));
+}</code></pre>
+<p><strong>说明：</strong> 当函数有多个泛型参数时，返回类型可以包含这些泛型参数的组合。这里 <code>(T, U)</code> 表示返回一个元组，元素类型分别为 <code>T</code> 和 <code>U</code>。</p>
+</details>
+<h3 id="练习-08-03-泛型函数补全实现"><a class="header" href="#练习-08-03-泛型函数补全实现">练习 08-03: 泛型函数——补全实现</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 的 template<typename t="">，编译器单态化生成具体代码</typename></p>
+</blockquote>
+<p>补全 <code>first</code> 函数体，使其返回切片中第一个元素的引用。</p>
+<pre class="playground"><code class="language-rust">fn first&lt;T&gt;(slice: &amp;[T]) -&gt; &amp;T {
+    // TODO: 返回 slice 的第一个元素
+}
+
+fn main() {
+    let numbers = vec![10, 20, 30];
+    let words = vec!["apple", "banana", "cherry"];
+    println!("{}", first(&amp;numbers));
+    println!("{}", first(&amp;words));
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn first&lt;T&gt;(slice: &amp;[T]) -&gt; &amp;T {
+    &amp;slice[0]
+}
+
+fn main() {
+    let numbers = vec![10, 20, 30];
+    let words = vec!["apple", "banana", "cherry"];
+    println!("{}", first(&amp;numbers));
+    println!("{}", first(&amp;words));
+}</code></pre>
+<p><strong>说明：</strong> 泛型函数可以接受任意类型的切片引用。<code>&amp;[T]</code> 表示任意类型 <code>T</code> 的切片引用，返回类型 <code>&amp;T</code> 表示引用切片中的某个元素。输入输出的生命周期由 Rust 自动推断（生命周期省略规则）。</p>
+</details>
+<h3 id="练习-08-04-泛型函数多个类型参数"><a class="header" href="#练习-08-04-泛型函数多个类型参数">练习 08-04: 泛型函数——多个类型参数</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 的 <code>template&lt;typename T, typename U&gt;</code>，支持多个泛型参数</p>
+</blockquote>
+<p>补全 <code>swap</code> 函数体，交换两个可变引用指向的值。</p>
+<pre class="playground"><code class="language-rust">fn swap&lt;T&gt;(a: &amp;mut T, b: &amp;mut T) {
+    // TODO: 交换 a 和 b 指向的值
+}
+
+fn main() {
+    let mut x = 10;
+    let mut y = 20;
+    swap(&amp;mut x, &amp;mut y);
+    println!("x = {x}, y = {y}"); // 应输出 x = 20, y = 10
+
+    let mut a = "hello";
+    let mut b = "world";
+    swap(&amp;mut a, &amp;mut b);
+    println!("a = {a}, b = {b}"); // 应输出 a = world, b = hello
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn swap&lt;T&gt;(a: &amp;mut T, b: &amp;mut T) {
+    std::mem::swap(a, b);
+}
+
+fn main() {
+    let mut x = 10;
+    let mut y = 20;
+    swap(&amp;mut x, &amp;mut y);
+    println!("x = {x}, y = {y}");
+
+    let mut a = "hello";
+    let mut b = "world";
+    swap(&amp;mut a, &amp;mut b);
+    println!("a = {a}, b = {b}");
+}</code></pre>
+<p><strong>说明：</strong> 函数内部也可以使用标准库的 <code>std::mem::swap</code> 来实现交换，但练习的目标是理解泛型参数使函数适用于任意类型。两个参数必须是<strong>相同类型</strong> <code>T</code>，若类型不同则编译错误。</p>
+</details>
+<h3 id="练习-08-05-挑战实现泛型最大值函数"><a class="header" href="#练习-08-05-挑战实现泛型最大值函数">练习 08-05: 挑战——实现泛型最大值函数</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+类似 C++ 的 std::max<t>，但 Rust 需要 PartialOrd 约束</t></p>
+</blockquote>
+<p>实现一个泛型函数 <code>max_val</code>，接受两个参数并返回较大的那个。注意：不是所有类型都可以比较大小，需要使用 trait 约束。</p>
+<pre class="playground"><code class="language-rust">// TODO: 实现 max_val 泛型函数（需要添加合适的 trait 约束）
+
+fn main() {
+    println!("{}", max_val(10, 20));       // 20
+    println!("{}", max_val(3.14, 2.72));   // 3.14
+    println!("{}", max_val("abc", "xyz")); // xyz
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn max_val&lt;T: PartialOrd&gt;(a: T, b: T) -&gt; T {
+    if a &gt;= b { a } else { b }
+}
+
+fn main() {
+    println!("{}", max_val(10, 20));
+    println!("{}", max_val(3.14, 2.72));
+    println!("{}", max_val("abc", "xyz"));
+}</code></pre>
+<p><strong>说明：</strong> 并非所有类型都能比较大小，因此需要在泛型参数上添加 <code>PartialOrd</code> 约束（对应 <code>&gt;</code>、<code>&lt;</code> 运算符）。这里返回值直接使用 <code>a</code> 或 <code>b</code> 会发生所有权移动，但函数签名中 <code>T</code> 不涉及引用，所以没有问题。如果 <code>T</code> 是 <code>&amp;str</code>，那么比较的是字符串的字典序。</p>
+</details>
+<h3 id="练习-08-06-定义泛型结构体"><a class="header" href="#练习-08-06-定义泛型结构体">练习 08-06: 定义泛型结构体</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 的 template<typename t=""> class，Rust 泛型结构体在名字后加 <t></t></typename></p>
+</blockquote>
+<p>定义一个泛型结构体 <code>Point&lt;T&gt;</code>，包含 <code>x</code> 和 <code>y</code> 两个字段，类型均为 <code>T</code>。</p>
+<pre class="playground"><code class="language-rust">// TODO: 定义 Point&lt;T&gt; 结构体
+
+fn main() {
+    let int_point = Point { x: 5, y: 10 };
+    let float_point = Point { x: 1.5, y: 3.2 };
+    println!("int: ({}, {}), float: ({}, {})", int_point.x, int_point.y, float_point.x, float_point.y);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Point&lt;T&gt; {
+    x: T,
+    y: T,
+}
+
+fn main() {
+    let int_point = Point { x: 5, y: 10 };
+    let float_point = Point { x: 1.5, y: 3.2 };
+    println!("int: ({}, {}), float: ({}, {})", int_point.x, int_point.y, float_point.x, float_point.y);
+}</code></pre>
+<p><strong>说明：</strong> 泛型结构体使用 <code>struct 名称&lt;T&gt; { 字段: T }</code> 定义。这里 <code>x</code> 和 <code>y</code> 都是 <code>T</code> 类型，因此它们必须是相同类型。若需要不同类型，可以定义多个泛型参数如 <code>Point&lt;T, U&gt;</code>。</p>
+</details>
+<h3 id="练习-08-07-泛型结构体不同类型字段"><a class="header" href="#练习-08-07-泛型结构体不同类型字段">练习 08-07: 泛型结构体——不同类型字段</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 的 pair&lt;T, U&gt;，Rust 结构体支持多个泛型参数</p>
+</blockquote>
+<p>定义一个泛型结构体 <code>Pair&lt;T, U&gt;</code>，包含 <code>first</code> 和 <code>second</code> 两个字段，类型分别为 <code>T</code> 和 <code>U</code>。</p>
+<pre class="playground"><code class="language-rust">// TODO: 定义 Pair&lt;T, U&gt; 结构体
+
+fn main() {
+    let pair = Pair { first: 42, second: "answer" };
+    println!("Pair({}, {})", pair.first, pair.second);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Pair&lt;T, U&gt; {
+    first: T,
+    second: U,
+}
+
+fn main() {
+    let pair = Pair { first: 42, second: "answer" };
+    println!("Pair({}, {})", pair.first, pair.second);
+}</code></pre>
+<p><strong>说明：</strong> 多个泛型参数用逗号分隔。<code>Pair&lt;T, U&gt;</code> 允许 <code>first</code> 和 <code>second</code> 是不同类型，Rust 会为每个具体组合生成独立的类型。这类似于 C++ 的 <code>std::pair&lt;T, U&gt;</code>。</p>
+</details>
+<h3 id="练习-08-08-泛型结构体补全方法"><a class="header" href="#练习-08-08-泛型结构体补全方法">练习 08-08: 泛型结构体——补全方法</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 模板类的成员函数，Rust 在 impl<t> 块中添加方法</t></p>
+</blockquote>
+<p>为 <code>Point&lt;T&gt;</code> 实现一个 <code>x</code> 方法，返回 <code>x</code> 字段的引用。</p>
+<pre class="playground"><code class="language-rust">struct Point&lt;T&gt; {
+    x: T,
+    y: T,
+}
+
+// TODO: 为 Point&lt;T&gt; 实现一个方法 x(&amp;self) -&gt; &amp;T
+
+fn main() {
+    let p = Point { x: 10, y: 20 };
+    println!("p.x = {}", p.x());
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Point&lt;T&gt; {
+    x: T,
+    y: T,
+}
+
+impl&lt;T&gt; Point&lt;T&gt; {
+    fn x(&amp;self) -&gt; &amp;T {
+        &amp;self.x
+    }
+}
+
+fn main() {
+    let p = Point { x: 10, y: 20 };
+    println!("p.x = {}", p.x());
+}</code></pre>
+<p><strong>说明：</strong> 为泛型结构体实现方法时，<code>impl&lt;T&gt;</code> 中的 <code>&lt;T&gt;</code> 表示实现块也是泛型的。<code>Point&lt;T&gt;</code> 中的 <code>T</code> 与 <code>impl&lt;T&gt;</code> 中的 <code>T</code> 是同一个类型参数。方法签名中的 <code>&amp;self</code> 隐含有生命周期，因此返回 <code>&amp;T</code> 是合法的。</p>
+</details>
+<h3 id="练习-08-09-泛型结构体为具体类型实现方法"><a class="header" href="#练习-08-09-泛型结构体为具体类型实现方法">练习 08-09: 泛型结构体——为具体类型实现方法</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 的模板特化，但 Rust 的 impl 块可以针对具体类型</p>
+</blockquote>
+<p>为 <code>Point&lt;f64&gt;</code> 实现一个 <code>distance_from_origin</code> 方法，计算到原点的距离。</p>
+<pre class="playground"><code class="language-rust">struct Point&lt;T&gt; {
+    x: T,
+    y: T,
+}
+
+// TODO: 只为 Point&lt;f64&gt; 实现 distance_from_origin 方法
+// 提示: 使用 sqrt 方法计算平方根，需要调用 .sqrt()
+
+fn main() {
+    let p = Point { x: 3.0, y: 4.0 };
+    println!("distance = {:.1}", p.distance_from_origin()); // 应输出 5.0
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Point&lt;T&gt; {
+    x: T,
+    y: T,
+}
+
+impl Point&lt;f64&gt; {
+    fn distance_from_origin(&amp;self) -&gt; f64 {
+        (self.x * self.x + self.y * self.y).sqrt()
+    }
+}
+
+fn main() {
+    let p = Point { x: 3.0, y: 4.0 };
+    println!("distance = {:.1}", p.distance_from_origin());
+}</code></pre>
+<p><strong>说明：</strong> 与 <code>impl&lt;T&gt; Point&lt;T&gt;</code> 不同，<code>impl Point&lt;f64&gt;</code> 只为 <code>T = f64</code> 这一具体类型实现方法。这是 Rust 泛型的特色之一——你可以为泛型类型限定某些方法只存在于特定的类型参数上。</p>
+</details>
+<h3 id="练习-08-10-挑战泛型结构体综合"><a class="header" href="#练习-08-10-挑战泛型结构体综合">练习 08-10: 挑战——泛型结构体综合</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+类似 C++ 模板类，但 Rust 需要在 impl 块重复声明泛型参数</p>
+</blockquote>
+<p>定义一个泛型结构体 <code>Wrapper&lt;T&gt;</code>，它包装一个 <code>T</code> 类型的值。为它实现：</p>
+<ol>
+<li><code>new(value: T) -&gt; Wrapper&lt;T&gt;</code> 关联函数</li>
+<li><code>value(&amp;self) -&gt; &amp;T</code> 方法，返回内部值的引用</li>
+<li><code>map&lt;U&gt;(self, f: impl FnOnce(T) -&gt; U) -&gt; Wrapper&lt;U&gt;</code> 方法，对内部值应用一个函数并返回新的 <code>Wrapper</code></li>
+</ol>
+<pre class="playground"><code class="language-rust">// TODO: 定义 Wrapper&lt;T&gt; 并实现上述方法
+
+fn main() {
+    let w = Wrapper::new(42);
+    println!("{}", w.value()); // 42
+    let w2 = w.map(|x| x * 2);
+    println!("{}", w2.value()); // 84
+    let w3 = w2.map(|x| format!("答案是: {x}"));
+    println!("{}", w3.value()); // 答案是: 84
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Wrapper&lt;T&gt; {
+    value: T,
+}
+
+impl&lt;T&gt; Wrapper&lt;T&gt; {
+    fn new(value: T) -&gt; Wrapper&lt;T&gt; {
+        Wrapper { value }
+    }
+
+    fn value(&amp;self) -&gt; &amp;T {
+        &amp;self.value
+    }
+
+    fn map&lt;U&gt;(self, f: impl FnOnce(T) -&gt; U) -&gt; Wrapper&lt;U&gt; {
+        Wrapper { value: f(self.value) }
+    }
+}
+
+fn main() {
+    let w = Wrapper::new(42);
+    println!("{}", w.value());
+    let w2 = w.map(|x| x * 2);
+    println!("{}", w2.value());
+    let w3 = w2.map(|x| format!("答案是: {x}"));
+    println!("{}", w3.value());
+}</code></pre>
+<p><strong>说明：</strong> <code>map</code> 方法引入了新的泛型参数 <code>U</code>，使得 <code>Wrapper&lt;T&gt;</code> 可以转换为 <code>Wrapper&lt;U&gt;</code>。<code>impl FnOnce(T) -&gt; U</code> 是闭包参数的简写，表示接受一个 <code>T</code> 类型参数并返回 <code>U</code> 类型的可调用对象。注意 <code>map</code> 消耗 <code>self</code>（所有权转移），因为内部值被移出后用于构造新的包装器。</p>
+</details>
+<h3 id="练习-08-11-泛型约束display"><a class="header" href="#练习-08-11-泛型约束display">练习 08-11: 泛型约束——Display</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 的 template<typename t=""> 配合 requires，Rust 用冒号指定 trait 约束</typename></p>
+</blockquote>
+<p>补全代码，为泛型参数添加 <code>std::fmt::Display</code> 约束，使 <code>print_val</code> 函数能使用 <code>{}</code> 格式化打印。</p>
+<pre class="playground"><code class="language-rust">// TODO: 添加 trait 约束使函数能打印值
+fn print_val(val: T) {
+    println!("值: {val}");
+}
+
+fn main() {
+    print_val(42);
+    print_val(3.14);
+    print_val("hello");
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn print_val&lt;T: std::fmt::Display&gt;(val: T) {
+    println!("值: {val}");
+}
+
+fn main() {
+    print_val(42);
+    print_val(3.14);
+    print_val("hello");
+}</code></pre>
+<p><strong>说明：</strong> <code>T: std::fmt::Display</code> 是 trait 约束，表示 <code>T</code> 必须实现了 <code>Display</code> trait。这确保了 <code>println!("值: {val}")</code> 能正常工作。Rust 中基本类型和字符串都实现了 <code>Display</code>。</p>
+</details>
+<h3 id="练习-08-12-where-子句"><a class="header" href="#练习-08-12-where-子句">练习 08-12: where 子句</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+Rust 特色语法，当约束较多时使用 where 子句更清晰</p>
+</blockquote>
+<p>将以下函数的 trait 约束改写为 <code>where</code> 子句形式。</p>
+<pre class="playground"><code class="language-rust">fn print_pairs&lt;T: std::fmt::Display, U: std::fmt::Display&gt;(a: T, b: U) {
+    println!("({a}, {b})");
+}
+
+// TODO: 使用 where 子句重写上面的 print_pairs
+
+fn main() {
+    print_pairs(10, "hello");
+    print_pairs(3.14, true);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn print_pairs&lt;T, U&gt;(a: T, b: U)
+where
+    T: std::fmt::Display,
+    U: std::fmt::Display,
+{
+    println!("({a}, {b})");
+}
+
+fn main() {
+    print_pairs(10, "hello");
+    print_pairs(3.14, true);
+}</code></pre>
+<p><strong>说明：</strong> <code>where</code> 子句放在函数签名尾部、返回值之后。当泛型参数多或约束复杂时，<code>where</code> 子句让函数签名更清晰。多个约束用逗号分隔，每个约束一行是惯例写法。</p>
+</details>
+<h3 id="练习-08-13-多约束"><a class="header" href="#练习-08-13-多约束">练习 08-13: 多约束</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+类似 C++ 的多个概念约束，Rust 用 + 连接多个 trait</p>
+</blockquote>
+<p>补全函数，要求 <code>T</code> 同时实现 <code>Display</code> 和 <code>PartialOrd</code>，使得函数既能打印又能比较大小。</p>
+<pre class="playground"><code class="language-rust">// TODO: 为 T 添加 Display + PartialOrd 约束
+fn describe_cmp&lt;T&gt;(a: T, b: T) {
+    if a &gt;= b {
+        println!("{a} &gt;= {b}");
+    } else {
+        println!("{a} &lt; {b}");
+    }
+}
+
+fn main() {
+    describe_cmp(10, 20);
+    describe_cmp("abc", "abc");
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn describe_cmp&lt;T: std::fmt::Display + PartialOrd&gt;(a: T, b: T) {
+    if a &gt;= b {
+        println!("{a} &gt;= {b}");
+    } else {
+        println!("{a} &lt; {b}");
+    }
+}
+
+fn main() {
+    describe_cmp(10, 20);
+    describe_cmp("abc", "abc");
+}</code></pre>
+<p><strong>说明：</strong> 多个 trait 约束用 <code>+</code> 连接：<code>T: Display + PartialOrd</code>。这意味着 <code>T</code> 必须同时实现这两个 trait。标准库中的 <code>Display</code> 和 <code>PartialOrd</code> 是最常用的约束之一。</p>
+</details>
+<h3 id="练习-08-14-where-子句与多类型参数"><a class="header" href="#练习-08-14-where-子句与多类型参数">练习 08-14: where 子句与多类型参数</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+Rust 特色语法，where 子句可以为不同泛型参数指定不同约束</p>
+</blockquote>
+<p>补全函数，使用 <code>where</code> 子句要求 <code>T</code> 实现 <code>Display</code>，<code>U</code> 实现 <code>Debug</code>。</p>
+<pre class="playground"><code class="language-rust">fn inspect&lt;T, U&gt;(t: T, u: U)
+// TODO: 使用 where 子句添加约束
+// T: Display, U: Debug
+{
+    println!("T: {t}");
+    println!("U: {:?}", u);
+}
+
+fn main() {
+    inspect(42, vec![1, 2, 3]);
+    inspect("hello", [4, 5, 6]);
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn inspect&lt;T, U&gt;(t: T, u: U)
+where
+    T: std::fmt::Display,
+    U: std::fmt::Debug,
+{
+    println!("T: {t}");
+    println!("U: {:?}", u);
+}
+
+fn main() {
+    inspect(42, vec![1, 2, 3]);
+    inspect("hello", [4, 5, 6]);
+}</code></pre>
+<p><strong>说明：</strong> <code>where</code> 子句可以为每个泛型参数分别指定不同约束。这里 <code>T</code> 需要 <code>Display</code>（用 <code>{}</code> 输出），<code>U</code> 需要 <code>Debug</code>（用 <code>{:?}</code> 输出）。<code>Vec</code> 和数组实现了 <code>Debug</code> 但未实现 <code>Display</code>，因此不能混用约束。</p>
+</details>
+<h3 id="练习-08-15-挑战多约束综合"><a class="header" href="#练习-08-15-挑战多约束综合">练习 08-15: 挑战——多约束综合</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+类似 C++ 的 requires 子句，Rust 的 where 子句支持复杂约束</p>
+</blockquote>
+<p>实现一个泛型函数 <code>top_two</code>，接收一个可变的切片引用，将最大的两个元素按降序放入前两个位置。需要 <code>T</code> 支持比较和交换。</p>
+<pre class="playground"><code class="language-rust">// TODO: 实现 top_two 函数
+// 要求: 修改 slice，使前两个元素是最大的两个（降序）
+// 约束: T 需要 PartialOrd（比较）和 Clone（避免所有权问题）
+// 提示: 可以用冒泡思路或直接找出最大和第二大
+
+fn main() {
+    let mut data = vec![3, 1, 4, 1, 5, 9, 2, 6];
+    top_two(&amp;mut data);
+    println!("{:?}", &amp;data[..2]); // 应输出 [9, 6]（顺序可能不同）
+    
+    let mut words = vec!["banana", "apple", "cherry", "date"];
+    top_two(&amp;mut words);
+    println!("{:?}", &amp;words[..2]); // 按字典序最大的两个
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">fn top_two&lt;T&gt;(slice: &amp;mut [T])
+where
+    T: PartialOrd,
+{
+    if slice.len() &lt; 2 {
+        return;
+    }
+    // 冒泡一次将最大值移到开头，第二次找到第二大
+    for i in 1..slice.len() {
+        if slice[i] &gt; slice[0] {
+            slice.swap(0, i);
+        }
+    }
+    for i in 2..slice.len() {
+        if slice[i] &gt; slice[1] {
+            slice.swap(1, i);
+        }
+    }
+}
+
+fn main() {
+    let mut data = vec![3, 1, 4, 1, 5, 9, 2, 6];
+    top_two(&amp;mut data);
+    println!("{:?}", &amp;data[..2]);
+    
+    let mut words = vec!["banana", "apple", "cherry", "date"];
+    top_two(&amp;mut words);
+    println!("{:?}", &amp;words[..2]);
+}</code></pre>
+<p><strong>说明：</strong> <code>where T: PartialOrd</code> 约束使得 <code>&gt;</code> 比较可用。<code>slice.swap(i, j)</code> 是切片的内置方法，交换两个位置的元素。这里不需要 <code>Clone</code>，因为 <code>swap</code> 直接交换内存而不需要复制值。<code>&amp;data[..2]</code> 是切片语法，取前两个元素。</p>
+</details>
+<h3 id="练习-08-16-泛型-impl基本"><a class="header" href="#练习-08-16-泛型-impl基本">练习 08-16: 泛型 impl——基本</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+Rust 特色语法，impl<t> 为整个泛型类型注入方法</t></p>
+</blockquote>
+<p>为 <code>Container&lt;T&gt;</code> 实现一个 <code>new</code> 关联函数和一个 <code>get</code> 方法。</p>
+<pre class="playground"><code class="language-rust">struct Container&lt;T&gt; {
+    value: T,
+}
+
+// TODO: 为 Container&lt;T&gt; 实现 new 和 get 方法
+
+fn main() {
+    let c = Container::new(100);
+    println!("{}", c.get());
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Container&lt;T&gt; {
+    value: T,
+}
+
+impl&lt;T&gt; Container&lt;T&gt; {
+    fn new(value: T) -&gt; Container&lt;T&gt; {
+        Container { value }
+    }
+
+    fn get(&amp;self) -&gt; &amp;T {
+        &amp;self.value
+    }
+}
+
+fn main() {
+    let c = Container::new(100);
+    println!("{}", c.get());
+}</code></pre>
+<p><strong>说明：</strong> <code>impl&lt;T&gt; Container&lt;T&gt;</code> 表示这个实现块适用于所有 <code>T</code> 类型。<code>new</code> 是关联函数（不接收 <code>self</code>），<code>get</code> 是方法（接收 <code>&amp;self</code>）。注意 <code>get</code> 返回 <code>&amp;T</code> 以避免所有权转移。</p>
+</details>
+<h3 id="练习-08-17-泛型-implwith-约束"><a class="header" href="#练习-08-17-泛型-implwith-约束">练习 08-17: 泛型 impl——with 约束</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+Rust 特色语法，impl&lt;T: Trait&gt; 只有在 T 满足约束时才有对应方法</p>
+</blockquote>
+<p>为 <code>Container&lt;T&gt;</code> 实现一个 <code>describe</code> 方法，要求 <code>T</code> 实现 <code>Display</code>。同时为 <code>Container&lt;T&gt;</code> 实现一个 <code>debug</code> 方法，要求 <code>T</code> 实现 <code>Debug</code>。</p>
+<pre class="playground"><code class="language-rust">struct Container&lt;T&gt; {
+    value: T,
+}
+
+impl&lt;T&gt; Container&lt;T&gt; {
+    fn new(value: T) -&gt; Container&lt;T&gt; {
+        Container { value }
+    }
+}
+
+// TODO: 为 Container&lt;T&gt; 实现 describe 方法（要求 T: Display）
+// TODO: 为 Container&lt;T&gt; 实现 debug 方法（要求 T: Debug）
+
+fn main() {
+    let c = Container::new(42);
+    c.describe(); // 输出: 值是 42
+    c.debug();    // 输出: 值是 42
+    
+    let c2 = Container::new(vec![1, 2, 3]);
+    // c2.describe(); // Vec&lt;i32&gt; 未实现 Display，此行取消注释会编译错误
+    c2.debug();    // 输出: 值是 [1, 2, 3]
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::fmt;
+
+struct Container&lt;T&gt; {
+    value: T,
+}
+
+impl&lt;T&gt; Container&lt;T&gt; {
+    fn new(value: T) -&gt; Container&lt;T&gt; {
+        Container { value }
+    }
+}
+
+impl&lt;T: fmt::Display&gt; Container&lt;T&gt; {
+    fn describe(&amp;self) {
+        println!("值是 {value}", value = self.value);
+    }
+}
+
+impl&lt;T: fmt::Debug&gt; Container&lt;T&gt; {
+    fn debug(&amp;self) {
+        println!("值是 {:?}", self.value);
+    }
+}
+
+fn main() {
+    let c = Container::new(42);
+    c.describe();
+    c.debug();
+    
+    let c2 = Container::new(vec![1, 2, 3]);
+    // c2.describe(); // Vec&lt;i32&gt; 未实现 Display
+    c2.debug();
+}</code></pre>
+<p><strong>说明：</strong> Rust 允许为同一个泛型类型编写多个 <code>impl</code> 块，每个块可以有不同的 trait 约束。这使得只有在 <code>T</code> 满足特定约束时，对应的方法才可用。这是一种条件性方法实现的机制，是 Rust 泛型的强大特性。</p>
+</details>
+<h3 id="练习-08-18-泛型-impl为具体类型添加额外方法"><a class="header" href="#练习-08-18-泛型-impl为具体类型添加额外方法">练习 08-18: 泛型 impl——为具体类型添加额外方法</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+Rust 特色语法，可为特定泛型参数实现独有方法</p>
+</blockquote>
+<p>为 <code>Container&lt;String&gt;</code> 实现一个 <code>len</code> 方法，返回内部字符串的长度。</p>
+<pre class="playground"><code class="language-rust">struct Container&lt;T&gt; {
+    value: T,
+}
+
+impl&lt;T&gt; Container&lt;T&gt; {
+    fn new(value: T) -&gt; Container&lt;T&gt; {
+        Container { value }
+    }
+}
+
+// TODO: 为 Container&lt;String&gt; 实现 len 方法
+
+fn main() {
+    let c = Container::new(String::from("hello"));
+    println!("length = {}", c.len());
+    
+    let c2 = Container::new(42);
+    // c2.len(); // ❌ Container&lt;i32&gt; 没有 len 方法
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">struct Container&lt;T&gt; {
+    value: T,
+}
+
+impl&lt;T&gt; Container&lt;T&gt; {
+    fn new(value: T) -&gt; Container&lt;T&gt; {
+        Container { value }
+    }
+}
+
+impl Container&lt;String&gt; {
+    fn len(&amp;self) -&gt; usize {
+        self.value.len()
+    }
+}
+
+fn main() {
+    let c = Container::new(String::from("hello"));
+    println!("length = {}", c.len());
+    
+    let c2 = Container::new(42);
+    // c2.len(); // Container&lt;i32&gt; 没有 len 方法
+}</code></pre>
+<p><strong>说明：</strong> <code>impl Container&lt;String&gt;</code> 为 <code>T = String</code> 这一具体类型添加方法。这种机制让你能为特定类型参数添加额外功能，而不影响其他类型参数的实例。类似 C++ 的模板特化，但 Rust 通过独立的 <code>impl</code> 块实现。</p>
+</details>
+<h3 id="练习-08-19-泛型-implwhere-子句"><a class="header" href="#练习-08-19-泛型-implwhere-子句">练习 08-19: 泛型 impl——where 子句</a></h3>
+<blockquote>
+<p>难度：⭐⭐
+Rust 特色语法，impl 块也可以使用 where 子句简化约束</p>
+</blockquote>
+<p>使用 <code>where</code> 子句改写以下代码，使 <code>is_same</code> 方法能够比较两个 <code>Container&lt;T&gt;</code> 是否相等。</p>
+<pre class="playground"><code class="language-rust">use std::fmt::Debug;
+
+struct Container&lt;T&gt; {
+    value: T,
+}
+
+// TODO: 使用 where 子句添加 PartialEq 约束，实现 is_same 方法
+
+fn main() {
+    let c1 = Container { value: 10 };
+    let c2 = Container { value: 10 };
+    let c3 = Container { value: 20 };
+    println!("c1 == c2: {}", c1.is_same(&amp;c2)); // true
+    println!("c1 == c3: {}", c1.is_same(&amp;c3)); // false
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">use std::fmt::Debug;
+
+struct Container&lt;T&gt; {
+    value: T,
+}
+
+impl&lt;T&gt; Container&lt;T&gt; {
+    fn new(value: T) -&gt; Container&lt;T&gt; {
+        Container { value }
+    }
+}
+
+impl&lt;T: PartialEq&gt; Container&lt;T&gt; {
+    fn is_same(&amp;self, other: &amp;Container&lt;T&gt;) -&gt; bool {
+        self.value == other.value
+    }
+}
+
+fn main() {
+    let c1 = Container { value: 10 };
+    let c2 = Container { value: 10 };
+    let c3 = Container { value: 20 };
+    println!("c1 == c2: {}", c1.is_same(&amp;c2));
+    println!("c1 == c3: {}", c1.is_same(&amp;c3));
+}</code></pre>
+<p><strong>说明：</strong> <code>impl&lt;T: PartialEq&gt; Container&lt;T&gt;</code> 表示只有 <code>T</code> 实现了 <code>PartialEq</code> 时，<code>Container&lt;T&gt;</code> 才有 <code>is_same</code> 方法。<code>self.value == other.value</code> 依赖于 <code>PartialEq</code> trait 提供的 <code>eq</code> 方法。也可以写为 <code>impl&lt;T&gt; Container&lt;T&gt; where T: PartialEq { ... }</code>。</p>
+</details>
+<h3 id="练习-08-20-挑战设计一个泛型容器"><a class="header" href="#练习-08-20-挑战设计一个泛型容器">练习 08-20: 挑战——设计一个泛型容器</a></h3>
+<blockquote>
+<p>难度：⭐⭐⭐
+综合运用，类似设计一个简化版的 Option 或简单的泛型容器</p>
+</blockquote>
+<p>设计一个泛型枚举 <code>Result&lt;T, E&gt;</code> 的简化版本——<code>SimpleResult&lt;T, E&gt;</code>，包含 <code>Ok(T)</code> 和 <code>Err(E)</code> 两个变体。为它实现：</p>
+<ol>
+<li><code>is_ok(&amp;self) -&gt; bool</code> 和 <code>is_err(&amp;self) -&gt; bool</code></li>
+<li><code>ok(self) -&gt; Option&lt;T&gt;</code> —— 将 <code>SimpleResult</code> 转换为 <code>Option&lt;T&gt;</code>（Ok 返回 <code>Some(T)</code>，Err 返回 <code>None</code>）</li>
+<li><code>unwrap(self) -&gt; T</code> —— Ok 时返回值，Err 时调用 <code>panic!</code></li>
+<li><code>map&lt;U&gt;(self, f: impl FnOnce(T) -&gt; U) -&gt; SimpleResult&lt;U, E&gt;</code> —— 只对 Ok 变体应用函数</li>
+</ol>
+<pre class="playground"><code class="language-rust">// TODO: 定义 SimpleResult&lt;T, E&gt; 枚举
+
+// TODO: 实现上述方法
+
+fn main() {
+    let ok: SimpleResult&lt;i32, &amp;str&gt; = SimpleResult::Ok(42);
+    let err: SimpleResult&lt;i32, &amp;str&gt; = SimpleResult::Err("出错了");
+    
+    println!("ok.is_ok() = {}", ok.is_ok());
+    println!("err.is_err() = {}", err.is_err());
+    
+    println!("ok.ok() = {:?}", ok.ok());
+    println!("err.ok() = {:?}", err.ok());
+    
+    // println!("err.unwrap()"); // 会 panic
+    
+    let mapped = SimpleResult::Ok(10).map(|x| x * 2);
+    println!("mapped.ok() = {:?}", mapped.ok()); // Some(20)
+    
+    let mapped_err = SimpleResult::Err("error").map(|x: i32| x * 2);
+    println!("mapped_err.is_err() = {}", mapped_err.is_err()); // true
+}</code></pre>
+<details>
+<summary>点击查看参考答案</summary>
+<pre class="playground"><code class="language-rust">enum SimpleResult&lt;T, E&gt; {
+    Ok(T),
+    Err(E),
+}
+
+impl&lt;T, E&gt; SimpleResult&lt;T, E&gt; {
+    fn is_ok(&amp;self) -&gt; bool {
+        matches!(self, SimpleResult::Ok(_))
+    }
+
+    fn is_err(&amp;self) -&gt; bool {
+        matches!(self, SimpleResult::Err(_))
+    }
+
+    fn ok(self) -&gt; Option&lt;T&gt; {
+        match self {
+            SimpleResult::Ok(val) =&gt; Some(val),
+            SimpleResult::Err(_) =&gt; None,
+        }
+    }
+
+    fn unwrap(self) -&gt; T {
+        match self {
+            SimpleResult::Ok(val) =&gt; val,
+            SimpleResult::Err(e) =&gt; panic!("called unwrap on an Err value: {:?}", e),
+        }
+    }
+
+    fn map&lt;U&gt;(self, f: impl FnOnce(T) -&gt; U) -&gt; SimpleResult&lt;U, E&gt; {
+        match self {
+            SimpleResult::Ok(val) =&gt; SimpleResult::Ok(f(val)),
+            SimpleResult::Err(e) =&gt; SimpleResult::Err(e),
+        }
+    }
+}
+
+// 为 Err 添加 Debug 约束以支持 unwrap 中的 panic 输出
+impl&lt;T: std::fmt::Debug, E: std::fmt::Debug&gt; SimpleResult&lt;T, E&gt; {
+    fn unwrap_debug(self) -&gt; T {
+        match self {
+            SimpleResult::Ok(val) =&gt; val,
+            SimpleResult::Err(e) =&gt; panic!("called unwrap on an Err value: {:?}", e),
+        }
+    }
+}
+
+fn main() {
+    let ok: SimpleResult&lt;i32, &amp;str&gt; = SimpleResult::Ok(42);
+    let err: SimpleResult&lt;i32, &amp;str&gt; = SimpleResult::Err("出错了");
+    
+    println!("ok.is_ok() = {}", ok.is_ok());
+    println!("err.is_err() = {}", err.is_err());
+    
+    println!("ok.ok() = {:?}", ok.ok());
+    println!("err.ok() = {:?}", err.ok());
+    
+    let mapped = SimpleResult::Ok(10).map(|x| x * 2);
+    println!("mapped.ok() = {:?}", mapped.ok());
+    
+    let mapped_err = SimpleResult::Err("error").map(|x: i32| x * 2);
+    println!("mapped_err.is_err() = {}", mapped_err.is_err());
+}</code></pre>
+<p><strong>说明：</strong> 这是标准库 <code>Result&lt;T, E&gt;</code> 的简化实现。<code>matches!</code> 宏可以简洁地匹配枚举变体。<code>map</code> 方法接收一个闭包，只在 <code>Ok</code> 变体上应用，<code>Err</code> 变体保持不变。<code>impl&lt;T, E&gt;</code> 中的泛型参数在整个 impl 块中可见，而 <code>map&lt;U&gt;</code> 引入了额外的泛型参数 <code>U</code>。注意 <code>unwrap</code> 如果直接 panic 使用 <code>{:?}</code> 输出 <code>E</code>，需要 <code>E: Debug</code> 约束，因此可以用单独的 impl 块处理，或者简化 panic 消息。</p>
+</details>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="07_traits.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="09_iterators.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="07_traits.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="09_iterators.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-c22b7243.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

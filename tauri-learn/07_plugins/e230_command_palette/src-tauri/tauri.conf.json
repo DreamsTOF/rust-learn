@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e230_command_palette",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e230",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1650",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 230: 综合: 系统命令面板",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

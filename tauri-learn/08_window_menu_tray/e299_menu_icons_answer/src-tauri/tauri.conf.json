@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e299_menu_icons_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e299_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1719",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 299: 菜单图标 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

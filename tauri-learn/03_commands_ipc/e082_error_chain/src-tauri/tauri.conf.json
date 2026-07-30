@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e082_error_chain",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e082",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1502",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 082: 错误链",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

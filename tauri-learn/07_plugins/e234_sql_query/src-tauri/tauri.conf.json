@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e234_sql_query",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e234",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1654",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 234: 查询数据",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

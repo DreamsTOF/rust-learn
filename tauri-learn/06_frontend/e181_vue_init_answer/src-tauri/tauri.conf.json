@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e181_vue_init_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e181_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1601",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 181: Vue + Tauri 初始化 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

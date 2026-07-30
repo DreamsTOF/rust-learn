@@ -1,0 +1,8 @@
+[package]
+name = "e383_third_party_js"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

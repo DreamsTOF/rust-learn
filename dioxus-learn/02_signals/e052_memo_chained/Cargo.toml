@@ -1,0 +1,8 @@
+[package]
+name = "e052_memo_chained"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

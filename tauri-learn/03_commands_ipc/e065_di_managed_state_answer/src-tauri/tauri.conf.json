@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e065_di_managed_state_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e065_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1485",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 065: 注入 Managed State (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

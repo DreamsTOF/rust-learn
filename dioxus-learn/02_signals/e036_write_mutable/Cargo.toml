@@ -1,0 +1,8 @@
+[package]
+name = "e036_write_mutable"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

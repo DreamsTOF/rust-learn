@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e307_test_integration_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e307_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1727",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 307: 命令集成测试 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

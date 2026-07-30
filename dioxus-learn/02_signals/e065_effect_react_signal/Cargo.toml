@@ -1,0 +1,8 @@
+[package]
+name = "e065_effect_react_signal"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

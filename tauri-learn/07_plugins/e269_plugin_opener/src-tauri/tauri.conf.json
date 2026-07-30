@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e269_plugin_opener",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e269",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1689",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 269: 启动器",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+[package]
+name = "e299_multiple_global_signals"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

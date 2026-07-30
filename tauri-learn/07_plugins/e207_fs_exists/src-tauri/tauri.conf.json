@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e207_fs_exists",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e207",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1627",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 207: 文件存在性检查",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

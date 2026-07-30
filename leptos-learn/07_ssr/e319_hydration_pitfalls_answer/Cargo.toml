@@ -1,0 +1,9 @@
+[package]
+name = "e319_hydration_pitfalls_answer"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+leptos.workspace = true
+rand.workspace = true
+

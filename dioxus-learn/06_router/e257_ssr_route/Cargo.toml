@@ -1,0 +1,8 @@
+[package]
+name = "e257_ssr_route"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

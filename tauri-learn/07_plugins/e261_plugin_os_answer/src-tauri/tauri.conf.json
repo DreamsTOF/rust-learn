@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e261_plugin_os_answer",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e261_answer",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1681",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 261: OS 信息 (答案)",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}

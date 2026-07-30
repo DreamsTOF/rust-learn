@@ -1,0 +1,8 @@
+[package]
+name = "e029_dynamic_tag_name_answer"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+dioxus.workspace = true
+dioxus-logger.workspace = true

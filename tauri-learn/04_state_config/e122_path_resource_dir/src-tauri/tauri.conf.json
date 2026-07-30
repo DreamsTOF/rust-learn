@@ -1,0 +1,21 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "productName": "e122_path_resource_dir",
+  "version": "0.1.0",
+  "identifier": "com.taurilearn.e122",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:1542",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "练习 122: 读取应用资源目录",
+        "width": 800,
+        "height": 600
+      }
+    ]
+  }
+}
