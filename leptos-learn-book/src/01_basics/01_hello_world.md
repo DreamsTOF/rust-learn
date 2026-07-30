@@ -61,25 +61,25 @@ view! {
 > 🚀 **只需一次启动**，即可预览所有练习。
 > 在项目根目录运行：
 > 
-> **终端 1** — 沙箱编译器：
+> **终端 1** — 编译器：
 > ```bash
 > cd leptos-learn/sandbox
 > trunk serve
 > ```
 > 
-> **终端 2** — 在线编辑器（可选）：
+> **终端 2** — 编辑器：
 > ```bash
 > node leptos-learn/sandbox/editor-server.js
 > ```
 > 
-> 然后在浏览器打开 `http://localhost:3002/?e=01` 可在网页上编辑代码并实时查看效果。
-> 或直接打开 `http://localhost:3001/?e=01` 仅查看运行效果。
+> 然后打开 mdbook，下面的 iframe 就是完整的分屏编辑器。
+> 你也可以直接打开 `http://localhost:3002/?e=01` 全屏使用。
 
 ### 练习实时预览
 
 <iframe
-    src="http://localhost:3001/?e=01"
-    style="width:100%; height:350px; border:1px solid #444c56; border-radius: 4px; background:#1a1d23;"
+    src="http://localhost:3002/?e=01"
+    style="width:100%; height:550px; border:1px solid #444c56; border-radius: 4px; background:#0d1117;"
     title="练习 01 实时预览"
 ></iframe>
 
@@ -90,8 +90,8 @@ view! {
 <div>
 
 <iframe
-    src="http://localhost:3001/?e=01_answer"
-    style="width:100%; height:350px; border:1px solid #444c56; border-radius: 4px; background:#1a1d23;"
+    src="http://localhost:3002/?e=01_answer"
+    style="width:100%; height:550px; border:1px solid #444c56; border-radius: 4px; background:#0d1117;"
     title="练习 01 答案实时预览"
 ></iframe>
 
