@@ -66,7 +66,7 @@ use leptos::prelude::*;
 
 // TODO: 使用 #[component] 属性标记此函数为组件
 // 提示: 属性放在 fn 之前，组件名使用 PascalCase
-#[component]
+// #[component]
 fn Exercise() -> impl IntoView {
     // TODO: 在 view! 宏的 <p> 标签中显示 "Hello, Leptos!"
     // 提示: 文本内容用双引号包裹，例如 "文本"
@@ -115,4 +115,45 @@ fn main() {
 }
 ```
 
+</details>
+
+---
+## 在线沙箱
+
+### 练习沙箱
+
+<details class="sandbox">
+<summary>🟡 练习在线沙箱</summary>
+<div>
+<p>在浏览器中直接运行此练习，无需本地环境：</p>
+
+<iframe
+    src="https://codesandbox.io/embed/gitee/DreamTOF_admin/rust-learning/tree/master/leptos-learn/01_basics/e01_hello_world?view=editor+preview&expanddevtools=0&hidenavigation=1&fontsize=14"
+    style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+    title="e01_hello_world-exercise"
+    allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+    sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+<p>也可直接打开：<a href="https://codesandbox.io/s/gitee/DreamTOF_admin/rust-learning/tree/master/leptos-learn/01_basics/e01_hello_world" target="_blank">https://codesandbox.io/s/gitee/DreamTOF_admin/rust-learning/tree/master/leptos-learn/01_basics/e01_hello_world</a></p>
+</div>
+</details>
+
+### 答案沙箱
+
+<details class="sandbox">
+<summary>🟡 答案在线沙箱</summary>
+<div>
+<p>参考答案的在线版本：</p>
+
+<iframe
+    src="https://codesandbox.io/embed/gitee/DreamTOF_admin/rust-learning/tree/master/leptos-learn/01_basics/e01_hello_world_answer?view=editor+preview&expanddevtools=0&hidenavigation=1&fontsize=14"
+    style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+    title="e01_hello_world-answer"
+    allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+    sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+
+<p>也可直接打开：<a href="https://codesandbox.io/s/gitee/DreamTOF_admin/rust-learning/tree/master/leptos-learn/01_basics/e01_hello_world_answer" target="_blank">https://codesandbox.io/s/gitee/DreamTOF_admin/rust-learning/tree/master/leptos-learn/01_basics/e01_hello_world_answer</a></p>
+</div>
 </details>

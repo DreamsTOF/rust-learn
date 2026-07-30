@@ -4,7 +4,7 @@ authors = ["Leptos 教程"]
 language = "zh-CN"
 
 [output.html]
-additional-css = ["./mdbook-admonish.css"]
+additional-css = ["./mdbook-admonish.css", "./sandbox.css"]
 
 [output.html.playground]
 runnable = false
