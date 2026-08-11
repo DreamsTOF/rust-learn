@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E09: 异步命令</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E09: 异步命令</h1>
+      <p class="sub">async fn 命令 → tokio::time::sleep → tokio::time::timeout 超时</p>
+      <div class="card">
+        <div class="field">
+          <label for="message">消息内容</label>
+          <input id="message" type="text" placeholder="你好 Tauri" />
+        </div>
+        <div class="row">
+          <button id="slow-btn">慢速回显（延迟 2000ms）</button>
+          <button id="timeout-btn">超时演示（1s 超时 / 3s 任务）</button>
+        </div>
+        <p id="result" class="status"></p>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

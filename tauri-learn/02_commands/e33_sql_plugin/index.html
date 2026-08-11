@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E33: SQL（sql 插件）</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E33: SQL（sql 插件）</h1>
+      <p class="sub">@tauri-apps/plugin-sql: 建表 / 绑定参数 / select / 事务</p>
+
+      <div class="card">
+        <p class="sub">添加笔记（绑定参数 $1/$2）</p>
+        <div class="row">
+          <input id="note-title" type="text" placeholder="标题" />
+          <input id="note-body" type="text" placeholder="内容" />
+          <button id="add-btn">添加</button>
+        </div>
+        <p id="txn-result" class="status"></p>
+      </div>
+
+      <div class="card">
+        <p class="sub">笔记列表（ORDER BY id DESC）</p>
+        <div class="row">
+          <button id="refresh-btn">刷新列表</button>
+          <button id="commit-btn">事务提交（BEGIN → INSERT → COMMIT）</button>
+          <button id="rollback-btn">事务回滚（BEGIN → INSERT → ROLLBACK）</button>
+        </div>
+        <ul id="note-list" class="checklist" style="margin-top: 0.6rem"></ul>
+      </div>
+
+      <div class="card">
+        <p class="sub">说明</p>
+        <ul class="checklist">
+          <li><span class="badge">1</span>Database.load("sqlite:notes.db")<span class="detail">文件位于 app_config_dir</span></li>
+          <li><span class="badge">2</span>execute 返回受影响行数，select 返回对象数组<span class="detail">$1/$2 绑定参数</span></li>
+          <li><span class="badge">3</span>sql:default 不含 execute 权限<span class="detail">需补 sql:allow-execute</span></li>
+          <li><span class="badge">4</span>提交后列表出现记录；回滚后记录不出现<span class="detail">验证事务</span></li>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,254 @@
+/* ============================================================
+   练习 E42: 主题切换
+   浅色主题变量定义在 :root，深色主题用 [data-theme='dark'] 覆盖。
+   页面所有颜色都通过 var(--xxx) 引用变量，切换主题只需改 data-theme 属性。
+   ============================================================ */
+
+:root {
+  font-family: system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+  color-scheme: light dark;
+
+  /* 浅色主题变量 */
+  --bg: #f5f5f7;
+  --fg: #1d1d1f;
+  --muted: #6e6e73;
+  --card-bg: #ffffff;
+  --card-border: #e5e5ea;
+  --card-shadow: 0 1px 3px rgb(0 0 0 / 6%);
+  /* === 步骤 1: 定义按钮主色变量 ———————————————————————————————— */
+  /* TODO: 补全 --btn-bg 定义（浅色主题的主按钮背景色，如 #4f46e5），
+           并确认下方 button 规则通过 var(--btn-bg) 引用它 */
+  --btn-hover: #4338ca;
+  --btn-secondary-bg: #71717a;
+  --btn-secondary-hover: #52525b;
+  --input-bg: #ffffff;
+  --input-border: #d4d4d8;
+  --input-focus-outline: #c7d2fe;
+  --input-focus-border: #6366f1;
+  --code-bg: #f2f2f4;
+  --divider: #f0f0f2;
+  --ok: #065f46;
+  --err: #b91c1c;
+}
+
+/* 深色主题变量（覆盖同名变量即可，规则无需重复） */
+[data-theme="dark"] {
+  /* === 步骤 2: 定义深色主题背景 —————————————————————————————————— */
+  /* TODO: 补全 --bg 覆盖（深色背景色，如 #161618），
+           深色模式即由该变量覆盖 :root 中的浅色背景 */
+  --fg: #f2f2f4;
+  --muted: #9b9ba1;
+  --card-bg: #1f1f23;
+  --card-border: #333338;
+  --card-shadow: 0 1px 3px rgb(0 0 0 / 40%);
+  --btn-bg: #6366f1;
+  --btn-hover: #818cf8;
+  --btn-secondary-bg: #3f3f46;
+  --btn-secondary-hover: #52525b;
+  --input-bg: #26262b;
+  --input-border: #3f3f46;
+  --input-focus-outline: #4f46e5;
+  --input-focus-border: #818cf8;
+  --code-bg: #2a2a30;
+  --divider: #2e2e34;
+  --ok: #4ade80;
+  --err: #f87171;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--fg);
+  transition: background 0.2s, color 0.2s;
+}
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+h1 {
+  font-size: 1.6rem;
+  margin-bottom: 0.25rem;
+}
+
+h2 {
+  font-size: 1.05rem;
+  margin: 0 0 0.75rem;
+}
+
+.sub {
+  color: var(--muted);
+  margin-top: 0;
+  font-size: 0.92rem;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin-top: 1.25rem;
+  box-shadow: var(--card-shadow);
+}
+
+button {
+  font: inherit;
+  border: none;
+  border-radius: 8px;
+  background: var(--btn-bg);
+  color: #fff;
+  padding: 0.55rem 1.1rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+button:hover {
+  background: var(--btn-hover);
+}
+
+button.secondary {
+  background: var(--btn-secondary-bg);
+}
+
+button.secondary:hover {
+  background: var(--btn-secondary-hover);
+}
+
+input,
+select {
+  font: inherit;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  background: var(--input-bg);
+  color: inherit;
+}
+
+input:focus {
+  outline: 2px solid var(--input-focus-outline);
+  border-color: var(--input-focus-border);
+}
+
+code,
+pre {
+  font-family: "Cascadia Code", Consolas, "Courier New", monospace;
+  background: var(--code-bg);
+  border-radius: 6px;
+}
+
+code {
+  padding: 0.1rem 0.35rem;
+  font-size: 0.88em;
+}
+
+pre {
+  padding: 0.9rem 1rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.checklist li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--divider);
+}
+
+.checklist li:last-child {
+  border-bottom: none;
+}
+
+.badge {
+  width: 1.4rem;
+  height: 1.4rem;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.8rem;
+}
+
+li.ok .badge {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+li.warn .badge {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.detail {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-left: auto;
+  text-align: right;
+}
+
+.status {
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.status.ok {
+  color: var(--ok);
+}
+
+.status.err {
+  color: var(--err);
+}
+
+.field {
+  margin-bottom: 0.85rem;
+}
+
+.field label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+
+.row {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+table.kv {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table.kv th,
+table.kv td {
+  text-align: left;
+  padding: 0.45rem 0.5rem;
+  border-bottom: 1px solid var(--divider);
+  font-size: 0.92rem;
+}
+
+table.kv th {
+  color: var(--muted);
+  font-weight: 500;
+  width: 40%;
+}
+
+table.kv tr:last-child th,
+table.kv tr:last-child td {
+  border-bottom: none;
+}

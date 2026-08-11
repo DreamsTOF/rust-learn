@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E42: 主题切换（答案）</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E42: 主题切换</h1>
+      <p class="sub">CSS 变量 / prefers-color-scheme / matchMedia / localStorage</p>
+
+      <div class="card">
+        <h2>选择主题</h2>
+        <div class="row">
+          <button data-theme-btn="auto">跟随系统</button>
+          <button data-theme-btn="light" class="secondary">浅色</button>
+          <button data-theme-btn="dark" class="secondary">深色</button>
+        </div>
+        <p id="current" class="status"></p>
+      </div>
+
+      <div class="card">
+        <h2>说明</h2>
+        <ul class="checklist">
+          <li>页面颜色全部由 CSS 变量驱动：<code>:root</code> 定义浅色变量，<code>[data-theme='dark']</code> 覆盖为深色</li>
+          <li><code>matchMedia("(prefers-color-scheme: dark)")</code> 检测系统主题</li>
+          <li>「跟随系统」模式下，系统切换深浅色时页面实时跟随（change 事件）</li>
+          <li>选择写入 <code>localStorage</code>：重启应用后仍是上次的选择</li>
+          <li>切换本质是设置 <code>&lt;html&gt;</code> 的 <code>data-theme</code> 属性，无需重新加载页面</li>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

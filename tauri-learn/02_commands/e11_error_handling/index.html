@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E11: 错误处理</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E11: 错误处理</h1>
+      <p class="sub">thiserror 错误枚举 → #[from] 错误链 → map_err / ? 传播</p>
+      <div class="card">
+        <div class="field">
+          <label for="number">输入数字（非法输入将触发 InvalidInput 错误）</label>
+          <input id="number" type="text" placeholder="例如 3.14" />
+        </div>
+        <div class="row">
+          <button id="parse-btn">解析并翻倍</button>
+          <button id="read-btn">读取不存在的文件（触发 Io 错误链）</button>
+        </div>
+        <p id="result" class="status"></p>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

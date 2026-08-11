@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E17: 退出拦截</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E17: 退出拦截</h1>
+      <p class="sub">CloseRequested → prevent_close → 前端确认 → destroy</p>
+      <div class="card">
+        <div class="tip">点击窗口右上角的 X 关闭按钮：后端会先拦截关闭请求并通知前端，弹出"确定要退出吗？"确认框。确认后才会真正退出；取消则窗口保持打开。</div>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

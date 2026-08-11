@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E26: 无边框窗口</title>
+  </head>
+  <body>
+    <!-- === 步骤 1: 让标题栏可拖拽 ———————————————————————————————————— -->
+    <!-- TODO: header 与 span.titlebar-title 都要标 data-tauri-drag-region -->
+    <!-- 提示: <header class="titlebar" data-tauri-drag-region>
+             <span class="titlebar-title" data-tauri-drag-region>练习 E26: 无边框窗口</span> -->
+    <header class="titlebar">
+      <span class="titlebar-title">练习 E26: 无边框窗口</span>
+      <div class="titlebar-buttons">
+        <!-- === 步骤 2: 最小化 / 关闭按钮 ———————————————————————————————————— -->
+        <!-- TODO: 补全两个按钮（id 分别为 min-btn / close-btn），
+                   并标 data-tauri-drag-region="false"（否则点击会触发拖拽） -->
+        <!-- 提示: <button id="min-btn" data-tauri-drag-region="false">—</button>
+                   <button id="close-btn" data-tauri-drag-region="false">✕</button> -->
+      </div>
+    </header>
+    <main>
+      <h1>练习 E26: 无边框窗口</h1>
+      <p class="sub">decorations: false + data-tauri-drag-region 自定义标题栏</p>
+
+      <div class="card">
+        <h3>说明</h3>
+        <ul class="checklist">
+          <li class="ok"><span class="badge">框</span>tauri.conf.json 中 decorations: false，系统标题栏消失</li>
+          <li class="ok"><span class="badge">拖</span>标题栏元素标 data-tauri-drag-region，按住即可拖动窗口</li>
+          <li class="ok"><span class="badge">钮</span>标题栏内按钮必须标 data-tauri-drag-region="false"，否则点击会触发拖拽</li>
+          <li class="ok"><span class="badge">窗</span>最小化 / 关闭按钮调用 getCurrentWindow().minimize() / .close()</li>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

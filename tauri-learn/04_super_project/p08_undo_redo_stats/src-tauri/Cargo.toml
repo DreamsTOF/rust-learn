@@ -1,0 +1,17 @@
+[package]
+name = "p08-undo_redo_stats"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "p08_undo_redo_stats_lib"
+crate-type = ["lib", "cdylib", "staticlib"]
+
+[build-dependencies]
+tauri-build = { workspace = true }
+
+[dependencies]
+tauri = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }

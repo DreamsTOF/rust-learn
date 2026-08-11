@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E44: 内容安全策略</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E44: 内容安全策略（CSP）</h1>
+      <p class="sub">app.security.csp 配置 → WebView 资源加载白名单</p>
+
+      <div class="card">
+        <p class="sub">当前 CSP（来自 tauri.conf.json 的 app.security.csp）</p>
+        <pre id="csp-value">加载中…</pre>
+        <p class="sub" style="margin-top: 0.8rem">
+          说明：本练习版 tauri.conf.json 中 <code>app.security.csp</code> 保持
+          <code>null</code>（未配置）。JSON 不支持注释，所以挖空点放在
+          <code>main.ts</code> / <code>lib.rs</code> 中：
+          完成命令与 invoke 后，这里会显示配置的 CSP 字符串（未配置时提示 null）。
+          对照答案版，把 CSP 字符串配置到 tauri.conf.json 的
+          <code>app.security.csp</code> 后重启应用即可看到变化。
+        </p>
+      </div>
+
+      <div class="card">
+        <p class="sub">内联样式演示（style 属性）</p>
+        <div
+          id="inline-demo"
+          style="background: #eef2ff; color: #3730a3; padding: 0.7rem 1rem; border-radius: 8px"
+        >
+          这个元素的样式写在 style 属性里（内联样式）
+        </div>
+        <p class="sub" style="margin-top: 0.8rem">
+          内联样式受 <code>style-src</code> 指令控制。答案版配置了
+          <code>'unsafe-inline'</code> 所以正常显示；
+          如果 <code>style-src</code> 只有 <code>'self'</code>（无
+          <code>'unsafe-inline'</code>），WebView 会忽略该 style 属性并在控制台输出
+          CSP 违规警告（样式丢失、元素退回默认外观）。
+        </p>
+      </div>
+
+      <div class="card">
+        <p class="sub">CSP 指令逐条解读</p>
+        <!-- TODO: 练习者补全说明卡片（对照答案版 index.html）：
+             逐条解释 default-src / style-src / connect-src / img-src 的含义，
+             以及 connect-src 必须包含 ipc: 与 http://ipc.localhost 才能 invoke 的原因 -->
+        <ul class="checklist">
+          <li>
+            <span class="badge">1</span>
+            <span><code>default-src 'self'</code>：TODO（提示：所有未单独指定的资源默认来源）</span>
+          </li>
+          <li>
+            <span class="badge">2</span>
+            <span><code>style-src 'self' 'unsafe-inline'</code>：TODO（提示：内联样式是否需要、去掉后会发生什么）</span>
+          </li>
+          <li>
+            <span class="badge">3</span>
+            <span><code>connect-src ipc: http://ipc.localhost</code>：TODO（提示：invoke 依赖什么协议）</span>
+          </li>
+          <li>
+            <span class="badge">4</span>
+            <span><code>img-src 'self' asset: http://asset.localhost data:</code>：TODO（提示：asset 协议与 data URI 的用途）</span>
+          </li>
+        </ul>
+        <p class="sub" style="margin-top: 0.8rem">
+          <!-- TODO: 补充"常见误区"说明（提示：connect-src 缺 ipc: 时页面正常但所有 invoke 失败） -->
+        </p>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

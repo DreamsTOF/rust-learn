@@ -1,0 +1,18 @@
+[package]
+name = "e16-setup_hook"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "e16_setup_hook_lib"
+crate-type = ["lib", "cdylib", "staticlib"]
+
+[build-dependencies]
+tauri-build = { workspace = true }
+
+[dependencies]
+tauri = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true }

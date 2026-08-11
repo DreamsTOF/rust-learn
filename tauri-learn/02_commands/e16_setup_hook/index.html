@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E16: setup 钩子</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E16: setup 钩子</h1>
+      <p class="sub">Builder::setup → 异步初始化 → emit 事件 → run_on_main_thread</p>
+      <div class="card">
+        <div class="row">
+          <span>初始化状态：<span id="setup-status" class="status">查询中...</span></span>
+          <button id="refresh-btn">重新查询</button>
+        </div>
+        <p class="sub">应用启动约 1 秒后，后端会广播 init-done 事件，状态自动变为"初始化完成"</p>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

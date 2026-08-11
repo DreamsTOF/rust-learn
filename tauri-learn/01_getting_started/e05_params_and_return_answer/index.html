@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E05: 参数与返回值</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E05: 参数与返回值</h1>
+      <p class="sub">字符串 / 数字 / 布尔 / Vec / 结构体 · serde 序列化</p>
+      <div class="card">
+        <form id="form">
+          <div class="field">
+            <label for="text">文本（String）</label>
+            <input id="text" name="text" type="text" value="Hello Tauri" />
+          </div>
+          <div class="field">
+            <label for="number">数字（i32）</label>
+            <input id="number" name="number" type="number" value="21" />
+          </div>
+          <div class="field">
+            <label><input name="flag" type="checkbox" checked /> 布尔（bool）</label>
+          </div>
+          <div class="field">
+            <label for="items">列表（Vec&lt;String&gt;，逗号分隔）</label>
+            <input id="items" name="items" type="text" value="rust, tauri, vite" />
+          </div>
+          <div class="field">
+            <label>结构体（CalcInput）</label>
+            <div class="row">
+              <input name="a" type="number" value="3" style="width:6rem" />
+              <span>+</span>
+              <input name="b" type="number" value="4" style="width:6rem" />
+            </div>
+          </div>
+          <div class="row">
+            <button type="submit">分析</button>
+          </div>
+        </form>
+        <pre id="output" style="margin-top:1rem"></pre>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

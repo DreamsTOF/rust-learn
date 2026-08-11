@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E14: 可变状态</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E14: 可变状态</h1>
+      <p class="sub">manage() 注入 → State&lt;T&gt; 读取 → Mutex / RwLock 保护</p>
+      <div class="card">
+        <div class="row">
+          <button id="counter-btn">计数 +1（当前 <span id="counter">0</span>）</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="field">
+          <label for="tag-input">新标签</label>
+          <input id="tag-input" type="text" placeholder="例如: tauri" />
+        </div>
+        <div class="row">
+          <button id="add-tag-btn">添加标签</button>
+          <button id="clear-btn">清空全部</button>
+          <button id="refresh-btn">刷新列表</button>
+        </div>
+        <ul id="tag-list" class="checklist"></ul>
+        <p id="result" class="status"></p>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

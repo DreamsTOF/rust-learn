@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E20: 单实例</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E20: 单实例</h1>
+      <p class="sub">single-instance 插件：重复启动被拦截并唤起已有窗口</p>
+      <div class="card">
+        <div class="row">
+          <button id="load-btn">读取实例 ID</button>
+          <span>当前实例 ID：<code id="instance-id">-</code></span>
+        </div>
+        <p id="result" class="status"></p>
+      </div>
+      <div class="card">
+        <h3>如何测试单实例</h3>
+        <ul class="checklist">
+          <li class="ok"><span class="badge">1</span>保持本窗口运行，再执行一次 <code>cargo tauri dev</code>（或直接运行 exe）</li>
+          <li class="ok"><span class="badge">2</span>不会出现第二个窗口，已有窗口被聚焦（set_focus）</li>
+          <li class="ok"><span class="badge">3</span>第一个实例的终端会打印「重复启动被拦截，参数: ...」</li>
+          <li class="ok"><span class="badge">4</span>再次读取实例 ID：仍是首个进程的 ID，证明第二次启动未创建新进程</li>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

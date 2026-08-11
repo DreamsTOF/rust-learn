@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E44: 内容安全策略（答案）</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E44: 内容安全策略（CSP）</h1>
+      <p class="sub">app.security.csp 配置 → WebView 资源加载白名单</p>
+
+      <div class="card">
+        <p class="sub">当前 CSP（来自 tauri.conf.json 的 app.security.csp）</p>
+        <pre id="csp-value">加载中…</pre>
+        <p class="sub" style="margin-top: 0.8rem">
+          说明：前端无法直接读取配置文件，这里通过命令
+          <code>get_csp</code> 读取：<code>app.config().app.security.csp</code>
+          是 <code>Option&lt;Csp&gt;</code>，转成字符串后返回展示。
+        </p>
+      </div>
+
+      <div class="card">
+        <p class="sub">内联样式演示（style 属性）</p>
+        <div
+          id="inline-demo"
+          style="background: #eef2ff; color: #3730a3; padding: 0.7rem 1rem; border-radius: 8px"
+        >
+          这个元素的样式写在 style 属性里（内联样式）
+        </div>
+        <p class="sub" style="margin-top: 0.8rem">
+          内联样式受 <code>style-src</code> 指令控制：答案版配置了
+          <code>'unsafe-inline'</code>，所以正常显示。如果去掉
+          <code>'unsafe-inline'</code>，WebView 会忽略该 style 属性并在控制台输出
+          CSP 违规警告（样式丢失、元素退回默认外观）。
+        </p>
+      </div>
+
+      <div class="card">
+        <p class="sub">CSP 指令逐条解读</p>
+        <ul class="checklist">
+          <li>
+            <span class="badge">1</span>
+            <span><code>default-src 'self'</code>：所有未单独指定的资源默认只允许来自应用自身</span>
+          </li>
+          <li>
+            <span class="badge">2</span>
+            <span>
+              <code>style-src 'self' 'unsafe-inline'</code>：样式表放行自身 + 内联样式。
+              很多 UI 框架（以及本页说明卡片）依赖内联样式，去掉 <code>'unsafe-inline'</code> 后页面样式会大面积失效
+            </span>
+          </li>
+          <li>
+            <span class="badge">3</span>
+            <span>
+              <code>connect-src ipc: http://ipc.localhost</code>：<code>invoke()</code> 通过 ipc
+              协议调用后端命令，这两项缺失会导致所有命令调用失败
+            </span>
+          </li>
+          <li>
+            <span class="badge">4</span>
+            <span><code>img-src 'self' asset: http://asset.localhost data:</code>：图片放行自身 + asset 协议 + base64 data URI</span>
+          </li>
+        </ul>
+        <p class="sub" style="margin-top: 0.8rem">
+          常见误区：<code>connect-src</code> 忘记写 <code>ipc:</code> 与
+          <code>http://ipc.localhost</code> 时，页面照常渲染，但所有
+          <code>invoke</code> 调用都会静默失败并报 CSP 错误，是最难排查的问题之一。
+        </p>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

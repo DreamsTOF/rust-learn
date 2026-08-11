@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E30: 文件系统（fs 插件）</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E30: 文件系统（fs 插件）</h1>
+      <p class="sub">@tauri-apps/plugin-fs: 读写文件 / 列目录 / 元信息 / 文件操作</p>
+
+      <div class="card">
+        <p class="sub">操作目录（appDataDir）</p>
+        <pre id="dir-path">加载中…</pre>
+        <p class="sub" style="margin-top: 0.8rem">
+          说明：<code>fs:default</code> 只允许<strong>读取</strong>应用数据目录；
+          写入/删除/重命名需要 <code>fs:allow-appdata-write-recursive</code>，
+          读取元信息需要 <code>fs:allow-appdata-meta-recursive</code>（见 capabilities/default.json）。
+          其他位置（如桌面、下载）需要扩展 scope，将在 e45 中介绍。
+        </p>
+      </div>
+
+      <div class="card">
+        <p class="sub">读写文本文件（demo.txt）</p>
+        <div class="field">
+          <label for="write-content">写入内容</label>
+          <input id="write-content" type="text" value="你好，fs 插件！" />
+        </div>
+        <div class="row">
+          <button id="write-btn">写入文件</button>
+          <button id="read-btn">读取文件</button>
+          <button id="info-btn">文件信息</button>
+          <button id="exists-btn">判断存在</button>
+        </div>
+        <pre id="file-result" style="margin-top: 0.8rem"></pre>
+      </div>
+
+      <div class="card">
+        <p class="sub">目录列表（readDir）</p>
+        <button id="list-btn">列出目录</button>
+        <ul id="dir-list" class="checklist" style="margin-top: 0.6rem"></ul>
+      </div>
+
+      <div class="card">
+        <p class="sub">文件操作链（一键演示）</p>
+        <p class="sub">
+          copyFile(demo.txt → demo-copy.txt) → rename(demo-copy.txt → demo-renamed.txt)
+          → remove(demo-renamed.txt)
+        </p>
+        <button id="chain-btn">执行操作链</button>
+        <p id="chain-result" class="status"></p>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

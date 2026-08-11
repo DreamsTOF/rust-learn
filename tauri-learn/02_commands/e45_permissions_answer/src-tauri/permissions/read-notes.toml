@@ -1,0 +1,9 @@
+# 自定义 permission 集：identifier 必须写在 [[set]] 段里（不是文件名）
+# permissions 数组只接受 identifier 字符串；scope 收紧在 capabilities 中完成
+[[set]]
+identifier = 'read-notes'
+description = '允许读写笔记目录'
+permissions = [
+  'fs:allow-read-text-file',
+  'fs:allow-write-text-file',
+]

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E37: HTTP 插件（答案）</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E37: HTTP 插件</h1>
+      <p class="sub">fetch GET/POST → Headers → 非 2xx 处理 → connectTimeout 超时 → 错误处理</p>
+
+      <div class="card">
+        <div class="field">
+          <label for="url">URL</label>
+          <input id="url" type="text" value="https://httpbin.org/get" />
+        </div>
+        <div class="row">
+          <button id="get-btn">GET（自定义 Headers）</button>
+          <button id="post-btn" class="secondary">POST（JSON body）</button>
+          <button id="timeout-btn" class="secondary">超时演示（connectTimeout 3s）</button>
+        </div>
+        <p id="result" class="status"></p>
+        <pre id="response">（尚无响应）</pre>
+      </div>
+
+      <div class="card">
+        <h2>说明</h2>
+        <ul class="checklist">
+          <li>GET 默认请求 <code>https://httpbin.org/get</code>；POST 自动改用 <code>/post</code></li>
+          <li>非 2xx 演示：把 URL 改为 <code>https://httpbin.org/status/404</code> 后点 GET，显示 <code>HTTP 404</code></li>
+          <li>超时演示：v2 用 <code>connectTimeout</code>（毫秒，仅连接阶段）；<code>timeout</code>/<code>readTimeout</code> 是 v1 字段</li>
+          <li>错误处理是本题知识点：网络不可达、超时、URL 不在 scope 内都会走到 catch</li>
+          <li>URL scope 在 capabilities 中配置（当前允许全部 http/https）</li>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

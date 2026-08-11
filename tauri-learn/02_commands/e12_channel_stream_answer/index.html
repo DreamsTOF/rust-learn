@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E12: Channel 流式传输</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E12: Channel 流式传输</h1>
+      <p class="sub">Channel::new → send 推送 → onmessage 前端消费</p>
+      <div class="card">
+        <div class="row">
+          <button id="progress-btn">启动进度流（0 → 100%）</button>
+          <button id="stream-btn">启动消息流（5 条）</button>
+        </div>
+        <div class="progress-track">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+        <p class="row"><span id="progress-text">0%</span></p>
+        <ul id="stream-list" class="checklist"></ul>
+        <p id="result" class="status"></p>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

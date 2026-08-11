@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E38: OS 与 Opener（答案）</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E38: OS 与 Opener</h1>
+      <p class="sub">platform/version/arch/type/family → openUrl → revealItemInDir</p>
+
+      <div class="card">
+        <h2>系统信息</h2>
+        <table class="kv" id="os-table">
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>Opener 操作</h2>
+        <div class="row">
+          <button id="open-btn">打开 URL（默认浏览器）</button>
+          <button id="reveal-btn" class="secondary">在资源管理器中显示文件</button>
+        </div>
+        <p id="result" class="status"></p>
+      </div>
+
+      <div class="card">
+        <h2>说明</h2>
+        <ul class="checklist">
+          <li><code>platform()</code> / <code>type()</code> / <code>arch()</code> / <code>version()</code> / <code>family()</code> 均为同步 API</li>
+          <li><code>type</code> 与 TS 关键字重名，导入时重命名为 <code>type as osType</code></li>
+          <li><code>openUrl(url)</code> 用系统默认浏览器打开；<code>revealItemInDir(path)</code> 在资源管理器中定位文件</li>
+          <li>「显示文件」演示 appDataDir 下不存在的 <code>reveal-demo.txt</code>，Windows 会打开其所在目录</li>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

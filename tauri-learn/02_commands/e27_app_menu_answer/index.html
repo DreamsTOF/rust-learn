@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E27: 应用菜单（答案）</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E27: 应用菜单</h1>
+      <p class="sub">Menu / Submenu / MenuItem / CheckMenuItem / 快捷键 / on_menu_event</p>
+
+      <div class="card">
+        <h3>说明</h3>
+        <ul class="checklist">
+          <li class="ok"><span class="badge">快</span>快捷键：Ctrl+N 新建 / Ctrl+O 打开 / Ctrl+Q 退出</li>
+          <li class="ok"><span class="badge">勾</span>「深色模式」是 CheckMenuItem，勾选状态由系统自动切换</li>
+          <li class="ok"><span class="badge">线</span>PredefinedMenuItem::separator 插入分隔线</li>
+          <li class="ok"><span class="badge">事</span>菜单点击 / 快捷键都会触发 on_menu_event，按 id 分发</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>最近菜单动作</h3>
+        <ul id="action-list" class="checklist"></ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

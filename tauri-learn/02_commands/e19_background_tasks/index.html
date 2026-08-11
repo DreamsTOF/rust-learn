@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E19: 后台任务</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E19: 后台任务</h1>
+      <p class="sub">async_runtime::spawn / spawn_blocking / 任务完成结果事件回传</p>
+      <div class="card">
+        <div class="row">
+          <button id="async-btn">启动异步任务（3 秒）</button>
+          <button id="blocking-btn">启动阻塞任务（1..=100 平方和）</button>
+        </div>
+        <p id="result" class="status"></p>
+        <ul id="task-list" class="checklist"></ul>
+      </div>
+      <div class="card">
+        <h3>spawn 与 spawn_blocking</h3>
+        <ul class="checklist">
+          <li class="ok"><span class="badge">A</span>spawn：异步任务不阻塞 UI，适合 IO 等待（如 sleep）</li>
+          <li class="ok"><span class="badge">B</span>spawn_blocking：在独立线程池执行，适合 CPU 密集计算</li>
+          <li class="ok"><span class="badge">C</span>任务完成后通过事件（emit）把结果回传给前端</li>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

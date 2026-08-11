@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E36: 剪贴板</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E36: 剪贴板</h1>
+      <p class="sub">writeText 写入 → readText 读取 → clear 清空</p>
+
+      <div class="card">
+        <div class="field">
+          <label for="text">要写入剪贴板的内容</label>
+          <input id="text" type="text" placeholder="例如: 你好，Tauri 剪贴板" />
+        </div>
+        <div class="row">
+          <button id="write-btn">写入剪贴板</button>
+          <button id="read-btn" class="secondary">读取剪贴板</button>
+          <button id="clear-btn" class="secondary">清空剪贴板</button>
+        </div>
+        <p id="result" class="status"></p>
+      </div>
+
+      <div class="card">
+        <h2>当前剪贴板内容</h2>
+        <pre id="clipboard">（尚未读取）</pre>
+      </div>
+
+      <div class="card">
+        <h2>说明</h2>
+        <ul class="checklist">
+          <li>写入后可在其他应用（如记事本）中 Ctrl+V 粘贴验证</li>
+          <li><code>writeText(text)</code> 写入文本；<code>readText()</code> 读取文本；<code>clear()</code> 清空</li>
+          <li>本练习全程前端实现，Rust 侧只负责注册插件</li>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

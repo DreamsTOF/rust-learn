@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E43: 静态资源</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E43: 静态资源</h1>
+      <p class="sub">public/ 静态资源 / import 引用 / asset 协议 / resource 目录</p>
+
+      <div class="card">
+        <h2>public/ 目录资源</h2>
+        <!-- === 步骤 1: 引用 public 目录资源 —————————————————————————————— -->
+        <!-- TODO: 补全 <img> 的 src="/tauri-logo.svg"
+                   （public/ 下的资源用 / 路径直接引用，打包时原样复制到 dist） -->
+        <img class="logo" src="" alt="Tauri Logo" />
+        <p>文件位于 <code>public/tauri-logo.svg</code>，用 <code>src="/tauri-logo.svg"</code> 直接引用</p>
+      </div>
+
+      <div class="card">
+        <h2>resource 目录</h2>
+        <div class="row">
+          <button id="resource-btn">查看 resource 目录</button>
+        </div>
+        <p id="result" class="status"></p>
+      </div>
+
+      <div class="card">
+        <h2>说明：三种资源使用方式</h2>
+        <ul class="checklist">
+          <li><code>public/</code>：原样复制到 dist，直接 <code>/路径</code> 引用（适合静态文件）</li>
+          <li><code>src/assets/</code>：需 import 引用，打包时自动带内容 hash：
+            <pre>import logo from "./assets/logo.svg";
+&lt;img src={logo} /&gt;</pre>
+          </li>
+          <li>大文件/动态文件（如用户选择的文件）用 asset 协议：
+            <pre>import { convertFileSrc } from "@tauri-apps/api/core";
+const url = convertFileSrc(filePath); // 磁盘路径 → asset:// URL
+&lt;img src={url} /&gt;</pre>
+          </li>
+          <li>resource 目录是打包后存放额外资源的位置，运行时用 <code>app.path().resource_dir()</code> 获取</li>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

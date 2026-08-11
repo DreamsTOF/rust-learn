@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E24: 创建与操作窗口（答案）</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E24: 创建与操作窗口</h1>
+      <p class="sub">WebviewWindowBuilder 建窗 / set_position / set_size / center / 显隐切换</p>
+
+      <!-- 主窗口 UI -->
+      <div id="main-ui" style="display: none">
+        <div class="card">
+          <h3>操控 ops 窗口</h3>
+          <div class="row">
+            <button id="spawn-btn">打开 ops 窗口</button>
+            <button id="move-btn">移动到 (150, 120)</button>
+            <button id="resize-btn">放大到 700x500</button>
+            <button id="center-btn">居中</button>
+            <button id="toggle-btn">显示 / 隐藏切换</button>
+            <button id="close-btn">关闭 ops 窗口</button>
+          </div>
+          <p id="result" class="status"></p>
+        </div>
+        <div class="card">
+          <h3>说明</h3>
+          <ul class="checklist">
+            <li class="ok"><span class="badge">建</span>spawn_ops_window：已存在 'ops' 窗口时直接 set_focus，不重复创建</li>
+            <li class="ok"><span class="badge">移</span>set_position / set_size：用 PhysicalPosition / PhysicalSize 指定像素坐标与尺寸</li>
+            <li class="ok"><span class="badge">居</span>center() 让窗口回到屏幕中央；is_visible() 判断后 hide / show</li>
+            <li class="ok"><span class="badge">关</span>close() 会销毁窗口，之后可再次创建</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ops 窗口 UI -->
+      <div id="ops-ui" style="display: none">
+        <div class="card">
+          <h3>我是 ops 窗口</h3>
+          <p class="sub">通过主窗口的按钮可以移动、缩放、居中、隐藏或关闭我</p>
+          <ul class="checklist">
+            <li class="ok"><span class="badge">标</span>本窗口 label 为 "ops"，与主窗口共用 index.html</li>
+            <li class="ok"><span class="badge">隐</span>被隐藏后，主窗口「显示 / 隐藏切换」可再次显示</li>
+            <li class="ok"><span class="badge">关</span>被关闭后窗口销毁，主窗口「打开 ops 窗口」可重新创建</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

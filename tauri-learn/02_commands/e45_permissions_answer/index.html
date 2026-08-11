@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E45: 权限系统（答案）</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E45: 权限系统（permissions）</h1>
+      <p class="sub">capabilities + 自定义 permission + scope 通配</p>
+
+      <div class="card">
+        <p class="sub">笔记目录（appDataDir）</p>
+        <pre id="notes-dir">加载中…</pre>
+      </div>
+
+      <div class="card">
+        <p class="sub">读写笔记（scope 内操作）</p>
+        <div class="field">
+          <label for="note-content">笔记内容</label>
+          <input id="note-content" type="text" value="这是一条来自权限范围内的笔记" />
+        </div>
+        <div class="row">
+          <button id="write-btn">写笔记</button>
+          <button id="read-btn">读笔记</button>
+          <button id="rogue-btn">越权读取 C:/Windows/win.ini</button>
+        </div>
+        <pre id="result" style="margin-top: 0.8rem"></pre>
+        <p class="sub" style="margin-top: 0.8rem">
+          教学点：越权按钮的目标路径 <code>C:/Windows/win.ini</code> 不在
+          <code>$APPDATA/notes/**</code> 允许范围内，插件会直接拒绝——
+          错误信息会包含 "path not allowed"。
+        </p>
+      </div>
+
+      <div class="card">
+        <p class="sub">这套权限是怎么组织的</p>
+        <ul class="checklist">
+          <li>
+            <span class="badge">1</span>
+            <span>
+              <strong>capabilities/default.json</strong>：声明窗口 <code>main</code> 拥有哪些权限，
+              这里引用 <code>core:default</code> + 自定义的 <code>read-notes</code>
+            </span>
+          </li>
+          <li>
+            <span class="badge">2</span>
+            <span>
+              <strong>permissions/read-notes.toml</strong>：自定义 permission 文件，
+              identifier 写在 <code>[[set]]</code> 段里（这里是 <code>read-notes</code>）；
+              内部以字符串列表引用插件的两个 permission
+              （自定义 permission 文件不支持 allow 对象，scope 收紧在 capability 中做）
+            </span>
+          </li>
+          <li>
+            <span class="badge">3</span>
+            <span>
+              <strong>scope 收紧</strong>：capability 中以
+              <code>{"identifier": "fs:allow-read-text-file", "allow": [{"path": "$APPDATA/notes/**"}]}</code>
+              形式追加允许路径。<code>$APPDATA</code> 是应用数据目录变量，<code>**</code> 匹配任意子路径；
+              不加 allow 时该 permission 的 scope 为空，任何路径都会被拒
+            </span>
+          </li>
+          <li>
+            <span class="badge">4</span>
+            <span>
+              <strong>最小权限</strong>：没有用 <code>fs:default</code>（它放开整个
+              appData 目录），而是只放行 <code>read/write-text-file</code> 且仅限
+              <code>notes/**</code>——越权演示证明目录外路径一律被拒
+            </span>
+          </li>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

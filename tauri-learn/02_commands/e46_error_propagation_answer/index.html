@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E46: 自定义错误传播（答案）</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E46: 自定义错误传播</h1>
+      <p class="sub">thiserror 错误枚举 + 错误码 → 前端按 code 分类处理</p>
+
+      <div class="card">
+        <p class="sub">触发后端错误（risky_operation）</p>
+        <div class="row">
+          <button id="ok-btn">成功（ok）</button>
+          <button id="bad-btn">参数错误（bad）</button>
+          <button id="missing-btn">未找到（missing）</button>
+          <button id="boom-btn">内部错误（boom）</button>
+        </div>
+        <div id="error-area" class="row" style="margin-top: 0.8rem"></div>
+        <p class="sub" style="margin-top: 0.8rem">
+          前端统一通过 <code>invokeWithError</code> 调用：catch 到错误后直接读
+          <code>err.code</code> 分类展示（400 参数错误 / 404 未找到 / 500 服务异常），
+          不再需要解析错误字符串。
+        </p>
+      </div>
+
+      <div class="card">
+        <p class="sub">这套链路是怎么工作的</p>
+        <ul class="checklist">
+          <li>
+            <span class="badge">1</span>
+            <span>
+              <strong>Rust 侧</strong>：<code>#[derive(thiserror::Error)]</code> 枚举定义错误变体，
+              <code>Display</code> 消息即 <code>#[error(...)]</code> 内容
+            </span>
+          </li>
+          <li>
+            <span class="badge">2</span>
+            <span>
+              <strong>错误码</strong>：<code>AppError::code()</code> 把变体映射为
+              HTTP 风格错误码（400/404/500）
+            </span>
+          </li>
+          <li>
+            <span class="badge">3</span>
+            <span>
+              <strong>自定义 Serialize</strong>：命令返回 <code>Result&lt;T, AppError&gt;</code> 时，
+              Tauri 要求错误类型实现 <code>Serialize</code>；这里把枚举序列化为
+              <code>{"code": 400, "message": "无效输入: ..."}</code> 对象
+            </span>
+          </li>
+          <li>
+            <span class="badge">4</span>
+            <span>
+              <strong>前端分类</strong>：catch 到的对象带 <code>code</code> 字段，
+              映射为中文提示，避免前端猜测错误字符串
+            </span>
+          </li>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

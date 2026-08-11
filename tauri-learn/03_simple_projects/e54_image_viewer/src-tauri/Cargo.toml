@@ -1,0 +1,17 @@
+[package]
+name = "e54-image_viewer"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "e54_image_viewer_lib"
+crate-type = ["lib", "cdylib", "staticlib"]
+
+[build-dependencies]
+tauri-build = { workspace = true }
+
+[dependencies]
+tauri = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }

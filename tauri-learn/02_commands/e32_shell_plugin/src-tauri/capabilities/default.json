@@ -1,0 +1,16 @@
+{
+  "identifier": "default",
+  "description": "Default capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "shell:allow-execute",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        { "name": "echo", "cmd": "echo", "args": true },
+        { "name": "cmd", "cmd": "cmd", "args": true }
+      ]
+    }
+  ]
+}

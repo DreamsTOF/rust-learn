@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E35: 通知</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E35: 通知</h1>
+      <p class="sub">权限检查/请求 → sendNotification → onAction 监听点击</p>
+
+      <div class="card">
+        <div class="row">
+          <span id="permission-badge" class="status"></span>
+          <button id="request-btn" class="secondary">请求权限</button>
+          <button id="send-btn">发送通知</button>
+        </div>
+        <div class="row" style="margin-top: 0.85rem">
+          <div class="field" style="flex: 1; margin-bottom: 0">
+            <label for="title">标题</label>
+            <input id="title" type="text" placeholder="Tauri 通知" />
+          </div>
+          <div class="field" style="flex: 1; margin-bottom: 0">
+            <label for="body">正文</label>
+            <input id="body" type="text" placeholder="这是一条来自 Tauri 的通知" />
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>通知点击回调日志（onAction）</h2>
+        <pre id="log">等待操作...\n</pre>
+      </div>
+
+      <div class="card">
+        <h2>说明</h2>
+        <ul class="checklist">
+          <li>Windows 上通知显示在系统通知中心（Win + N 可查看）</li>
+          <li>发送前需先检查/请求权限：<code>isPermissionGranted()</code> → <code>requestPermission()</code></li>
+          <li><code>onAction</code> 回调收到通知对象（含 title/body）；点击通知后前端显示「通知被点击」</li>
+          <li>旧版 onAction 回调带 <code>{ type: 'clicked' }</code> 字段，新版已改为通知对象</li>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,11 +1,11 @@
- {
-   "name": "tauri-learn-workspace",
-   "private": true,
-   "scripts": {
-     "new-exercise": "powershell scripts/new-exercise.ps1",
-     "dev": "echo 'Use cd into an exercise directory and run pnpm dev there'"
-   },
-   "engines": {
-     "node": ">=18"
-   }
- }
+{
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tauri v2 练习项目（84 练习 × 练习/答案 = 168 个项目）",
+  "name": "tauri-learn",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}

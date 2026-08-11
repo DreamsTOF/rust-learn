@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E47: 打包发布</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E47: 打包发布（packaging）</h1>
+      <p class="sub">tauri build 多平台产物 / 图标 / 体积优化</p>
+
+      <div class="card">
+        <p class="sub">当前应用打包元信息（bundle_info 命令）</p>
+        <table class="kv">
+          <tbody id="info-body">
+            <tr><th>加载中…</th><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <p class="sub">各平台打包产物</p>
+        <ul class="checklist">
+          <li>
+            <span class="badge">W</span>
+            <span>Windows：<code>MSI</code>（WiX 安装包）/ <code>NSIS</code>（exe 安装程序）</span>
+          </li>
+          <li>
+            <span class="badge">L</span>
+            <span>Linux：<code>AppImage</code> / <code>deb</code> / <code>rpm</code>（按发行版选择）</span>
+          </li>
+          <li>
+            <span class="badge">M</span>
+            <span>macOS：<code>DMG</code> / <code>AppBundle</code>（.app 目录）</span>
+          </li>
+          <li>
+            <span class="badge">→</span>
+            <span><code>tauri build</code> 默认只打当前平台；<code>--target</code> 交叉编译需要安装对应工具链</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <p class="sub">图标与体积优化</p>
+        <ul class="checklist">
+          <li>
+            <span class="badge">1</span>
+            <span><code>cargo tauri icon &lt;图片&gt;</code> 一张源图生成全套图标（回顾 E08）</span>
+          </li>
+          <li>
+            <span class="badge">2</span>
+            <span>
+              release profile 优化：<code>lto</code> / <code>codegen-units = 1</code> / <code>strip</code>
+              （可放在 workspace 根 <code>.cargo/config.toml</code> 统一生效）
+            </span>
+          </li>
+          <li>
+            <span class="badge">3</span>
+            <span>前端产物：vite build 压缩、按需引入依赖，控制 dist 体积</span>
+          </li>
+          <li>
+            <span class="badge">4</span>
+            <span>包名规范：<code>productName</code> 不含下划线（Windows 打包对下划线不友好）</span>
+          </li>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

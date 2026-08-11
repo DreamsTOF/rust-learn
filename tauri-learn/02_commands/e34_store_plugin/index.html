@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E34: Store 插件</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E34: Store 插件</h1>
+      <p class="sub">load → set/get/has/delete → save 持久化 → onChange 监听变化</p>
+
+      <div class="card">
+        <div class="row">
+          <div class="field" style="flex: 1">
+            <label for="key">Key</label>
+            <input id="key" type="text" placeholder="例如 theme" />
+          </div>
+          <div class="field" style="flex: 1">
+            <label for="value">Value</label>
+            <input id="value" type="text" placeholder="例如 dark" />
+          </div>
+        </div>
+        <div class="row">
+          <button id="set-btn">set + save（写入并持久化）</button>
+          <button id="get-btn">get（读取）</button>
+          <button id="has-btn">has（判断存在）</button>
+          <button id="delete-btn">delete + save（删除）</button>
+        </div>
+        <p id="result" class="status"></p>
+      </div>
+
+      <div class="card">
+        <h2>操作日志（onChange 监听）</h2>
+        <pre id="log">等待操作...\n</pre>
+      </div>
+
+      <div class="card">
+        <h2>说明</h2>
+        <ul class="checklist">
+          <li>store 文件保存在 <code>app_data_dir/settings.json</code>（Windows: <code>%APPDATA%\{identifier}\settings.json</code>）</li>
+          <li>加载时传入 <code>autoSave: false</code>，修改后必须手动 <code>save()</code> 才会写盘</li>
+          <li>数据持久化：重启应用后数据仍在（get 可读回）</li>
+          <li>v2.2+ 中监听变化的 API 由 <code>watch</code> 更名为 <code>onChange</code>（按 key 监听用 <code>onKeyChange</code>）</li>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

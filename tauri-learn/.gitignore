@@ -1,23 +1,28 @@
- # Rust
- target/
- Cargo.lock
- 
- # Frontend
- node_modules/
- dist/
- 
- # Tauri
- src-tauri/gen/
- 
- # IDE
- .idea/
- *.swp
- *.swo
- *~
- 
- # OS
- .DS_Store
- Thumbs.db
- 
- # Build artifacts
- *.log
+# Rust
+target/
+Cargo.lock
+
+# Frontend
+node_modules/
+dist/
+
+# Tauri
+# 注意：src-tauri/gen/ 含中间分隔符，只匹配 .gitignore 所在目录下一层；
+# 用 **/ 前缀确保匹配所有练习目录下的 gen/（自动生成的权限 schema）
+**/src-tauri/gen/
+
+# 图标生成缓存（scripts 工具用，非源码）
+**/.icon-cache/
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.log

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E03: 运行与构建</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E03: 运行与构建</h1>
+      <p class="sub">tauri dev（开发）与 tauri build（构建）的加载源差异</p>
+      <div class="card">
+        <table class="kv">
+          <tr><th>devUrl（dev 模式加载源）</th><td><code id="dev-url">…</code></td></tr>
+          <tr><th>frontendDist（构建产物目录）</th><td><code id="frontend-dist">…</code></td></tr>
+          <tr><th>identifier</th><td><code id="identifier">…</code></td></tr>
+          <tr><th>productName</th><td><code id="product-name">…</code></td></tr>
+        </table>
+        <p class="sub" style="margin-top:1rem">
+          以上配置均来自 <code>tauri.conf.json</code>，由后端命令读取后返回。
+        </p>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

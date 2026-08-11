@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E39: 全局快捷键（答案）</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E39: 全局快捷键</h1>
+      <p class="sub">global-shortcut 插件 / register / unregister / 事件回调</p>
+
+      <div class="card">
+        <h2>快捷键管理</h2>
+        <div class="field">
+          <label for="combo">组合键（如 Ctrl+Shift+Space）</label>
+          <input id="combo" type="text" value="Ctrl+Shift+Space" />
+        </div>
+        <div class="row">
+          <button id="register-btn">注册</button>
+          <button id="unregister-btn" class="secondary">注销</button>
+          <button id="check-btn" class="secondary">查询状态</button>
+        </div>
+        <p id="status" class="status"></p>
+      </div>
+
+      <div class="card">
+        <h2>按下日志</h2>
+        <div id="log" class="log"></div>
+      </div>
+
+      <div class="card">
+        <h2>说明</h2>
+        <ul class="checklist">
+          <li>全局快捷键在应用失焦时仍生效——注册后切到其他窗口试试</li>
+          <li>与系统或其他应用冲突的快捷键会注册失败（错误信息会展示在上方）</li>
+          <li>后端 <code>with_handler</code> 回调收到 Pressed 事件后，用 <code>app.emit</code> 广播给前端</li>
+          <li>组合键写法：修饰键 + 按键，如 <code>Ctrl+Shift+Space</code>、<code>Alt+1</code>、<code>CmdOrCtrl+P</code></li>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

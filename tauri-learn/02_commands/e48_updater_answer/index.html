@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E48: 自动更新（答案）</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E48: 自动更新（updater）</h1>
+      <p class="sub">tauri-plugin-updater：版本检查 → 下载 → 安装 → 重启</p>
+
+      <div class="card">
+        <p class="sub">检查更新（check_update 命令）</p>
+        <div class="row">
+          <button id="check-btn">检查更新</button>
+        </div>
+        <pre id="result" style="margin-top: 0.8rem"></pre>
+        <p class="sub" style="margin-top: 0.8rem">
+          本练习没有真实更新源（endpoints 指向 example.com），预期显示检查失败的错误——
+          错误信息本身就是教学点：生产环境需要自建更新服务器并提供
+          <code>latest.json</code> + 对应平台的安装包与签名。
+        </p>
+      </div>
+
+      <div class="card">
+        <p class="sub">更新流程与配置</p>
+        <ul class="checklist">
+          <li>
+            <span class="badge">1</span>
+            <span>
+              <strong>更新流程</strong>：检查版本 → 发现新版本 → 下载安装包 → 校验签名 →
+              安装 → 重启应用
+            </span>
+          </li>
+          <li>
+            <span class="badge">2</span>
+            <span>
+              <strong>endpoints 模板变量</strong>：<code>{{target}}</code>（平台目标）、
+              <code>{{arch}}</code>（架构）、<code>{{current_version}}</code>（当前版本），
+              请求时会自动替换
+            </span>
+          </li>
+          <li>
+            <span class="badge">3</span>
+            <span>
+              <strong>pubkey 签名验证</strong>：更新包必须用对应私钥签名（minisign），
+              未签名或签名不匹配的更新会被拒绝
+            </span>
+          </li>
+          <li>
+            <span class="badge">4</span>
+            <span>
+              <strong>配置位置</strong>：<code>plugins.updater</code> 段在
+              tauri.conf.json 中（pubkey / endpoints）；命令通过
+              <code>app.updater()</code>（UpdaterExt trait）获取实例
+            </span>
+          </li>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

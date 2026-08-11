@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E22: 窗口级事件</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E22: 窗口级事件</h1>
+      <p class="sub">emit_to 定向发送 / 窗口级 vs 全局事件 / 多窗口同页面</p>
+
+      <!-- 主窗口 UI -->
+      <div id="main-ui" style="display: none">
+        <div class="card">
+          <div class="row">
+            <button id="open-chat-btn">开聊天窗</button>
+          </div>
+          <div class="field">
+            <label for="msg-input">消息内容</label>
+            <input id="msg-input" type="text" placeholder="hello" />
+          </div>
+          <div class="row">
+            <button id="to-main-btn">定向发给主窗</button>
+            <button id="to-chat-btn">定向发给聊天窗</button>
+            <button id="to-all-btn">广播给全部</button>
+          </div>
+          <p id="result" class="status"></p>
+          <h3>收到的事件（标注来源）</h3>
+          <ul id="msg-list" class="checklist"></ul>
+        </div>
+        <div class="card">
+          <h3>全局 vs 窗口级事件</h3>
+          <ul class="checklist">
+            <li class="ok"><span class="badge">窗</span>窗口级（emit_to + getCurrentWindow().listen）：只有定向的目标窗口收到</li>
+            <li class="ok"><span class="badge">全</span>全局（emit + listen）：所有窗口都收到</li>
+            <li class="ok"><span class="badge">试</span>「定向发给聊天窗」→ 主窗列表不增加；「广播给全部」→ 两窗都增加</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- chat 窗口 UI（同页面，按 label 切换） -->
+      <div id="chat-ui" style="display: none">
+        <div class="card">
+          <h3>事件接收窗（chat）</h3>
+          <p class="sub">只收到定向发给 chat 的事件与全局广播</p>
+          <ul id="msg-list" class="checklist"></ul>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

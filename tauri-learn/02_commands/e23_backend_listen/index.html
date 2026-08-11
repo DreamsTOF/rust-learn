@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E23: 后端监听</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E23: 后端监听</h1>
+      <p class="sub">app.handle().listen 监听事件 → 解析 payload → emit_to 转发回窗口</p>
+      <div class="card">
+        <div class="field">
+          <label for="msg-input">消息内容</label>
+          <input id="msg-input" type="text" placeholder="hello backend" />
+        </div>
+        <div class="row">
+          <button id="ping-a-btn">发 ping-a</button>
+          <button id="ping-b-btn">发 ping-b</button>
+        </div>
+        <p id="result" class="status"></p>
+        <h3>后端回应（pong）</h3>
+        <ul id="pong-list" class="checklist"></ul>
+      </div>
+      <div class="card">
+        <h3>事件链路</h3>
+        <p class="sub">按钮 → 命令 emit ping-a/ping-b → 后端 listen 收到并打印到终端 → emit_to 主窗口 pong → 前端 listen 展示</p>
+        <p class="sub">注意：payload 是 JSON 字符串（带引号），后端用 event.payload().to_string() 解析</p>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

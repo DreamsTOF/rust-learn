@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E32: Shell（shell 插件）</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E32: Shell（shell 插件）</h1>
+      <p class="sub">@tauri-apps/plugin-shell: Command.create + execute，stdout/stderr/超时/scope</p>
+
+      <div class="card">
+        <p class="sub">命令演示（Windows）</p>
+        <div class="row">
+          <button id="echo-btn">echo 正常输出</button>
+          <button id="stderr-btn">stderr 演示（1&gt;&amp;2）</button>
+          <button id="timeout-btn">超时演示（2 秒）</button>
+          <button id="denied-btn">未授权命令</button>
+        </div>
+        <pre id="result" style="margin-top: 0.8rem">等待操作…</pre>
+      </div>
+
+      <div class="card">
+        <p class="sub">说明</p>
+        <ul class="checklist">
+          <li><span class="badge">1</span>execute() 返回 { code, stdout, stderr }<span class="detail">Promise</span></li>
+          <li><span class="badge">2</span>execute({ timeout }) 超时后命令被终止并抛错<span class="detail">毫秒</span></li>
+          <li><span class="badge">3</span>scope 白名单：仅 echo / cmd 被允许<span class="detail">capabilities</span></li>
+          <li><span class="badge">4</span>超时用 ping 模拟（timeout 命令在重定向 stdin 下会立即退出）<span class="detail">约 4 秒</span></li>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

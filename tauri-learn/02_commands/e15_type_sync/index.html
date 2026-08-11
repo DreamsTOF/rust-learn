@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E15: 前后端类型同步</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E15: 前后端类型同步</h1>
+      <p class="sub">TS 接口 ↔ invoke&lt;T&gt; 泛型 ↔ serde 序列化</p>
+      <div class="card">
+        <div class="row">
+          <button id="fetch-btn">获取用户资料（userId = 1）</button>
+        </div>
+        <pre id="profile-json"></pre>
+        <p id="result" class="status"></p>
+        <p class="sub">Rust snake_case ↔ JS camelCase 自动转换：user_id → userId、display_name → displayName</p>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

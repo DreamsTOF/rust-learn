@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E28: 系统托盘</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E28: 系统托盘</h1>
+      <p class="sub">TrayIconBuilder / 托盘菜单与事件 / 关闭时隐藏到托盘</p>
+
+      <div class="card">
+        <h3>交互说明</h3>
+        <ul class="checklist">
+          <li class="ok"><span class="badge">关</span>点窗口右上角 X = 隐藏到托盘（CloseRequested 拦截），应用不退出</li>
+          <li class="ok"><span class="badge">左</span>左键单击托盘图标：恢复并聚焦主窗口</li>
+          <li class="ok"><span class="badge">右</span>右键托盘图标菜单：显示主窗口 / 退出</li>
+          <li class="ok"><span class="badge">退</span>「退出应用」按钮调用 quit_app 命令真正退出</li>
+        </ul>
+        <div class="row">
+          <button id="quit-btn">退出应用</button>
+        </div>
+        <p id="result" class="status"></p>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

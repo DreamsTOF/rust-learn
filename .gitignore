@@ -13,6 +13,10 @@
 **/.trae/
 .vscode/
 **/.vscode/
+.codegraph/
+**/.codegraph/
+.cursor/
+**/.cursor/
 
 # Backup and temp files
 *.bak
@@ -31,3 +35,4 @@ Thumbs.db
 node_modules/
 **/node_modules/
 nul
+

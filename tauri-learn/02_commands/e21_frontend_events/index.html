@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E21: 前端事件</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E21: 前端事件</h1>
+      <p class="sub">listen（多次接收）/ once（一次性）/ unlisten（取消）/ 类型化 payload</p>
+      <div class="card">
+        <div class="field">
+          <label for="msg-input">消息内容</label>
+          <input id="msg-input" type="text" placeholder="你好，事件！" />
+        </div>
+        <div class="row">
+          <button id="custom-btn">发普通事件</button>
+          <button id="once-btn">发一次性事件</button>
+          <button id="unlisten-btn">停止监听</button>
+        </div>
+        <p id="result" class="status"></p>
+        <h3>普通事件（可多次接收）</h3>
+        <ul id="custom-list" class="checklist"></ul>
+        <h3>一次性事件（只收一次）</h3>
+        <ul id="once-list" class="checklist"></ul>
+      </div>
+      <div class="card">
+        <h3>玩法说明</h3>
+        <ul class="checklist">
+          <li class="ok"><span class="badge">1</span>连点「发普通事件」多次 → custom-event 每次都被收到</li>
+          <li class="ok"><span class="badge">2</span>连点「发一次性事件」多次 → one-time-event 只收到一次</li>
+          <li class="ok"><span class="badge">3</span>点「停止监听」后再发普通事件 → 列表不再增加</li>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

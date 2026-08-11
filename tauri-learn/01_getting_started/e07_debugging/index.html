@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E07: 调试</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E07: 调试</h1>
+      <p class="sub">
+        前端 DevTools（F12 / 右键 → 检查）· 后端日志看运行终端
+      </p>
+      <div class="card">
+        <div class="field">
+          <label for="message">要发送的消息</label>
+          <input id="message" type="text" value="hello tauri" />
+        </div>
+        <div class="row">
+          <button id="trace-btn">触发调试</button>
+        </div>
+        <pre id="output" style="margin-top:1rem"></pre>
+      </div>
+      <div class="card">
+        <p><strong>调试要点：</strong></p>
+        <ul>
+          <li>后端 <code>println!</code> 输出在运行 <code>cargo tauri dev</code> 的终端</li>
+          <li>前端 <code>console.log</code> 输出在 DevTools Console</li>
+          <li>dev 模式默认启用 Web Inspector（release 构建会关闭）</li>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

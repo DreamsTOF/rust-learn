@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E40: Vite 与 HMR（答案）</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E40: Vite 与 HMR</h1>
+      <p class="sub">vite.config.ts / devUrl / strictPort / TAURI_DEV_HOST / HMR</p>
+
+      <div class="card">
+        <h2>构建环境（import.meta.env）</h2>
+        <table class="kv">
+          <tbody>
+            <tr>
+              <th>MODE（模式）</th>
+              <td><code id="env-mode">—</code></td>
+            </tr>
+            <tr>
+              <th>DEV（开发模式）</th>
+              <td><code id="env-dev">—</code></td>
+            </tr>
+            <tr>
+              <th>PROD（生产模式）</th>
+              <td><code id="env-prod">—</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>说明</h2>
+        <ul class="checklist">
+          <li><code>devUrl</code> 与 vite server 端口一致：tauri.conf.json 的 <code>build.devUrl</code> 是 http://localhost:1499，vite.config.ts 的 <code>port</code> 也是 1499</li>
+          <li><code>strictPort: true</code>：端口被占用时报错退出，而不是自动换端口（避免 devUrl 失配）</li>
+          <li>HMR：修改 src/ 下源码即时热更新——改一下页面标题，应用不用重启</li>
+          <li><code>TAURI_DEV_HOST</code>：局域网/移动设备调试时注入，Vite 监听该地址，HMR 绑定同一主机（端口 1421）</li>
+          <li><code>watch.ignored</code> 排除 src-tauri 目录：Rust 代码变化不触发前端热更新</li>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

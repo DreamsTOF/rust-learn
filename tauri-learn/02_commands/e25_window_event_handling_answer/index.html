@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E25: 窗口事件处理（答案）</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E25: 窗口事件处理</h1>
+      <p class="sub">on_window_event 监听 Resized / Moved / Focused 并记录日志</p>
+
+      <div class="card">
+        <h3>触发方式</h3>
+        <ul class="checklist">
+          <li class="ok"><span class="badge">拖</span>按住标题栏拖拽窗口 → 记录「窗口移动」</li>
+          <li class="ok"><span class="badge">缩</span>拖动窗口边缘调整大小 → 记录「窗口调整尺寸」</li>
+          <li class="ok"><span class="badge">焦</span>切换到其他应用或点回本窗口 → 记录「焦点变化」</li>
+        </ul>
+        <div class="row">
+          <button id="refresh-btn">刷新日志</button>
+        </div>
+        <ul id="log-list" class="checklist"></ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

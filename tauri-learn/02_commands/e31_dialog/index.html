@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E31: 对话框（dialog 插件）</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E31: 对话框（dialog 插件）</h1>
+      <p class="sub">@tauri-apps/plugin-dialog: open / save / ask / message</p>
+
+      <div class="card">
+        <p class="sub">文件选择</p>
+        <div class="row">
+          <button id="open-btn">打开文件（txt/md）</button>
+          <button id="multi-btn">多选文件</button>
+          <button id="dir-btn">选择目录</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <p class="sub">保存与提示</p>
+        <div class="row">
+          <button id="save-btn">保存为（不写文件）</button>
+          <button id="ask-btn">确认对话框</button>
+          <button id="message-btn">消息对话框</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <p class="sub">结果（取消时返回 null / false）</p>
+        <pre id="result">等待操作…</pre>
+      </div>
+
+      <div class="card">
+        <p class="sub">知识点</p>
+        <ul class="checklist">
+          <li><span class="badge">1</span>open({ multiple, directory, filters })<span class="detail">取消返回 null</span></li>
+          <li><span class="badge">2</span>save({ defaultPath, filters })<span class="detail">只返回路径</span></li>
+          <li><span class="badge">3</span>ask / message<span class="detail">kind: info / warning / error</span></li>
+        </ul>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

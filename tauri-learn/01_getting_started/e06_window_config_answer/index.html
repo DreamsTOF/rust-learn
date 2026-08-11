@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 E06: 窗口配置</title>
+  </head>
+  <body>
+    <main>
+      <h1>练习 E06: 窗口配置</h1>
+      <p class="sub">主窗口配置在 tauri.conf.json · 子窗口用 WebviewWindowBuilder 创建</p>
+      <div class="card" id="content">
+        <p>点击按钮创建「关于」子窗口（title / 尺寸 / 居中 / 禁止缩放）。</p>
+        <div class="row">
+          <button id="open-about">打开关于窗口</button>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
