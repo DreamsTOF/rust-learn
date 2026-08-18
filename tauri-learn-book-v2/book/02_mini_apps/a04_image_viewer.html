@@ -1,0 +1,443 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>练习 A04: 图片查看器 - Tauri v2 实战练习（v2）</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-1bab5a05.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-41f3d764.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Tauri v2 实战练习（v2）</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="练习-a04-图片查看器"><a class="header" href="#练习-a04-图片查看器">练习 A04: 图片查看器</a></h1>
+<h2 id="为什么要学这个"><a class="header" href="#为什么要学这个">为什么要学这个</a></h2>
+<p>前几课都是“点按钮“。真实的桌面应用还依赖一些“桌面特有的交互“：<strong>把文件拖进窗口</strong>、<strong>直接看本地文件</strong>、<strong>操作窗口本身</strong>。这一章要回答三个问题：</p>
+<ol>
+<li><strong>怎么把拖进来的文件交给应用？</strong> —— 拖放事件（<code>onDragDropEvent</code>）拿到的到底是什么？</li>
+<li><strong>webview 怎么显示本地图片？</strong> —— 为什么不能直接写 <code>&lt;img src="C:\..."&gt;</code>？asset 协议是什么？</li>
+<li><strong>怎么直接操控窗口？</strong> —— 缩放、置顶、全屏，前端一行代码能搞定？</li>
+</ol>
+<p>学完你会：做出一个“拖进去就能看“的图片查看器——这是纯网页永远做不到的<strong>桌面感</strong>。</p>
+<hr>
+<h2 id="从问题出发"><a class="header" href="#从问题出发">从问题出发</a></h2>
+<p>练习 A04 要做的事：<strong>把图片（或整个图片文件夹）拖进窗口，就能一张张翻看，还能放大、缩小、置顶、全屏。</strong></p>
+<p><strong>核心矛盾：</strong> WebView 本质上是个浏览器。浏览器的两个“原生限制“挡住了路：</p>
+<ol>
+<li><strong>拿不到文件路径</strong>——浏览器拖文件进来只给文件内容副本，不给路径；而桌面应用需要路径才能继续操作（本例是显示、列目录）。</li>
+<li><strong>加载不了本地绝对路径</strong>——<code>&lt;img src="C:/Users/.../a.png"&gt;</code> 在网页里会被当成 URL，浏览器出于安全禁止访问本机任意路径。</li>
+</ol>
+<p>Tauri 的解法正好对应这两点：</p>
+<pre><code class="language-text">拖文件 → onDragDropEvent 拿到"真实路径"（桌面专有 API）
+显示本地图 → asset 协议：把本地路径包装成合法的 app 内 URL
+操控窗口 → getCurrentWindow() 提供 setSize / setAlwaysOnTop / setFullscreen
+</code></pre>
+<pre><code class="language-text">前端 (React)                            Rust / 系统
+┌────────────────────────────┐          ┌──────────────────────────┐
+│ onDragDropEvent 拖放        │ ─路径──► │ (文件夹) list_images 命令 │
+│ convertFileSrc 本地图片URL  │ ◄──────  │ asset 协议映射本地文件    │
+│ getCurrentWindow 窗口操作   │ ──────►  │ 缩放/置顶/全屏/居中       │
+└────────────────────────────┘          └──────────────────────────┘
+</code></pre>
+<hr>
+<p><a id="sec-a04-drag"></a></p>
+<h2 id="1-拖放--拿到文件的真实路径"><a class="header" href="#1-拖放--拿到文件的真实路径">1. 拖放 — 拿到文件的真实路径</a></h2>
+<p>浏览器能拖文件，但只给内容不给路径。Tauri 的前端 API <code>onDragDropEvent</code> 直接把<strong>真实路径</strong>给你：</p>
+<pre><code class="language-typescript">import { getCurrentWebview } from "@tauri-apps/api/webview";
+
+getCurrentWebview().onDragDropEvent((event) =&gt; {
+  if (event.payload.type !== "drop") return;  // over/leave 阶段忽略
+  const paths = event.payload.paths;          // 拖入的所有路径（文件或文件夹）
+});
+</code></pre>
+<ul>
+<li>拖放过程有三个阶段：<code>over</code>（拖进窗口）、<code>drop</code>（松手放下）、<code>leave</code>（拖出去）。我们只关心 <code>drop</code></li>
+<li><code>event.payload.paths</code>：<strong>文件系统里的绝对路径</strong>（文件夹也可以是拖入项）</li>
+<li>拿到路径后做什么都行——本课：图片直接收下，文件夹交给后端 <code>list_images</code> 列目录</li>
+</ul>
+<blockquote>
+<p><strong>为什么这很重要：</strong> 这是“浏览器做不到、桌面才能做“的分水岭。有了路径，才能继续走命令、读文件、列目录。</p>
+</blockquote>
+<p><a id="sec-a04-asset"></a></p>
+<h2 id="2-静态资源--用-asset-协议显示本地图片"><a class="header" href="#2-静态资源--用-asset-协议显示本地图片">2. 静态资源 — 用 asset 协议显示本地图片</a></h2>
+<h3 id="为什么-c-的路径不能直接当-src"><a class="header" href="#为什么-c-的路径不能直接当-src">为什么 <code>C:\...</code> 的路径不能直接当 src</a></h3>
+<p>WebView 加载资源时，<code>src</code> 会被解析成 URL（<code>http://</code>、<code>asset://</code>……）。把 <code>C:/Users/...</code> 塞进去，要么被当成本机 URL 被安全策略拦下，要么根本解析不了。</p>
+<h3 id="asset-协议本地路径--应用内-url"><a class="header" href="#asset-协议本地路径--应用内-url">asset 协议：本地路径 → 应用内 URL</a></h3>
+<p>三步：</p>
+<pre><code class="language-json">// ① tauri.conf.json 开启 asset 协议并允许读取（练习版已配好）
+"security": {
+  "assetProtocol": { "enable": true, "scope": ["**"] }
+}
+</code></pre>
+<pre><code class="language-toml">// ② 开启 asset 协议对应的 cargo feature（练习版已配好）
+[dependencies]
+tauri = { workspace = true, features = ["protocol-asset"] }
+</code></pre>
+<pre><code class="language-typescript">// ③ 前端用 convertFileSrc 把路径转成 URL
+import { convertFileSrc } from "@tauri-apps/api/core";
+
+const url = convertFileSrc("C:/Users/.../a.png"); // → asset://localhost/&lt;编码后的路径&gt;
+&lt;img src={url} /&gt;
+</code></pre>
+<blockquote>
+<p>少了 <code>protocol-asset</code> feature，<code>tauri build</code> 的构建脚本会直接报错：“dependency features do not match the allowlist”。这是 asset 协议最典型的配置坑。</p>
+</blockquote>
+<ul>
+<li><code>convertFileSrc</code> 负责：路径 → URL、特殊字符编码</li>
+<li>加载时 Tauri 检查路径是否在 <code>assetProtocol.scope</code> 白名单里——本课用 <code>["**"]</code> 全部放行（教学），真实项目要收窄</li>
+<li><strong>CSP 注意</strong>：页面加载 <code>asset:</code> 资源，需要 <code>img-src</code> 允许 asset 协议（本课 csp 是 null，不受限）</li>
+</ul>
+<blockquote>
+<p><strong>关键理解：</strong> asset 协议是“安全的本地文件服务器“——它让 WebView 用标准的 <code>&lt;img&gt;</code> 加载本地文件，但路径必须过 scope 白名单。生产环境用 <code>asset:</code> 而不是把图片读成 base64，性能和内存都好得多。</p>
+</blockquote>
+<p><a id="sec-a04-window"></a></p>
+<h2 id="3-窗口操作--缩放置顶全屏"><a class="header" href="#3-窗口操作--缩放置顶全屏">3. 窗口操作 — 缩放、置顶、全屏</a></h2>
+<p>前端一行代码就能操控窗口：</p>
+<pre><code class="language-typescript">import { getCurrentWindow, LogicalSize } from "@tauri-apps/api/window";
+
+const win = getCurrentWindow();
+await win.setSize(new LogicalSize(1280, 800));   // 设置大小
+await win.setAlwaysOnTop(true);                  // 置顶
+await win.setFullscreen(true);                   // 全屏
+await win.center();                              // 居中
+</code></pre>
+<ul>
+<li><code>getCurrentWindow()</code>：代表“当前所在的这个窗口“</li>
+<li><code>LogicalSize</code> vs <code>PhysicalSize</code>：逻辑尺寸（和 DPI 无关的抽象单位）vs 物理像素。前端一般用逻辑尺寸</li>
+<li>本课“放大/缩小“：先 <code>win.innerSize()</code> 拿当前尺寸，乘上比例再 <code>setSize</code></li>
+</ul>
+<h3 id="窗口操作要权限"><a class="header" href="#窗口操作要权限">窗口操作要权限</a></h3>
+<p>这些前端 API 背后是对应的后端命令，而它们<strong>不属于 <code>core:default</code></strong>——<code>core:default</code> 只包含读取窗口信息的权限。所以 capabilities 要显式加（练习版已配好）：</p>
+<pre><code class="language-json">"core:window:allow-set-size",
+"core:window:allow-set-always-on-top",
+"core:window:allow-set-fullscreen",
+"core:window:allow-center",
+</code></pre>
+<blockquote>
+<p><strong>对比：</strong> 自己写的 <code>#[tauri::command]</code> 不需要权限；<strong>前端调 Tauri 内置能力（窗口、插件）需要权限</strong>。这是 A03 通知插件和本课窗口操作的共同点。</p>
+</blockquote>
+<p><a id="sec-a04-list"></a></p>
+<h2 id="4-列目录--拖文件夹进来"><a class="header" href="#4-列目录--拖文件夹进来">4. 列目录 — 拖文件夹进来</a></h2>
+<p>拖入文件夹时，路径不是图片——本课把它当作目录，交给后端列出其中的图片（沿用 A02 的 std::fs，但这次是 <code>read_dir</code>）：</p>
+<pre><code class="language-rust">use std::path::Path;
+
+fn is_image(path: &amp;Path) -&gt; bool {
+    let ext = path.extension().and_then(|e| e.to_str()).map(|e| e.to_ascii_lowercase());
+    matches!(ext.as_deref(), Some("png" | "jpg" | "jpeg" | "gif" | "bmp" | "webp"))
+}
+
+#[tauri::command]
+fn list_images(dir: String) -&gt; Result&lt;Vec&lt;String&gt;, String&gt; {
+    let mut paths = Vec::new();
+    for entry in std::fs::read_dir(&amp;dir).map_err(|e| format!("打开目录失败：{e}"))? {
+        let entry = entry.map_err(|e| format!("读取目录项失败：{e}"))?;
+        let path = entry.path();
+        if path.is_file() &amp;&amp; is_image(&amp;path) {
+            paths.push(path.to_string_lossy().into_owned());
+        }
+    }
+    paths.sort(); // 文件名排序，翻页顺序稳定
+    Ok(paths)
+}</code></pre>
+<ul>
+<li><code>std::fs::read_dir</code>：遍历目录（<code>A02</code> 用 <code>open</code> 读写文件，这里换成 <code>read_dir</code> 列目录——同一套 std::fs）</li>
+<li><code>path.extension()</code> → <code>&amp;OsStr</code> → <code>to_str()</code> → <code>to_ascii_lowercase()</code>：处理大小写（<code>.PNG</code> 也要认）</li>
+<li>前端约定：拖入的非图片路径就当目录试一下</li>
+</ul>
+<hr>
+<h2 id="练习指引"><a class="header" href="#练习指引">练习指引</a></h2>
+<p><strong>作业范围：</strong> 动 2 个文件，共 11 处 TODO。两个配置文件（<code>tauri.conf.json</code> 的 <code>assetProtocol</code>、capabilities 的窗口权限）已配好，<strong>不用动</strong>。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>文件</th><th>步骤</th><th>内容</th></tr>
+</thead>
+<tbody>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>1</td><td><code>is_image</code>：扩展名判断</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>2</td><td><code>list_images</code>：遍历目录收图片</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>3</td><td>排序后返回</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>4</td><td>登记命令</td></tr>
+<tr><td><code>src/App.tsx</code></td><td>1</td><td>导入 <code>invoke</code></td></tr>
+<tr><td><code>src/App.tsx</code></td><td>2</td><td>拖放：非图片路径当目录，调 <code>list_images</code></td></tr>
+<tr><td><code>src/App.tsx</code></td><td>3-4</td><td>置顶 / 全屏按钮调窗口 API</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>怎么验证：</strong></p>
+<pre><code class="language-bash">cd 02_mini_apps/a04_image_viewer
+cargo tauri dev
+</code></pre>
+<p>拖几张图片进窗口 → 主区域显示第一张，底部出现缩略图条，点“上一张/下一张“翻页。拖一个<strong>文件夹</strong>进去 → 自动列出里面所有图片。点“放大/缩小“窗口变大变小，“置顶“后窗口始终在最前，“全屏“占满屏幕，“居中“回到屏幕中间。</p>
+<p><strong>故意踩坑看效果：</strong> 把 <code>tauri.conf.json</code> 的 <code>assetProtocol</code> 关掉 → 图片显示为空白（验证 asset 协议的必要性）；把 <code>convertFileSrc</code> 换成直接 <code>src={path}</code> → 图片加载失败（验证路径必须转 URL）。</p>
+<hr>
+<h2 id="知识点连起来看"><a class="header" href="#知识点连起来看">知识点连起来看</a></h2>
+<pre><code class="language-text">onDragDropEvent                  ← 桌面交互：拖放 → 真实路径
+        │
+图片路径 → convertFileSrc        ← 静态资源：asset 协议映射本地文件
+        │
+文件夹路径 → invoke list_images  ← 命令 + std::fs：列目录过滤图片
+        │
+getCurrentWindow().setSize / 置顶 / 全屏 ← 窗口操作（需权限）
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>层</th><th>解决的问题</th><th>关键概念</th></tr>
+</thead>
+<tbody>
+<tr><td>拖放</td><td>怎么拿外部文件路径</td><td><code>onDragDropEvent</code>、<code>paths</code></td></tr>
+<tr><td>静态资源</td><td>本地图片怎么显示</td><td><code>assetProtocol</code>、<code>convertFileSrc</code>、scope</td></tr>
+<tr><td>命令</td><td>文件夹怎么展开</td><td><code>read_dir</code>、<code>is_image</code>、排序</td></tr>
+<tr><td>窗口</td><td>怎么操控窗口</td><td><code>getCurrentWindow</code>、<code>LogicalSize</code>、权限</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>一通百通的核心：</strong> 这一课补上了“<strong>桌面感</strong>“。前面学的是“应用内部逻辑”（状态、文件、后台任务），这课是“应用与桌面系统交互“（拖放、本地资源、窗口）。这两半合起来，才是一个完整的桌面应用。</p>
+<p><strong>递进关系：</strong> 练习 A05（记账本）将引入“数据多了怎么办“——SQL 数据库。届时你会看到：命令、状态、错误处理这些套路原封不动，只是存储引擎从 <code>Vec</code> 换成了数据库。</p>
+<hr>
+<blockquote>
+<p><strong>本课配置小结（练习版已配好，无需改动）：</strong></p>
+<ul>
+<li><code>tauri.conf.json</code>：<code>app.security.assetProtocol = { enable: true, scope: ["**"] }</code></li>
+<li><code>src-tauri/Cargo.toml</code>：<code>tauri = { workspace = true, features = ["protocol-asset"] }</code></li>
+<li><code>capabilities/default.json</code>：<code>core:window:allow-set-size</code> / <code>allow-set-always-on-top</code> / <code>allow-set-fullscreen</code> / <code>allow-center</code> 等</li>
+</ul>
+</blockquote>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../02_mini_apps/a03_pomodoro.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../02_mini_apps/a05_expense_tracker.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../02_mini_apps/a03_pomodoro.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../02_mini_apps/a05_expense_tracker.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

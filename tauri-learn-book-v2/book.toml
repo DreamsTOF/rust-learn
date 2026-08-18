@@ -1,0 +1,7 @@
+[book]
+title = "Tauri v2 实战练习（v2）"
+authors = ["Tauri 教程"]
+language = "zh-CN"
+
+[output.html.playground]
+runnable = false

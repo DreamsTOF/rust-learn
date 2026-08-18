@@ -44,6 +44,7 @@
 
 ---
 
+<a id="sec-02-dual-dirs"></a>
 ## 1. 双目录结构 — 前端世界与 Rust 世界
 
 ### 为什么叫 `src-tauri`
@@ -70,6 +71,7 @@
 
 ---
 
+<a id="sec-02-src-tauri"></a>
 ## 2. src-tauri/ 内部解剖
 
 ### main.rs — 永远只有一行调用
@@ -216,6 +218,7 @@ Tauri v2 用 capabilities 声明"哪个窗口拥有哪些权限"。**自己用 `
 
 ---
 
+<a id="sec-02-vec-return"></a>
 ## 3. 数组返回值 — 后端说"什么"，前端管"怎么排"
 
 ### 为什么返回 `Vec<String>` 而不是拼接好的长字符串

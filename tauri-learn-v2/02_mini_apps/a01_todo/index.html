@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>练习 A01: 待办清单</title>
+  </head>
+  <body>
+    <main class="card">
+      <h1>练习 A01: 待办清单</h1>
+      <p class="sub">数据存在后端 State 里 · 每次操作后端主动推送日志</p>
+
+      <div class="row">
+        <input id="new-todo" placeholder="要做什么？" />
+        <button id="add-btn">添加</button>
+      </div>
+
+      <ul id="todo-list"></ul>
+
+      <h2 class="log-title">操作日志（后端 emit → 前端 listen）</h2>
+      <ul id="log"></ul>
+
+      <p id="status" class="status">就绪</p>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

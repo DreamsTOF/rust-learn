@@ -1,0 +1,435 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>练习 A01: 待办清单 - Tauri v2 实战练习（v2）</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-1bab5a05.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-41f3d764.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Tauri v2 实战练习（v2）</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="练习-a01-待办清单"><a class="header" href="#练习-a01-待办清单">练习 A01: 待办清单</a></h1>
+<h2 id="为什么要学这个"><a class="header" href="#为什么要学这个">为什么要学这个</a></h2>
+<p>计数器（练习 01）的致命缺陷是：<strong>数字存在前端变量里，页面一刷新就没了。</strong> 真正的应用要跨操作、跨时间地“记住“数据。这一章要回答三个问题：</p>
+<ol>
+<li><strong>数据该放哪？</strong> —— 为什么要把数据交给后端存，而不是放在前端？</li>
+<li><strong>多条命令怎么共享同一份数据？</strong> —— <code>manage</code> + <code>State&lt;T&gt;</code> + <code>Mutex</code> 三件套怎么配合？</li>
+<li><strong>后端怎么“主动“告诉前端？</strong> —— 命令返回值是“前端问了才答“，事件是“后端自己推“，两者什么区别？</li>
+</ol>
+<p>搞懂这三件事，“有状态的应用“的大门就打开了——后面所有项目（记事本、番茄钟、记账本）都是“放数据 + 改数据 + 通知前端“的组合。</p>
+<hr>
+<h2 id="从问题出发"><a class="header" href="#从问题出发">从问题出发</a></h2>
+<p>练习 A01 要做的事：<strong>一个待办清单——能加、能勾掉、能删</strong>。</p>
+<p><strong>核心矛盾：</strong> 待办数据必须“记住“。如果还像计数器那样把 <code>count</code> 放在前端变量里，那么：</p>
+<ul>
+<li>点一次按钮 → 数据变一次 → 页面一刷新，一切归零；</li>
+<li>两个按钮同时想改数据，前端自己先打架。</li>
+</ul>
+<p>所以数据要放在<strong>后端</strong>：后端进程活着，数据就在；所有改数据的操作都走后端，大家看到的就是同一份。</p>
+<pre><code class="language-text">前端 (WebView)                    Rust 进程
+┌─────────────────────┐          ┌──────────────────────────┐
+│ 输入框 + 按钮         │ invoke  │  TodoState (manage 注册)  │
+│ 列表渲染              │ ──────► │   items: Mutex&lt;Vec&lt;...&gt;&gt;  │
+│ 日志面板 (listen)     │ ◄────── │   next_id: Mutex&lt;u64&gt;    │
+└─────────────────────┘  事件推  └──────────────────────────┘
+</code></pre>
+<p>本课新增四样东西，环环相扣：<strong><code>manage</code> 把状态注册进后端 → <code>State&lt;T&gt;</code> 让命令拿到它 → <code>Mutex</code> 保证一次只有一个人改 → <code>emit</code> 让后端主动通知前端。</strong></p>
+<hr>
+<p><a id="sec-a01-manage"></a></p>
+<h2 id="1-manage--statet--数据放后端命令来取"><a class="header" href="#1-manage--statet--数据放后端命令来取">1. <code>manage</code> + <code>State&lt;T&gt;</code> — 数据放后端，命令来取</a></h2>
+<h3 id="第一步定义整个应用的数据"><a class="header" href="#第一步定义整个应用的数据">第一步：定义“整个应用的数据“</a></h3>
+<pre><code class="language-rust">#[derive(Default)]
+struct TodoState {
+    items: Mutex&lt;Vec&lt;TodoItem&gt;&gt;,
+    next_id: Mutex&lt;u64&gt;,
+}</code></pre>
+<p><code>TodoState</code> 就是“整个应用的数据“：待办列表 + 自增 id 计数器。它和后端进程同生共死——应用启动时创建，应用关闭时销毁。</p>
+<h3 id="第二步manage-把数据注册进-builder"><a class="header" href="#第二步manage-把数据注册进-builder">第二步：<code>manage</code> 把数据注册进 Builder</a></h3>
+<pre><code class="language-rust">tauri::Builder::default()
+    .manage(TodoState::default())</code></pre>
+<p><code>.manage(...)</code> 把 <code>TodoState</code> 的实例注册成 Tauri 管理下的共享状态。<strong>不注册，命令就拿不到它。</strong></p>
+<h3 id="第三步命令用-state_-t-参数取数据"><a class="header" href="#第三步命令用-state_-t-参数取数据">第三步：命令用 <code>State&lt;'_, T&gt;</code> 参数取数据</a></h3>
+<pre><code class="language-rust">#[tauri::command]
+fn list_todos(state: State&lt;'_, TodoState&gt;) -&gt; Vec&lt;TodoItem&gt; {
+    state.items.lock().unwrap().clone()
+}</code></pre>
+<p><code>State&lt;'_, TodoState&gt;</code> 是 Tauri 自动注入的特殊参数——<strong>不需要前端传</strong>，框架把 <code>manage</code> 注册的那个实例递进来。命令里 <code>state.items</code> 就能读到列表。</p>
+<blockquote>
+<p><strong>关键理解：</strong> <code>manage</code> 只注册一次，但<strong>每个命令都能拿到同一个实例</strong>。这正是“共享状态“的含义——a01 加一条，a01_answer 打开同一个数据？不，每个项目是独立进程；这里的“共享“是指<strong>同一次运行里，所有命令看到的是同一份数据</strong>。</p>
+</blockquote>
+<h3 id="没注册会怎样"><a class="header" href="#没注册会怎样">没注册会怎样？</a></h3>
+<p>命令参数里写了 <code>State&lt;TodoState&gt;</code> 但 Builder 没 <code>.manage(...)</code>——运行时命令会报“state 不存在“的错误，前端显示“调用失败“。这是本课埋的第一个坑。</p>
+<p><a id="sec-a01-mutex"></a></p>
+<h2 id="2-mutex--一次只有一个人能改"><a class="header" href="#2-mutex--一次只有一个人能改">2. <code>Mutex</code> — 一次只有一个人能改</a></h2>
+<p>为什么 <code>items</code> 外面要包一层 <code>Mutex</code>？</p>
+<p>考虑两个按钮同时操作：用户飞快地点“添加“和“删除“，两条 <code>invoke</code> 几乎同时到达后端，两个命令同时读改写 <code>Vec</code>——Rust 的内存安全规则<strong>禁止两个可变借用同时存在</strong>，直接编译都过不去。</p>
+<p><code>Mutex</code>（互斥锁）的解决办法：<strong>想要改数据，先 <code>lock()</code> 拿钥匙；拿到钥匙的人改完 <code>drop</code>（解锁），下一个人才能拿。</strong> 同一时刻最多一个人持有锁：</p>
+<pre><code class="language-rust">let mut items = state.items.lock().unwrap();
+items.push(item);</code></pre>
+<ul>
+<li><code>lock()</code> 返回 <code>MutexGuard</code>，它可以当作 <code>&amp;mut Vec</code> 用</li>
+<li><code>.unwrap()</code>：锁被占用时阻塞等待，正常不会失败；出问题（比如持锁者 panic）就 panic</li>
+<li>作用域结束，guard 自动解锁——所以<strong>尽量在小的代码块里 lock，改完立刻释放</strong></li>
+</ul>
+<blockquote>
+<p><strong>为什么这里敢 <code>unwrap</code>？</strong> 因为锁竞争只有“等“，没有“毒“（除非持锁线程 panic）。教学起见直接 unwrap；生产代码会用 <code>lock().map_err(...)</code> 优雅处理。</p>
+</blockquote>
+<p><a id="sec-a01-serde-struct"></a></p>
+<h2 id="3-结构体--serde--一条待办长什么样"><a class="header" href="#3-结构体--serde--一条待办长什么样">3. 结构体 + serde — 一条待办长什么样</a></h2>
+<p>待办不只是字符串，它有“形状“：<strong>id（谁）、text（说什么）、done（完成没）</strong>。用结构体表达：</p>
+<pre><code class="language-rust">#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct TodoItem {
+    pub id: u64,
+    pub text: String,
+    pub done: bool,
+}</code></pre>
+<ul>
+<li><code>Serialize</code>：作为命令返回值，穿越进程边界时<strong>序列化成 JSON</strong></li>
+<li><code>Deserialize</code>：本课前端不传结构体进来，但双向派生子是标准姿势（后面练习会用到）</li>
+<li>序列化规则：<strong>字段名就是 JSON 的 key</strong></li>
+</ul>
+<pre><code class="language-text">Rust:  TodoItem { id: 0, text: "买菜", done: false }
+         │ serde 序列化
+         ▼
+JSON:  {"id":0,"text":"买菜","done":false}
+         │ 反序列化
+         ▼
+TS:    { id: 0, text: "买菜", done: false }   ← interface TodoItem 就是照它写的
+</code></pre>
+<p>前端 <code>interface TodoItem { id: number; text: string; done: boolean }</code> 与 Rust 结构体<strong>字段一一对应</strong>——这就是 a01 前后端传递的“同一种语言“。</p>
+<p><a id="sec-a01-emit-listen"></a></p>
+<h2 id="4-emit--listen--后端主动推前端躺着收"><a class="header" href="#4-emit--listen--后端主动推前端躺着收">4. <code>emit</code> + <code>listen</code> — 后端主动推，前端躺着收</a></h2>
+<p>前面学的 <code>invoke</code> 是<strong>请求-响应</strong>：前端问一句，后端答一句。但待办清单里有个场景它办不到——<strong>后端改了数据，要主动告诉前端“我刚加了条日志“</strong>。总不能前端每隔一秒问一次（轮询）吧？</p>
+<p>Tauri 提供了<strong>事件</strong>：后端 <code>emit</code> 广播，前端 <code>listen</code> 收听。</p>
+<h3 id="后端appemit"><a class="header" href="#后端appemit">后端：<code>app.emit</code></a></h3>
+<pre><code class="language-rust">#[tauri::command]
+fn add_todo(app: AppHandle, state: State&lt;'_, TodoState&gt;, text: String) -&gt; Vec&lt;TodoItem&gt; {
+    // ...push 进列表...
+    let _ = app.emit("todo-log", format!("添加：{text}"));
+    items.clone()
+}</code></pre>
+<ul>
+<li><code>app: AppHandle</code>：<strong>应用句柄</strong>，Tauri 自动注入。要“发广播“得先拿到这个“总台“</li>
+<li><code>app.emit("事件名", 载荷)</code>：向所有前端广播事件。载荷可以是任意可序列化类型，这里是一条 <code>String</code></li>
+<li><code>let _ = ...</code>：emit 的返回值是 <code>Result</code>，教学场景忽略（<code>_</code>），不忽略也行</li>
+</ul>
+<h3 id="前端listen"><a class="header" href="#前端listen">前端：<code>listen</code></a></h3>
+<pre><code class="language-typescript">import { listen } from "@tauri-apps/api/event";
+
+listen&lt;string&gt;("todo-log", (event) =&gt; {
+  logEl!.insertAdjacentHTML("beforeend", `&lt;li&gt;${event.payload}&lt;/li&gt;`);
+});
+</code></pre>
+<ul>
+<li><code>listen("事件名", 回调)</code>：订阅事件，后端每次 <code>emit</code> 都触发一次回调</li>
+<li><code>event.payload</code>：就是后端 <code>emit</code> 的那个载荷（泛型 <code>&lt;string&gt;</code> 声明它的类型）</li>
+<li>回调里 <code>event</code> 对象还有 <code>id</code>、<code>event</code> 等字段，本课只用 <code>payload</code></li>
+</ul>
+<blockquote>
+<p><strong>对比总结：</strong></p>
+</blockquote>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th></th><th>命令返回值</th><th>事件（emit / listen）</th></tr>
+</thead>
+<tbody>
+<tr><td>谁发起</td><td>前端发起</td><td>后端主动发起</td></tr>
+<tr><td>方向</td><td>前端 → 后端 → 前端（一来一回）</td><td>后端 → 前端（单向广播）</td></tr>
+<tr><td>典型场景</td><td>前端要数据</td><td>后端有变化要通知</td></tr>
+<tr><td>本课例子</td><td><code>list_todos</code> 返回列表</td><td>每次操作推一条“操作日志“</td></tr>
+</tbody>
+</table>
+</div>
+<p>本课待办清单<strong>两个都用</strong>：点按钮用 invoke（请求-响应），操作日志用事件（后端推送）——一道菜同时学会两种通信方式。</p>
+<hr>
+<h2 id="练习指引"><a class="header" href="#练习指引">练习指引</a></h2>
+<p><strong>作业范围：</strong> 只动 2 个文件，共 8 处 TODO。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>文件</th><th>步骤</th><th>内容</th></tr>
+</thead>
+<tbody>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>2</td><td><code>.manage(TodoState::default())</code> 注册共享状态</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>3-5</td><td>三个命令里各补一条 <code>app.emit("todo-log", ...)</code></td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>6</td><td>登记 add/toggle/delete 三个命令</td></tr>
+<tr><td><code>src/main.ts</code></td><td>2</td><td>调 <code>add_todo</code> 并渲染返回的列表</td></tr>
+<tr><td><code>src/main.ts</code></td><td>3</td><td>事件委托里调 toggle/delete</td></tr>
+<tr><td><code>src/main.ts</code></td><td>4</td><td><code>listen("todo-log", ...)</code> 追加日志</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>怎么验证：</strong></p>
+<pre><code class="language-bash">cd 02_mini_apps/a01_todo
+cargo tauri dev
+</code></pre>
+<p>输入内容点“添加“，列表出现待办；点“完成“文字划线；点“删除“消失；下方日志面板逐条追加“添加：xxx / 完成：xxx / 删除：xxx“。</p>
+<p><strong>故意踩坑看效果：</strong> 不改 <code>.manage</code> → 任何操作都显示“调用失败“；不注册 add_todo → 点添加报“命令未找到“。这两个坑每个练习都会埋。</p>
+<hr>
+<h2 id="知识点连起来看"><a class="header" href="#知识点连起来看">知识点连起来看</a></h2>
+<pre><code class="language-text">manage(TodoState::default())        ← 注册：数据住进后端
+        │
+State&lt;'_, TodoState&gt;                ← 注入：命令拿到同一份数据
+        │
+Mutex&lt;Vec&lt;TodoItem&gt;&gt;                ← 并发：一次只有一个人改
+        │
+Vec&lt;TodoItem&gt; (serde)               ← 传输：结构体穿越进程边界
+        │
+app.emit("todo-log", ...)           ← 通知：后端主动推给前端
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>层</th><th>解决的问题</th><th>关键概念</th></tr>
+</thead>
+<tbody>
+<tr><td>状态</td><td>数据放哪、怎么共享</td><td><code>manage</code>、<code>State&lt;T&gt;</code></td></tr>
+<tr><td>并发</td><td>同时改怎么办</td><td><code>Mutex</code>、<code>lock()</code></td></tr>
+<tr><td>传输</td><td>结构体怎么过边界</td><td>serde、JSON、字段名=key</td></tr>
+<tr><td>通信</td><td>后端怎么主动说</td><td><code>AppHandle</code>、<code>emit</code> / <code>listen</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>一通百通的核心：</strong> 这一课完成了一次“质的升级“——从“前后端通话“（练习 01）到“<strong>应用有状态</strong>“。往后所有项目的骨架都是这四层：<strong>注册状态 → 命令读写 → 结构体传输 → 事件通知</strong>。变的是业务数据，不变的是这条链路。</p>
+<p><strong>递进关系：</strong> 练习 A02（记事本）将回答“关掉软件，数据还在吗？“——状态存在内存里，应用一关就没了；要持久化，就得落盘（路径 API + fs 插件）。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../02_mini_apps/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../02_mini_apps/a02_notepad.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../02_mini_apps/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../02_mini_apps/a02_notepad.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,19 @@
+[package]
+name = "a03-pomodoro"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "a03_pomodoro_lib"
+crate-type = ["lib", "cdylib", "staticlib"]
+
+[build-dependencies]
+tauri-build = { workspace = true }
+
+[dependencies]
+tauri = { workspace = true, features = ["tray-icon"] }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true }
+tauri-plugin-notification = { workspace = true }

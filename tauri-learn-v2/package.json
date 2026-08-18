@@ -1,0 +1,11 @@
+{
+  "name": "tauri-learn-v2",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tauri v2 练习项目（v2 直观版：每课一道菜）",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}

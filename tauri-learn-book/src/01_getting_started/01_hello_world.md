@@ -133,6 +133,7 @@ crate-type = ["staticlib", "cdylib", "rlib"]
 
 ## 2. `#[tauri::command]` — 把"环境检查"变成可调用的命令
 
+<a id="sec-01-command-vs-fn"></a>
 ### 命令与普通函数的区别
 
 写环境检查逻辑，用普通 Rust 函数很简单：
@@ -157,6 +158,7 @@ fn check_environment() -> Vec<EnvCheck> {
 
 **核心区别：** 你直接调用 `check_environment()`，立即得到结果。你通过 `invoke("check_environment")` 调用，是向 Tauri 运行时发出一条消息，由它找到并执行对应的函数，再把结果送回。
 
+<a id="sec-01-command-macro"></a>
 ### 为什么用 `#[tauri::command]` 宏？
 
 Rust 语言本身没有"命令"这个概念。`#[tauri::command]` 是一个**属性宏**，它在编译期把普通函数"升级"成框架可以识别和调用的单元：
@@ -175,6 +177,7 @@ fn check_environment() -> Vec<EnvCheck> { ... }
 
 > **为什么用宏而不是手写？** 因为"参数反序列化、返回值序列化、错误转换"这套样板代码跟函数签名强相关——宏可以分析函数签名自动生成，手写则每个命令都要重复一遍，而且容易出错。
 
+<a id="sec-01-return-struct"></a>
 ### 返回值：第一次出现结构体
 
 练习的返回值不是单个字符串，而是一个**结构体列表**：
@@ -243,6 +246,7 @@ TS:   { name: "...", ok: true, detail: "..." }
 
 > **关键理解：** 为什么返回结构体而不是拼一个字符串？因为数据有了结构，前端才能分别使用——`ok` 决定"✓ 还是 !"，`detail` 决定说明文字。后续练习里命令带参数、事件带载荷，都是同一套序列化规则，这里先打好地基。
 
+<a id="sec-01-register"></a>
 ### 注册：`generate_handler!` 与 `invoke_handler`
 
 光有宏还不够——命令必须**注册**到运行时，前端才调得到：
@@ -259,8 +263,10 @@ TS:   { name: "...", ok: true, detail: "..." }
 
 ---
 
+<a id="sec-01-invoke"></a>
 ## 3. `invoke()` — 前端如何调用后端？
 
+<a id="sec-01-invoke-async"></a>
 ### 为什么必须异步？
 
 前端的调用长这样：
@@ -275,6 +281,7 @@ const checks = await invoke<EnvCheck[]>("check_environment");
 
 > **关键理解：** 前端的 `invoke` 和后端的命令执行不是"同一块内存里的函数调用"，而是"两端各自独立运行的协作"。所以前端必须用 `async/await` 等待结果，就像 `fetch` 等待 HTTP 响应一样。
 
+<a id="sec-01-type-map"></a>
 ### 类型对应
 
 ```typescript
@@ -312,6 +319,7 @@ interface EnvCheck {
 
 `interface EnvCheck` 与 Rust 结构体**字段一一对应**——因为 JSON key 就是 Rust 字段名，TS 接口只是把 JSON 形状"翻译"成类型。`invoke<EnvCheck[]>` 的泛型只是 TS 侧的**类型声明**，运行时不会校验；字段名写错，显示的就是 `undefined`，这是前后端联调最常见的错位来源。
 
+<a id="sec-01-answer-main-ts"></a>
 ### 答案版 `main.ts` 解读
 
 ```typescript

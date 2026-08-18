@@ -1,0 +1,2111 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Tauri v2 实战练习（v2）</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-e96d0476.css">
+        <link rel="stylesheet" href="css/chrome-d279d366.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-1bab5a05.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-41f3d764.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Tauri v2 实战练习（v2）</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="tauri-v2-实战练习v2"><a class="header" href="#tauri-v2-实战练习v2">Tauri v2 实战练习（v2）</a></h1>
+<p>欢迎来到 <strong>Tauri v2 实战练习</strong>！这是一本通过动手做应用学习 <a href="https://tauri.app/">Tauri</a> v2 桌面框架的教程。</p>
+<h2 id="这本书怎么教"><a class="header" href="#这本书怎么教">这本书怎么教</a></h2>
+<p><strong>每课一道菜</strong>：每一课都从一句真实需求出发，交付一个完整、能跑、能玩的小应用。知识在用到的时候讲——<strong>只讲本课新增的部分，并且讲透</strong>：每个新 API 都讲清“解决什么问题 → 怎么用 → 有哪几种写法 → 为什么选这种“。</p>
+<h2 id="每课两个文档"><a class="header" href="#每课两个文档">每课两个文档</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>文档</th><th>什么时候读</th><th>讲什么</th></tr>
+</thead>
+<tbody>
+<tr><td>练习讲解（<code>NN_topic.md</code>）</td><td>先读</td><td>原理讲透 + 作业指引（动哪些文件、每处 TODO）</td></tr>
+<tr><td>答案讲解（<code>NN_topic_answer.md</code>）</td><td>卡住时再看</td><td>逐 TODO 对照（练习版缺什么 → 答案版填了什么 → 为什么）+ 验收标准 + 破坏性验证</td></tr>
+</tbody>
+</table>
+</div>
+<p>答案讲解每处 TODO 都有“回查文档“锚点，链回练习讲解的对应小节——两文档单向依赖，内容不重复。</p>
+<h2 id="练习版--答案版"><a class="header" href="#练习版--答案版">练习版 / 答案版</a></h2>
+<p>每个练习对应两个独立项目（代码位于 <code>tauri-learn-v2/</code>，与本书同级）：</p>
+<ul>
+<li><strong>练习版</strong>（如 <code>e01_counter</code>）：只留骨架 + 中文 TODO 注释，你来填</li>
+<li><strong>答案版</strong>（如 <code>e01_counter_answer</code>）：完整代码</li>
+</ul>
+<h2 id="环境要求"><a class="header" href="#环境要求">环境要求</a></h2>
+<ul>
+<li>Rust（stable）</li>
+<li><a href="https://nodejs.org/">Node.js</a> 18+</li>
+<li><a href="https://pnpm.io/">pnpm</a></li>
+<li>Windows 需要 <a href="https://developer.microsoft.com/microsoft-edge/webview2/">WebView2</a>（Windows 11 已内置）</li>
+<li>Tauri CLI（<code>cargo install tauri-cli</code> 或 <code>pnpm dlx tauri</code>）</li>
+</ul>
+<h2 id="快速开始"><a class="header" href="#快速开始">快速开始</a></h2>
+<pre><code class="language-bash"># 在 tauri-learn-v2 仓库根目录安装前端依赖（只需一次）
+pnpm install
+
+cd 01_first_app/e01_counter
+cargo tauri dev
+</code></pre>
+<h2 id="学习路径"><a class="header" href="#学习路径">学习路径</a></h2>
+<pre><code>阶段 1  环境 + 第一个窗口（计数器）        跑起来
+阶段 2  八道小菜（a01-a08）                边做边学，越做越复杂
+阶段 3  超级项目：Markdown 编辑器（26 步） 可安装分发的完整产品
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="模块-01-环境与第一个窗口"><a class="header" href="#模块-01-环境与第一个窗口">模块 01: 环境与第一个窗口</a></h1>
+<h2 id="模块概览"><a class="header" href="#模块概览">模块概览</a></h2>
+<p>本模块带你跑通 Tauri 开发的最小闭环：装好环境、创建项目、看懂目录、跑起第一个应用。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>#</th><th>练习</th><th>新增知识</th><th>难度</th></tr>
+</thead>
+<tbody>
+<tr><td>01</td><td>计数器</td><td><code>invoke</code>、<code>#[tauri::command]</code>、<code>generate_handler!</code>、serde</td><td>⭐</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="练习代码"><a class="header" href="#练习代码">练习代码</a></h2>
+<p>位于 <code>tauri-learn-v2/01_first_app/</code>，每个练习提供练习版（含 TODO）与答案版（完整代码）两个项目。答案版端口 = 练习版 + 1，可同时运行互不冲突。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="前端速成vanilla-ts给-vue-开发者"><a class="header" href="#前端速成vanilla-ts给-vue-开发者">前端速成：Vanilla TS（给 Vue 开发者）</a></h1>
+<blockquote>
+<p>阶段 1 与八道小菜的第一道菜（a01）用 <strong>Vanilla TS</strong>（原生 TypeScript 操作 DOM，不带框架），先把“前后端通电话“这件事搞懂，再用 React 不迟。如果你熟悉 Vue，下面用 Vue 语法一一对照，几分钟就能上手。</p>
+</blockquote>
+<h2 id="找元素queryselector"><a class="header" href="#找元素queryselector">找元素：querySelector</a></h2>
+<p>Vue 用 <code>ref</code> 拿模板里的元素。Vanilla TS 用 <code>querySelector</code> 按选择器找：</p>
+<pre><code class="language-typescript">const btnEl = document.querySelector&lt;HTMLButtonElement&gt;("#increment");
+//                       ^^^^^^^^^^^^^^^^^^^^^^^^^^ ^^^^^^^^^^^
+//                       告诉 TS"找到的是按钮"     CSS 选择器（按 id 找）
+</code></pre>
+<ul>
+<li><code>#increment</code>：按 id 找元素（<code>#</code> 前缀）。找不到时返回 <code>null</code>，所以下面用 <code>!</code> 非空断言：“我保证它存在”</li>
+<li><code>&lt;HTMLButtonElement&gt;</code>：泛型，给 TS 类型提示，<code>btnEl.addEventListener</code> 才不报错</li>
+</ul>
+<pre><code class="language-typescript">// Vue 对照：const btnEl = ref&lt;HTMLButtonElement | null&gt;(null)
+</code></pre>
+<h2 id="更新内容textcontent-vs-innerhtml"><a class="header" href="#更新内容textcontent-vs-innerhtml">更新内容：textContent vs innerHTML</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th></th><th><code>textContent</code></th><th><code>innerHTML</code></th></tr>
+</thead>
+<tbody>
+<tr><td>把字符串当什么</td><td>纯文字</td><td>HTML 代码解析</td></tr>
+<tr><td>适合</td><td>显示数字、状态文字</td><td>渲染带标签的列表</td></tr>
+</tbody>
+</table>
+</div>
+<pre><code class="language-typescript">valueEl!.textContent = String(count);        // 纯文字：显示数字
+listEl!.innerHTML = items.map(...).join(""); // HTML：渲染列表
+</code></pre>
+<blockquote>
+<p>坑：展示用户输入或后端返回的字符串时，用 <code>textContent</code>；用 <code>innerHTML</code> 会把内容当 HTML 解析，<code>&lt;</code> <code>&gt;</code> 等字符会出问题。</p>
+</blockquote>
+<h2 id="样式类classname"><a class="header" href="#样式类classname">样式类：className</a></h2>
+<p>Vue 用 <code>:class</code>。Vanilla 用 <code>className</code> 整体替换 class 属性：</p>
+<pre><code class="language-typescript">statusEl!.className = "status ok";   // 等价于 :class="{ ok: true }"
+</code></pre>
+<h2 id="事件addeventlistener"><a class="header" href="#事件addeventlistener">事件：addEventListener</a></h2>
+<p>Vue 用 <code>@click</code>。Vanilla 用 <code>addEventListener</code>：</p>
+<pre><code class="language-typescript">btnEl!.addEventListener("click", increment);   // 点击按钮 → 执行 increment 函数
+</code></pre>
+<h2 id="异步asyncawait-与错误兜底"><a class="header" href="#异步asyncawait-与错误兜底">异步：async/await 与错误兜底</a></h2>
+<p>Vue 里 <code>await invoke(...)</code> 怎么写，这里就怎么写：</p>
+<pre><code class="language-typescript">async function increment() {
+  try {
+    const next = await invoke&lt;number&gt;("count_up", { current: count });
+    //                            ↑ 泛型：告诉 TS 返回值类型
+  } catch (e) {
+    // 后端报错、命令未注册、参数对不上……都会走到这里
+  }
+}
+</code></pre>
+<ul>
+<li><code>await</code>：等结果回来。不 await 拿到的是 Promise 对象而不是数据</li>
+<li><code>try/catch</code>：调用失败时兜底展示错误，而不是白屏</li>
+</ul>
+<h2 id="模板字符串与数组渲染"><a class="header" href="#模板字符串与数组渲染">模板字符串与数组渲染</a></h2>
+<p>Vue 用 <code>v-for</code> + <code>{{ }}</code>。Vanilla 用 <code>map().join()</code> + 反引号模板字符串：</p>
+<pre><code class="language-typescript">const lines = ["src/", "src-tauri/"];
+lines.map((line) =&gt; `&lt;li&gt;${line}&lt;/li&gt;`).join("");
+//    ↑ 把每个元素变成一段字符串        ↑ 拼成一个大字符串（不 join 会带逗号！）
+</code></pre>
+<h2 id="小结"><a class="header" href="#小结">小结</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>你要做的事</th><th>Vue</th><th>Vanilla TS</th></tr>
+</thead>
+<tbody>
+<tr><td>找元素</td><td><code>ref()</code></td><td><code>document.querySelector</code></td></tr>
+<tr><td>显示文本</td><td><code>{{ }}</code></td><td><code>el.textContent</code></td></tr>
+<tr><td>渲染列表</td><td><code>v-for</code></td><td><code>el.innerHTML = items.map(...).join("")</code></td></tr>
+<tr><td>样式切换</td><td><code>:class</code></td><td><code>el.className</code></td></tr>
+<tr><td>事件</td><td><code>@click</code></td><td><code>el.addEventListener</code></td></tr>
+<tr><td>调后端</td><td><code>await invoke()</code></td><td><code>await invoke()</code>（一样）</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="练习-01-计数器"><a class="header" href="#练习-01-计数器">练习 01: 计数器</a></h1>
+<h2 id="为什么要学这个"><a class="header" href="#为什么要学这个">为什么要学这个</a></h2>
+<p>第一个练习不做花哨的事，但这一章要回答三个问题，它们决定你对 Tauri 的基本理解正确与否：</p>
+<ol>
+<li><strong>一个桌面应用为什么非要分“前端 + 后端“两个进程？</strong> —— 界面归谁、能力归谁，为什么不能一个程序全干？</li>
+<li><strong>“命令“到底是什么东西？</strong> —— 为什么它不能是个普通函数？前端怎么够得着它？</li>
+<li><strong><code>invoke</code> 为什么必须写成异步的？</strong> —— 你点一下按钮，背后到底发生了什么？</li>
+</ol>
+<p>把这三件事搞懂，后面所有练习（状态、事件、文件、数据库、通知……）都只是这三件事的自然延伸。</p>
+<hr>
+<h2 id="从问题出发"><a class="header" href="#从问题出发">从问题出发</a></h2>
+<p>练习 01 要做的事：<strong>桌面上一个按钮，点一下数字 +1</strong>。</p>
+<p>用网页做这个需求，<code>let count = 0; count++</code> 一行就写完了。但这里我们故意绕个弯：<strong>把“加一“这件事交给后端 Rust 去算</strong>。为什么？</p>
+<p>因为真正的桌面应用里，前端做不了的事情太多了——读文件、查数据库、弹系统通知、访问剪贴板，这些能力全在 Rust 进程里。<strong>如果连“加一“这种最简单的调用都走不通，后面那些能力更无从谈起。</strong> 所以这道菜练的不是“计数器“，是 Tauri 的<strong>前后端调用链路</strong>。</p>
+<p><strong>核心矛盾：</strong> 前端跑在 WebView 里，本质是浏览器环境；Rust 进程是独立的系统进程。它们语言不同、内存不共享，中间隔着一道进程边界。Tauri 要解决的就是：<strong>让前端以最少的仪式调用到后端</strong>。</p>
+<pre><code class="language-text">前端 (WebView)                   Rust 核心进程
+┌──────────────────┐    IPC    ┌──────────────────────┐
+│ 点按钮            │ ────────► │ count_up(current)    │
+│ invoke("count_up")│ ◄──────── │ 算出 current + 1      │
+│ 拿到结果并刷新界面 │           │ 返回结果              │
+└──────────────────┘           └──────────────────────┘
+</code></pre>
+<p>Tauri 把这条链路抽象成三层，本课就讲这三层：</p>
+<pre><code class="language-text">invoke()                 → 调用层：前端跨进程发起请求
+#[tauri::command]        → 命令层：定义可被调用的后端函数
+generate_handler!        → 注册层：把命令登记进"电话号码簿"
+</code></pre>
+<hr>
+<p><a id="sec-01-invoke"></a></p>
+<h2 id="1-invoke--前端给后端打电话"><a class="header" href="#1-invoke--前端给后端打电话">1. <code>invoke()</code> — 前端给后端打电话</a></h2>
+<p>前端的调用长这样：</p>
+<pre><code class="language-typescript">const next = await invoke&lt;number&gt;("count_up", { current: count });
+//                       ^^^^^^^^  ^^^^^^^^^^   ^^^^^^^^^^^^^^^^^^
+//                       返回类型   命令名（字符串）   参数（对象）
+</code></pre>
+<p>拆开看三件事：</p>
+<p><strong>1. 命令名是一个字符串。</strong> 前端并不知道后端的函数在内存的哪个位置，它只能喊一个名字，后端按名字去查。所以 <code>"count_up"</code> 必须和后端注册的名字一字不差——拼错一个字，就是“命令未找到“。</p>
+<p><strong>2. 参数是一个对象，key 必须等于 Rust 参数名。</strong> <code>{ current: count }</code> 里的 <code>current</code> 对应 Rust 函数的参数 <code>current: i32</code>。Tauri 会把整个对象序列化成 JSON 传给后端，后端按参数名反序列化。<strong>key 拼错（比如 <code>{ cur: count }</code>），后端会因参数缺失而报错。</strong></p>
+<p><strong>3. 返回值用泛型 <code>&lt;number&gt;</code> 声明。</strong> 它对应 Rust 的 <code>i32</code>。注意这只是一个 <strong>TS 侧的声明</strong>，运行时不会校验——类型对不上时，显示的多半是 <code>undefined</code>。</p>
+<blockquote>
+<p><strong>关键理解：</strong> 前端的 <code>invoke</code> 和后端的函数执行，不是“同一块内存里的函数调用“，而是“两个独立进程的协作“。所以它必须异步——见第 4 节。</p>
+</blockquote>
+<h3 id="类型映射表"><a class="header" href="#类型映射表">类型映射表</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Rust</th><th>JS / TS</th></tr>
+</thead>
+<tbody>
+<tr><td><code>i32</code>, <code>f64</code></td><td><code>number</code></td></tr>
+<tr><td><code>String</code>, <code>&amp;str</code></td><td><code>string</code></td></tr>
+<tr><td><code>bool</code></td><td><code>boolean</code></td></tr>
+<tr><td><code>Vec&lt;T&gt;</code></td><td><code>T[]</code></td></tr>
+<tr><td>结构体</td><td>对象</td></tr>
+</tbody>
+</table>
+</div>
+<p><a id="sec-01-command"></a></p>
+<h2 id="2-tauricommand--把函数升级成命令"><a class="header" href="#2-tauricommand--把函数升级成命令">2. <code>#[tauri::command]</code> — 把函数升级成命令</a></h2>
+<p>后端定义命令：</p>
+<pre><code class="language-rust">#[tauri::command]
+fn count_up(current: i32) -&gt; i32 {
+    current + 1
+}</code></pre>
+<p>Rust 语言本身没有“命令“这个概念。<code>#[tauri::command]</code> 是一个<strong>属性宏</strong>，它在编译期把普通函数“升级“成框架可识别、可调用的单元，自动生成：</p>
+<ol>
+<li><strong>参数反序列化</strong>：把前端传来的 JSON 转成 <code>current: i32</code></li>
+<li><strong>返回值序列化</strong>：把 <code>i32</code> 转成可回传前端的 JSON</li>
+<li><strong>注册信息</strong>：命令的名字与签名，供运行时查找</li>
+</ol>
+<blockquote>
+<p><strong>为什么用宏而不是手写？</strong> 因为“反序列化 + 序列化“这套样板代码跟函数签名强相关。宏能分析签名自动生成；手写的话，每个命令都要重复一遍，还容易写错。</p>
+</blockquote>
+<p><strong>不加会发生什么：</strong> 函数本身编译通过，但前端 <code>invoke("count_up")</code> 时后端查无此命令，报“命令未找到“。</p>
+<p><a id="sec-01-register"></a></p>
+<h2 id="3-generate_handler--登记电话号码簿"><a class="header" href="#3-generate_handler--登记电话号码簿">3. <code>generate_handler!</code> — 登记电话号码簿</a></h2>
+<p>命令定义了，还要<strong>登记</strong>，前端才调得到：</p>
+<pre><code class="language-rust">.invoke_handler(tauri::generate_handler![count_up])</code></pre>
+<ul>
+<li><code>generate_handler![...]</code>：把列出的命令打包成一张“命令注册表“</li>
+<li><code>.invoke_handler(...)</code>：把这张表挂到 Builder 上</li>
+</ul>
+<p>前端发来的每条调用请求，都在这张表里<strong>按名字查找</strong>。所以：写了 <code>#[tauri::command]</code> 但忘了登记 = 命令未找到；登记了但名字拼错 = 命令未找到。这是每个练习都会埋一次的坑。</p>
+<p><a id="sec-01-serde"></a></p>
+<h2 id="4-serde-与序列化--两边讲同一种语言"><a class="header" href="#4-serde-与序列化--两边讲同一种语言">4. <code>serde</code> 与序列化 — 两边讲同一种语言</a></h2>
+<p>前端和后端语言不同、进程不同，唯一的共同点就是：<strong>都能把数据变成 JSON 字节流</strong>。这一来一回的“翻译“，就是序列化（Rust → JSON）和反序列化（JSON → Rust）：</p>
+<pre><code class="language-text">前端 JS                        IPC（JSON 字节流）             Rust
+count = 3  ──►  {"current":3}  ──────────────────────►  current: i32 = 3
+                  ◄──────────────────────  {"result":4}  ◄──  current + 1 = 4
+</code></pre>
+<p>本课用的 <code>i32</code> / <code>number</code> 是基础类型，<strong>自带序列化能力</strong>，不需要额外声明。自定义结构体才需要 <code>#[derive(serde::Serialize)]</code> 声明“我能被序列化“——那是 a01 待办清单的内容，这里先把基础类型的地基打好。</p>
+<hr>
+<h2 id="练习指引"><a class="header" href="#练习指引">练习指引</a></h2>
+<p><strong>作业范围：</strong> 只动 2 个文件，共 4 处 TODO。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>文件</th><th>TODO</th><th>内容</th></tr>
+</thead>
+<tbody>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>步骤 1</td><td>给 <code>count_up</code> 加 <code>#[tauri::command]</code></td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>步骤 2</td><td>在 <code>generate_handler!</code> 里登记 <code>count_up</code></td></tr>
+<tr><td><code>src/main.ts</code></td><td>步骤 1</td><td>导入 <code>invoke</code></td></tr>
+<tr><td><code>src/main.ts</code></td><td>步骤 2</td><td>调用 <code>invoke&lt;number&gt;("count_up", { current: count })</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>怎么验证：</strong></p>
+<pre><code class="language-bash">cd 01_first_app/e01_counter
+pnpm install        # 或已在仓库根目录执行过
+cargo tauri dev
+</code></pre>
+<p>窗口出现一个大数字和 +1 按钮；每点一次按钮，数字 +1，下方状态行显示“后端返回: N“。</p>
+<p><strong>故意踩坑看效果</strong>（填完代码后试一次）：把 <code>"count_up"</code> 改成 <code>"count_up_xxx"</code> → 页面显示“调用失败“。这能帮你确认：命令名是字符串、是前后端唯一的“暗号“。</p>
+<blockquote>
+<p><strong>提示：</strong> 这课把数字存在<strong>前端</strong>变量 <code>count</code> 里，后端只是“算数“，不记数。为什么不让后端记住数字？——那需要 <code>State</code>，是 a01 待办清单要讲的内容。<strong>先确认调用链路通了，再加状态。</strong></p>
+</blockquote>
+<hr>
+<h2 id="知识点连起来看"><a class="header" href="#知识点连起来看">知识点连起来看</a></h2>
+<pre><code class="language-text">┌──────────────────────────────────────────────┐
+│ 前端 (WebView)                               │
+│   invoke("count_up", { current })  ← 调用层   │
+│                                              │
+│ Rust 核心进程                                │
+│   #[tauri::command] fn count_up  ← 命令层    │
+│   generate_handler![count_up]     ← 注册层   │
+└──────────────────────────────────────────────┘
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>层</th><th>解决的问题</th><th>关键概念</th></tr>
+</thead>
+<tbody>
+<tr><td><code>invoke()</code></td><td>前端怎么发起调用</td><td>IPC、Promise、async/await、参数对象</td></tr>
+<tr><td><code>#[tauri::command]</code></td><td>函数怎么被前端调用</td><td>属性宏、参数反序列化、返回值序列化</td></tr>
+<tr><td><code>generate_handler!</code></td><td>前端按什么找到命令</td><td>注册表、按名字查找</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>一通百通的核心：</strong> 这三个知识点是 Tauri 的<strong>调用链路</strong>——调用层发消息，命令层暴露能力，注册层做索引。后面要学的状态（a01）、异步（a03）、事件（a01）全都是在这条链路上叠加：<strong>链路怎么走，永远不变；变的只是命令里装了什么。</strong></p>
+<p><strong>递进关系：</strong> 练习 02（a01 待办清单）将回答“数据该放哪“——<code>Builder::manage()</code> + <code>State&lt;T&gt;</code>，让后端能记住状态，不再像计数器这样每次把数字传过去。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="模块-02-八道小菜"><a class="header" href="#模块-02-八道小菜">模块 02: 八道小菜</a></h1>
+<h2 id="模块概览-1"><a class="header" href="#模块概览-1">模块概览</a></h2>
+<p>模块 01 学会了“前后端通电话“。本模块开始做真正的应用——每课一道小菜，越做越复杂：</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>#</th><th>小菜</th><th>一句话需求</th><th>新增知识</th><th style="text-align: center">前端</th></tr>
+</thead>
+<tbody>
+<tr><td>A01</td><td>待办清单</td><td>能加、能勾掉、能删的待办</td><td><code>manage</code> / <code>State&lt;T&gt;</code> / <code>Mutex</code>、结构体 + serde、<code>listen</code> / <code>emit</code></td><td style="text-align: center">Vanilla TS</td></tr>
+<tr><td>A02</td><td>记事本</td><td>关掉软件字还在</td><td>路径 API、fs 插件读/写、<code>Result</code> 错误处理、React</td><td style="text-align: center">React</td></tr>
+<tr><td>A03</td><td>番茄钟</td><td>倒计时 25 分钟，到点提醒</td><td>异步命令 + tokio、通知、系统托盘</td><td style="text-align: center">React</td></tr>
+<tr><td>A04</td><td>图片查看器</td><td>拖图片进来一张张翻</td><td>窗口操作、拖放、静态资源</td><td style="text-align: center">React</td></tr>
+<tr><td>A05</td><td>记账本</td><td>记每天花了多少，看月度合计</td><td>SQL 插件</td><td style="text-align: center">React</td></tr>
+<tr><td>A06</td><td>汇率查询</td><td>今天 100 美元 = 多少人民币</td><td>HTTP、Store 缓存</td><td style="text-align: center">React</td></tr>
+<tr><td>A07</td><td>批量重命名</td><td>几百个文件批量改名，显示进度</td><td>后台任务、Channel 进度</td><td style="text-align: center">React</td></tr>
+<tr><td>A08</td><td>剪贴板历史</td><td>复制过的都记下来，按快捷键翻出来</td><td>剪贴板、全局快捷键、菜单</td><td style="text-align: center">React</td></tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>每课“新增知识“只讲本课新学的；旧知识标注“沿用 a0X“，不重复展开。本模块八道小菜已全部完成 ✅</p>
+</blockquote>
+<h2 id="练习代码-1"><a class="header" href="#练习代码-1">练习代码</a></h2>
+<p>位于 <code>tauri-learn-v2/02_mini_apps/</code>，每个练习提供练习版（含 TODO）与答案版（完整代码）两个项目。答案版端口 = 练习版 + 1。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="练习-a01-待办清单"><a class="header" href="#练习-a01-待办清单">练习 A01: 待办清单</a></h1>
+<h2 id="为什么要学这个-1"><a class="header" href="#为什么要学这个-1">为什么要学这个</a></h2>
+<p>计数器（练习 01）的致命缺陷是：<strong>数字存在前端变量里，页面一刷新就没了。</strong> 真正的应用要跨操作、跨时间地“记住“数据。这一章要回答三个问题：</p>
+<ol>
+<li><strong>数据该放哪？</strong> —— 为什么要把数据交给后端存，而不是放在前端？</li>
+<li><strong>多条命令怎么共享同一份数据？</strong> —— <code>manage</code> + <code>State&lt;T&gt;</code> + <code>Mutex</code> 三件套怎么配合？</li>
+<li><strong>后端怎么“主动“告诉前端？</strong> —— 命令返回值是“前端问了才答“，事件是“后端自己推“，两者什么区别？</li>
+</ol>
+<p>搞懂这三件事，“有状态的应用“的大门就打开了——后面所有项目（记事本、番茄钟、记账本）都是“放数据 + 改数据 + 通知前端“的组合。</p>
+<hr>
+<h2 id="从问题出发-1"><a class="header" href="#从问题出发-1">从问题出发</a></h2>
+<p>练习 A01 要做的事：<strong>一个待办清单——能加、能勾掉、能删</strong>。</p>
+<p><strong>核心矛盾：</strong> 待办数据必须“记住“。如果还像计数器那样把 <code>count</code> 放在前端变量里，那么：</p>
+<ul>
+<li>点一次按钮 → 数据变一次 → 页面一刷新，一切归零；</li>
+<li>两个按钮同时想改数据，前端自己先打架。</li>
+</ul>
+<p>所以数据要放在<strong>后端</strong>：后端进程活着，数据就在；所有改数据的操作都走后端，大家看到的就是同一份。</p>
+<pre><code class="language-text">前端 (WebView)                    Rust 进程
+┌─────────────────────┐          ┌──────────────────────────┐
+│ 输入框 + 按钮         │ invoke  │  TodoState (manage 注册)  │
+│ 列表渲染              │ ──────► │   items: Mutex&lt;Vec&lt;...&gt;&gt;  │
+│ 日志面板 (listen)     │ ◄────── │   next_id: Mutex&lt;u64&gt;    │
+└─────────────────────┘  事件推  └──────────────────────────┘
+</code></pre>
+<p>本课新增四样东西，环环相扣：<strong><code>manage</code> 把状态注册进后端 → <code>State&lt;T&gt;</code> 让命令拿到它 → <code>Mutex</code> 保证一次只有一个人改 → <code>emit</code> 让后端主动通知前端。</strong></p>
+<hr>
+<p><a id="sec-a01-manage"></a></p>
+<h2 id="1-manage--statet--数据放后端命令来取"><a class="header" href="#1-manage--statet--数据放后端命令来取">1. <code>manage</code> + <code>State&lt;T&gt;</code> — 数据放后端，命令来取</a></h2>
+<h3 id="第一步定义整个应用的数据"><a class="header" href="#第一步定义整个应用的数据">第一步：定义“整个应用的数据“</a></h3>
+<pre><code class="language-rust">#[derive(Default)]
+struct TodoState {
+    items: Mutex&lt;Vec&lt;TodoItem&gt;&gt;,
+    next_id: Mutex&lt;u64&gt;,
+}</code></pre>
+<p><code>TodoState</code> 就是“整个应用的数据“：待办列表 + 自增 id 计数器。它和后端进程同生共死——应用启动时创建，应用关闭时销毁。</p>
+<h3 id="第二步manage-把数据注册进-builder"><a class="header" href="#第二步manage-把数据注册进-builder">第二步：<code>manage</code> 把数据注册进 Builder</a></h3>
+<pre><code class="language-rust">tauri::Builder::default()
+    .manage(TodoState::default())</code></pre>
+<p><code>.manage(...)</code> 把 <code>TodoState</code> 的实例注册成 Tauri 管理下的共享状态。<strong>不注册，命令就拿不到它。</strong></p>
+<h3 id="第三步命令用-state_-t-参数取数据"><a class="header" href="#第三步命令用-state_-t-参数取数据">第三步：命令用 <code>State&lt;'_, T&gt;</code> 参数取数据</a></h3>
+<pre><code class="language-rust">#[tauri::command]
+fn list_todos(state: State&lt;'_, TodoState&gt;) -&gt; Vec&lt;TodoItem&gt; {
+    state.items.lock().unwrap().clone()
+}</code></pre>
+<p><code>State&lt;'_, TodoState&gt;</code> 是 Tauri 自动注入的特殊参数——<strong>不需要前端传</strong>，框架把 <code>manage</code> 注册的那个实例递进来。命令里 <code>state.items</code> 就能读到列表。</p>
+<blockquote>
+<p><strong>关键理解：</strong> <code>manage</code> 只注册一次，但<strong>每个命令都能拿到同一个实例</strong>。这正是“共享状态“的含义——a01 加一条，a01_answer 打开同一个数据？不，每个项目是独立进程；这里的“共享“是指<strong>同一次运行里，所有命令看到的是同一份数据</strong>。</p>
+</blockquote>
+<h3 id="没注册会怎样"><a class="header" href="#没注册会怎样">没注册会怎样？</a></h3>
+<p>命令参数里写了 <code>State&lt;TodoState&gt;</code> 但 Builder 没 <code>.manage(...)</code>——运行时命令会报“state 不存在“的错误，前端显示“调用失败“。这是本课埋的第一个坑。</p>
+<p><a id="sec-a01-mutex"></a></p>
+<h2 id="2-mutex--一次只有一个人能改"><a class="header" href="#2-mutex--一次只有一个人能改">2. <code>Mutex</code> — 一次只有一个人能改</a></h2>
+<p>为什么 <code>items</code> 外面要包一层 <code>Mutex</code>？</p>
+<p>考虑两个按钮同时操作：用户飞快地点“添加“和“删除“，两条 <code>invoke</code> 几乎同时到达后端，两个命令同时读改写 <code>Vec</code>——Rust 的内存安全规则<strong>禁止两个可变借用同时存在</strong>，直接编译都过不去。</p>
+<p><code>Mutex</code>（互斥锁）的解决办法：<strong>想要改数据，先 <code>lock()</code> 拿钥匙；拿到钥匙的人改完 <code>drop</code>（解锁），下一个人才能拿。</strong> 同一时刻最多一个人持有锁：</p>
+<pre><code class="language-rust">let mut items = state.items.lock().unwrap();
+items.push(item);</code></pre>
+<ul>
+<li><code>lock()</code> 返回 <code>MutexGuard</code>，它可以当作 <code>&amp;mut Vec</code> 用</li>
+<li><code>.unwrap()</code>：锁被占用时阻塞等待，正常不会失败；出问题（比如持锁者 panic）就 panic</li>
+<li>作用域结束，guard 自动解锁——所以<strong>尽量在小的代码块里 lock，改完立刻释放</strong></li>
+</ul>
+<blockquote>
+<p><strong>为什么这里敢 <code>unwrap</code>？</strong> 因为锁竞争只有“等“，没有“毒“（除非持锁线程 panic）。教学起见直接 unwrap；生产代码会用 <code>lock().map_err(...)</code> 优雅处理。</p>
+</blockquote>
+<p><a id="sec-a01-serde-struct"></a></p>
+<h2 id="3-结构体--serde--一条待办长什么样"><a class="header" href="#3-结构体--serde--一条待办长什么样">3. 结构体 + serde — 一条待办长什么样</a></h2>
+<p>待办不只是字符串，它有“形状“：<strong>id（谁）、text（说什么）、done（完成没）</strong>。用结构体表达：</p>
+<pre><code class="language-rust">#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+pub struct TodoItem {
+    pub id: u64,
+    pub text: String,
+    pub done: bool,
+}</code></pre>
+<ul>
+<li><code>Serialize</code>：作为命令返回值，穿越进程边界时<strong>序列化成 JSON</strong></li>
+<li><code>Deserialize</code>：本课前端不传结构体进来，但双向派生子是标准姿势（后面练习会用到）</li>
+<li>序列化规则：<strong>字段名就是 JSON 的 key</strong></li>
+</ul>
+<pre><code class="language-text">Rust:  TodoItem { id: 0, text: "买菜", done: false }
+         │ serde 序列化
+         ▼
+JSON:  {"id":0,"text":"买菜","done":false}
+         │ 反序列化
+         ▼
+TS:    { id: 0, text: "买菜", done: false }   ← interface TodoItem 就是照它写的
+</code></pre>
+<p>前端 <code>interface TodoItem { id: number; text: string; done: boolean }</code> 与 Rust 结构体<strong>字段一一对应</strong>——这就是 a01 前后端传递的“同一种语言“。</p>
+<p><a id="sec-a01-emit-listen"></a></p>
+<h2 id="4-emit--listen--后端主动推前端躺着收"><a class="header" href="#4-emit--listen--后端主动推前端躺着收">4. <code>emit</code> + <code>listen</code> — 后端主动推，前端躺着收</a></h2>
+<p>前面学的 <code>invoke</code> 是<strong>请求-响应</strong>：前端问一句，后端答一句。但待办清单里有个场景它办不到——<strong>后端改了数据，要主动告诉前端“我刚加了条日志“</strong>。总不能前端每隔一秒问一次（轮询）吧？</p>
+<p>Tauri 提供了<strong>事件</strong>：后端 <code>emit</code> 广播，前端 <code>listen</code> 收听。</p>
+<h3 id="后端appemit"><a class="header" href="#后端appemit">后端：<code>app.emit</code></a></h3>
+<pre><code class="language-rust">#[tauri::command]
+fn add_todo(app: AppHandle, state: State&lt;'_, TodoState&gt;, text: String) -&gt; Vec&lt;TodoItem&gt; {
+    // ...push 进列表...
+    let _ = app.emit("todo-log", format!("添加：{text}"));
+    items.clone()
+}</code></pre>
+<ul>
+<li><code>app: AppHandle</code>：<strong>应用句柄</strong>，Tauri 自动注入。要“发广播“得先拿到这个“总台“</li>
+<li><code>app.emit("事件名", 载荷)</code>：向所有前端广播事件。载荷可以是任意可序列化类型，这里是一条 <code>String</code></li>
+<li><code>let _ = ...</code>：emit 的返回值是 <code>Result</code>，教学场景忽略（<code>_</code>），不忽略也行</li>
+</ul>
+<h3 id="前端listen"><a class="header" href="#前端listen">前端：<code>listen</code></a></h3>
+<pre><code class="language-typescript">import { listen } from "@tauri-apps/api/event";
+
+listen&lt;string&gt;("todo-log", (event) =&gt; {
+  logEl!.insertAdjacentHTML("beforeend", `&lt;li&gt;${event.payload}&lt;/li&gt;`);
+});
+</code></pre>
+<ul>
+<li><code>listen("事件名", 回调)</code>：订阅事件，后端每次 <code>emit</code> 都触发一次回调</li>
+<li><code>event.payload</code>：就是后端 <code>emit</code> 的那个载荷（泛型 <code>&lt;string&gt;</code> 声明它的类型）</li>
+<li>回调里 <code>event</code> 对象还有 <code>id</code>、<code>event</code> 等字段，本课只用 <code>payload</code></li>
+</ul>
+<blockquote>
+<p><strong>对比总结：</strong></p>
+</blockquote>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th></th><th>命令返回值</th><th>事件（emit / listen）</th></tr>
+</thead>
+<tbody>
+<tr><td>谁发起</td><td>前端发起</td><td>后端主动发起</td></tr>
+<tr><td>方向</td><td>前端 → 后端 → 前端（一来一回）</td><td>后端 → 前端（单向广播）</td></tr>
+<tr><td>典型场景</td><td>前端要数据</td><td>后端有变化要通知</td></tr>
+<tr><td>本课例子</td><td><code>list_todos</code> 返回列表</td><td>每次操作推一条“操作日志“</td></tr>
+</tbody>
+</table>
+</div>
+<p>本课待办清单<strong>两个都用</strong>：点按钮用 invoke（请求-响应），操作日志用事件（后端推送）——一道菜同时学会两种通信方式。</p>
+<hr>
+<h2 id="练习指引-1"><a class="header" href="#练习指引-1">练习指引</a></h2>
+<p><strong>作业范围：</strong> 只动 2 个文件，共 8 处 TODO。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>文件</th><th>步骤</th><th>内容</th></tr>
+</thead>
+<tbody>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>2</td><td><code>.manage(TodoState::default())</code> 注册共享状态</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>3-5</td><td>三个命令里各补一条 <code>app.emit("todo-log", ...)</code></td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>6</td><td>登记 add/toggle/delete 三个命令</td></tr>
+<tr><td><code>src/main.ts</code></td><td>2</td><td>调 <code>add_todo</code> 并渲染返回的列表</td></tr>
+<tr><td><code>src/main.ts</code></td><td>3</td><td>事件委托里调 toggle/delete</td></tr>
+<tr><td><code>src/main.ts</code></td><td>4</td><td><code>listen("todo-log", ...)</code> 追加日志</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>怎么验证：</strong></p>
+<pre><code class="language-bash">cd 02_mini_apps/a01_todo
+cargo tauri dev
+</code></pre>
+<p>输入内容点“添加“，列表出现待办；点“完成“文字划线；点“删除“消失；下方日志面板逐条追加“添加：xxx / 完成：xxx / 删除：xxx“。</p>
+<p><strong>故意踩坑看效果：</strong> 不改 <code>.manage</code> → 任何操作都显示“调用失败“；不注册 add_todo → 点添加报“命令未找到“。这两个坑每个练习都会埋。</p>
+<hr>
+<h2 id="知识点连起来看-1"><a class="header" href="#知识点连起来看-1">知识点连起来看</a></h2>
+<pre><code class="language-text">manage(TodoState::default())        ← 注册：数据住进后端
+        │
+State&lt;'_, TodoState&gt;                ← 注入：命令拿到同一份数据
+        │
+Mutex&lt;Vec&lt;TodoItem&gt;&gt;                ← 并发：一次只有一个人改
+        │
+Vec&lt;TodoItem&gt; (serde)               ← 传输：结构体穿越进程边界
+        │
+app.emit("todo-log", ...)           ← 通知：后端主动推给前端
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>层</th><th>解决的问题</th><th>关键概念</th></tr>
+</thead>
+<tbody>
+<tr><td>状态</td><td>数据放哪、怎么共享</td><td><code>manage</code>、<code>State&lt;T&gt;</code></td></tr>
+<tr><td>并发</td><td>同时改怎么办</td><td><code>Mutex</code>、<code>lock()</code></td></tr>
+<tr><td>传输</td><td>结构体怎么过边界</td><td>serde、JSON、字段名=key</td></tr>
+<tr><td>通信</td><td>后端怎么主动说</td><td><code>AppHandle</code>、<code>emit</code> / <code>listen</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>一通百通的核心：</strong> 这一课完成了一次“质的升级“——从“前后端通话“（练习 01）到“<strong>应用有状态</strong>“。往后所有项目的骨架都是这四层：<strong>注册状态 → 命令读写 → 结构体传输 → 事件通知</strong>。变的是业务数据，不变的是这条链路。</p>
+<p><strong>递进关系：</strong> 练习 A02（记事本）将回答“关掉软件，数据还在吗？“——状态存在内存里，应用一关就没了；要持久化，就得落盘（路径 API + fs 插件）。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="练习-a02-记事本"><a class="header" href="#练习-a02-记事本">练习 A02: 记事本</a></h1>
+<h2 id="为什么要学这个-2"><a class="header" href="#为什么要学这个-2">为什么要学这个</a></h2>
+<p>待办清单（A01）有个问题：<strong>数据在内存里，应用一关就没了。</strong> 真正的应用要“关掉字还在“——把数据<strong>持久化到文件</strong>。这一章要回答三个问题：</p>
+<ol>
+<li><strong>文件该存哪？</strong> —— 为什么不能随便存？“应用数据目录“是什么？</li>
+<li><strong>怎么写代码读写文件？</strong> —— fs 插件怎么用？<code>OpenOptions</code> 那些 <code>read / write / create / truncate</code> 是什么意思？</li>
+<li><strong>出错了怎么办？</strong> —— <code>Result</code> 错误处理怎么在前后端传“失败原因“？</li>
+</ol>
+<p>另外，从这一课开始，前端从 Vanilla TS 换成 <strong>React</strong>——为什么？因为应用开始有“输入框 + 按钮 + 状态显示“这种交互，框架能省掉大量手写 DOM 代码。学完你会：用 React 写前端 + 用 Rust 读写文件，做出第一个“真正能用“的应用。</p>
+<hr>
+<h2 id="从问题出发-2"><a class="header" href="#从问题出发-2">从问题出发</a></h2>
+<p>练习 A02 要做的事：<strong>一个记事本——输入文字，点保存，关掉软件再打开，字还在。</strong></p>
+<p><strong>核心矛盾：</strong> A01 的数据在内存里（<code>Mutex&lt;Vec&lt;...&gt;&gt;</code>），内存断电即失。要把数据“留下来“，唯一可靠的办法是<strong>写进磁盘文件</strong>。但“写文件“背后有三个坑：</p>
+<ol>
+<li><strong>存哪？</strong> 写“当前目录“？打包安装后程序目录是只读的。每个系统都有规范的应用数据目录——Windows 的 <code>%APPDATA%</code>、macOS 的 <code>~/Library/Application Support</code>、Linux 的 <code>~/.local/share</code>。</li>
+<li><strong>怎么读怎么写？</strong> 打开文件、读内容、写内容、关文件——而且要有“创建 / 清空 / 追加“的控制。</li>
+<li><strong>失败怎么办？</strong> 磁盘满、文件被占用、目录不存在……任何一个错误都不能让程序崩溃，要变成一句能看懂的中文提示。</li>
+</ol>
+<p>所以后端三件事：<strong><code>app.path()</code> 拿目录 → <code>app.fs()</code> 读写文件 → <code>Result</code> 兜住所有失败。</strong></p>
+<pre><code class="language-text">前端 (React)                        Rust 进程
+┌──────────────────────┐           ┌─────────────────────────────┐
+│ textarea (useState)   │  invoke  │  app.path().app_data_dir()   │ ← 存哪
+│ 保存按钮               │ ───────► │  app.fs().open(OpenOptions)  │ ← 读写
+│ 路径 + 状态显示         │ ◄────── │  Result&lt;String, String&gt;      │ ← 出错
+└──────────────────────┘           └─────────────────────────────┘
+</code></pre>
+<hr>
+<p><a id="sec-a02-path"></a></p>
+<h2 id="1-路径-api--文件该存哪"><a class="header" href="#1-路径-api--文件该存哪">1. 路径 API — 文件该存哪</a></h2>
+<h3 id="为什么不能用相对路径"><a class="header" href="#为什么不能用相对路径">为什么不能用相对路径</a></h3>
+<p>开发时 <code>./note.txt</code> 好像挺方便。但打包安装后，可执行文件所在的目录是<strong>只读</strong>的（Windows 在 <code>Program Files</code> 下），而且每个用户应该有自己的笔记。所以 Tauri 提供了一组<strong>规范目录</strong>：</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>方法</th><th>返回的目录</th><th>用途</th></tr>
+</thead>
+<tbody>
+<tr><td><code>app_data_dir()</code></td><td>应用专属数据目录（<code>%APPDATA%/com.taurilearn.a02</code>）</td><td>本课用它</td></tr>
+<tr><td><code>app_config_dir()</code></td><td>配置目录</td><td>设置文件</td></tr>
+<tr><td><code>app_log_dir()</code></td><td>日志目录</td><td>日志文件</td></tr>
+<tr><td><code>app_cache_dir()</code></td><td>缓存目录</td><td>可随时清掉的缓存</td></tr>
+<tr><td><code>temp_dir()</code></td><td>系统临时目录</td><td>临时文件</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="怎么用"><a class="header" href="#怎么用">怎么用</a></h3>
+<pre><code class="language-rust">use tauri::Manager;
+
+fn note_path(app: &amp;AppHandle) -&gt; Result&lt;PathBuf, String&gt; {
+    let dir = app
+        .path()                       // 拿到路径解析器
+        .app_data_dir()               // 应用数据目录
+        .map_err(|e| format!("获取应用数据目录失败：{e}"))?;
+    Ok(dir.join("note.txt"))          // 目录 + 文件名 → 完整路径
+}</code></pre>
+<ul>
+<li><code>app.path()</code>：<code>Manager</code> trait 提供的方法，<code>AppHandle</code> 上直接可调</li>
+<li><code>app_data_dir()</code> 返回 <code>Result&lt;PathBuf, tauri::Error&gt;</code>——<strong>可能失败</strong>（比如目录创建失败），所以用 <code>?</code> 传播</li>
+<li><code>dir.join("note.txt")</code>：路径拼接，效果是 <code>&lt;数据目录&gt;/note.txt</code></li>
+</ul>
+<blockquote>
+<p><strong>关键理解：</strong> 目录名里的 <code>com.taurilearn.a02</code> 就是 <code>tauri.conf.json</code> 的 <code>identifier</code>——所以每个应用有自己的专属目录，互不污染。</p>
+</blockquote>
+<p><a id="sec-a02-fs"></a></p>
+<h2 id="2-fs-插件--读写文件"><a class="header" href="#2-fs-插件--读写文件">2. fs 插件 — 读写文件</a></h2>
+<h3 id="为什么用插件而不是裸-stdfs"><a class="header" href="#为什么用插件而不是裸-stdfs">为什么用插件而不是裸 <code>std::fs</code></a></h3>
+<p><code>std::fs</code> 当然能读写，但 Tauri 的 fs 插件（<code>tauri-plugin-fs</code>）提供<strong>跨平台一致的体验</strong>（Android/iOS 也支持）、统一的错误类型，并且 Rust 端方法直接可用。先注册插件：</p>
+<pre><code class="language-rust">tauri::Builder::default()
+    .plugin(tauri_plugin_fs::init())</code></pre>
+<h3 id="读文件appfsopen--read_to_string"><a class="header" href="#读文件appfsopen--read_to_string">读文件：<code>app.fs().open</code> + <code>read_to_string</code></a></h3>
+<pre><code class="language-rust">use std::io::Read;
+use tauri_plugin_fs::{FsExt, OpenOptions};
+
+let mut file = app
+    .fs()                                                          // 拿到 fs 访问器
+    .open(&amp;path, OpenOptions { read: true, ..Default::default() }) // 以"只读"打开
+    .map_err(|e| format!("打开文件失败：{e}"))?;
+let mut content = String::new();
+file.read_to_string(&amp;mut content).map_err(|e| format!("读取失败：{e}"))?;</code></pre>
+<h3 id="写文件openoptions-三个开关"><a class="header" href="#写文件openoptions-三个开关">写文件：<code>OpenOptions</code> 三个开关</a></h3>
+<pre><code class="language-rust">use std::io::Write;
+
+let mut file = app
+    .fs()
+    .open(
+        &amp;path,
+        OpenOptions {
+            write: true,     // 可写
+            create: true,    // 文件不存在就创建
+            truncate: true,  // 打开时先清空（覆盖旧内容）
+            ..Default::default()
+        },
+    )
+    .map_err(|e| format!("创建文件失败：{e}"))?;
+file.write_all(content.as_bytes()).map_err(|e| format!("写入失败：{e}"))?;</code></pre>
+<p><code>OpenOptions</code> 是“打开方式“的声明，用 <code>OpenOptions::new()</code> 创建后用 builder 方法依次打开开关，四个最常用的：</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>开关</th><th>含义</th><th>本课</th></tr>
+</thead>
+<tbody>
+<tr><td><code>read: true</code></td><td>可读</td><td>读文件时开</td></tr>
+<tr><td><code>write: true</code></td><td>可写</td><td>写文件时开</td></tr>
+<tr><td><code>create: true</code></td><td>不存在则创建</td><td>写文件时开（第一次保存）</td></tr>
+<tr><td><code>truncate: true</code></td><td>打开即清空</td><td>写文件时开（整体覆盖，不残留旧内容）</td></tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p><strong>注意：</strong> 插件里 <code>OpenOptions</code> 的字段是私有的，<strong>不能用 <code>OpenOptions { read: true }</code> 结构体字面量</strong>——必须 <code>OpenOptions::new()</code> 后用 <code>.read(true)</code> 这类方法链式打开。<code>..Default::default()</code> 也不能用（见 <a href="02_mini_apps/a02_notepad_answer.html">答案讲解</a>）。fs 插件的 Rust 端方法（<code>app.fs()</code>）直接基于 <code>std::fs</code>，<strong>不走权限 scope</strong>——权限（capabilities）是给前端 JS 调用插件时用的。所以本课 capabilities 不需要额外加 <code>fs:*</code> 权限。</p>
+</blockquote>
+<h3 id="写之前确保目录存在"><a class="header" href="#写之前确保目录存在">写之前确保目录存在</a></h3>
+<p><code>create: true</code> 只创建文件，<strong>不创建父目录</strong>。应用数据目录未必存在，先手动建：</p>
+<pre><code class="language-rust">if let Some(dir) = path.parent() {
+    std::fs::create_dir_all(dir).map_err(|e| format!("创建目录失败：{e}"))?;
+}</code></pre>
+<p><a id="sec-a02-result"></a></p>
+<h2 id="3-result-错误处理--出错也要体面"><a class="header" href="#3-result-错误处理--出错也要体面">3. <code>Result</code> 错误处理 — 出错也要体面</a></h2>
+<p>三个命令的返回值都是 <code>Result</code>：</p>
+<pre><code class="language-rust">#[tauri::command]
+fn load_note(app: AppHandle) -&gt; Result&lt;String, String&gt; { ... }
+
+#[tauri::command]
+fn save_note(app: AppHandle, content: String) -&gt; Result&lt;(), String&gt; { ... }</code></pre>
+<ul>
+<li><code>Result&lt;T, E&gt;</code> 里 <code>E</code> 是错误类型，本课用 <code>String</code>——<strong>最省事的做法</strong>：错误消息直接就是一个能看懂的中文字符串</li>
+<li>命令返回 <code>Err(...)</code> 时，Tauri 会把它转成 IPC 错误，前端 <code>invoke</code> 的 Promise 就会 reject，被 <code>.catch</code> 接到</li>
+<li><code>map_err(...)</code> 把底层错误（<code>io::Error</code>）翻译成人话；<code>?</code> 遇到 <code>Err</code> 提前返回</li>
+</ul>
+<pre><code class="language-text">Rust 端:  Err("打开文件失败：No such file...") 
+            │ Tauri 转成 IPC 错误
+            ▼
+前端:      invoke 的 Promise reject → .catch(e =&gt; setStatus(`读取失败: ${e}`))
+</code></pre>
+<p><strong>一个重要的设计：</strong> <code>load_note</code> 里“文件不存在“<strong>不是错误</strong>，而是“第一次打开，内容为空“——所以用 <code>if !path.exists() { return Ok(String::new()); }</code> 提前返回空串。<strong>什么时候算错误，是业务决定，不是技术决定。</strong></p>
+<p><a id="sec-a02-react"></a></p>
+<h2 id="4-react--前端换引擎"><a class="header" href="#4-react--前端换引擎">4. React — 前端换引擎</a></h2>
+<p>本课起前端改用 React。三个核心概念对照着看：</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>你要做的事</th><th>Vanilla TS（A01）</th><th>React（本课）</th></tr>
+</thead>
+<tbody>
+<tr><td>存数据</td><td>模块级 <code>let</code> 变量</td><td><code>useState</code></td></tr>
+<tr><td>更新界面</td><td>手动 <code>render()</code></td><td>改 state，React 自动重渲染</td></tr>
+<tr><td>启动时加载</td><td>直接调用</td><td><code>useEffect</code></td></tr>
+</tbody>
+</table>
+</div>
+<pre><code class="language-tsx">const [content, setContent] = useState("");   // 笔记内容
+
+useEffect(() =&gt; {                              // 挂载后执行一次
+  invoke&lt;string&gt;("load_note")
+    .then((c) =&gt; setContent(c))                // 把读到的内容放进 state
+    .catch((e) =&gt; setStatus(`读取失败: ${e}`));
+}, []);
+
+&lt;textarea
+  value={content}                              // 受控组件：值来自 state
+  onChange={(e) =&gt; setContent(e.target.value)} // 输入 → 更新 state
+/&gt;
+</code></pre>
+<ul>
+<li><code>useState</code>：声明“一块会变的数据“；<code>content</code> 是当前值，<code>setContent</code> 是唯一合法的修改方式</li>
+<li><strong>受控组件</strong>：<code>&lt;textarea value={content}&gt;</code>——输入框显示什么完全由 state 决定，state 变了界面自动变</li>
+<li><code>useEffect(..., [])</code>：<code>[]</code> 表示“只在挂载时执行一次“（相当于“页面打开时做初始化“）</li>
+</ul>
+<blockquote>
+<p><strong>关键理解：</strong> React 的心智模型是“<strong>数据驱动界面</strong>“——你只管改 state，界面由框架替你更新。相比 Vanilla 手动 <code>render()</code>，应用复杂后省力得多。超级项目（Markdown 编辑器）就是靠这个撑起来的。</p>
+</blockquote>
+<hr>
+<h2 id="练习指引-2"><a class="header" href="#练习指引-2">练习指引</a></h2>
+<p><strong>作业范围：</strong> 动 2 个文件，共 10 处 TODO。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>文件</th><th>步骤</th><th>内容</th></tr>
+</thead>
+<tbody>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>1</td><td><code>load_note</code>：fs 插件打开 + <code>read_to_string</code></td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>2</td><td><code>save_note</code>：<code>OpenOptions</code> 三开关 + <code>write_all</code></td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>3</td><td><code>.plugin(tauri_plugin_fs::init())</code></td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>4</td><td>登记三个命令</td></tr>
+<tr><td><code>src/App.tsx</code></td><td>1-4</td><td>导入 invoke + 三处 invoke 调用</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>怎么验证：</strong></p>
+<pre><code class="language-bash">cd 02_mini_apps/a02_notepad
+cargo tauri dev
+</code></pre>
+<p>输入文字 → 保存 → 状态行显示“已保存 时间“；关闭窗口 → 再 <code>cargo tauri dev</code> 启动 → 文字还在。注意窗口底部显示的文件路径——用资源管理器打开那个目录，能看到 <code>note.txt</code>。</p>
+<p><strong>故意踩坑看效果：</strong> 保存前不建目录 → 报“创建目录失败“；<code>truncate: false</code> → 第二次保存时旧内容没清掉，新内容接在后面。</p>
+<hr>
+<h2 id="知识点连起来看-2"><a class="header" href="#知识点连起来看-2">知识点连起来看</a></h2>
+<pre><code class="language-text">app.path().app_data_dir()        ← 存哪：规范目录 + identifier
+        │
+dir.join("note.txt")             ← 路径拼接
+        │
+app.fs().open(OpenOptions{...})  ← 怎么开：read/write/create/truncate
+        │
+read_to_string / write_all       ← 读写本体
+        │
+Result&lt;T, String&gt; + map_err + ?  ← 出错：翻译成人话，前端 .catch 展示
+        │
+React: useState + useEffect      ← 界面：数据驱动渲染
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>层</th><th>解决的问题</th><th>关键概念</th></tr>
+</thead>
+<tbody>
+<tr><td>路径</td><td>文件该存哪</td><td><code>app_data_dir</code>、<code>identifier</code>、<code>join</code></td></tr>
+<tr><td>读写</td><td>怎么操作文件</td><td>fs 插件、<code>OpenOptions</code></td></tr>
+<tr><td>错误</td><td>失败了怎么办</td><td><code>Result</code>、<code>map_err</code>、<code>?</code>、业务 vs 技术错误</td></tr>
+<tr><td>前端</td><td>交互怎么做</td><td>React、<code>useState</code>、<code>useEffect</code>、受控组件</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>一通百通的核心：</strong> 这一课补上了“<strong>持久化</strong>“这一环。往后任何“要保存的应用”（记账本、笔记、设置）都是同一个套路：<strong>拿到目录 → 读写文件 → 错误转中文 → 前端展示</strong>。而 A01 学的事件、State，在超级项目里会跟它组合成完整的架构。</p>
+<p><strong>递进关系：</strong> 练习 A03（番茄钟）将引入“<strong>时间</strong>“——<code>async</code> 命令 + <code>tokio::time::sleep</code> 做倒计时，以及“应用在后台也要干活“的系统托盘。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="练习-a03-番茄钟"><a class="header" href="#练习-a03-番茄钟">练习 A03: 番茄钟</a></h1>
+<h2 id="为什么要学这个-3"><a class="header" href="#为什么要学这个-3">为什么要学这个</a></h2>
+<p>到目前为止，所有命令都是“点了立刻返回“。但真实的桌面应用大量场景是<strong>长时间任务</strong>——倒计时、下载、后台同步。这一章要回答三个问题：</p>
+<ol>
+<li><strong>为什么倒计时不能让界面卡死？</strong> —— <code>async</code> 命令和 <code>tokio::time::sleep</code> 怎么让“等待“发生在后台？</li>
+<li><strong>时间到了怎么提醒用户？</strong> —— 系统通知（notification 插件）怎么发？</li>
+<li><strong>关窗口就等于退出吗？</strong> —— 番茄钟这种“后台也要存在“的应用，怎么做到“关窗隐藏、托盘恢复“？</li>
+</ol>
+<p>学完你会发现：<strong>界面永远不卡，是“任务放后台 + 进度推给前端“</strong> 这套组合做到的。</p>
+<hr>
+<h2 id="从问题出发-3"><a class="header" href="#从问题出发-3">从问题出发</a></h2>
+<p>练习 A03 要做的事：<strong>一个番茄钟——开始倒计时 25 分钟，每秒刷新剩余时间，到点弹系统通知；关掉窗口应用还在（托盘里），随时能恢复。</strong></p>
+<p><strong>核心矛盾：</strong> 倒计时是一个“长时间运行“的任务。如果它跑在前端，页面一刷新计时就没了；如果它跑在后端同步命令里，命令执行期间整个 UI 都会卡住。所以倒计时必须是一个 <strong><code>async</code> 后端命令</strong>——它在后台“睡着“（<code>sleep</code>），每秒醒一次，把剩余秒数 <code>emit</code> 给前端，然后继续睡。</p>
+<pre><code class="language-text">前端 (React)                        Rust 进程（后台）
+┌──────────────────────┐           ┌──────────────────────────────┐
+│ 显示剩余时间 (listen) │ ◄──tick── │ async start_pomodoro          │
+│ 开始/停止按钮 (invoke)│ ────────► │  for ... in (1..=total).rev() │
+│ 到点提示 (listen)     │ ◄──done── │    emit tick; sleep(1s).await │
+└──────────────────────┘           │  通知插件 → 系统通知           │
+                                   └──────────────────────────────┘
+</code></pre>
+<p>本课新增四块：<strong><code>async</code> 命令</strong>（后台跑）、<strong><code>emit</code> 推进度</strong>（沿用 A01 的事件）、<strong>通知插件</strong>（到点提醒）、<strong>托盘 + 关闭拦截</strong>（后台常驻）。</p>
+<hr>
+<p><a id="sec-a03-async"></a></p>
+<h2 id="1-async-fn-命令--tokiotimesleep--在后台等待"><a class="header" href="#1-async-fn-命令--tokiotimesleep--在后台等待">1. <code>async fn</code> 命令 + <code>tokio::time::sleep</code> — 在后台“等待“</a></h2>
+<h3 id="同步命令为什么不行"><a class="header" href="#同步命令为什么不行">同步命令为什么不行</a></h3>
+<pre><code class="language-rust">#[tauri::command]
+fn start_pomodoro(minutes: u64) -&gt; String {
+    let total = minutes * 60;
+    std::thread::sleep(Duration::from_secs(total)); // 界面卡死 total 秒！
+    "done".into()
+}</code></pre>
+<p>如果命令里 <code>sleep</code>，它会<strong>阻塞命令所在的线程</strong>——Tauri 处理 invoke 的线程被占住，其他所有请求（包括刷新界面）都在排队，窗口直接无响应。</p>
+<h3 id="async-命令等待时让出线程"><a class="header" href="#async-命令等待时让出线程">async 命令：等待时让出线程</a></h3>
+<pre><code class="language-rust">#[tauri::command]
+async fn start_pomodoro(...) -&gt; Result&lt;(), String&gt; {
+    for remaining in (1..=total).rev() {
+        let _ = app.emit("pomodoro-tick", remaining);
+        tokio::time::sleep(Duration::from_secs(1)).await; // 关键
+    }
+    Ok(())
+}</code></pre>
+<ul>
+<li><code>async fn</code>：命令可以 <code>await</code> 了。<code>tokio::time::sleep(...).await</code> 的意思是“<strong>先睡 1 秒，这段时间线程空闲，可以去干别的</strong>“——Tauri 的运行时就是 tokio，async 命令就跑在它的线程池上</li>
+<li>等到点醒来，继续执行循环，再 emit 下一次 tick</li>
+<li><strong>命令“看起来“是连续跑的，实际上线程一直在被复用</strong>——这就是“不卡界面“的原理</li>
+</ul>
+<blockquote>
+<p><strong>关键理解：</strong> <code>async</code> 不等于“快“，而是“<strong>等待时不占着线程</strong>“。<code>sleep().await</code> 把控制权交还运行时，别的任务插进来执行，到时间了再回来继续。</p>
+</blockquote>
+<p><a id="sec-a03-tick"></a></p>
+<h2 id="2-用事件推进度--命令的返回值给不了中间过程"><a class="header" href="#2-用事件推进度--命令的返回值给不了中间过程">2. 用事件推进度 — 命令的返回值给不了“中间过程“</a></h2>
+<p>倒计时的<strong>中间状态</strong>（剩余 1499 秒、1498 秒……）怎么给前端？命令只能返回一次结果（结束时）。所以中间过程走<strong>事件</strong>——沿用 A01 的 <code>emit</code> / <code>listen</code>：</p>
+<pre><code class="language-rust">// 后端：每秒推一次剩余秒数
+let _ = app.emit("pomodoro-tick", remaining);
+
+// 前端：收到就更新显示
+listen&lt;number&gt;("pomodoro-tick", (e) =&gt; setRemaining(e.payload));</code></pre>
+<ul>
+<li><code>emit</code> 的载荷是 <code>u64</code>（剩余秒数），前端 <code>listen&lt;number&gt;</code> 收</li>
+<li>事件名三个：<code>pomodoro-tick</code>（每秒进度）、<code>pomodoro-done</code>（正常结束）、<code>pomodoro-stopped</code>（被停止）</li>
+</ul>
+<h3 id="中途停止atomicbool"><a class="header" href="#中途停止atomicbool">中途停止：AtomicBool</a></h3>
+<p>倒计时一旦开始，<code>invoke</code> 的返回要等它跑完。想中途停，得有个“开关“让循环自己停下来：</p>
+<pre><code class="language-rust">#[derive(Default)]
+struct PomodoroState {
+    running: Mutex&lt;bool&gt;,          // 防止重复开始（沿用 A01 的 Mutex）
+    stop_requested: AtomicBool,    // 停止信号：无需锁的布尔
+}
+
+// 循环里每秒检查一次
+if state.stop_requested.load(Ordering::SeqCst) {
+    break; // 被要求停止，跳出循环
+}
+
+// 停止命令：把开关置位
+#[tauri::command]
+fn stop_pomodoro(state: tauri::State&lt;'_, PomodoroState&gt;) {
+    state.stop_requested.store(true, Ordering::SeqCst);
+}</code></pre>
+<ul>
+<li><code>AtomicBool</code>：跨线程共享的布尔，<code>store</code>/<code>load</code> 不需要 <code>Mutex</code>（单值原子操作）</li>
+<li><strong>优雅停止</strong>：不是杀掉线程，而是让任务自己发现“该停了“，在安全的点退出</li>
+</ul>
+<p><a id="sec-a03-notify"></a></p>
+<h2 id="3-通知插件--到点弹系统通知"><a class="header" href="#3-通知插件--到点弹系统通知">3. 通知插件 — 到点弹系统通知</a></h2>
+<p>时间到，应用可能在后台、窗口被隐藏——光靠前端显示不够，要发<strong>系统通知</strong>（托盘上方弹出的消息）。这是 <code>tauri-plugin-notification</code> 的活。</p>
+<p><strong>三步接入：</strong></p>
+<pre><code class="language-rust">// ① 注册插件
+tauri::Builder::default().plugin(tauri_plugin_notification::init())
+
+// ② capabilities 加权限（练习版已配好）
+"permissions": ["core:default", "notification:default"]
+
+// ③ 发通知
+use tauri_plugin_notification::NotificationExt;
+
+app.notification()
+    .builder()
+    .title("番茄钟")
+    .body("时间到！休息一下吧。")
+    .show()
+    .map_err(|e| format!("通知失败：{e}"))?;</code></pre>
+<ul>
+<li><code>NotificationExt</code> trait 给 <code>AppHandle</code> 提供 <code>notification()</code> 方法</li>
+<li><code>.builder().title().body().show()</code>：链式描述一条通知</li>
+<li>权限 <code>notification:default</code> 是插件的最小权限集——<strong>插件 API 走权限系统，自己写的命令不需要</strong>（这点和 A01 相反）</li>
+</ul>
+<p><a id="sec-a03-tray"></a></p>
+<h2 id="4-系统托盘--关窗不退出图标常驻"><a class="header" href="#4-系统托盘--关窗不退出图标常驻">4. 系统托盘 — 关窗不退出，图标常驻</a></h2>
+<p>番茄钟的特点是“后台也要存在“。用户点了关闭按钮，我们不退出，而是<strong>隐藏窗口、留下托盘图标</strong>。</p>
+<h3 id="创建托盘在-setup-钩子里"><a class="header" href="#创建托盘在-setup-钩子里">创建托盘（在 <code>setup</code> 钩子里）</a></h3>
+<blockquote>
+<p><strong>前置：</strong> 托盘依赖 <code>tauri</code> crate 的 <code>tray-icon</code> feature——练习版的 <code>Cargo.toml</code> 已配好（<code>tauri = { workspace = true, features = ["tray-icon"] }</code>）。不加的话 <code>use tauri::tray</code> 直接编译报错。</p>
+</blockquote>
+<pre><code class="language-rust">.setup(|app| {
+    let show_item = MenuItem::with_id(app, "toggle", "显示/隐藏", true, None::&lt;&amp;str&gt;)?;
+    let quit_item = MenuItem::with_id(app, "quit", "退出", true, None::&lt;&amp;str&gt;)?;
+    let menu = Menu::with_items(app, &amp;[&amp;show_item, &amp;quit_item])?;
+
+    let _tray = TrayIconBuilder::new()
+        .icon(app.default_window_icon().unwrap().clone()) // 用应用图标
+        .menu(&amp;menu)                                     // 右键菜单
+        .show_menu_on_left_click(false)                  // 左键不弹菜单（用来显示窗口）
+        .on_menu_event(|app, event| match event.id.as_ref() {
+            "toggle" =&gt; { /* 显示/隐藏窗口 */ }
+            "quit" =&gt; app.exit(0),
+            _ =&gt; {}
+        })
+        .on_tray_icon_event(|tray, event| {
+            // 左键单击 → 显示窗口
+            if let TrayIconEvent::Click { button: MouseButton::Left, button_state: MouseButtonState::Up, .. } = event {
+                let app = tray.app_handle();
+                if let Some(win) = app.get_webview_window("main") {
+                    let _ = win.show();
+                    let _ = win.set_focus();
+                }
+            }
+        })
+        .build(app)?;
+    Ok(())
+})</code></pre>
+<ul>
+<li><strong><code>setup</code> 钩子</strong>：应用启动、窗口创建后执行一次。托盘、后台服务这类“一次性初始化“放这里（比在 <code>main</code> 里拿不到 <code>AppHandle</code>）</li>
+<li><code>MenuItem::with_id(app, id, 文字, 是否可用, 快捷键)</code>：菜单项，<code>id</code> 是程序里找它的钥匙</li>
+<li><code>on_menu_event</code>：菜单被点击 → 按 <code>event.id</code> 分发</li>
+<li><code>on_tray_icon_event</code>：托盘图标被点击 → <code>TrayIconEvent::Click</code>（注意区分左右键和按下/抬起）</li>
+<li><code>app.get_webview_window("main")</code>：按 label 拿到窗口（label 在 <code>tauri.conf.json</code> 里配置）</li>
+</ul>
+<p><a id="sec-a03-close"></a></p>
+<h2 id="5-关闭拦截--点--是隐藏不是退出"><a class="header" href="#5-关闭拦截--点--是隐藏不是退出">5. 关闭拦截 — 点 × 是“隐藏“不是“退出“</a></h2>
+<p>托盘建好了，还差最后一步：<strong>让关闭按钮变成隐藏</strong>。</p>
+<pre><code class="language-rust">.on_window_event(|window, event| {
+    if let WindowEvent::CloseRequested { api, .. } = event {
+        api.prevent_close();  // 告诉框架"这次关闭我不批准"
+        let _ = window.hide(); // 改成隐藏
+    }
+})</code></pre>
+<ul>
+<li><code>on_window_event</code>：窗口产生事件（移动、缩放、关闭请求……）时回调</li>
+<li><code>CloseRequested</code>：用户点了关闭按钮。<strong>默认行为是退出应用</strong>；调用 <code>api.prevent_close()</code> 取消退出</li>
+<li>退出只能走托盘菜单的“退出“——这是“托盘常驻应用“的经典交互</li>
+</ul>
+<blockquote>
+<p><strong>对比：</strong> 在 <code>run()</code> 里 <code>.on_window_event(...)</code> 是<strong>全局窗口事件</strong>；每个窗口也可以用 <code>WebviewWindowBuilder</code> 单独注册。这里只有主窗口，用全局的即可。</p>
+</blockquote>
+<hr>
+<h2 id="练习指引-3"><a class="header" href="#练习指引-3">练习指引</a></h2>
+<p><strong>作业范围：</strong> 动 2 个文件，共 10 处 TODO。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>文件</th><th>步骤</th><th>内容</th></tr>
+</thead>
+<tbody>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>1</td><td>倒计时循环：每秒 <code>emit("pomodoro-tick", remaining)</code> + <code>sleep(1s).await</code>，<code>stop_requested</code> 打断</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>2</td><td><code>app.notification().builder()...show()</code> 发“时间到“通知</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>3</td><td><code>.plugin(tauri_plugin_notification::init())</code> + <code>.manage(PomodoroState::default())</code></td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>4</td><td><code>setup</code> 里建托盘（菜单 + 左键点击显示窗口）</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>5</td><td><code>CloseRequested</code> → <code>prevent_close()</code> + <code>hide()</code></td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>6</td><td>登记两个命令</td></tr>
+<tr><td><code>src/App.tsx</code></td><td>1-4</td><td>导入、<code>listen</code> 三事件、start/stop 的 invoke</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>怎么验证：</strong></p>
+<pre><code class="language-bash">cd 02_mini_apps/a03_pomodoro
+cargo tauri dev
+</code></pre>
+<p>点“工作 25 分“，大数字每秒跳动；点“停止“立即停止并显示“已停止“。点窗口 × → 窗口消失，托盘出现图标；左键点图标 → 窗口回来；右键菜单“退出“才真正退出。等满一个周期（可以先把 <code>minutes</code> 改成 1 试）→ 系统弹通知。</p>
+<p><strong>故意踩坑看效果：</strong> 把 <code>async</code> 去掉（改成同步）→ <code>sleep</code> 编译报错或窗口卡死；把 <code>prevent_close</code> 删掉 → 点 × 应用直接退出。</p>
+<hr>
+<h2 id="知识点连起来看-3"><a class="header" href="#知识点连起来看-3">知识点连起来看</a></h2>
+<pre><code class="language-text">async fn 命令 + sleep().await     ← 后台：等待时不占线程
+        │
+app.emit("pomodoro-tick", n)     ← 进度：中间状态走事件
+        │
+AtomicBool + Mutex               ← 控制：running 防重入，stop 优雅停
+        │
+notification 插件                 ← 提醒：系统通知（需权限）
+        │
+TrayIconBuilder + on_window_event ← 常驻：关窗隐藏、托盘恢复
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>层</th><th>解决的问题</th><th>关键概念</th></tr>
+</thead>
+<tbody>
+<tr><td>后台</td><td>长任务不卡界面</td><td><code>async fn</code>、<code>tokio::time::sleep().await</code></td></tr>
+<tr><td>进度</td><td>中间状态怎么给前端</td><td><code>emit</code> / <code>listen</code>（沿用 A01）</td></tr>
+<tr><td>控制</td><td>怎么安全地开始/停止</td><td><code>Mutex</code>、<code>AtomicBool</code></td></tr>
+<tr><td>提醒</td><td>到点怎么喊用户</td><td>notification 插件、<code>notification:default</code></td></tr>
+<tr><td>常驻</td><td>关窗后应用还在</td><td>托盘、<code>CloseRequested</code> + <code>prevent_close</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>一通百通的核心：</strong> 这一课把“<strong>后台 + 推送 + 常驻</strong>“三件套补齐了。凡是“长时间运行的应用”（下载器、监视器、音乐播放器）都是这套骨架。超级项目 P10 自动保存、P15 托盘，直接复用本课代码。</p>
+<p><strong>递进关系：</strong> 练习 A04（图片查看器）转向“<strong>桌面感</strong>“的另一面——拖放文件进窗口、在界面里显示本地图片、直接操控窗口大小/置顶/全屏。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="练习-a04-图片查看器"><a class="header" href="#练习-a04-图片查看器">练习 A04: 图片查看器</a></h1>
+<h2 id="为什么要学这个-4"><a class="header" href="#为什么要学这个-4">为什么要学这个</a></h2>
+<p>前几课都是“点按钮“。真实的桌面应用还依赖一些“桌面特有的交互“：<strong>把文件拖进窗口</strong>、<strong>直接看本地文件</strong>、<strong>操作窗口本身</strong>。这一章要回答三个问题：</p>
+<ol>
+<li><strong>怎么把拖进来的文件交给应用？</strong> —— 拖放事件（<code>onDragDropEvent</code>）拿到的到底是什么？</li>
+<li><strong>webview 怎么显示本地图片？</strong> —— 为什么不能直接写 <code>&lt;img src="C:\..."&gt;</code>？asset 协议是什么？</li>
+<li><strong>怎么直接操控窗口？</strong> —— 缩放、置顶、全屏，前端一行代码能搞定？</li>
+</ol>
+<p>学完你会：做出一个“拖进去就能看“的图片查看器——这是纯网页永远做不到的<strong>桌面感</strong>。</p>
+<hr>
+<h2 id="从问题出发-4"><a class="header" href="#从问题出发-4">从问题出发</a></h2>
+<p>练习 A04 要做的事：<strong>把图片（或整个图片文件夹）拖进窗口，就能一张张翻看，还能放大、缩小、置顶、全屏。</strong></p>
+<p><strong>核心矛盾：</strong> WebView 本质上是个浏览器。浏览器的两个“原生限制“挡住了路：</p>
+<ol>
+<li><strong>拿不到文件路径</strong>——浏览器拖文件进来只给文件内容副本，不给路径；而桌面应用需要路径才能继续操作（本例是显示、列目录）。</li>
+<li><strong>加载不了本地绝对路径</strong>——<code>&lt;img src="C:/Users/.../a.png"&gt;</code> 在网页里会被当成 URL，浏览器出于安全禁止访问本机任意路径。</li>
+</ol>
+<p>Tauri 的解法正好对应这两点：</p>
+<pre><code class="language-text">拖文件 → onDragDropEvent 拿到"真实路径"（桌面专有 API）
+显示本地图 → asset 协议：把本地路径包装成合法的 app 内 URL
+操控窗口 → getCurrentWindow() 提供 setSize / setAlwaysOnTop / setFullscreen
+</code></pre>
+<pre><code class="language-text">前端 (React)                            Rust / 系统
+┌────────────────────────────┐          ┌──────────────────────────┐
+│ onDragDropEvent 拖放        │ ─路径──► │ (文件夹) list_images 命令 │
+│ convertFileSrc 本地图片URL  │ ◄──────  │ asset 协议映射本地文件    │
+│ getCurrentWindow 窗口操作   │ ──────►  │ 缩放/置顶/全屏/居中       │
+└────────────────────────────┘          └──────────────────────────┘
+</code></pre>
+<hr>
+<p><a id="sec-a04-drag"></a></p>
+<h2 id="1-拖放--拿到文件的真实路径"><a class="header" href="#1-拖放--拿到文件的真实路径">1. 拖放 — 拿到文件的真实路径</a></h2>
+<p>浏览器能拖文件，但只给内容不给路径。Tauri 的前端 API <code>onDragDropEvent</code> 直接把<strong>真实路径</strong>给你：</p>
+<pre><code class="language-typescript">import { getCurrentWebview } from "@tauri-apps/api/webview";
+
+getCurrentWebview().onDragDropEvent((event) =&gt; {
+  if (event.payload.type !== "drop") return;  // over/leave 阶段忽略
+  const paths = event.payload.paths;          // 拖入的所有路径（文件或文件夹）
+});
+</code></pre>
+<ul>
+<li>拖放过程有三个阶段：<code>over</code>（拖进窗口）、<code>drop</code>（松手放下）、<code>leave</code>（拖出去）。我们只关心 <code>drop</code></li>
+<li><code>event.payload.paths</code>：<strong>文件系统里的绝对路径</strong>（文件夹也可以是拖入项）</li>
+<li>拿到路径后做什么都行——本课：图片直接收下，文件夹交给后端 <code>list_images</code> 列目录</li>
+</ul>
+<blockquote>
+<p><strong>为什么这很重要：</strong> 这是“浏览器做不到、桌面才能做“的分水岭。有了路径，才能继续走命令、读文件、列目录。</p>
+</blockquote>
+<p><a id="sec-a04-asset"></a></p>
+<h2 id="2-静态资源--用-asset-协议显示本地图片"><a class="header" href="#2-静态资源--用-asset-协议显示本地图片">2. 静态资源 — 用 asset 协议显示本地图片</a></h2>
+<h3 id="为什么-c-的路径不能直接当-src"><a class="header" href="#为什么-c-的路径不能直接当-src">为什么 <code>C:\...</code> 的路径不能直接当 src</a></h3>
+<p>WebView 加载资源时，<code>src</code> 会被解析成 URL（<code>http://</code>、<code>asset://</code>……）。把 <code>C:/Users/...</code> 塞进去，要么被当成本机 URL 被安全策略拦下，要么根本解析不了。</p>
+<h3 id="asset-协议本地路径--应用内-url"><a class="header" href="#asset-协议本地路径--应用内-url">asset 协议：本地路径 → 应用内 URL</a></h3>
+<p>三步：</p>
+<pre><code class="language-json">// ① tauri.conf.json 开启 asset 协议并允许读取（练习版已配好）
+"security": {
+  "assetProtocol": { "enable": true, "scope": ["**"] }
+}
+</code></pre>
+<pre><code class="language-toml">// ② 开启 asset 协议对应的 cargo feature（练习版已配好）
+[dependencies]
+tauri = { workspace = true, features = ["protocol-asset"] }
+</code></pre>
+<pre><code class="language-typescript">// ③ 前端用 convertFileSrc 把路径转成 URL
+import { convertFileSrc } from "@tauri-apps/api/core";
+
+const url = convertFileSrc("C:/Users/.../a.png"); // → asset://localhost/&lt;编码后的路径&gt;
+&lt;img src={url} /&gt;
+</code></pre>
+<blockquote>
+<p>少了 <code>protocol-asset</code> feature，<code>tauri build</code> 的构建脚本会直接报错：“dependency features do not match the allowlist”。这是 asset 协议最典型的配置坑。</p>
+</blockquote>
+<ul>
+<li><code>convertFileSrc</code> 负责：路径 → URL、特殊字符编码</li>
+<li>加载时 Tauri 检查路径是否在 <code>assetProtocol.scope</code> 白名单里——本课用 <code>["**"]</code> 全部放行（教学），真实项目要收窄</li>
+<li><strong>CSP 注意</strong>：页面加载 <code>asset:</code> 资源，需要 <code>img-src</code> 允许 asset 协议（本课 csp 是 null，不受限）</li>
+</ul>
+<blockquote>
+<p><strong>关键理解：</strong> asset 协议是“安全的本地文件服务器“——它让 WebView 用标准的 <code>&lt;img&gt;</code> 加载本地文件，但路径必须过 scope 白名单。生产环境用 <code>asset:</code> 而不是把图片读成 base64，性能和内存都好得多。</p>
+</blockquote>
+<p><a id="sec-a04-window"></a></p>
+<h2 id="3-窗口操作--缩放置顶全屏"><a class="header" href="#3-窗口操作--缩放置顶全屏">3. 窗口操作 — 缩放、置顶、全屏</a></h2>
+<p>前端一行代码就能操控窗口：</p>
+<pre><code class="language-typescript">import { getCurrentWindow, LogicalSize } from "@tauri-apps/api/window";
+
+const win = getCurrentWindow();
+await win.setSize(new LogicalSize(1280, 800));   // 设置大小
+await win.setAlwaysOnTop(true);                  // 置顶
+await win.setFullscreen(true);                   // 全屏
+await win.center();                              // 居中
+</code></pre>
+<ul>
+<li><code>getCurrentWindow()</code>：代表“当前所在的这个窗口“</li>
+<li><code>LogicalSize</code> vs <code>PhysicalSize</code>：逻辑尺寸（和 DPI 无关的抽象单位）vs 物理像素。前端一般用逻辑尺寸</li>
+<li>本课“放大/缩小“：先 <code>win.innerSize()</code> 拿当前尺寸，乘上比例再 <code>setSize</code></li>
+</ul>
+<h3 id="窗口操作要权限"><a class="header" href="#窗口操作要权限">窗口操作要权限</a></h3>
+<p>这些前端 API 背后是对应的后端命令，而它们<strong>不属于 <code>core:default</code></strong>——<code>core:default</code> 只包含读取窗口信息的权限。所以 capabilities 要显式加（练习版已配好）：</p>
+<pre><code class="language-json">"core:window:allow-set-size",
+"core:window:allow-set-always-on-top",
+"core:window:allow-set-fullscreen",
+"core:window:allow-center",
+</code></pre>
+<blockquote>
+<p><strong>对比：</strong> 自己写的 <code>#[tauri::command]</code> 不需要权限；<strong>前端调 Tauri 内置能力（窗口、插件）需要权限</strong>。这是 A03 通知插件和本课窗口操作的共同点。</p>
+</blockquote>
+<p><a id="sec-a04-list"></a></p>
+<h2 id="4-列目录--拖文件夹进来"><a class="header" href="#4-列目录--拖文件夹进来">4. 列目录 — 拖文件夹进来</a></h2>
+<p>拖入文件夹时，路径不是图片——本课把它当作目录，交给后端列出其中的图片（沿用 A02 的 std::fs，但这次是 <code>read_dir</code>）：</p>
+<pre><code class="language-rust">use std::path::Path;
+
+fn is_image(path: &amp;Path) -&gt; bool {
+    let ext = path.extension().and_then(|e| e.to_str()).map(|e| e.to_ascii_lowercase());
+    matches!(ext.as_deref(), Some("png" | "jpg" | "jpeg" | "gif" | "bmp" | "webp"))
+}
+
+#[tauri::command]
+fn list_images(dir: String) -&gt; Result&lt;Vec&lt;String&gt;, String&gt; {
+    let mut paths = Vec::new();
+    for entry in std::fs::read_dir(&amp;dir).map_err(|e| format!("打开目录失败：{e}"))? {
+        let entry = entry.map_err(|e| format!("读取目录项失败：{e}"))?;
+        let path = entry.path();
+        if path.is_file() &amp;&amp; is_image(&amp;path) {
+            paths.push(path.to_string_lossy().into_owned());
+        }
+    }
+    paths.sort(); // 文件名排序，翻页顺序稳定
+    Ok(paths)
+}</code></pre>
+<ul>
+<li><code>std::fs::read_dir</code>：遍历目录（<code>A02</code> 用 <code>open</code> 读写文件，这里换成 <code>read_dir</code> 列目录——同一套 std::fs）</li>
+<li><code>path.extension()</code> → <code>&amp;OsStr</code> → <code>to_str()</code> → <code>to_ascii_lowercase()</code>：处理大小写（<code>.PNG</code> 也要认）</li>
+<li>前端约定：拖入的非图片路径就当目录试一下</li>
+</ul>
+<hr>
+<h2 id="练习指引-4"><a class="header" href="#练习指引-4">练习指引</a></h2>
+<p><strong>作业范围：</strong> 动 2 个文件，共 11 处 TODO。两个配置文件（<code>tauri.conf.json</code> 的 <code>assetProtocol</code>、capabilities 的窗口权限）已配好，<strong>不用动</strong>。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>文件</th><th>步骤</th><th>内容</th></tr>
+</thead>
+<tbody>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>1</td><td><code>is_image</code>：扩展名判断</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>2</td><td><code>list_images</code>：遍历目录收图片</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>3</td><td>排序后返回</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>4</td><td>登记命令</td></tr>
+<tr><td><code>src/App.tsx</code></td><td>1</td><td>导入 <code>invoke</code></td></tr>
+<tr><td><code>src/App.tsx</code></td><td>2</td><td>拖放：非图片路径当目录，调 <code>list_images</code></td></tr>
+<tr><td><code>src/App.tsx</code></td><td>3-4</td><td>置顶 / 全屏按钮调窗口 API</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>怎么验证：</strong></p>
+<pre><code class="language-bash">cd 02_mini_apps/a04_image_viewer
+cargo tauri dev
+</code></pre>
+<p>拖几张图片进窗口 → 主区域显示第一张，底部出现缩略图条，点“上一张/下一张“翻页。拖一个<strong>文件夹</strong>进去 → 自动列出里面所有图片。点“放大/缩小“窗口变大变小，“置顶“后窗口始终在最前，“全屏“占满屏幕，“居中“回到屏幕中间。</p>
+<p><strong>故意踩坑看效果：</strong> 把 <code>tauri.conf.json</code> 的 <code>assetProtocol</code> 关掉 → 图片显示为空白（验证 asset 协议的必要性）；把 <code>convertFileSrc</code> 换成直接 <code>src={path}</code> → 图片加载失败（验证路径必须转 URL）。</p>
+<hr>
+<h2 id="知识点连起来看-4"><a class="header" href="#知识点连起来看-4">知识点连起来看</a></h2>
+<pre><code class="language-text">onDragDropEvent                  ← 桌面交互：拖放 → 真实路径
+        │
+图片路径 → convertFileSrc        ← 静态资源：asset 协议映射本地文件
+        │
+文件夹路径 → invoke list_images  ← 命令 + std::fs：列目录过滤图片
+        │
+getCurrentWindow().setSize / 置顶 / 全屏 ← 窗口操作（需权限）
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>层</th><th>解决的问题</th><th>关键概念</th></tr>
+</thead>
+<tbody>
+<tr><td>拖放</td><td>怎么拿外部文件路径</td><td><code>onDragDropEvent</code>、<code>paths</code></td></tr>
+<tr><td>静态资源</td><td>本地图片怎么显示</td><td><code>assetProtocol</code>、<code>convertFileSrc</code>、scope</td></tr>
+<tr><td>命令</td><td>文件夹怎么展开</td><td><code>read_dir</code>、<code>is_image</code>、排序</td></tr>
+<tr><td>窗口</td><td>怎么操控窗口</td><td><code>getCurrentWindow</code>、<code>LogicalSize</code>、权限</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>一通百通的核心：</strong> 这一课补上了“<strong>桌面感</strong>“。前面学的是“应用内部逻辑”（状态、文件、后台任务），这课是“应用与桌面系统交互“（拖放、本地资源、窗口）。这两半合起来，才是一个完整的桌面应用。</p>
+<p><strong>递进关系：</strong> 练习 A05（记账本）将引入“数据多了怎么办“——SQL 数据库。届时你会看到：命令、状态、错误处理这些套路原封不动，只是存储引擎从 <code>Vec</code> 换成了数据库。</p>
+<hr>
+<blockquote>
+<p><strong>本课配置小结（练习版已配好，无需改动）：</strong></p>
+<ul>
+<li><code>tauri.conf.json</code>：<code>app.security.assetProtocol = { enable: true, scope: ["**"] }</code></li>
+<li><code>src-tauri/Cargo.toml</code>：<code>tauri = { workspace = true, features = ["protocol-asset"] }</code></li>
+<li><code>capabilities/default.json</code>：<code>core:window:allow-set-size</code> / <code>allow-set-always-on-top</code> / <code>allow-set-fullscreen</code> / <code>allow-center</code> 等</li>
+</ul>
+</blockquote>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="练习-a05-记账本"><a class="header" href="#练习-a05-记账本">练习 A05: 记账本</a></h1>
+<h2 id="为什么要学这个-5"><a class="header" href="#为什么要学这个-5">为什么要学这个</a></h2>
+<p>前面存数据用内存（A01 的 <code>Vec</code>）、存文件（A02 的 <code>note.txt</code>）。但当数据多起来、要<strong>查询、汇总、删除单条</strong>时，它们都不合适：</p>
+<ol>
+<li><strong>内存</strong>：应用一关就没了；</li>
+<li><strong>文件</strong>：每次都得整个文件读出来，自己写代码筛选、求和，还要处理格式。</li>
+</ol>
+<p>这一章要回答三个问题：</p>
+<ol>
+<li><strong>数据库解决了什么？</strong> —— 为什么“记流水账 + 按月合计“是数据库最典型的场景？</li>
+<li><strong>Tauri 怎么用数据库？</strong> —— sql 插件怎么接入？建表、增删改查、聚合各长什么样？</li>
+<li><strong>为什么要小心 SQL？</strong> —— 参数绑定（<code>$1</code>）防的是什么？</li>
+</ol>
+<p>学完你会发现：<strong>换数据库只是把“存储“换了个引擎，命令、状态、错误处理这些套路原封不动。</strong></p>
+<hr>
+<h2 id="从问题出发-5"><a class="header" href="#从问题出发-5">从问题出发</a></h2>
+<p>练习 A05 要做的事：<strong>一个记账本——记每笔支出（标题、金额、分类），按月份看合计，能删。</strong></p>
+<p><strong>核心矛盾：</strong> 记账数据既要<strong>持久化</strong>（关掉还在），又要<strong>能查询统计</strong>（“这个月花了多少？”）。用文件硬算当然能行，但每加一条都重写整个文件、每次合计都全量扫描——又慢又容易出错。这正是<strong>数据库</strong>的舞台：数据落在磁盘（持久化），查询和聚合交给数据库引擎（<code>SELECT ... WHERE / GROUP BY / SUM</code>）。</p>
+<p>所以本课不用“命令存 Vec“（A01）也不用“文件读写“（A02），而是引入 <strong>SQLite</strong>——一个文件就是一个数据库，零服务、免安装，桌面应用首选。</p>
+<pre><code class="language-text">前端 (React)                          Rust 进程
+┌────────────────────────┐            ┌───────────────────────────────┐
+│ Database.load           │ ──连接──► │ sql 插件 + 迁移（建表）        │
+│ execute(INSERT/DELETE)  │ ────────► │ SQLite（expenses.db）          │
+│ select(SELECT/SUM)      │ ◄──────── │ 数据落盘 · 引擎负责查询聚合     │
+└────────────────────────┘            └───────────────────────────────┘
+</code></pre>
+<p><a id="sec-a05-why"></a></p>
+<h2 id="1-为什么是数据库"><a class="header" href="#1-为什么是数据库">1. 为什么是数据库</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>存储</th><th style="text-align: center">持久化</th><th style="text-align: center">查询/统计</th><th>适合</th></tr>
+</thead>
+<tbody>
+<tr><td>内存 <code>Vec</code>（A01）</td><td style="text-align: center">✗</td><td style="text-align: center">自己写循环</td><td>临时状态</td></tr>
+<tr><td>文件（A02）</td><td style="text-align: center">✓</td><td style="text-align: center">全量读 + 自己算</td><td>单一内容</td></tr>
+<tr><td><strong>数据库（本课）</strong></td><td style="text-align: center">✓</td><td style="text-align: center"><strong>SQL 交给引擎</strong></td><td>多条结构化数据 + 统计</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>SQL 的核心价值：</strong> 你只要说“要什么“（<code>SELECT ... WHERE 分类='餐饮' GROUP BY 月份 SUM(金额)</code>），<strong>怎么找、怎么算由数据库引擎负责</strong>。数据量从几十条涨到几百万条，你的代码一行都不用改。</p>
+<p><a id="sec-a05-migration"></a></p>
+<h2 id="2-接入-sql-插件--注册--迁移建表"><a class="header" href="#2-接入-sql-插件--注册--迁移建表">2. 接入 sql 插件 — 注册 + 迁移建表</a></h2>
+<h3 id="rust-端注册插件--声明建表迁移"><a class="header" href="#rust-端注册插件--声明建表迁移">Rust 端：注册插件 + 声明“建表迁移“</a></h3>
+<pre><code class="language-rust">use tauri_plugin_sql::{Migration, MigrationKind};
+
+let migrations = vec![Migration {
+    version: 1,
+    description: "create_expenses",
+    sql: "CREATE TABLE IF NOT EXISTS expenses (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT NOT NULL,
+        amount REAL NOT NULL,
+        category TEXT NOT NULL,
+        created_at TEXT NOT NULL
+    );",
+    kind: MigrationKind::Up,
+}];
+
+tauri::Builder::default()
+    .plugin(
+        tauri_plugin_sql::Builder::default()
+            .add_migrations("sqlite:expenses.db", migrations)
+            .build(),
+    )</code></pre>
+<ul>
+<li><code>sqlite:expenses.db</code>：连接串。SQLite 会把数据库文件建在应用配置目录，<strong>一个文件就是一个库</strong></li>
+<li><strong>迁移（migration）</strong>：描述“数据库应该长什么样“的版本化脚本。<code>version: 1</code> 表示第一个版本；<code>CREATE TABLE IF NOT EXISTS</code> 保证重复执行不报错</li>
+<li><strong>迁移什么时候跑？</strong> 前端第一次 <code>Database.load("sqlite:expenses.db")</code> 时，插件自动把还没跑过的迁移执行一遍（建表）。这是“<strong>schema 由 Rust 管，使用由前端管</strong>“的分工</li>
+</ul>
+<blockquote>
+<p><strong>为什么建表放在 Rust 而不是前端？</strong> 如果建表语句散落在前端各处，项目大起来就是灾难。把 schema 声明集中在迁移里，升级表结构就是加一条 <code>version: 2</code> 的迁移——<strong>数据库的“版本管理“</strong>。</p>
+</blockquote>
+<p><a id="sec-a05-api"></a></p>
+<h2 id="3-前端-database-api--load--execute--select"><a class="header" href="#3-前端-database-api--load--execute--select">3. 前端 Database API — load / execute / select</a></h2>
+<h3 id="连接数据库"><a class="header" href="#连接数据库">连接数据库</a></h3>
+<pre><code class="language-typescript">import Database from "@tauri-apps/plugin-sql";
+
+const db = await Database.load("sqlite:expenses.db");
+</code></pre>
+<p><code>Database.load</code> 连接数据库（触发迁移），返回一个连接对象。<strong>连接一次，反复使用</strong>——所以放在 React 里存成 state，挂载时连一次。</p>
+<h3 id="改数据用-execute查数据用-select"><a class="header" href="#改数据用-execute查数据用-select">改数据用 <code>execute</code>，查数据用 <code>select</code></a></h3>
+<pre><code class="language-typescript">// 插入（execute 执行不返回行的语句）
+await db.execute(
+  "INSERT INTO expenses (title, amount, category, created_at) VALUES ($1, $2, $3, datetime('now','localtime'))",
+  [title, amount, category]
+);
+
+// 查询（select 返回行数组）
+const rows = await db.select&lt;Expense[]&gt;(
+  "SELECT id, title, amount, category, created_at AS createdAt FROM expenses ORDER BY id DESC"
+);
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>API</th><th>用在哪</th><th>返回</th></tr>
+</thead>
+<tbody>
+<tr><td><code>db.execute(query, values)</code></td><td>INSERT / DELETE / UPDATE</td><td>影响行数等</td></tr>
+<tr><td><code>db.select&lt;T&gt;(query, values)</code></td><td>SELECT</td><td><code>T[]</code>（行数组）</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="权限练习版已配好"><a class="header" href="#权限练习版已配好">权限（练习版已配好）</a></h3>
+<p>sql 插件是<strong>插件 API</strong>，前端调用要权限：</p>
+<pre><code class="language-json">"permissions": ["core:default", "sql:default", "sql:allow-execute"]
+</code></pre>
+<ul>
+<li><code>sql:default</code>：允许连接（load）、关闭、<strong>读</strong>（select）</li>
+<li><code>sql:allow-execute</code>：<strong>写</strong>（insert/delete）是额外权限，不加就报“未授权“</li>
+</ul>
+<blockquote>
+<p>回想 A02 的结论：自己写的命令不需要权限，<strong>插件 API 要权限</strong>——sql 是插件，所以 <code>sql:*</code> 权限必须显式配。</p>
+</blockquote>
+<p><a id="sec-a05-sql"></a></p>
+<h2 id="4-sql-语句与参数绑定"><a class="header" href="#4-sql-语句与参数绑定">4. SQL 语句与参数绑定</a></h2>
+<p>本课的四条 SQL 就是全套“增删改查“：</p>
+<pre><code class="language-sql">-- 建表（迁移里）
+CREATE TABLE IF NOT EXISTS expenses (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,   -- 自增主键：数据库自动编号
+  title TEXT NOT NULL,
+  amount REAL NOT NULL,
+  category TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
+
+-- 增（INSERT）：$1 $2 $3 是占位符，对应 values 数组
+INSERT INTO expenses (title, amount, category, created_at)
+VALUES ($1, $2, $3, datetime('now','localtime'));
+
+-- 查（SELECT）：按 id 倒序，最新在前
+SELECT id, title, amount, category, created_at AS createdAt
+FROM expenses ORDER BY id DESC;
+
+-- 删（DELETE）：只删指定 id 那一条
+DELETE FROM expenses WHERE id = $1;
+</code></pre>
+<p><strong>参数绑定（<code>$1</code>、<code>$2</code>）是安全底线：</strong> 值永远通过 values 数组传，<strong>绝不拼进 SQL 字符串</strong>。</p>
+<pre><code class="language-typescript">// ❌ 危险：把用户输入拼进 SQL（SQL 注入）
+db.execute(`INSERT ... VALUES ('${title}', ...)`);
+
+// ✅ 正确：占位符 + 参数数组
+db.execute("INSERT ... VALUES ($1, $2, $3)", [title, amount, category]);
+</code></pre>
+<p>如果用户输入 <code>'; DROP TABLE expenses; --</code>，拼字符串会把你的表删光；参数绑定则把它当成普通字符串。</p>
+<p><a id="sec-a05-sum"></a></p>
+<h2 id="5-聚合统计--group-by--sum"><a class="header" href="#5-聚合统计--group-by--sum">5. 聚合统计 — GROUP BY + SUM</a></h2>
+<p>“按月份合计“是数据库的强项，一句 SQL 就完成：</p>
+<pre><code class="language-sql">SELECT strftime('%Y-%m', created_at) AS month, SUM(amount) AS total
+FROM expenses
+GROUP BY month
+ORDER BY month DESC;
+</code></pre>
+<p>拆开看三件事：</p>
+<ol>
+<li><strong><code>strftime('%Y-%m', created_at)</code></strong>：把 <code>"2025-08-15 10:30:00"</code> 截成 <code>"2025-08"</code>——“按月“就是把时间归到月份</li>
+<li><strong><code>GROUP BY month</code></strong>：按月份分组，同组的行合并成一组</li>
+<li><strong><code>SUM(amount)</code></strong>：对每组求和——这就是“这个月花了多少“</li>
+</ol>
+<p>结果长这样：</p>
+<pre><code>month     total
+2025-08   1234.56
+2025-07   980.00
+</code></pre>
+<blockquote>
+<p>之前用文件“自己算“的活，这里全部交给数据库引擎——<strong>这就是为什么要学 SQL</strong>：声明式地表达“要什么“，引擎负责“怎么做“。</p>
+</blockquote>
+<hr>
+<h2 id="练习指引-5"><a class="header" href="#练习指引-5">练习指引</a></h2>
+<p><strong>作业范围：</strong> 动 2 个文件，共 7 处 TODO。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>文件</th><th>步骤</th><th>内容</th></tr>
+</thead>
+<tbody>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>1</td><td>写建表迁移语句（五个字段）</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>2</td><td><code>add_migrations</code> 注册迁移</td></tr>
+<tr><td><code>src/App.tsx</code></td><td>1</td><td><code>SELECT ... ORDER BY id DESC</code></td></tr>
+<tr><td><code>src/App.tsx</code></td><td>2</td><td>月度合计 <code>GROUP BY month</code> + <code>SUM</code></td></tr>
+<tr><td><code>src/App.tsx</code></td><td>3</td><td><code>INSERT ... VALUES ($1,$2,$3, datetime(...))</code></td></tr>
+<tr><td><code>src/App.tsx</code></td><td>4</td><td><code>DELETE ... WHERE id = $1</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>怎么验证：</strong></p>
+<pre><code class="language-bash">cd 02_mini_apps/a05_expense_tracker
+cargo tauri dev
+</code></pre>
+<p>填“买了什么 / 金额 / 分类“点添加 → 列表出现记录，月度合计更新；点删除 → 记录消失。关掉应用再启动 → 数据还在（SQLite 落盘）。</p>
+<p><strong>故意踩坑看效果：</strong> 把 <code>$1</code> 占位符写成把值直接拼进字符串 → 输入特殊字符时行为诡异（详见讲解第 4 节）；把 <code>sql:allow-execute</code> 从 capabilities 删掉 → 点添加报“未授权“。</p>
+<hr>
+<h2 id="知识点连起来看-5"><a class="header" href="#知识点连起来看-5">知识点连起来看</a></h2>
+<pre><code class="language-text">Rust: 注册 sql 插件 + 迁移（建表）       ← schema 管理，前端 load 时自动执行
+        │
+前端:  Database.load("sqlite:expenses.db")  ← 连接（触发迁移）
+        │
+db.execute(INSERT/DELETE, [$1,...])      ← 写：参数绑定防注入
+db.select&lt;Expense[]&gt;(SELECT, [...])      ← 读：返回行数组
+        │
+SELECT ... GROUP BY month SUM(amount)    ← 聚合：统计交给引擎
+        │
+capabilities: sql:default + sql:allow-execute   ← 插件权限
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>层</th><th>解决的问题</th><th>关键概念</th></tr>
+</thead>
+<tbody>
+<tr><td>存储选型</td><td>数据多了怎么办</td><td>内存 vs 文件 vs 数据库</td></tr>
+<tr><td>接入</td><td>插件怎么装</td><td>注册、迁移、<code>Database.load</code></td></tr>
+<tr><td>增删改查</td><td>数据怎么操作</td><td><code>execute</code> / <code>select</code>、参数绑定 <code>$1</code></td></tr>
+<tr><td>聚合</td><td>统计怎么做</td><td><code>GROUP BY</code>、<code>SUM</code>、<code>strftime</code></td></tr>
+<tr><td>权限</td><td>前端为什么能调</td><td><code>sql:default</code>、<code>sql:allow-execute</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>一通百通的核心：</strong> 这一课换的是<strong>存储引擎</strong>——从“内存 Vec“换到“SQLite“，但应用的骨架（React 状态、命令、错误处理、权限配置）完全没变。数据库的价值在于：<strong>把“查什么、怎么算“从代码里抽出来交给引擎</strong>。</p>
+<p><strong>递进关系：</strong> 练习 A06（汇率查询）转向“<strong>应用与外界的连接</strong>“——HTTP 请求拿外部数据，并用 Store 缓存避免重复请求。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="练习-a06-汇率查询"><a class="header" href="#练习-a06-汇率查询">练习 A06: 汇率查询</a></h1>
+<h2 id="为什么要学这个-6"><a class="header" href="#为什么要学这个-6">为什么要学这个</a></h2>
+<p>前面的应用都只跟本地打交道。但真实的桌面应用经常要<strong>连外部网络</strong>：查汇率、拉天气、同步数据。这一章要回答三个问题：</p>
+<ol>
+<li><strong>Rust 后端怎么发 HTTP 请求？</strong> —— reqwest（http 插件 re-export）怎么用？</li>
+<li><strong>网络请求会怎样失败？</strong> —— 超时、断网、响应格式不对，怎么让每一环的失败都可读？</li>
+<li><strong>为什么要缓存？</strong> —— 汇率一小时变不了多少，每次都重新请求值得吗？Store 插件怎么存？</li>
+</ol>
+<p>学完你会：后端发请求 + 超时兜底 + 本地缓存，拼出一个“又快又稳“的联网应用。</p>
+<hr>
+<h2 id="从问题出发-6"><a class="header" href="#从问题出发-6">从问题出发</a></h2>
+<p>练习 A06 要做的事：<strong>查“今天 100 美元 = 多少人民币“，再次查询时秒回。</strong></p>
+<p><strong>核心矛盾：</strong> 汇率数据在<strong>外部的 API 服务器</strong>上，应用要跨网络拿数据。但网络请求有天然的不确定性：</p>
+<ol>
+<li><strong>慢</strong>——可能几秒甚至更久；</li>
+<li><strong>会失败</strong>——断网、服务器宕机、响应格式变了；</li>
+<li><strong>贵</strong>——每次都重新请求，浪费流量和等待。</li>
+</ol>
+<p>所以本课后端命令做三件事：<strong>发请求（reqwest）→ 加超时（timeout）→ 缓存结果（Store）</strong>。</p>
+<pre><code class="language-text">前端 (React)                         Rust 进程
+┌─────────────────────┐  invoke    ┌────────────────────────────────┐
+│ 选货币 + 输入金额     │ ────────► │ get_rate                        │
+│ 显示汇率与结果        │ ◄──────── │  ① 查缓存（1 小时内）→ 直接返回  │
+│ 显示"缓存/网络"       │           │  ② reqwest 请求 API（10s 超时） │
+└─────────────────────┘           │  ③ 解析 JSON → 写缓存 → 返回     │
+                                  └────────────────────────────────┘
+</code></pre>
+<hr>
+<p><a id="sec-a06-http"></a></p>
+<h2 id="1-http-请求--reqwest"><a class="header" href="#1-http-请求--reqwest">1. HTTP 请求 — reqwest</a></h2>
+<p>Tauri 的 http 插件在 Rust 端 <strong>re-export 了 reqwest</strong>（Rust 生态最流行的 HTTP 客户端）。所以：</p>
+<pre><code class="language-rust">// http 插件注册（练习版已配好）
+tauri::Builder::default().plugin(tauri_plugin_http::init())
+
+// 命令里直接用它 re-export 的 reqwest
+let client = tauri_plugin_http::reqwest::Client::new();
+let url = format!("https://api.frankfurter.app/latest?from={from}&amp;to={to}");
+let response = client.get(&amp;url).send().await.map_err(|e| format!("请求失败：{e}"))?;
+let text = response.text().await.map_err(|e| format!("读取响应失败：{e}"))?;</code></pre>
+<ul>
+<li><code>Client::new()</code>：创建客户端（线程安全，可复用）</li>
+<li><code>client.get(url).send().await</code>：发 GET 请求，返回 <code>Response</code></li>
+<li><code>response.text().await</code>：把响应体读成字符串（后续再解析 JSON）</li>
+</ul>
+<blockquote>
+<p><strong>和 A02 的类比：</strong> fs 插件 Rust 端直接基于 <code>std::fs</code>（不走权限）；http 插件 Rust 端直接是 reqwest（不走 scope）。<strong>Rust 端用插件的“底层“是直通的，权限是给前端 JS 调用插件时用的。</strong> 请求的目标地址由你的代码决定，Tauri 不拦。</p>
+</blockquote>
+<p><a id="sec-a06-timeout"></a></p>
+<h2 id="2-超时--tokiotimetimeout"><a class="header" href="#2-超时--tokiotimetimeout">2. 超时 — <code>tokio::time::timeout</code></a></h2>
+<p>网络请求可能“挂死“——服务器不响应但连接不断，<code>await</code> 永远不返回。所以必须<strong>限时</strong>：</p>
+<pre><code class="language-rust">let response = tokio::time::timeout(Duration::from_secs(10), client.get(&amp;url).send())
+    .await
+    .map_err(|_| "请求超时（10 秒）".to_string())?   // 超时：返回 Elapsed 错误
+    .map_err(|e| format!("请求失败：{e}"))?;          // 失败：reqwest 错误</code></pre>
+<ul>
+<li><code>timeout(时长, future)</code>：给一个 future 限时，超时返回 <code>Err(Elapsed)</code></li>
+<li><strong>两层错误</strong>：超时是一层（<code>Elapsed</code>），请求本身失败又是一层（reqwest 的 <code>Error</code>）——所以链式 <code>map_err</code> 两次，分别翻译成人话</li>
+<li><code>.await</code> 之后 <code>?</code>：任一层失败都提前返回</li>
+</ul>
+<p><a id="sec-a06-error"></a></p>
+<h2 id="3-错误处理--把每一步失败都翻译成人话"><a class="header" href="#3-错误处理--把每一步失败都翻译成人话">3. 错误处理 — 把每一步失败都翻译成人话</a></h2>
+<p>一个网络命令里，可能失败的点很多。本课的做法是<strong>每一环都 <code>map_err</code> 成人话 + <code>?</code></strong>（沿用 A02 的套路）：</p>
+<pre><code class="language-rust">let text = response.text().await.map_err(|e| format!("读取响应失败：{e}"))?;
+let json: serde_json::Value =
+    serde_json::from_str(&amp;text).map_err(|e| format!("解析响应失败：{e}"))?;
+let rate = json
+    .get("rates")
+    .and_then(|r| r.get(&amp;to))
+    .and_then(|v| v.as_f64())
+    .ok_or_else(|| format!("响应里没有 {to} 的汇率"))?;</code></pre>
+<ul>
+<li><strong>网络层</strong>（请求/超时/读响应）→ “请求失败/超时/读取响应失败”</li>
+<li><strong>解析层</strong>（JSON 格式不对）→ “解析响应失败”</li>
+<li><strong>数据层</strong>（结构对了但缺字段）→ “响应里没有 {to} 的汇率”</li>
+</ul>
+<p>前端拿到 <code>Err</code> 就显示“查询失败: &lt;原因&gt;“——<strong>用户看到的是人话，不是 panic 或乱码</strong>。</p>
+<p><a id="sec-a06-cache"></a></p>
+<h2 id="4-store-缓存--1-小时内不再请求"><a class="header" href="#4-store-缓存--1-小时内不再请求">4. Store 缓存 — 1 小时内不再请求</a></h2>
+<p>汇率一小时变不了多少。所以把结果<strong>缓存到本地</strong>：命中就秒回，过期才重新请求。</p>
+<h3 id="接入-store-插件"><a class="header" href="#接入-store-插件">接入 store 插件</a></h3>
+<pre><code class="language-rust">tauri::Builder::default().plugin(tauri_plugin_store::Builder::default().build())
+
+// 命令里通过 StoreExt trait 使用
+use tauri_plugin_store::StoreExt;
+let store = app.store("rate-cache.json").map_err(|e| format!("打开缓存失败：{e}"))?;</code></pre>
+<h3 id="读写"><a class="header" href="#读写">读写</a></h3>
+<pre><code class="language-rust">// 读：key 是 "USD_CNY" 这种，值是 { rate, date, fetched_at }
+let value = store.get(format!("{from}_{to}"));
+
+// 写：set 改内存，save 落盘
+store.set(
+    format!("{from}_{to}"),
+    serde_json::json!({ "rate": rate, "date": date, "fetched_at": now_ts() }),
+);
+store.save().map_err(|e| format!("写入缓存失败：{e}"))?;</code></pre>
+<ul>
+<li><code>app.store("rate-cache.json")</code>：打开（或创建）一个 Store——它本质是一个 JSON 文件</li>
+<li><code>get(key) / set(key, value)</code>：键值对操作（和 JS 的 <code>localStorage</code> 心智一致）</li>
+<li><strong><code>save()</code> 才落盘</strong>——set 只改内存，不 save 重启就丢</li>
+<li>缓存文件存在应用数据目录，由 store 插件管理</li>
+</ul>
+<h3 id="命中判断ttl"><a class="header" href="#命中判断ttl">命中判断（TTL）</a></h3>
+<pre><code class="language-rust">if let Some((rate, date, fetched_at)) = read_cache(&amp;app, &amp;from, &amp;to) {
+    if now_ts() - fetched_at &lt; CACHE_TTL_SECS {   // 1 小时内 → 直接用
+        return Ok(RateInfo { from, to, rate, date, from_cache: true });
+    }
+}</code></pre>
+<ul>
+<li>缓存里多存一个 <code>fetched_at</code>（抓取时间戳）</li>
+<li><code>now_ts() - fetched_at &lt; 3600</code>：没过期 → 返回缓存，标记 <code>from_cache: true</code>（前端显示“来自缓存“）</li>
+<li>过期 → 落到网络请求分支，请求成功后<strong>覆盖写回缓存</strong></li>
+</ul>
+<blockquote>
+<p><strong>为什么能判断“多久前抓的“？</strong> <code>SystemTime::now()</code> 与 <code>UNIX_EPOCH</code> 的差得到秒级时间戳——这是最朴素的时间度量，不需要引入时间库。</p>
+</blockquote>
+<p><a id="sec-a06-json"></a></p>
+<h2 id="5-解析-json--serde_json"><a class="header" href="#5-解析-json--serde_json">5. 解析 JSON — serde_json</a></h2>
+<p>响应是 JSON 字符串，用 <code>serde_json</code> 解析成树状 <code>Value</code>，再按路径取值：</p>
+<pre><code class="language-json">{ "amount": 1.0, "base": "USD", "date": "2025-08-15", "rates": { "CNY": 7.2356 } }
+</code></pre>
+<pre><code class="language-rust">let json: serde_json::Value = serde_json::from_str(&amp;text).map_err(|e| format!("解析响应失败：{e}"))?;
+let rate = json.get("rates").and_then(|r| r.get(&amp;to)).and_then(|v| v.as_f64())...;
+let date = json["date"].as_str().unwrap_or("").to_string();</code></pre>
+<ul>
+<li><code>json.get("rates")</code>：取 <code>rates</code> 对象；链式 <code>.get(&amp;to)</code> 取具体货币；<code>.as_f64()</code> 转数字</li>
+<li><strong>用 <code>get</code> 链而不是直接索引</strong>：路径缺失返回 <code>None</code> 而不是 panic，配合 <code>ok_or_else</code> 给友好错误</li>
+<li><code>as_str().unwrap_or("")</code>：取不到就用空串兜底</li>
+</ul>
+<hr>
+<h2 id="练习指引-6"><a class="header" href="#练习指引-6">练习指引</a></h2>
+<p><strong>作业范围：</strong> 动 2 个文件，共 7 处 TODO。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>文件</th><th>步骤</th><th>内容</th></tr>
+</thead>
+<tbody>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>1</td><td>缓存命中检查（TTL）</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>2</td><td>HTTP 请求 + 10 秒超时</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>3</td><td>解析 JSON 取 rate / date</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>4</td><td>写缓存 + 返回</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>5</td><td>注册 http / store 插件 + 登记命令</td></tr>
+<tr><td><code>src/App.tsx</code></td><td>1-2</td><td>导入 invoke + 调 <code>get_rate</code> 并展示</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>怎么验证：</strong></p>
+<pre><code class="language-bash">cd 02_mini_apps/a06_exchange_rate
+cargo tauri dev
+</code></pre>
+<p>选 USD → CNY，输入金额，点查询 → 显示汇率与结果，状态行“来自网络“。<strong>再点一次</strong> → 秒回，状态行“来自缓存（1 小时内）“。断网再查 → 显示“查询失败: 请求超时/请求失败”，不崩溃。</p>
+<p><strong>故意踩坑看效果：</strong> 把 <code>timeout</code> 删掉 → 断网时请求可能一直挂住；把缓存 TTL 改成 <code>0</code> → 每次都是“来自网络“（等于没缓存）。</p>
+<hr>
+<h2 id="知识点连起来看-6"><a class="header" href="#知识点连起来看-6">知识点连起来看</a></h2>
+<pre><code class="language-text">reqwest（http 插件）              ← 发请求：client.get(url).send()
+        │
+tokio::time::timeout(10s, ...)   ← 超时：限制"挂死"的请求
+        │
+map_err 链式翻译                  ← 错误：网络/解析/数据三层人话
+        │
+serde_json 解析                   ← 数据：get 链取 rate / date
+        │
+store 插件 get/set/save           ← 缓存：TTL 判断，过期才重请求
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>层</th><th>解决的问题</th><th>关键概念</th></tr>
+</thead>
+<tbody>
+<tr><td>网络</td><td>怎么拿到外部数据</td><td>reqwest、http 插件 re-export</td></tr>
+<tr><td>稳定性</td><td>请求挂死怎么办</td><td><code>timeout</code>、超时错误</td></tr>
+<tr><td>错误</td><td>失败了用户看到什么</td><td>链式 <code>map_err</code>、<code>ok_or_else</code></td></tr>
+<tr><td>缓存</td><td>能不能少请求几次</td><td>store 插件、<code>fetched_at</code>、TTL</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>一通百通的核心：</strong> 这一课补上“<strong>应用与外界的连接</strong>“。联网命令的骨架永远是：<strong>请求 → 超时 → 解析 → 错误翻译 → 缓存</strong>。超级项目 P20 云同步就是在这条骨架上加鉴权和冲突处理。</p>
+<p><strong>递进关系：</strong> 练习 A07（批量重命名）将解决“<strong>长任务的反馈</strong>“——几百个文件改名要跑很久，怎么用 Channel 把进度推给前端、让用户看见“做到哪了”。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="练习-a07-批量重命名"><a class="header" href="#练习-a07-批量重命名">练习 A07: 批量重命名</a></h1>
+<h2 id="为什么要学这个-7"><a class="header" href="#为什么要学这个-7">为什么要学这个</a></h2>
+<p>A03 的番茄钟解决了“长时间任务不卡界面“，但还差一环：<strong>用户要看到任务做到哪了</strong>。A03 用事件推秒数，但事件是“广播“；批量处理场景更常见的是<strong>点对点的进度流</strong>。这一章要回答三个问题：</p>
+<ol>
+<li><strong>怎么把进度一条条推给前端？</strong> —— <code>Channel</code> 和命令返回值、事件有什么区别？</li>
+<li><strong>任务放后台跑，命令怎么立刻返回？</strong> —— <code>async_runtime::spawn</code> 是干什么的？</li>
+<li><strong>怎么让用户选文件夹？</strong> —— dialog 插件一行代码搞定。</li>
+</ol>
+<p>学完你会：做出“先预览、后执行、带进度条“的批量工具——这是文件管理类应用的经典形态。</p>
+<hr>
+<h2 id="从问题出发-7"><a class="header" href="#从问题出发-7">从问题出发</a></h2>
+<p>练习 A07 要做的事：<strong>选一个文件夹，把里面所有 <code>IMG_</code> 开头的文件改成 <code>photo_</code> 开头，几百个文件批量执行，界面上有进度条。</strong></p>
+<p><strong>核心矛盾：</strong> 批量处理有两个要求，和之前学到的方式都对不上：</p>
+<ol>
+<li><strong>过程要可见</strong>：命令返回值只能给“最终结果“（改完了才返回）；A03 的事件是“广播给所有人“。批量任务要的是<strong>指向特定这次调用的进度流</strong>——<code>Channel</code> 正好是这个角色。</li>
+<li><strong>不能卡界面</strong>：几百个 <code>std::fs::rename</code> 串行跑会占住命令，界面卡死。要把任务<strong>丢到后台</strong>（<code>async_runtime::spawn</code>），命令立即返回。</li>
+</ol>
+<pre><code class="language-text">前端 (React)                                Rust 进程
+┌──────────────────────────┐               ┌───────────────────────────────┐
+│ open() 选文件夹           │ ──dialog──►  │ dialog 插件（系统对话框）      │
+│ invoke("preview_rename") │ ───────────► │ 列出文件 → 计算新旧名（预览）   │
+│ invoke("run_rename",     │ ───────────► │ async_runtime::spawn 后台任务   │
+│   { onProgress: channel })│              │   逐个 rename → channel.send   │
+│ channel.onmessage 进度条  │ ◄──进度流─── │                               │
+└──────────────────────────┘               └───────────────────────────────┘
+</code></pre>
+<hr>
+<p><a id="sec-a07-channel"></a></p>
+<h2 id="1-channel--命令的单向进度管道"><a class="header" href="#1-channel--命令的单向进度管道">1. Channel — 命令的“单向进度管道“</a></h2>
+<h3 id="三种后端--前端的方式对比"><a class="header" href="#三种后端--前端的方式对比">三种“后端 → 前端“的方式对比</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>方式</th><th>谁发起</th><th>特点</th><th>适合</th></tr>
+</thead>
+<tbody>
+<tr><td>命令返回值</td><td>前端问</td><td>一次只能回一个结果</td><td>请求-响应</td></tr>
+<tr><td>事件（A01/A03）</td><td>后端推</td><td>广播给所有监听者</td><td>全局通知</td></tr>
+<tr><td><strong>Channel（本课）</strong></td><td>后端推</td><td><strong>点对点</strong>，绑在一次调用上</td><td>进度、流式数据</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="前端建通道注册回调随-invoke-传过去"><a class="header" href="#前端建通道注册回调随-invoke-传过去">前端：建通道、注册回调、随 invoke 传过去</a></h3>
+<pre><code class="language-typescript">import { invoke, Channel } from "@tauri-apps/api/core";
+
+const channel = new Channel&lt;RenameProgress&gt;();   // ① 建一个"管道"
+channel.onmessage = (m) =&gt; setProgress(m);        // ② 收到一条就更新 UI
+await invoke("run_rename", { dir, find, replace, onProgress: channel }); // ③ 把管道塞进参数
+</code></pre>
+<h3 id="后端channelt-参数--send"><a class="header" href="#后端channelt-参数--send">后端：<code>Channel&lt;T&gt;</code> 参数 + <code>send</code></a></h3>
+<pre><code class="language-rust">use tauri::ipc::Channel;
+
+#[tauri::command]
+fn run_rename(
+    ...
+    on_progress: Channel&lt;RenameProgress&gt;,   // Tauri 自动把前端的管道接过来
+) -&gt; Result&lt;(), String&gt; {
+    // 任务进行中……每完成一步：
+    let _ = on_progress.send(RenameProgress { done, total, current, finished });
+}</code></pre>
+<ul>
+<li>前端 <code>onProgress: channel</code> 对应后端 <code>on_progress</code> 参数（camelCase ↔ snake_case 自动转换）</li>
+<li><strong><code>channel.send(payload)</code> 多少次都行</strong>——这就是“流“：一条命令调用的生命周期内，后端可以推任意多条进度</li>
+<li><code>Channel&lt;T&gt;</code> 是 <code>Clone + Send</code> 的，可以 move 进后台任务里用</li>
+</ul>
+<blockquote>
+<p><strong>关键理解：</strong> 事件是“广播“（一个 emit，所有 listen 都收到）；Channel 是“点对点管道“（这一次调用的接收端唯一）。批量任务的进度天然属于某一次调用，用 Channel 才对。</p>
+</blockquote>
+<p><a id="sec-a07-spawn"></a></p>
+<h2 id="2-后台任务--async_runtimespawn"><a class="header" href="#2-后台任务--async_runtimespawn">2. 后台任务 — <code>async_runtime::spawn</code></a></h2>
+<p><code>run_rename</code> 里改文件要跑一会儿。两种做法：</p>
+<pre><code class="language-rust">// 做法 A：async 命令里直接循环（命令要等它跑完才返回）
+// 做法 B（本课）：spawn 一个后台任务，命令立刻返回 Ok(())
+tauri::async_runtime::spawn(async move {
+    for path in files {
+        // ... rename + on_progress.send(...)
+    }
+});
+Ok(())  // 命令立刻返回，重命名在后台继续</code></pre>
+<ul>
+<li><code>tauri::async_runtime::spawn(闭包/async块)</code>：把任务丢到 Tauri 的运行时线程池上，<strong>fire-and-forget</strong></li>
+<li>命令立刻返回 <code>Ok(())</code>——前端 <code>await invoke(...)</code> 马上结束，进度靠 Channel 继续收</li>
+<li>需要 move 进任务的 <code>files</code>、<code>find</code>、<code>replace</code>、<code>on_progress</code> 都会被移动进去</li>
+</ul>
+<blockquote>
+<p><strong>对比 A03：</strong> 番茄钟的倒计时命令是 async 且 <code>await</code> 到结束（因为结束时要发通知、要收尾）。批量任务更适合 spawn：<strong>发起即返回，结果靠管道汇报</strong>。哪种更合适取决于“命令结束时要不要做收尾“。</p>
+</blockquote>
+<p><a id="sec-a07-dialog"></a></p>
+<h2 id="3-dialog-插件--让用户选文件夹"><a class="header" href="#3-dialog-插件--让用户选文件夹">3. dialog 插件 — 让用户选文件夹</a></h2>
+<p>让用户输入文件夹路径太不友好。dialog 插件直接调系统对话框：</p>
+<pre><code class="language-rust">// Rust 端注册（练习版已配好）
+tauri::Builder::default().plugin(tauri_plugin_dialog::init())</code></pre>
+<pre><code class="language-typescript">// 前端（JS 包 @tauri-apps/plugin-dialog）
+import { open } from "@tauri-apps/plugin-dialog";
+
+const selected = await open({ directory: true });  // 只允许选文件夹
+if (typeof selected === "string") {
+  setDir(selected);   // 拿到选中的目录路径
+}
+</code></pre>
+<ul>
+<li><code>open({ directory: true })</code>：弹出系统目录选择器；取消时返回 <code>null</code></li>
+<li>权限：<code>dialog:default</code>（练习版已配好）——<strong>插件 API 要权限，自己写的命令不要</strong>（A02 的结论再次适用）</li>
+</ul>
+<p><a id="sec-a07-preview"></a></p>
+<h2 id="4-预览--执行--危险操作先看清楚"><a class="header" href="#4-预览--执行--危险操作先看清楚">4. 预览 → 执行 — 危险操作先看清楚</a></h2>
+<p>批量改名是“不可轻易撤销“的操作（改坏了 500 个文件很麻烦）。所以分成两步：</p>
+<ol>
+<li><strong><code>preview_rename</code>（预览）</strong>：只计算不改动——列出“旧名 → 新名“，返回给前端展示</li>
+<li><strong><code>run_rename</code>（执行）</strong>：用户确认后再真正 <code>rename</code></li>
+</ol>
+<pre><code class="language-rust">// 预览：算新名，只收集会改名的
+if new_name != file_name {
+    items.push(PreviewItem { old: file_name.to_string(), new: new_name });
+}</code></pre>
+<p>前端“开始重命名“按钮在 <code>preview.length === 0</code> 时禁用——<strong>先看清单，再动手</strong>。</p>
+<hr>
+<h2 id="练习指引-7"><a class="header" href="#练习指引-7">练习指引</a></h2>
+<p><strong>作业范围：</strong> 动 2 个文件，共 9 处 TODO。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>文件</th><th>步骤</th><th>内容</th></tr>
+</thead>
+<tbody>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>1</td><td><code>build_new_name</code> 字符串替换</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>2</td><td><code>list_files</code> 遍历目录</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>3</td><td><code>preview_rename</code> 收集会改名的文件</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>4</td><td><code>run_rename</code> 里改名 + <code>on_progress.send</code></td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>5</td><td>注册 dialog 插件 + 登记命令</td></tr>
+<tr><td><code>src/App.tsx</code></td><td>1-4</td><td>导入、选文件夹、预览、Channel 进度 + 执行</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>怎么验证：</strong></p>
+<pre><code class="language-bash">cd 02_mini_apps/a07_batch_rename
+cargo tauri dev
+</code></pre>
+<p>选一个含多张图片的文件夹 → 点预览 → 看到“旧名 → 新名“清单 → 点开始重命名 → 进度条滚动、显示“正在处理 xxx“ → 完成后到文件夹里确认文件名都变了。</p>
+<p><strong>故意踩坑看效果：</strong> 把 <code>on_progress</code> 参数从 invoke 里去掉 → 进度条不动（验证 Channel 是参数传过去的）；把 spawn 改成直接在命令里循环 → 按钮卡住直到改完（验证后台任务）。</p>
+<hr>
+<h2 id="知识点连起来看-7"><a class="header" href="#知识点连起来看-7">知识点连起来看</a></h2>
+<pre><code class="language-text">open({ directory: true })             ← dialog 插件：系统选文件夹
+        │
+preview_rename（只算不改）            ← 预览：危险操作先看清单
+        │
+async_runtime::spawn                   ← 后台：命令立刻返回
+        │
+std::fs::rename + channel.send(进度)   ← 执行：逐个改 + 点对点推进度
+        │
+Channel&lt;T&gt; onmessage                    ← 前端：进度条
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>层</th><th>解决的问题</th><th>关键概念</th></tr>
+</thead>
+<tbody>
+<tr><td>选目录</td><td>用户怎么给路径</td><td>dialog 插件、<code>open({ directory: true })</code></td></tr>
+<tr><td>预览</td><td>怎么避免误操作</td><td>只计算不改动、<code>preview</code></td></tr>
+<tr><td>后台</td><td>长任务不卡界面</td><td><code>async_runtime::spawn</code></td></tr>
+<tr><td>进度</td><td>过程怎么让用户看见</td><td><code>Channel</code>、<code>send</code> / <code>onmessage</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>一通百通的核心：</strong> 这一课补齐了“<strong>长任务的反馈</strong>“。凡是“要跑一会儿、用户得看着“的操作（下载、转换、批量处理），骨架都是：<strong>spawn 后台 + Channel 推进度 + 进度条</strong>。超级项目 P19 导出、P21 拼写检查会直接复用。</p>
+<p><strong>递进关系：</strong> 练习 A08（剪贴板历史）把“桌面三件套“凑齐——剪贴板、全局快捷键、应用菜单。学完八道小菜，你就有能力独立做各种桌面小工具了。</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="练习-a08-剪贴板历史"><a class="header" href="#练习-a08-剪贴板历史">练习 A08: 剪贴板历史</a></h1>
+<h2 id="为什么要学这个-8"><a class="header" href="#为什么要学这个-8">为什么要学这个</a></h2>
+<p>前七道小菜做的都是“常规应用“：界面 + 数据。但桌面工具还有一类更“系统级“的能力，这一章一次补齐三件：</p>
+<ol>
+<li><strong>剪贴板</strong>——读写系统剪贴板（<code>clipboard-manager</code> 插件）</li>
+<li><strong>全局快捷键</strong>——应用在后台也能被快捷键唤起（<code>global-shortcut</code> 插件）</li>
+<li><strong>应用菜单</strong>——窗口菜单栏（<code>tauri::menu</code>）</li>
+</ol>
+<p>做成什么？<strong>剪贴板历史</strong>：你复制过的文字都被记下来，按快捷键呼出窗口，点一下历史项就能再复制。这是最典型的“后台常驻小工具“。</p>
+<hr>
+<h2 id="从问题出发-8"><a class="header" href="#从问题出发-8">从问题出发</a></h2>
+<p>练习 A08 要做的事：<strong>后台盯着剪贴板，复制过的文字都记下来；按 Ctrl+Shift+V 呼出窗口；点历史项复制回剪贴板；历史重启还在。</strong></p>
+<p><strong>核心矛盾：</strong> 剪贴板是<strong>系统级资源</strong>，应用不能“订阅它的变化“，只能<strong>轮询</strong>（定时读一遍，和上次比，变了就记）。而要“呼之即来“，又需要<strong>全局快捷键</strong>（应用窗口隐藏时，按键仍能被操作系统送到应用手里）。最后，历史要<strong>持久化</strong>（复用 A06 的 Store），否则重启全丢。</p>
+<pre><code class="language-text">系统剪贴板
+    │ 后台轮询（每 800ms 读一次，变了才记）
+    ▼
+Rust: push_history（去重 + 插最前 + 截断 + 存 Store + emit）
+    │
+    ├─► 全局快捷键 Ctrl+Shift+V → 显示/隐藏窗口
+    ├─► 应用菜单：清空历史 / 退出
+    └─► 命令：get_history / copy_text / clear_history
+</code></pre>
+<hr>
+<p><a id="sec-a08-clipboard"></a></p>
+<h2 id="1-剪贴板插件--读写系统剪贴板"><a class="header" href="#1-剪贴板插件--读写系统剪贴板">1. 剪贴板插件 — 读写系统剪贴板</a></h2>
+<pre><code class="language-rust">tauri::Builder::default().plugin(tauri_plugin_clipboard_manager::init())</code></pre>
+<pre><code class="language-rust">use tauri_plugin_clipboard_manager::ClipboardExt;
+
+// 读：把系统剪贴板里的文字拿出来
+let Ok(current) = app.clipboard().read_text() else { continue };
+
+// 写：把文字放回剪贴板（相当于"复制"）
+app.clipboard().write_text(text.clone()).map_err(|e| format!("写入剪贴板失败：{e}"))?;</code></pre>
+<ul>
+<li><code>app.clipboard()</code>：<code>ClipboardExt</code> trait 提供的访问器</li>
+<li><code>read_text()</code>：读剪贴板文本，可能失败（剪贴板里是图片/文件时返回错误）</li>
+<li><code>write_text(str)</code>：写入文本——点击历史项“复制回剪贴板“就是写一次</li>
+<li>Rust 端调用不需要权限（A02 的结论继续适用）</li>
+</ul>
+<p><a id="sec-a08-watch"></a></p>
+<h2 id="2-后台监控--轮询--去重"><a class="header" href="#2-后台监控--轮询--去重">2. 后台监控 — 轮询 + 去重</a></h2>
+<p>剪贴板没有“变化回调“，用 <code>setup</code> 里 spawn 的循环任务轮询：</p>
+<pre><code class="language-rust">fn spawn_clipboard_watcher(app: AppHandle) {
+    tauri::async_runtime::spawn(async move {
+        let mut last = String::new();
+        loop {
+            tokio::time::sleep(Duration::from_millis(800)).await;
+            let Ok(current) = app.clipboard().read_text() else { continue };
+            let current = current.trim().to_string();
+            if current.is_empty() || current == last {
+                continue;              // 空内容 / 没变化 → 跳过
+            }
+            last = current.clone();    // 记住这次，下次才能判断"变了没"
+            push_history(&amp;app, &amp;current);
+        }
+    });
+}</code></pre>
+<ul>
+<li><strong>轮询粒度</strong>：800ms 一次——太快浪费、太慢漏内容，折中即可</li>
+<li><strong><code>last</code> 是“上次看到的内容“</strong>：只有变了才记，避免同一段文字被重复记几十条</li>
+<li>去重逻辑在 <code>push_history</code>：重复的移除再插到最前（最近使用的排最前）</li>
+</ul>
+<blockquote>
+<p><strong>说明：</strong> 轮询是教学级的简化方案。真实剪贴板工具会用系统 API 监听（如 Windows 的剪贴板序列号），但“轮询 + 去重“已经把原理讲透了。</p>
+</blockquote>
+<p><a id="sec-a08-shortcut"></a></p>
+<h2 id="3-全局快捷键--后台也能唤起应用"><a class="header" href="#3-全局快捷键--后台也能唤起应用">3. 全局快捷键 — 后台也能唤起应用</a></h2>
+<p>普通快捷键只有窗口聚焦才有效。<strong>全局快捷键</strong>由操作系统监听，应用在后台也能收到。</p>
+<h3 id="插件注册--全局处理器"><a class="header" href="#插件注册--全局处理器">插件注册 + 全局处理器</a></h3>
+<pre><code class="language-rust">.plugin(
+    tauri_plugin_global_shortcut::Builder::new()
+        .with_handler(|app, _shortcut, event| {
+            if event.state() == ShortcutState::Pressed {
+                if let Some(win) = app.get_webview_window("main") {
+                    if win.is_visible().unwrap_or(false) { let _ = win.hide(); }
+                    else { let _ = win.show(); let _ = win.set_focus(); }
+                }
+            }
+        })
+        .build(),
+)</code></pre>
+<h3 id="setup-里注册具体快捷键"><a class="header" href="#setup-里注册具体快捷键">setup 里注册具体快捷键</a></h3>
+<pre><code class="language-rust">app.global_shortcut().register("ctrl+shift+v")?;</code></pre>
+<ul>
+<li><code>Builder::with_handler</code>：<strong>所有已注册快捷键</strong>的公共处理器（这里只注册了一个）</li>
+<li><code>event.state() == ShortcutState::Pressed</code>：只在“按下“时响应（避免抬起也触发一次）</li>
+<li><code>register("ctrl+shift+v")</code>：把快捷键交给系统监听</li>
+<li>Rust 端注册<strong>不需要权限</strong>（<code>global-shortcut:default</code> 权限集是空的，但那是给前端 JS 调用的；Rust 端直通）</li>
+</ul>
+<p><a id="sec-a08-menu"></a></p>
+<h2 id="4-应用菜单--窗口菜单栏"><a class="header" href="#4-应用菜单--窗口菜单栏">4. 应用菜单 — 窗口菜单栏</a></h2>
+<p>A03 做过托盘菜单；本课的“应用菜单“是<strong>窗口顶部菜单栏</strong>（Windows 上显示在标题栏下方）：</p>
+<pre><code class="language-rust">use tauri::menu::{Menu, MenuItem};
+
+// setup 里：
+let clear_item = MenuItem::with_id(app, "clear", "清空历史", true, None::&lt;&amp;str&gt;)?;
+let quit_item = MenuItem::with_id(app, "quit", "退出", true, None::&lt;&amp;str&gt;)?;
+let menu = Menu::with_items(app, &amp;[&amp;clear_item, &amp;quit_item])?;
+app.set_menu(menu)?;   // 挂到窗口
+app.on_menu_event(|app, event| match event.id.as_ref() {
+    "clear" =&gt; { /* 清空历史 + emit */ }
+    "quit" =&gt; app.exit(0),
+    _ =&gt; {}
+});  // 注意：on_menu_event 返回 ()，不加 ?</code></pre>
+<ul>
+<li><code>MenuItem::with_id(app, id, 文字, 是否可用, 快捷键)</code>：和 A03 托盘菜单同一个 API</li>
+<li><code>app.set_menu(menu)</code>：设为应用菜单</li>
+<li><code>app.on_menu_event(handler)</code>：按菜单项 <code>id</code> 分发点击事件——<strong>“清空历史“既能从菜单触发，也能从前端按钮触发</strong>（两者都调 <code>save_history</code> + <code>emit</code>）</li>
+</ul>
+<blockquote>
+<p><strong>对比 A03 托盘：</strong> 托盘 = 系统托盘图标 + 右键菜单；应用菜单 = 窗口自己的菜单栏。一个是“系统级入口“，一个是“窗口内入口“。API 同源（<code>Menu</code> / <code>MenuItem</code>），注册方式不同。</p>
+</blockquote>
+<hr>
+<h2 id="练习指引-8"><a class="header" href="#练习指引-8">练习指引</a></h2>
+<p><strong>作业范围：</strong> 动 2 个文件，共 9 处 TODO。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>文件</th><th>步骤</th><th>内容</th></tr>
+</thead>
+<tbody>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>1</td><td><code>push_history</code> 去重 + 插最前 + 限长</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>2</td><td><code>copy_text</code> 写回剪贴板</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>3</td><td>监控循环“变了才记“</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>4</td><td>注册全局快捷键</td></tr>
+<tr><td><code>src-tauri/src/lib.rs</code></td><td>5</td><td>登记三个命令</td></tr>
+<tr><td><code>src/App.tsx</code></td><td>1-4</td><td>导入 invoke、拉历史、复制、清空</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>怎么验证：</strong></p>
+<pre><code class="language-bash">cd 02_mini_apps/a08_clipboard_history
+cargo tauri dev
+</code></pre>
+<p>随便复制一段文字 → 窗口自动出现这条历史（约 1 秒内）；点它 → 状态行“已复制回剪贴板“；点“清空历史“ → 列表清空。按 <strong>Ctrl+Shift+V</strong> → 窗口隐藏/显示（全局快捷键，焦点在别的程序里也有效）。关闭应用再启动 → 历史还在（Store 持久化）。窗口菜单栏“退出“ → 真正退出。</p>
+<p><strong>故意踩坑看效果：</strong> 把 <code>current == last</code> 判断删掉 → 同一段文字每 800ms 被记一条，列表瞬间爆炸（验证去重）；把 <code>register</code> 注释掉 → Ctrl+Shift+V 没反应（验证快捷键必须注册）。</p>
+<hr>
+<h2 id="知识点连起来看-8"><a class="header" href="#知识点连起来看-8">知识点连起来看</a></h2>
+<pre><code class="language-text">clipboard 插件 read_text/write_text   ← 剪贴板：系统级读写
+        │
+后台轮询 + last 去重                  ← 监控：变了才记
+        │
+Store 持久化                          ← 历史：重启还在（复用 A06）
+        │
+global-shortcut register              ← 快捷键：后台唤起窗口
+        │
+Menu + on_menu_event                  ← 菜单：窗口内入口
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>层</th><th>解决的问题</th><th>关键概念</th></tr>
+</thead>
+<tbody>
+<tr><td>剪贴板</td><td>读写系统剪贴板</td><td><code>ClipboardExt</code>、<code>read_text</code> / <code>write_text</code></td></tr>
+<tr><td>监控</td><td>怎么发现“复制了新东西“</td><td>轮询、<code>last</code> 去重</td></tr>
+<tr><td>快捷键</td><td>后台怎么被唤起</td><td><code>global-shortcut</code>、<code>register</code>、<code>with_handler</code></td></tr>
+<tr><td>菜单</td><td>窗口内入口</td><td><code>Menu</code>、<code>MenuItem</code>、<code>on_menu_event</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>一通百通的核心：</strong> 八道小菜到此收尾——状态、事件、文件、后台、托盘、数据库、网络、剪贴板、快捷键、菜单，桌面应用需要的骨架已经全齐了。<strong>从 A01 到 A08，你做的每个应用都是“界面 + 命令 + 系统能力“的组合。</strong></p>
+<p><strong>递进关系：</strong> 下一站是<strong>超级项目</strong>——Markdown 编辑器。26 步会把八道小菜的所有能力组合成一个可安装分发的完整产品。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+
+    </div>
+    </body>
+</html>

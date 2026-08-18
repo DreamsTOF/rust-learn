@@ -1,0 +1,6 @@
+packages:
+  - "01_first_app/*"
+  - "02_mini_apps/*"
+  - "03_super_project/*"
+allowBuilds:
+  esbuild: true

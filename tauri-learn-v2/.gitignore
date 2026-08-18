@@ -1,0 +1,26 @@
+# Rust
+target/
+Cargo.lock
+
+# Frontend
+node_modules/
+dist/
+
+# Tauri（自动生成的权限 schema）
+**/src-tauri/gen/
+
+# 图标生成缓存（scripts 工具用，非源码）
+**/.icon-cache/
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.log
