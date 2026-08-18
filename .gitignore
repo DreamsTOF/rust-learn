@@ -9,8 +9,10 @@
 # IDE and editor directories
 .idea/
 **/.idea/
-.trae/
-**/.trae/
+.trae/*
+**/.trae/*
+!.trae/documents/
+!**/.trae/documents/
 .vscode/
 **/.vscode/
 .codegraph/
@@ -34,5 +36,8 @@ Thumbs.db
 # Node.js dependencies
 node_modules/
 **/node_modules/
+
+# mdbook build output
+tauri-learn-book-v2/book/
 nul
 
